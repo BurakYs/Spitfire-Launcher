@@ -1,5 +1,5 @@
 import type { ParsedResourceData, RarityType } from '$types/game/stw/resources';
-import { Worlds, type ZoneCategories } from '$lib/constants/stw/worldInfo';
+import { Theaters, type ZoneCategories } from '$lib/constants/stw/worldInfo';
 
 export type WorldInfoData = {
   missionAlerts: Array<{
@@ -141,4 +141,4 @@ export type WorldParsedMission = {
   } | null
 }
 
-export type ParsedWorldInfo = Map<Worlds, Map<string, WorldParsedMission>>
+export type ParsedWorldInfo = Map<Theaters, Map<string, WorldParsedMission>>

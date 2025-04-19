@@ -18,20 +18,6 @@
         "limited": "Limited",
         "ultimate": "Ultimate"
       },
-      "worldNames": {
-        "stonewood": "Stonewood",
-        "plankerton": "Plankerton",
-        "cannyValley": "Canny Valley",
-        "twinePeaks": "Twine Peaks",
-        "stormKingsDomain": "Storm King's Domain",
-        "dungeons": "Dungeons",
-        "visitTheCrater": "Visit the Crater",
-        "blastedBadlands": "Blasted Badlands",
-        "flannelFalls": "Flannel Falls",
-        "frozenFjords": "Frozen Fjords",
-        "hexsylvania": "Hexsylvania",
-        "scurvyShoals": "Scurvy Shoals"
-      },
       "zoneNames": {
         "fightTheStorm": "Fight the Storm",
         "fightCategory2Storm": "Fight Category 2 Storm",

@@ -7,7 +7,7 @@
   import type { WorldParsedMission } from '$types/game/stw/worldInfo';
   import WorldInfoSectionAccordion from '$components/stw/worldInfo/WorldInfoSectionAccordion.svelte';
   import { accountsStore, worldInfoCache } from '$lib/stores';
-  import { WorldPowerLevels, Worlds } from '$lib/constants/stw/worldInfo';
+  import { WorldPowerLevels, Theaters } from '$lib/constants/stw/worldInfo';
   import { isLegendaryOrMythicSurvivor, t } from '$lib/utils/util';
 
   const activeAccount = $derived($accountsStore.activeAccount);
@@ -49,8 +49,8 @@
       id: 'twinePeaks',
       title: $t('stwMissionAlerts.sections.twinePeaks'),
       missions:
-        !isLoading && Array.from(parsedWorldInfo.get(Worlds.TwinePeaks)!.values())
-          .filter((mission) => mission.powerLevel === WorldPowerLevels[Worlds.TwinePeaks].Endgame_Zone6)
+        !isLoading && Array.from(parsedWorldInfo.get(Theaters.TwinePeaks)!.values())
+          .filter((mission) => mission.powerLevel === WorldPowerLevels[Theaters.TwinePeaks].Endgame_Zone6)
     },
     {
       id: 'ventures',
@@ -59,7 +59,7 @@
         !isLoading &&
           Array.from(parsedWorldInfo.entries())
             .filter(([theaterId]) =>
-              ![Worlds.Stonewood, Worlds.Plankerton, Worlds.CannyValley, Worlds.TwinePeaks].includes(theaterId)
+              ![Theaters.Stonewood, Theaters.Plankerton, Theaters.CannyValley, Theaters.TwinePeaks].includes(theaterId)
             )
             .flatMap(([, worldMissions]) => Array.from(worldMissions.values()))
             .filter((missions) => missions.powerLevel === WorldPowerLevels.ventures.Phoenix_Zone25)

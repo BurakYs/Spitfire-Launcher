@@ -6,7 +6,7 @@ import {
   WorldLettersByTheaters,
   WorldModifiers,
   WorldPowerLevels,
-  Worlds,
+  Theaters,
   WorldStormKingZones,
   ZoneCategories,
   GroupZones
@@ -17,7 +17,7 @@ import { baseGameService } from '$lib/core/services';
 import Authentication from '$lib/core/authentication';
 import { get } from 'svelte/store';
 
-type World = keyof typeof Worlds;
+type World = keyof typeof Theaters;
 
 export default class WorldInfoManager {
   static async getWorldInfoData(accessToken?: string) {
@@ -38,10 +38,10 @@ export default class WorldInfoManager {
     }> = {};
 
     const validWorlds = [
-      Worlds.Stonewood,
-      Worlds.Plankerton,
-      Worlds.CannyValley,
-      Worlds.TwinePeaks
+      Theaters.Stonewood,
+      Theaters.Plankerton,
+      Theaters.CannyValley,
+      Theaters.TwinePeaks
     ] as string[];
 
     const worldInfo = new Map<World, Map<string, WorldParsedMission>>();
@@ -186,7 +186,7 @@ export default class WorldInfoManager {
 
               if (
                 WorldInfoManager.isEvolutionMaterial(parsedResource.itemType) &&
-                WorldPowerLevels[Worlds.TwinePeaks].Endgame_Zone6 === powerLevel
+                WorldPowerLevels[Theaters.TwinePeaks].Endgame_Zone6 === powerLevel
               ) {
                 isHard = !(
                   parsedResource.itemType.endsWith('_veryhigh') ||

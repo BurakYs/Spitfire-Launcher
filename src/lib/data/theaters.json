@@ -1,0 +1,135 @@
+{
+  "33A2311D4AE64B361CCE27BC9F313C8B": {
+    "names": {
+      "de": "Steinwald",
+      "ru": "Камнелесье",
+      "ko": "스톤우드",
+      "pt-br": "Floresta Pétrea",
+      "en": "Stonewood",
+      "it": "Pietralegno",
+      "fr": "Fontainebois",
+      "es": "Bosque Pedregoso",
+      "ar": "ستون وود",
+      "ja": "ストーンウッド",
+      "pl": "Kamienny Las",
+      "es-419": "Bosque Pedregoso",
+      "tr": "Taşlıorman"
+    }
+  },
+  "D477605B4FA48648107B649CE97FCF27": {
+    "names": {
+      "de": "Plankerton",
+      "ru": "Планкертон",
+      "ko": "플랭커튼",
+      "pt-br": "Plankerton",
+      "en": "Plankerton",
+      "it": "Tavolaccia",
+      "fr": "Villeplanche",
+      "es": "Villatablón",
+      "ar": "بلانكرتون",
+      "ja": "プランカートン",
+      "pl": "Deskogród",
+      "es-419": "Ciudad Tablón",
+      "tr": "Kalaslıevler"
+    }
+  },
+  "E6ECBD064B153234656CB4BDE6743870": {
+    "names": {
+      "de": "Bru-Tal",
+      "ru": "Вещая долина",
+      "ko": "캐니 밸리",
+      "pt-br": "Canny Valley",
+      "en": "Canny Valley",
+      "it": "Vallarguta",
+      "fr": "Morne-la-Vallée",
+      "es": "Valle Latoso",
+      "ar": "وادي الدهاة",
+      "ja": "キャニー・バレー",
+      "pl": "Dolina Samowitości",
+      "es-419": "Valle Latoso",
+      "tr": "Tekinli Vadi"
+    }
+  },
+  "D9A801C5444D1C74D1B7DAB5C7C12C5B": {
+    "names": {
+      "de": "Twine Peaks",
+      "ru": "Линч-Пикс",
+      "ko": "트와인 픽스",
+      "pt-br": "Twine Peaks",
+      "en": "Twine Peaks",
+      "it": "Montespago",
+      "fr": "Pics Hardis",
+      "es": "Cumbres Leñosas",
+      "ar": "القمم التوائم",
+      "ja": "トワイン・ピークス",
+      "pl": "Twine Peaks",
+      "es-419": "Picos Trenzados",
+      "tr": "Dikiz Tepeler"
+    }
+  },
+  "394D85EF40B2BF401E6F32B587D7672B": {
+    "names": {
+      "en": "Dungeons",
+      "fr": "Donjons",
+      "es": "Mazmorras",
+      "tr": "Zindanlar"
+    }
+  },
+  "DB73FE4C445040F5886B5FB337BC8C83": {
+    "names": {
+      "de": "Überlebe die Horde",
+      "ru": "Пережить орду",
+      "ko": "호드 서바이벌",
+      "pt-br": "Sobreviva à Horda",
+      "en": "Survive the Horde",
+      "it": "Sopravvivi all'Orda",
+      "fr": "Survivre à la horde",
+      "es": "Sobrevive a la horda",
+      "ar": "انجُ من الحشد",
+      "ja": "大群から生き延びろ",
+      "pl": "Przetrwaj Atak Hordy",
+      "es-419": "Sobrevive a la horda",
+      "tr": "Sürüden Kurtul"
+    }
+  },
+  "25D86CC64F0F3EE1831CFD9B2DF6D68C": {
+    "names": {
+      "en": "Blasted Badlands",
+      "fr": "Friches Éclatées",
+      "es": "Erial Estallado",
+      "tr": "Çorak Çöl"
+    }
+  },
+  "FF97186D4741CB5F2A980BB0164081D4": {
+    "names": {
+      "en": "Flannel Falls",
+      "fr": "Flots de Flanelle",
+      "es": "Cataratas Cachemir",
+      "tr": "Şekilli Şelale"
+    }
+  },
+  "D61659064BED28BEA91FD2A343C126B7": {
+    "names": {
+      "en": "Frozen Fjords",
+      "fr": "Fjords Frisquets",
+      "es": "Fiordos Fresquitos",
+      "tr": "Kışlık Körfez"
+    }
+  },
+  "DBB6E92A4EDE30B76C94C7BA3852C473": {
+    "names": {
+      "en": "Hexsylvania",
+      "fr": "Malsylvanie",
+      "es": "Malsilvania",
+      "tr": "Uğursuzistan"
+    }
+  },
+  "243870C643F8611F25D24287814E1DA4": {
+    "names": {
+      "en": "Scurvy Shores",
+      "fr": "Côte Corrompue",
+      "es": "Estiaje Escorbuto",
+      "tr": "Kefal Kumsalı"
+    }
+  }
+}

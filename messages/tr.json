@@ -15,22 +15,8 @@
         "standard": "Standart",
         "deluxe": "Deluxe",
         "superDeluxe": "Super Deluxe",
-        "limited": "Limited",
+        "limited": "Sınırlı",
         "ultimate": "Ultimate"
-      },
-      "worldNames": {
-        "stonewood": "Taşlıorman",
-        "plankerton": "Kalaslıevler",
-        "cannyValley": "Tekinli Vadi",
-        "twinePeaks": "Dikiz Tepeler",
-        "stormKingsDomain": "Storm King's Domain",
-        "dungeons": "Zindanlar",
-        "visitTheCrater": "Visit the Crater",
-        "blastedBadlands": "Çorak Çöl",
-        "flannelFalls": "Ilıman Diyar",
-        "frozenFjords": "Kışlık Körfez",
-        "hexsylvania": "Uğursizistan",
-        "scurvyShoals": "Kefal Kumsalı"
       },
       "zoneNames": {
         "fightTheStorm": "Fırtınayla Savaş",

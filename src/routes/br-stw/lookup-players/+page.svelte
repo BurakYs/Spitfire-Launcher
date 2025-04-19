@@ -1,10 +1,10 @@
 <script lang="ts" module>
   import { FounderEditions, gadgets, heroes, teamPerks } from '$lib/constants/stw/resources';
-  import { Worlds, ZoneNames } from '$lib/constants/stw/worldInfo';
+  import { Theaters, ZoneNames } from '$lib/constants/stw/worldInfo';
   import type { RarityType, ZoneThemeData } from '$types/game/stw/resources';
 
   type FounderEdition = typeof FounderEditions[keyof typeof FounderEditions];
-  type World = typeof Worlds[keyof typeof Worlds];
+  type Theater = typeof Theaters[keyof typeof Theaters];
 
   type STWData = {
     commanderLevel: {
@@ -25,11 +25,11 @@
   }>;
 
   type MissionData = {
-    nameId: string;
-    icon: string;
-    powerLevel: number;
-    zone: ZoneThemeData;
-    theaterId: World;
+    nameId?: string;
+    icon?: string;
+    powerLevel?: number;
+    zone?: ZoneThemeData;
+    theaterId: Theater;
   };
 
   type LoadoutData = {
@@ -69,7 +69,7 @@
   import CenteredPageContent from '$components/CenteredPageContent.svelte';
   import WorldInfoSectionAccordion from '$components/stw/worldInfo/WorldInfoSectionAccordion.svelte';
   import Pagination from '$components/ui/Pagination.svelte';
-  import { WorldNames } from '$lib/constants/stw/worldInfo';
+  import { TheaterNames } from '$lib/constants/stw/worldInfo';
   import MatchmakingManager from '$lib/core/managers/matchmaking';
   import { accountsStore, language, worldInfoCache } from '$lib/stores';
   import Button from '$components/ui/Button.svelte';
@@ -215,18 +215,16 @@
 
     const zoneData = matchmakingData.attributes.ZONEINSTANCEID_s && JSON.parse(matchmakingData.attributes.ZONEINSTANCEID_s);
     if (zoneData) {
-      const theaterData = $worldInfoCache.get(zoneData?.theaterId);
+      const theaterData = $worldInfoCache?.get(zoneData?.theaterId);
       const missionData = theaterData?.get(zoneData?.theaterMissionId);
 
-      if (missionData) {
-        mission = {
-          nameId: missionData.zone.type.id!,
-          icon: missionData.zone.type.imageUrl!,
-          powerLevel: missionData.powerLevel,
-          zone: zoneThemes[missionData.zone.theme?.split('.')[1].toLowerCase() as never],
-          theaterId: zoneData.theaterId
-        };
-      }
+      mission = {
+        nameId: missionData?.zone.type.id,
+        icon: missionData?.zone.type.imageUrl,
+        powerLevel: missionData?.powerLevel,
+        zone: zoneThemes[missionData?.zone.theme?.split('.')[1].toLowerCase() as never],
+        theaterId: zoneData.theaterId
+      };
     }
 
     const playerNames = await LookupManager.fetchByIds(activeAccount, matchmakingData.publicPlayers);
@@ -305,7 +303,7 @@
       },
       {
         name: $t('lookupPlayers.playerInfo.founderEdition'),
-        value: stwData?.founderEdition 
+        value: stwData?.founderEdition
           ? $FounderEditionNames[stwData.founderEdition]
           : $t('common.stw.founderEditions.none')
       }
@@ -371,21 +369,25 @@
               <div>
                 <h4 class="text-lg font-semibold">{$t('lookupPlayers.stwDetails.missionInformation.title')}</h4>
 
-                <div class="flex items-center gap-1">
-                  <span class="text-muted-foreground">{$t('lookupPlayers.stwDetails.missionInformation.name')}:</span>
-                  <img class="size-5" alt={$ZoneNames[mission.nameId]} src={mission.icon}/>
-                  <span>{$ZoneNames[mission.nameId]} ⚡{mission.powerLevel}</span>
-                </div>
+                {#if mission.nameId}
+                  <div class="flex items-center gap-1">
+                    <span class="text-muted-foreground">{$t('lookupPlayers.stwDetails.missionInformation.name')}:</span>
+                    <img class="size-5" alt={$ZoneNames[mission.nameId]} src={mission.icon}/>
+                    <span>{$ZoneNames[mission.nameId]} ⚡{mission.powerLevel}</span>
+                  </div>
+                {/if}
 
                 <div class="flex items-center gap-1">
                   <span class="text-muted-foreground">{$t('lookupPlayers.stwDetails.missionInformation.world')}:</span>
-                  <span>{$WorldNames[mission.theaterId]}</span>
+                  <span>{$TheaterNames[mission.theaterId]}</span>
                 </div>
 
-                <div class="flex items-center gap-1">
-                  <span class="text-muted-foreground">{$t('lookupPlayers.stwDetails.missionInformation.zone')}:</span>
-                  <span>{mission.zone.names[$language]}</span>
-                </div>
+                {#if mission.zone}
+                  <div class="flex items-center gap-1">
+                    <span class="text-muted-foreground">{$t('lookupPlayers.stwDetails.missionInformation.zone')}:</span>
+                    <span>{mission.zone?.names[$language]}</span>
+                  </div>
+                {/if}
               </div>
             {/if}
           </div>
