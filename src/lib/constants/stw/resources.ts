@@ -10,7 +10,7 @@ import type {
   GadgetData,
   HeroData,
   ZoneThemeData,
-  TheaterData
+  TheaterData, MissionData
 } from '$types/game/stw/resources';
 
 import resourcesJson from '$lib/data/resources.json';
@@ -24,6 +24,7 @@ import gadgetsJson from '$lib/data/gadgets.json';
 import heroesJson from '$lib/data/heroes.json';
 import zoneThemesJson from '$lib/data/zoneThemes.json';
 import theatersJson from '$lib/data/theaters.json';
+import missionsJson from '$lib/data/missions.json';
 import { derived } from 'svelte/store';
 import { t } from '$lib/utils/util';
 
@@ -81,3 +82,4 @@ export const gadgets = gadgetsJson as Record<string, GadgetData>;
 export const heroes = heroesJson as Record<string, HeroData>;
 export const zoneThemes = zoneThemesJson as Record<string, ZoneThemeData>;
 export const theaters = theatersJson as Record<string, TheaterData>;
+export const missions = missionsJson as Record<string, MissionData>;

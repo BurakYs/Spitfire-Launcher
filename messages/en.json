@@ -6,6 +6,7 @@
     "no": "No",
     "vbucks": "V-Bucks",
     "xp": "XP",
+    "quest": "Quest",
     "stw": {
       "xrayTickets": "X-Ray Tickets",
       "gold": "Gold",
@@ -17,32 +18,6 @@
         "superDeluxe": "Super Deluxe",
         "limited": "Limited",
         "ultimate": "Ultimate"
-      },
-      "zoneNames": {
-        "fightTheStorm": "Fight the Storm",
-        "fightCategory2Storm": "Fight Category 2 Storm",
-        "fightCategory3Storm": "Fight Category 3 Storm",
-        "fightCategory4Storm": "Fight Category 4 Storm",
-        "deliverTheBomb": "Deliver the Bomb",
-        "destroyTheEncampments": "Destroy the Encampments",
-        "eliminateAndCollect": "Eliminate and Collect",
-        "evacuateTheShelter": "Evacuate the Shelter",
-        "miniBoss": "Mini-Boss",
-        "huntTheTitan": "Hunt the Titan",
-        "hitTheRoad": "Hit the Road",
-        "protectThePresents": "Protect the Presents",
-        "buildTheRadarGrid": "Build the Radar Grid",
-        "refuelTheHomebase": "Refuel the Homebase",
-        "rescueTheSurvivors": "Rescue the Survivors",
-        "resupply": "Resupply",
-        "launchTheRocket": "Launch the Rocket",
-        "retrieveTheData": "Retrieve the Data",
-        "rideTheLightning": "Ride the Lightning",
-        "repairTheShelter": "Repair the Shelter",
-        "surviveTheStorm": "Survive the Storm",
-        "stormShieldDefense": "Storm Shield Defense",
-        "trapTheStorm": "Trap the Storm",
-        "quest": "Quest"
       }
     },
     "gameModes": {

@@ -1,4 +1,4 @@
-import { theaters } from '$lib/constants/stw/resources';
+import { missions, theaters } from '$lib/constants/stw/resources';
 import { language } from '$lib/stores';
 import { t } from '$lib/utils/util';
 import { derived } from 'svelte/store';
@@ -170,31 +170,30 @@ export const ZoneCategories = Object.freeze({
   tts: ['TrapTheStorm']
 } as const);
 
-export const ZoneNames = derived(t, ($t) => ({
-  atlas: $t('common.stw.zoneNames.fightTheStorm'),
-  'atlas-c2': $t('common.stw.zoneNames.fightCategory2Storm'),
-  'atlas-c3': $t('common.stw.zoneNames.fightCategory3Storm'),
-  'atlas-c4': $t('common.stw.zoneNames.fightCategory4Storm'),
-  dtb: $t('common.stw.zoneNames.deliverTheBomb'),
-  dte: $t('common.stw.zoneNames.destroyTheEncampments'),
-  eac: $t('common.stw.zoneNames.eliminateAndCollect'),
-  ets: $t('common.stw.zoneNames.evacuateTheShelter'),
-  'mini-boss': $t('common.stw.zoneNames.miniBoss'),
-  htm: $t('common.stw.zoneNames.huntTheTitan'),
-  htr: $t('common.stw.zoneNames.hitTheRoad'),
-  ptp: $t('common.stw.zoneNames.protectThePresents'),
-  radar: $t('common.stw.zoneNames.buildTheRadarGrid'),
-  refuel: $t('common.stw.zoneNames.refuelTheHomebase'),
-  rescue: $t('common.stw.zoneNames.rescueTheSurvivors'),
-  resupply: $t('common.stw.zoneNames.resupply'),
-  rocket: $t('common.stw.zoneNames.launchTheRocket'),
-  rtd: $t('common.stw.zoneNames.retrieveTheData'),
-  rtl: $t('common.stw.zoneNames.rideTheLightning'),
-  rts: $t('common.stw.zoneNames.repairTheShelter'),
-  stn: $t('common.stw.zoneNames.surviveTheStorm'),
-  'storm-shield': $t('common.stw.zoneNames.stormShieldDefense'),
-  tts: $t('common.stw.zoneNames.trapTheStorm'),
-  quest: $t('common.stw.zoneNames.quest')
+export const ZoneNames = derived([language, t], ([$language, $t]) => ({
+  atlas: missions.fightTheStorm.names[$language],
+  'atlas-c2': missions.fightCategory2Storm.names[$language],
+  'atlas-c3': missions.fightCategory3Storm.names[$language],
+  'atlas-c4': missions.fightCategory4Storm.names[$language],
+  dtb: missions.deliverTheBomb.names[$language],
+  dte: missions.destroyTheEncampments.names[$language],
+  eac: missions.eliminateAndCollect.names[$language],
+  ets: missions.evacuateTheShelter.names[$language],
+  htm: missions.huntTheTitan.names[$language],
+  htr: missions.hitTheRoad.names[$language],
+  ptp: missions.protectThePresents.names[$language],
+  radar: missions.buildTheRadarGrid.names[$language],
+  refuel: missions.refuelTheHomebase.names[$language],
+  rescue: missions.rescueTheSurvivors.names[$language],
+  resupply: missions.resupply.names[$language],
+  rocket: missions.launchTheRocket.names[$language],
+  rtd: missions.retrieveTheData.names[$language],
+  rtl: missions.rideTheLightning.names[$language],
+  rts: missions.repairTheShelter.names[$language],
+  stn: missions.surviveTheStorm.names[$language],
+  'storm-shield': missions.homebaseStormShield.names[$language],
+  tts: missions.trapTheStorm.names[$language],
+  quest: $t('common.quest')
 } as Record<string, string>));
 
 export const GroupZones = Object.freeze([
