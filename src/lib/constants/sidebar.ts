@@ -111,17 +111,17 @@ export const SidebarCategories = derived(t, ($t) => [
     items: [
       {
         key: 'exchangeCode',
-        name: 'Exchange Code',
+        name: $t('exchangeCodeManagement.page.title'),
         href: '/authentication/generate-exchange-code'
       },
       {
         key: 'accessToken',
-        name: 'Access Token',
+        name: $t('accessTokenManagement.page.title'),
         href: '/authentication/generate-access-token'
       },
       {
         key: 'deviceAuth',
-        name: 'Device Auth',
+        name: $t('deviceAuthManagement.page.title'),
         href: '/authentication/device-auth'
       }
     ]
