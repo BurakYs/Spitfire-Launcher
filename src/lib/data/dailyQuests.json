@@ -2,6 +2,8 @@
   "daily_destroyarcademachines": {
     "names": {
       "en": "Daily Destroy (Arcade Machines)",
+      "fr": "Destruction quotidienne (bornes d'arcade)",
+      "es": "Destrucción diaria (máquinas recreativas)",
       "tr": "Günlük Yok Etme (Oyun Makineleri)"
     },
     "limit": 3,
@@ -14,6 +16,8 @@
   "daily_destroybears": {
     "names": {
       "en": "Daily Destroy (Teddy Bears)",
+      "fr": "Destruction quotidienne (nounours)",
+      "es": "Destrucción diaria (ositos de peluche)",
       "tr": "Günlük Yok Etme (Oyuncak Ayı)"
     },
     "limit": 8,
@@ -26,6 +30,8 @@
   "daily_destroyfiretrucks": {
     "names": {
       "en": "Daily Destroy (Fire Trucks)",
+      "fr": "Destruction quotidienne (camions de pompier)",
+      "es": "Destrucción diaria (camiones de bomberos)",
       "tr": "Günlük Yok Etme (İtfaiye Kamyonu)"
     },
     "limit": 3,
@@ -38,6 +44,8 @@
   "daily_destroygnomes": {
     "names": {
       "en": "Daily Destroy (Garden Gnomes)",
+      "fr": "Destruction quotidienne (nains de jardin)",
+      "es": "Destrucción diaria (gnomos de jardín)",
       "tr": "Günlük Yok Etme (Bahçe Cüceleri)"
     },
     "limit": 3,
@@ -50,6 +58,8 @@
   "daily_destroypropanetanks": {
     "names": {
       "en": "Daily Destroy (Propane Tanks)",
+      "fr": "Destruction quotidienne (bonbonnes de gaz)",
+      "es": "Destrucción diaria (tanques de propano)",
       "tr": "Günlük Yok Etme (Gaz Tankları)"
     },
     "limit": 10,
@@ -62,6 +72,8 @@
   "daily_destroyseesaws": {
     "names": {
       "en": "Daily Destroy (Park Seesaws)",
+      "fr": "Destruction quotidienne (balançoires)",
+      "es": "Destrucción diaria (balancines)",
       "tr": "Günlük Yok Etme (Tahterevalli)"
     },
     "limit": 6,
@@ -74,6 +86,8 @@
   "daily_destroyserverracks": {
     "names": {
       "en": "Daily Destroy (Server Racks)",
+      "fr": "Destruction quotidienne (baies à serveur)",
+      "es": "Destrucción diaria (grupos de servidores)",
       "tr": "Günlük Yok Etme (Sunucu Kabinleri)"
     },
     "limit": 4,
@@ -86,6 +100,8 @@
   "daily_destroytransformers": {
     "names": {
       "en": "Daily Destroy (Transformers)",
+      "fr": "Destruction quotidienne (transformateurs)",
+      "es": "Destrucción diaria (transformadores)",
       "tr": "Günlük Yok Etme (Trafolar)"
     },
     "limit": 2,
@@ -98,6 +114,8 @@
   "daily_destroytvs": {
     "names": {
       "en": "Daily Destroy (TVs)",
+      "fr": "Destruction quotidienne (télévisions)",
+      "es": "Destrucción diaria (televisores)",
       "tr": "Günlük Yok Etme (Televizyonlar)"
     },
     "limit": 20,
@@ -110,6 +128,8 @@
   "daily_discovery_industriallocations": {
     "names": {
       "en": "Daily Scouting Industrial Construction",
+      "fr": "Exploration quotidienne (industrie)",
+      "es": "Exploración diaria de construcción industrial",
       "tr": "Günlük Keşif Endüstriyel İnşa"
     },
     "limit": 3,
@@ -121,8 +141,10 @@
   },
   "daily_discovery_rurallocations": {
     "names": {
-      "en": "Daily Scouting Rural",
-      "tr": "Günlük Kırsal Keşifleri"
+      "en": "Daily Scouting Rural ",
+      "fr": "Exploration quotidienne (campagne) ",
+      "es": "Exploración diaria rural ",
+      "tr": "Günlük Kırsal Keşifleri "
     },
     "limit": 3,
     "rewards": {
@@ -134,6 +156,8 @@
   "daily_discovery_shelters": {
     "names": {
       "en": "Daily Scouting Shelters",
+      "fr": "Exploration quotidienne (refuges)",
+      "es": "Exploración diaria de refugios",
       "tr": "Günlük Keşif Sığınakları"
     },
     "limit": 4,
@@ -146,6 +170,8 @@
   "daily_discovery_suburbanlocations": {
     "names": {
       "en": "Daily Scouting Suburbia",
+      "fr": "Exploration quotidienne (banlieue)",
+      "es": "Exploración diaria en suburbios",
       "tr": "Günlük Keşif Banliyöleri"
     },
     "limit": 10,
@@ -158,6 +184,8 @@
   "daily_discovery_urbanlocations": {
     "names": {
       "en": "Daily Scouting Cities",
+      "fr": "Exploration quotidienne (villes)",
+      "es": "Exploración diaria de ciudades",
       "tr": "Günlük Şehir Keşifleri"
     },
     "limit": 8,
@@ -170,6 +198,8 @@
   "daily_explorezones": {
     "names": {
       "en": "Exploration Party",
+      "fr": "Groupe d'exploration",
+      "es": "Grupo de exploración",
       "tr": "Keşif Ekibi"
     },
     "limit": 3,
@@ -182,6 +212,8 @@
   "daily_high_priority": {
     "names": {
       "en": "All Together Now",
+      "fr": "Attentifs ensemble",
+      "es": "Ahora todos juntos",
       "tr": "Şimdi Hep Beraber"
     },
     "limit": 50,
@@ -194,6 +226,8 @@
   "daily_huskextermination_anyhero": {
     "names": {
       "en": "Husk Extermination (Any Hero)",
+      "fr": "Extermination de Carcasses (tout héros)",
+      "es": "Exterminación de cáscaras (con cualquier héroe)",
       "tr": "Suratsız Katliamı (Herhangi bir kahramanla)"
     },
     "limit": 500,
@@ -206,6 +240,8 @@
   "daily_huskextermination_constructor": {
     "names": {
       "en": "Husk Extermination (Constructor)",
+      "fr": "Extermination de Carcasses (Constructeur)",
+      "es": "Exterminación de cáscaras (constructor)",
       "tr": "Suratsız Katliamı (İnşaatçı)"
     },
     "limit": 300,
@@ -218,6 +254,8 @@
   "daily_huskextermination_melee": {
     "names": {
       "en": "Husk Extermination (Melee)",
+      "fr": "Extermination de Carcasses (mêlée)",
+      "es": "Exterminación de cáscaras (cuerpo a cuerpo)",
       "tr": "Suratsız Katliamı (Yakın Dövüş)"
     },
     "limit": 300,
@@ -230,6 +268,8 @@
   "daily_huskextermination_ninja": {
     "names": {
       "en": "Husk Extermination (Ninja)",
+      "fr": "Extermination de Carcasses (Ninja)",
+      "es": "Exterminación de cáscaras (ninja)",
       "tr": "Suratsız Katliamı (Ninja)"
     },
     "limit": 300,
@@ -242,6 +282,8 @@
   "daily_huskextermination_outlander": {
     "names": {
       "en": "Husk Extermination (Outlander)",
+      "fr": "Extermination de Carcasses (Aventurier)",
+      "es": "Exterminación de cáscaras (trotamundos)",
       "tr": "Suratsız Katliamı (İzci)"
     },
     "limit": 300,
@@ -254,6 +296,8 @@
   "daily_huskextermination_ranged_assault": {
     "names": {
       "en": "Husk Extermination (Assault Rifle)",
+      "fr": "Extermination de Carcasses (fusil d'assaut)",
+      "es": "Exterminación de cáscaras (fusil de asalto)",
       "tr": "Suratsız Katliamı (Taarruz Tüfeği)"
     },
     "limit": 300,
@@ -266,6 +310,8 @@
   "daily_huskextermination_ranged_pistol": {
     "names": {
       "en": "Husk Extermination (Pistol)",
+      "fr": "Extermination de Carcasses (pistolet)",
+      "es": "Exterminación de cáscaras (pistola)",
       "tr": "Suratsız Katliamı (Tabanca)"
     },
     "limit": 300,
@@ -278,6 +324,8 @@
   "daily_huskextermination_ranged_shotgun": {
     "names": {
       "en": "Husk Extermination (Shotgun)",
+      "fr": "Extermination de Carcasses (fusil à pompe)",
+      "es": "Exterminación de cáscaras (escopeta)",
       "tr": "Suratsız Katliamı (Pompalı Tüfek)"
     },
     "limit": 300,
@@ -290,6 +338,8 @@
   "daily_huskextermination_ranged_smg": {
     "names": {
       "en": "Husk Extermination (SMG)",
+      "fr": "Extermination de Carcasses (pistolet-mitrailleur)",
+      "es": "Exterminación de cáscaras (subfusil)",
       "tr": "Suratsız Katliamı (Hafif Makineli Tüfek)"
     },
     "limit": 300,
@@ -302,6 +352,8 @@
   "daily_huskextermination_ranged_sniper": {
     "names": {
       "en": "Husk Extermination (Sniper Rifle)",
+      "fr": "Extermination de Carcasses (fusil de sniper)",
+      "es": "Exterminación de cáscaras (fusil de tirador)",
       "tr": "Suratsız Katliamı (Keskin Nişancı Tüfeği)"
     },
     "limit": 300,
@@ -314,6 +366,8 @@
   "daily_huskextermination_soldier": {
     "names": {
       "en": "Husk Extermination (Soldier)",
+      "fr": "Extermination de Carcasses (Soldat)",
+      "es": "Exterminación de cáscaras (soldado)",
       "tr": "Suratsız Katliamı (Asker)"
     },
     "limit": 300,
@@ -326,6 +380,8 @@
   "daily_huskextermination_trap": {
     "names": {
       "en": "Husk Extermination (Trap)",
+      "fr": "Extermination de Carcasses (piège)",
+      "es": "Exterminación de cáscaras (trampa)",
       "tr": "Suratsız Katliamı (Tuzak)"
     },
     "limit": 150,
@@ -338,6 +394,8 @@
   "daily_mission_buildradar": {
     "names": {
       "en": "Build the Radar Tower",
+      "fr": "Construire la tour radar",
+      "es": "Construye la torre del radar",
       "tr": "Radar Kulesini inşa et"
     },
     "limit": 4,
@@ -350,6 +408,8 @@
   "daily_mission_specialist_anyhero_1": {
     "names": {
       "en": "Mission Specialist (Any Hero)",
+      "fr": "Spécialiste de mission (tout héros)",
+      "es": "Enviado espacial (cualquier héroe)",
       "tr": "Görev Uzmanı (Herhangi Bir Kahraman)"
     },
     "limit": 3,
@@ -362,6 +422,8 @@
   "daily_mission_specialist_anyhero_2": {
     "names": {
       "en": "Mission Veteran (Any Hero)",
+      "fr": "Vétéran de mission (tout héros)",
+      "es": "Veterano de misión (cualquier héroe)",
       "tr": "Görev Ustası (Herhangi Bir Kahraman)"
     },
     "limit": 5,
@@ -374,6 +436,8 @@
   "daily_mission_specialist_constructor": {
     "names": {
       "en": "Mission Specialist (Constructor)",
+      "fr": "Spécialiste de mission (Constructeur)",
+      "es": "Especialista en misiones (constructor)",
       "tr": "Görev Uzmanı (İnşaatçı)"
     },
     "limit": 3,
@@ -386,6 +450,8 @@
   "daily_mission_specialist_ninja": {
     "names": {
       "en": "Mission Specialist (Ninja)",
+      "fr": "Spécialiste de mission (Ninja)",
+      "es": "Especialista en misiones (ninja)",
       "tr": "Görev Uzmanı (Ninja)"
     },
     "limit": 3,
@@ -398,6 +464,8 @@
   "daily_mission_specialist_outlander": {
     "names": {
       "en": "Mission Specialist (Outlander)",
+      "fr": "Spécialiste de mission (Aventurier)",
+      "es": "Especialista en misiones (trotamundos)",
       "tr": "Görev Uzmanı (İzci)"
     },
     "limit": 3,
@@ -410,6 +478,8 @@
   "daily_mission_specialist_soldier": {
     "names": {
       "en": "Mission Specialist (Soldier)",
+      "fr": "Spécialiste de mission (Soldat)",
+      "es": "Especialista en misiones (soldado)",
       "tr": "Görev Uzmanı (Asker)"
     },
     "limit": 3,
@@ -422,6 +492,8 @@
   "daily_partyof50": {
     "names": {
       "en": "Party of 25",
+      "fr": "Entre vingt et trente",
+      "es": "Grupo de 25",
       "tr": "25 Kişilik Grup"
     },
     "limit": 25,
@@ -434,6 +506,8 @@
   "daily_safes": {
     "names": {
       "en": "Playing It Safe",
+      "fr": "Coffrez-moi ça",
+      "es": "Sin riesgos",
       "tr": "Kasa Kasa Bir Hal Oldun"
     },
     "limit": 1,
@@ -446,6 +520,8 @@
   "daily_treasurechests": {
     "names": {
       "en": "Lost Treasures",
+      "fr": "Trésors perdus",
+      "es": "Tesoros perdidos",
       "tr": "Kayıp Hazineler"
     },
     "limit": 5,

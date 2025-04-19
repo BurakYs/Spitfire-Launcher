@@ -8,6 +8,7 @@
 
   const locales: { locale: Locale; country: string }[] = [
     { locale: 'en', country: 'usa' },
+    { locale: 'es', country: 'spain' },
     { locale: 'tr', country: 'turkey' }
   ];
 </script>

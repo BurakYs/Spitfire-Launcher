@@ -2,780 +2,1040 @@
   "bp_zt_tp_yarrr_island_c": {
     "names": {
       "en": "Tropical",
+      "fr": "Tropiques",
+      "es": "Tropical",
       "tr": "Tropik"
     }
   },
   "bp_zt_tp_plank_island_c": {
     "names": {
       "en": "Tropical",
+      "fr": "Tropiques",
+      "es": "Tropical",
       "tr": "Tropik"
     }
   },
   "bp_zt_tp_island01_c": {
     "names": {
       "en": "Tropical",
+      "fr": "Tropiques",
+      "es": "Tropical",
       "tr": "Tropik"
     }
   },
   "bp_tz_tp_water_c": {
     "names": {
       "en": "Water",
+      "fr": "Eau",
+      "es": "Agua",
       "tr": "Su"
     }
   },
   "bp_zt_theforestwinter_c": {
     "names": {
       "en": "The Forest",
+      "fr": "Forêt",
+      "es": "El bosque",
       "tr": "Orman"
     }
   },
   "bp_zt_thesuburbs_arid_c": {
     "names": {
       "en": "Suburbs",
+      "fr": "Banlieue",
+      "es": "Suburbios",
       "tr": "Banliyö"
     }
   },
   "bp_zt_thesuburbs_c": {
     "names": {
       "en": "Suburbs",
+      "fr": "Banlieue",
+      "es": "Suburbios",
       "tr": "Banliyö"
     }
   },
   "bp_zt_theforest_c": {
     "names": {
       "en": "Forest",
+      "fr": "Forêt",
+      "es": "Bosque",
       "tr": "Orman"
     }
   },
   "bp_zt_thegrasslands_mansion_c": {
     "names": {
       "en": "The Mansion",
+      "fr": "Manoir",
+      "es": "La mansión",
       "tr": "Malikâne"
     }
   },
   "bp_zt_thegrasslands_c": {
     "names": {
       "en": "Grasslands",
+      "fr": "Prairie",
+      "es": "Praderas",
       "tr": "Çayır"
     }
   },
   "bp_zt_theindustrialpark_arid_c": {
     "names": {
       "en": "Industrial Park",
+      "fr": "Parc industriel",
+      "es": "Parque industrial",
       "tr": "Sanayi Parkı"
     }
   },
   "bp_zt_theindustrialpark_c": {
     "names": {
       "en": "Industrial Park",
+      "fr": "Parc industriel",
+      "es": "Parque industrial",
       "tr": "Sanayi Parkı"
     }
   },
   "bp_zt_thedesert_c": {
     "names": {
       "en": "Desert",
+      "fr": "Désert",
+      "es": "Desierto",
       "tr": "Çöl"
     }
   },
   "bp_zt_thecity_arid_c": {
     "names": {
       "en": "City",
+      "fr": "Ville",
+      "es": "Ciudad",
       "tr": "Şehir"
     }
   },
   "bp_zt_thecity_c": {
     "names": {
       "en": "City",
+      "fr": "Ville",
+      "es": "Ciudad",
       "tr": "Şehir"
     }
   },
   "bp_zt_route99_landmark_c": {
     "names": {
       "en": "Thunder Route 99",
+      "fr": "Fulguroute 99",
+      "es": "Ruta Trueno 99",
       "tr": "99 No.’lu Yıldırımyolu"
     }
   },
   "bp_zt_route99_bunker_2_c": {
     "names": {
       "en": "Thunder Route 99",
+      "fr": "Fulguroute 99",
+      "es": "Ruta Trueno 99",
       "tr": "99 No.’lu Yıldırımyolu"
     }
   },
   "bp_zt_route99_bunker_1_c": {
     "names": {
       "en": "Thunder Route 99",
+      "fr": "Fulguroute 99",
+      "es": "Ruta Trueno 99",
       "tr": "99 No.’lu Yıldırımyolu"
     }
   },
   "bp_zt_route99_2_c": {
     "names": {
       "en": "Thunder Route 99",
+      "fr": "Fulguroute 99",
+      "es": "Ruta Trueno 99",
       "tr": "99 No.’lu Yıldırımyolu"
     }
   },
   "bp_zt_route99_1_c": {
     "names": {
       "en": "Thunder Route 99",
+      "fr": "Fulguroute 99",
+      "es": "Ruta Trueno 99",
       "tr": "99 No.’lu Yıldırımyolu"
     }
   },
   "bp_zt_observetheskies_c": {
     "names": {
       "en": "Thunder Route 99",
+      "fr": "Fulguroute 99",
+      "es": "Ruta Trueno 99",
       "tr": "99 No.’lu Yıldırımyolu"
     }
   },
   "bp_zt_launchinglars_c": {
     "names": {
       "en": "The Grasslands",
+      "fr": "Prairie",
+      "es": "Las praderas",
       "tr": "Çayır"
     }
   },
   "bp_zt_ghosttown_highnoon_c": {
     "names": {
       "en": "Ghost Town",
+      "fr": "Ville fantôme",
+      "es": "Pueblo fantasma",
       "tr": "Hayalet Kasaba"
     }
   },
   "bp_zt_ghosttown_b_c": {
     "names": {
       "en": "Ghost Town",
+      "fr": "Ville fantôme",
+      "es": "Pueblo fantasma",
       "tr": "Hayalet Kasaba"
     }
   },
   "bp_zt_ghosttown_a_c": {
     "names": {
       "en": "Ghost Town",
+      "fr": "Ville fantôme",
+      "es": "Pueblo fantasma",
       "tr": "Hayalet Kasaba"
     }
   },
   "bp_zt_dudebro_landmark_portal_c": {
     "names": {
       "en": "Storm King",
+      "fr": "Roi de la tempête",
+      "es": "Rey de la Tormenta",
       "tr": "Fırtına Kralı"
     }
   },
   "bp_zt_dudebro_landmark_lakeside_c": {
     "names": {
       "en": "Storm King",
+      "fr": "Roi de la tempête",
+      "es": "Rey de la Tormenta",
       "tr": "Fırtına Kralı"
     }
   },
   "bp_zt_dudebro_landmark_grasslands_c": {
     "names": {
       "en": "Storm King",
+      "fr": "Roi de la tempête",
+      "es": "Rey de la Tormenta",
       "tr": "Fırtına Kralı"
     }
   },
   "bp_zt_dudebro_landmark_desert_c": {
     "names": {
       "en": "Storm King",
+      "fr": "Roi de la tempête",
+      "es": "Rey de la Tormenta",
       "tr": "Fırtına Kralı"
     }
   },
   "bp_zt_dudebro_hard_c": {
     "names": {
       "en": "The Portal",
+      "fr": "Le portail",
+      "es": "El portal",
       "tr": "Portal"
     }
   },
   "bp_zt_dudebro_c": {
     "names": {
       "en": "The Portal",
+      "fr": "Le portail",
+      "es": "El portal",
       "tr": "Portal"
     }
   },
   "bp_zt_perfmem_c": {
     "names": {
       "en": "PerfMem City",
+      "fr": "PerfMem City",
+      "es": "PerfMem Ciudad",
       "tr": "Perfor-Bel Şehri"
     }
   },
   "bp_zt_build_irwin_c": {
     "names": {
       "en": "Buildasaurus Rex",
+      "fr": "Constructosaure rex",
+      "es": "Construyesaurus Rex",
       "tr": "Dino-Zor, İnşa Kolay"
     }
   },
   "bp_zt_desert_monument_c": {
     "names": {
       "en": "Desert",
+      "fr": "Désert",
+      "es": "Desierto",
       "tr": "Çöl"
     }
   },
   "bp_zt_desert_deployprobe_c": {
     "names": {
       "en": "Desert",
+      "fr": "Désert",
+      "es": "Desierto",
       "tr": "Çöl"
     }
   },
   "bp_zt_desert_bunker_c": {
     "names": {
       "en": "Desert",
+      "fr": "Désert",
+      "es": "Desierto",
       "tr": "Çöl"
     }
   },
   "bp_zt_desert_c": {
     "names": {
       "en": "Desert",
+      "fr": "Désert",
+      "es": "Desierto",
       "tr": "Çöl"
     }
   },
   "bp_zt_starlight_c": {
     "names": {
       "en": "Haunted Forest",
+      "fr": "Forêt hantée",
+      "es": "Bosque encantado",
       "tr": "Perili Orman"
     }
   },
   "bp_zt_theoutpost_pve_04_c": {
     "names": {
       "en": "Twine Peaks Storm Shield",
+      "fr": "Bouclier antitempête de Pics Hardis",
+      "es": "Escudo antitormentas de Cumbres Leñosas",
       "tr": "Dikiz Tepeler Fırtına Kalkanı"
     }
   },
   "bp_zt_theoutpost_pve_03_c": {
     "names": {
       "en": "Canny Valley Storm Shield",
+      "fr": "Bouclier antitempête de Morne-la-Vallée",
+      "es": "Escudo antitormentas de Valle Latoso",
       "tr": "Tekinli Vadi Fırtına Kalkanı"
     }
   },
   "bp_zt_theoutpost_pve_02_c": {
     "names": {
       "en": "Plankerton Storm Shield",
+      "fr": "Bouclier antitempête de Villeplanche",
+      "es": "Escudo antitormentas de Villatablón",
       "tr": "Kalaslıevler Fırtına Kalkanı"
     }
   },
   "bp_zt_theoutpost_pve_01_c": {
     "names": {
       "en": "Homebase Storm Shield",
+      "fr": "Bouclier antitempête de la base",
+      "es": "Escudo antitormentas de la base",
       "tr": "Ana Üs Fırtına Kalkanı"
     }
   },
   "bp_zt_homebase_07_c": {
     "names": {
       "en": "Your Homebase",
+      "fr": "Votre base",
+      "es": "Tu base",
       "tr": "Ana Üs'sün"
     }
   },
   "bp_zt_homebase_06_c": {
     "names": {
       "en": "Your Homebase",
+      "fr": "Votre base",
+      "es": "Tu base",
       "tr": "Ana Üs'sün"
     }
   },
   "bp_zt_homebase_05_c": {
     "names": {
       "en": "Your Homebase",
+      "fr": "Votre base",
+      "es": "Tu base",
       "tr": "Ana Üs'sün"
     }
   },
   "bp_zt_homebase_03_c": {
     "names": {
       "en": "Your Homebase",
+      "fr": "Votre base",
+      "es": "Tu base",
       "tr": "Ana Üs'sün"
     }
   },
   "bp_zt_homebase_02_c": {
     "names": {
       "en": "Your Homebase",
+      "fr": "Votre base",
+      "es": "Tu base",
       "tr": "Ana Üs'sün"
     }
   },
   "bp_zt_onboarding_suburban_a_c": {
     "names": {
       "en": "The Suburbs",
+      "fr": "Banlieue",
+      "es": "Los suburbios",
       "tr": "Banliyö"
     }
   },
   "bp_zt_buildoff_c": {
     "names": {
       "en": "The Durr Burger Build-Off",
+      "fr": "Défi de construction de Durrr Burger",
+      "es": "El duelo del Durr Burger",
       "tr": "Durrr Burger İnşa Yarışması"
     }
   },
   "bp_zt_mayday_twine2_c": {
     "names": {
       "en": "Twine Peaks Tier 2",
+      "fr": "Palier Pics Hardis 2",
+      "es": "Cumbres Leñosas - Nivel 2",
       "tr": "Dikiz Tepeler 2. Aşama"
     }
   },
   "bp_zt_mayday_twine1_c": {
     "names": {
       "en": "Twine Peaks Tier 1",
+      "fr": "Palier Pics Hardis 1",
+      "es": "Cumbres Leñosas - Nivel 1",
       "tr": "Dikiz Tepeler 1. Aşama"
     }
   },
   "bp_zt_mayday_plankerton2_c": {
     "names": {
       "en": "Plankerton Tier 2",
+      "fr": "Palier Villeplanche 2",
+      "es": "Villatablón - Nivel 2",
       "tr": "Kalaslıevler 2. Aşama"
     }
   },
   "bp_zt_mayday_plankerton1_c": {
     "names": {
       "en": "Plankerton Tier 1",
+      "fr": "Palier Villeplanche 1",
+      "es": "Villatablón - Nivel 1",
       "tr": "Kalaslıevler 1. Aşama"
     }
   },
   "bp_zt_mayday_endgame_c": {
     "names": {
       "en": "Twine Peaks Tier 3",
+      "fr": "Palier Pics Hardis 3",
+      "es": "Cumbres Leñosas - Nivel 3",
       "tr": "Dikiz Tepeler 3. Aşama"
     }
   },
   "bp_zt_mayday_canny2_c": {
     "names": {
       "en": "Canny Valley Tier 2",
+      "fr": "Palier Morne-la-Vallée 2",
+      "es": "Valle Latoso - Nivel 2",
       "tr": "Tekinli Vadi 2. Aşama"
     }
   },
   "bp_zt_mayday_canny1_c": {
     "names": {
       "en": "Canny Valley Tier 1",
+      "fr": "Palier Morne-la-Vallée 1",
+      "es": "Valle Latoso - Nivel 1",
       "tr": "Tekinli Vadi 1. Aşama"
     }
   },
   "bp_zt_mayday_c": {
     "names": {
       "en": "Stonewood Tier",
+      "fr": "Palier Fontainebois",
+      "es": "Nivel de Bosque Pedregoso",
       "tr": "Taşlıorman Aşaması"
     }
   },
   "bp_zt_buildthebase_desert_c": {
     "names": {
       "en": "Fort Setup",
+      "fr": "Configuration du fort",
+      "es": "Configuración del fuerte",
       "tr": "Kale Kurulumu"
     }
   },
   "bp_zt_trv_sw_c": {
     "names": {
       "en": "The Swamps",
+      "fr": "Marais",
+      "es": "El pantano",
       "tr": "Bataklık"
     }
   },
   "bp_zt_trv_slashercamp_c": {
     "names": {
       "en": "Shady Acres",
+      "fr": "Bois ombragés",
+      "es": "Acres Sombríos",
       "tr": "Gölgeli Arazi"
     }
   },
   "bp_zt_trv_hf_intro_c": {
     "names": {
       "en": "Haunted Forest",
+      "fr": "Forêt hantée",
+      "es": "Bosque encantado",
       "tr": "Perili Orman"
     }
   },
   "bp_zt_trv_hf_castleb_c": {
     "names": {
       "en": "Haunted Forest",
+      "fr": "Forêt hantée",
+      "es": "Bosque encantado",
       "tr": "Perili Orman"
     }
   },
   "bp_zt_trv_hf_castle_c": {
     "names": {
       "en": "Haunted Forest",
+      "fr": "Forêt hantée",
+      "es": "Bosque encantado",
       "tr": "Perili Orman"
     }
   },
   "bp_zt_trv_hf_c": {
     "names": {
       "en": "Haunted Forest",
+      "fr": "Forêt hantée",
+      "es": "Bosque encantado",
       "tr": "Perili Orman"
     }
   },
   "bp_zt_trv_hauntedhotel_replay_c": {
     "names": {
       "en": "Haunted Hotel",
+      "fr": "Hôtel hanté",
+      "es": "Hotel embrujado",
       "tr": "Perili Otel"
     }
   },
   "bp_zt_trv_hauntedhotel_aged_c": {
     "names": {
       "en": "Haunted Forest",
+      "fr": "Forêt hantée",
+      "es": "Bosque encantado",
       "tr": "Perili Orman"
     }
   },
   "bp_zt_trv_hauntedhotel_c": {
     "names": {
       "en": "Haunted Hotel",
+      "fr": "Hôtel hanté",
+      "es": "Hotel embrujado",
       "tr": "Perili Otel"
     }
   },
   "bp_zt_endless_winter_c": {
     "names": {
       "en": "Frostnite",
+      "fr": "Nuit de glace",
+      "es": "Frostnite",
       "tr": "Fortnite Soğukları"
     }
   },
   "bp_zt_survival_c": {
     "names": {
       "en": "Fortnite Survival Prototype",
+      "fr": "Quinzaine de la survie (prototype)",
+      "es": "Prototipo de supervivencia Fortnite",
       "tr": "Fortnite Hayatta Kalma Prototipi"
     }
   },
   "bp_zt_criticalmission_c": {
     "names": {
       "en": "Play with Others",
+      "fr": "Jouer à plusieurs",
+      "es": "Juega con otros",
       "tr": "Başkalarıyla Oyna"
     }
   },
   "bp_zt_ad_thesuburbs_c": {
     "names": {
       "en": "Autumn Suburbs",
+      "fr": "Banlieue automnale",
+      "es": "Suburbios otoñales",
       "tr": "Sonbahar Banliyöleri"
     }
   },
   "bp_zt_ad_theindustrialpark_c": {
     "names": {
       "en": "Autumn Industrial Park",
+      "fr": "Parc industriel automnal",
+      "es": "Parque industrial otoñal",
       "tr": "Sonbahar Sanayi Parkı"
     }
   },
   "bp_zt_ad_thecity_c": {
     "names": {
       "en": "Autumn City",
+      "fr": "Ville automnale",
+      "es": "Ciudad otoñal",
       "tr": "Sonbahar Şehri"
     }
   },
   "bp_zt_ad_lakeside_c": {
     "names": {
       "en": "Lakeside",
+      "fr": "Lac",
+      "es": "Ribera del lago",
       "tr": "Göl Kenarı"
     }
   },
   "bp_zt_ad2_thegrasslands_c": {
     "names": {
       "en": "Autumn Foothills",
+      "fr": "Contreforts automnaux",
+      "es": "Colinas otoñales",
       "tr": "Güz Etekleri"
     }
   },
   "bp_zt_phoenix_winter_twine2_town_c": {
     "names": {
       "en": "Chilly Cove",
+      "fr": "Crique congelée",
+      "es": "Cueva congelada",
       "tr": "Kırağı Koy"
     }
   },
   "bp_zt_phoenix_winter_twine2_arctic_c": {
     "names": {
       "en": "Boreal Base",
+      "fr": "Base boréale",
+      "es": "Base boreal",
       "tr": "Kutup Karargâhı"
     }
   },
   "bp_zt_phoenix_winter_twine1_town_c": {
     "names": {
       "en": "Chilly Cove",
+      "fr": "Crique congelée",
+      "es": "Cueva congelada",
       "tr": "Kırağı Koy"
     }
   },
   "bp_zt_phoenix_winter_twine1_arctic_c": {
     "names": {
       "en": "Boreal Base",
+      "fr": "Base boréale",
+      "es": "Base boreal",
       "tr": "Kutup Karargâhı"
     }
   },
   "bp_zt_phoenix_winter_stonewood_1_town_c": {
     "names": {
       "en": "Chilly Cove",
+      "fr": "Crique congelée",
+      "es": "Cueva congelada",
       "tr": "Kırağı Koy"
     }
   },
   "bp_zt_phoenix_winter_stonewood_1_arctic_c": {
     "names": {
       "en": "Boreal Base",
+      "fr": "Base boréale",
+      "es": "Base boreal",
       "tr": "Kutup Karargâhı"
     }
   },
   "bp_zt_phoenix_winter_stonewood_0_town_c": {
     "names": {
       "en": "Chilly Cove",
+      "fr": "Crique congelée",
+      "es": "Cueva congelada",
       "tr": "Kırağı Koy"
     }
   },
   "bp_zt_phoenix_winter_stonewood_0_arctic_c": {
     "names": {
       "en": "Boreal Base",
+      "fr": "Base boréale",
+      "es": "Base boreal",
       "tr": "Kutup Karargâhı"
     }
   },
   "bp_zt_phoenix_winter_plankerton2_town_c": {
     "names": {
       "en": "Chilly Cove",
+      "fr": "Crique congelée",
+      "es": "Cueva congelada",
       "tr": "Kırağı Koy"
     }
   },
   "bp_zt_phoenix_winter_plankerton2_arctic_c": {
     "names": {
       "en": "Boreal Base",
+      "fr": "Base boréale",
+      "es": "Base boreal",
       "tr": "Kutup Karargâhı"
     }
   },
   "bp_zt_phoenix_winter_plankerton1_town_c": {
     "names": {
       "en": "Chilly Cove",
+      "fr": "Crique congelée",
+      "es": "Cueva congelada",
       "tr": "Kırağı Koy"
     }
   },
   "bp_zt_phoenix_winter_plankerton1_arctic_c": {
     "names": {
       "en": "Boreal Base",
+      "fr": "Base boréale",
+      "es": "Base boreal",
       "tr": "Kutup Karargâhı"
     }
   },
   "bp_zt_phoenix_winter_endgame_town_c": {
     "names": {
       "en": "Chilly Cove",
+      "fr": "Crique congelée",
+      "es": "Cueva congelada",
       "tr": "Kırağı Koy"
     }
   },
   "bp_zt_phoenix_winter_endgame_arctic_c": {
     "names": {
       "en": "Boreal Base",
+      "fr": "Base boréale",
+      "es": "Base boreal",
       "tr": "Kutup Karargâhı"
     }
   },
   "bp_zt_phoenix_winter_canny2_town_c": {
     "names": {
       "en": "Chilly Cove",
+      "fr": "Crique congelée",
+      "es": "Cueva congelada",
       "tr": "Kırağı Koy"
     }
   },
   "bp_zt_phoenix_winter_canny2_arctic_c": {
     "names": {
       "en": "Boreal Base",
+      "fr": "Base boréale",
+      "es": "Base boreal",
       "tr": "Kutup Karargâhı"
     }
   },
   "bp_zt_phoenix_winter_canny1_town_c": {
     "names": {
       "en": "Chilly Cove",
+      "fr": "Crique congelée",
+      "es": "Cueva congelada",
       "tr": "Kırağı Koy"
     }
   },
   "bp_zt_phoenix_winter_canny1_arctic_c": {
     "names": {
       "en": "Boreal Base",
+      "fr": "Base boréale",
+      "es": "Base boreal",
       "tr": "Kutup Karargâhı"
     }
   },
   "bp_zt_onboarding_fort_c": {
     "names": {
       "en": "Onboarding Fort",
+      "fr": "Embarquement immédiat",
+      "es": "Adentrándose en el fuerte",
       "tr": "Eğitim Kalesi"
     }
   },
   "bp_zt_longwayhome_c": {
     "names": {
       "en": "The City",
+      "fr": "Ville",
+      "es": "La ciudad",
       "tr": "Şehir"
     }
   },
   "bp_zt_stabilizetherift_c": {
     "names": {
       "en": "The Desert",
+      "fr": "Désert",
+      "es": "El desierto",
       "tr": "Çöl"
     }
   },
   "bp_zt_trv_hauntedhotel_huskescape_c": {
     "names": {
       "en": "Haunted Forest",
+      "fr": "Forêt hantée",
+      "es": "Bosque encantado",
       "tr": "Perili Orman"
     }
   },
   "bp_zt_outlandish_c": {
     "names": {
       "en": "Suspicious Factory",
+      "fr": "Usine suspecte",
+      "es": "Fábrica sospechosa",
       "tr": "Şüpheli Fabrika"
     }
   },
   "bp_zt_plankharbor_c": {
     "names": {
       "en": "Plank Harbor",
+      "fr": "Port-de-Planche",
+      "es": "Puerto Tablón",
       "tr": "Kalas Limanı"
     }
   },
   "bp_zt_winter_twine2_c": {
     "names": {
       "en": "Crackshot's Neighborhood",
+      "fr": "Quartier de Casse-noisette",
+      "es": "Barrio de Cascanueces",
       "tr": "Tahta Asker'in Mahallesi"
     }
   },
   "bp_zt_winter_twine1_c": {
     "names": {
       "en": "Crackshot's Neighborhood",
+      "fr": "Quartier de Casse-noisette",
+      "es": "Barrio de Cascanueces",
       "tr": "Tahta Asker'in Mahallesi"
     }
   },
   "bp_zt_winter_stonewood_1_c": {
     "names": {
       "en": "Crackshot's Neighborhood",
+      "fr": "Quartier de Casse-noisette",
+      "es": "Barrio de Cascanueces",
       "tr": "Tahta Asker'in Mahallesi"
     }
   },
   "bp_zt_winter_stonewood_0_c": {
     "names": {
       "en": "Crackshot's Neighborhood",
+      "fr": "Quartier de Casse-noisette",
+      "es": "Barrio de Cascanueces",
       "tr": "Tahta Asker'in Mahallesi"
     }
   },
   "bp_zt_winter_plankerton2_c": {
     "names": {
       "en": "Crackshot's Neighborhood",
+      "fr": "Quartier de Casse-noisette",
+      "es": "Barrio de Cascanueces",
       "tr": "Tahta Asker'in Mahallesi"
     }
   },
   "bp_zt_winter_plankerton1_c": {
     "names": {
       "en": "Crackshot's Neighborhood",
+      "fr": "Quartier de Casse-noisette",
+      "es": "Barrio de Cascanueces",
       "tr": "Tahta Asker'in Mahallesi"
     }
   },
   "bp_zt_winter_endgame_c": {
     "names": {
       "en": "Crackshot's Neighborhood",
+      "fr": "Quartier de Casse-noisette",
+      "es": "Barrio de Cascanueces",
       "tr": "Tahta Asker'in Mahallesi"
     }
   },
   "bp_zt_winter_canny2_c": {
     "names": {
       "en": "Crackshot's Neighborhood",
+      "fr": "Quartier de Casse-noisette",
+      "es": "Barrio de Cascanueces",
       "tr": "Tahta Asker'in Mahallesi"
     }
   },
   "bp_zt_winter_canny1_c": {
     "names": {
       "en": "Crackshot's Neighborhood",
+      "fr": "Quartier de Casse-noisette",
+      "es": "Barrio de Cascanueces",
       "tr": "Tahta Asker'in Mahallesi"
     }
   },
   "bp_zt_protectthepresents_twine2_c": {
     "names": {
       "en": "Crackshot's Neighborhood",
+      "fr": "Quartier de Casse-noisette",
+      "es": "Barrio de Cascanueces",
       "tr": "Tahta Asker'in Mahallesi"
     }
   },
   "bp_zt_protectthepresents_twine1_c": {
     "names": {
       "en": "Crackshot's Neighborhood",
+      "fr": "Quartier de Casse-noisette",
+      "es": "Barrio de Cascanueces",
       "tr": "Tahta Asker'in Mahallesi"
     }
   },
   "bp_zt_protectthepresents_stonewood_0_c": {
     "names": {
       "en": "Crackshot's Neighborhood",
+      "fr": "Quartier de Casse-noisette",
+      "es": "Barrio de Cascanueces",
       "tr": "Tahta Asker'in Mahallesi"
     }
   },
   "bp_zt_protectthepresents_plankerton2_c": {
     "names": {
       "en": "Crackshot's Neighborhood",
+      "fr": "Quartier de Casse-noisette",
+      "es": "Barrio de Cascanueces",
       "tr": "Tahta Asker'in Mahallesi"
     }
   },
   "bp_zt_protectthepresents_plankerton1_c": {
     "names": {
       "en": "Crackshot's Neighborhood",
+      "fr": "Quartier de Casse-noisette",
+      "es": "Barrio de Cascanueces",
       "tr": "Tahta Asker'in Mahallesi"
     }
   },
   "bp_zt_protectthepresents_endgame_c": {
     "names": {
       "en": "Crackshot's Neighborhood",
+      "fr": "Quartier de Casse-noisette",
+      "es": "Barrio de Cascanueces",
       "tr": "Tahta Asker'in Mahallesi"
     }
   },
   "bp_zt_protectthepresents_canny2_c": {
     "names": {
       "en": "Crackshot's Neighborhood",
+      "fr": "Quartier de Casse-noisette",
+      "es": "Barrio de Cascanueces",
       "tr": "Tahta Asker'in Mahallesi"
     }
   },
   "bp_zt_protectthepresents_canny1_c": {
     "names": {
       "en": "Crackshot's Neighborhood",
+      "fr": "Quartier de Casse-noisette",
+      "es": "Barrio de Cascanueces",
       "tr": "Tahta Asker'in Mahallesi"
     }
   },
   "bp_zt_finalfrontier_c": {
     "names": {
       "en": "The Desert",
+      "fr": "Désert",
+      "es": "El desierto",
       "tr": "Çöl"
     }
   },
   "bp_zt_challengethehorde_twine_c": {
     "names": {
       "en": "Tier 4",
+      "fr": "Palier 4",
+      "es": "Nivel 4",
       "tr": "4. Aşama"
     }
   },
   "bp_zt_challengethehorde_sw_vh_c": {
     "names": {
       "en": "Tier 1",
+      "fr": "Palier 1",
+      "es": "Nivel 1",
       "tr": "1. Aşama"
     }
   },
   "bp_zt_challengethehorde_sw_h_c": {
     "names": {
       "en": "Tier 1",
+      "fr": "Palier 1",
+      "es": "Nivel 1",
       "tr": "1. Aşama"
     }
   },
   "bp_zt_challengethehorde_plank_vl_c": {
     "names": {
       "en": "Tier 2",
+      "fr": "Palier 2",
+      "es": "Nivel 2",
       "tr": "2. Aşama"
     }
   },
   "bp_zt_challengethehorde_plank_vh_c": {
     "names": {
       "en": "Tier 2",
+      "fr": "Palier 2",
+      "es": "Nivel 2",
       "tr": "2. Aşama"
     }
   },
   "bp_zt_challengethehorde_plank_m_c": {
     "names": {
       "en": "Tier 2",
+      "fr": "Palier 2",
+      "es": "Nivel 2",
       "tr": "2. Aşama"
     }
   },
   "bp_zt_challengethehorde_canny_vl_c": {
     "names": {
       "en": "Tier 3",
+      "fr": "Palier 3",
+      "es": "Nivel 3",
       "tr": "3. Aşama"
     }
   },
   "bp_zt_challengethehorde_canny_vh_c": {
     "names": {
       "en": "Tier 3",
+      "fr": "Palier 3",
+      "es": "Nivel 3",
       "tr": "3. Aşama"
     }
   },
   "bp_zt_challengethehorde_canny_m_c": {
     "names": {
       "en": "Tier 3",
+      "fr": "Palier 3",
+      "es": "Nivel 3",
       "tr": "3. Aşama"
     }
   },
   "bp_zt_challengethehorde_challenge_minibossarmy_twine_c": {
     "names": {
       "en": "Tier 4",
+      "fr": "Palier 4",
+      "es": "Nivel 4",
       "tr": "4. Aşama"
     }
   },
   "bp_zt_challengethehorde_challenge_minibossarmy_sw_c": {
     "names": {
       "en": "Tier 1",
+      "fr": "Palier 1",
+      "es": "Nivel 1",
       "tr": "1. Aşama"
     }
   },
   "bp_zt_challengethehorde_challenge_minibossarmy_plank_c": {
     "names": {
       "en": "Tier 2",
+      "fr": "Palier 2",
+      "es": "Nivel 2",
       "tr": "2. Aşama"
     }
   },
   "bp_zt_challengethehorde_challenge_minibossarmy_canny_c": {
     "names": {
       "en": "Tier 3",
+      "fr": "Palier 3",
+      "es": "Nivel 3",
       "tr": "3. Aşama"
     }
   }
