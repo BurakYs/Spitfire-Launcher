@@ -288,7 +288,7 @@
     "selectedFriendCount": "{count} amigos seleccionados",
     "sendGift": "Enviar regalo",
     "sentGift": "Regalo enviado correctamente",
-    "reachedDailyGiftLimit": "You have reached the daily gift limit",
+    "reachedDailyGiftLimit": "Has alcanzado el límite diario de regalos",
     "needMoreVbucksToGift": "Necesitas {amount} Pavos más para regalar este objeto",
     "friendsMayOwnItem": "No se pudo enviar regalos, uno o más amigos pueden ya poseer este objeto.",
     "friendsNotEligible": "No se pudo enviar regalos, uno o más amigos no son elegibles.",
@@ -458,6 +458,12 @@
       "leavingParty": "Abandonando Grupo",
       "promote": "Ascender a líder",
       "promoting": "Ascendiendo",
+      "sendFriendRequest": "Agregar Amigo",
+      "sendingFriendRequest": "Agregar Amigo",
+      "failedToSendFriendRequest": "Error al agregar amigo",
+      "removeFriend": "Eliminar Amigo",
+      "removingFriend": "Eliminando Amigo",
+      "failedToRemoveFriend": "Error al eliminar amigo",
       "platform": "Plataforma",
       "ownsSTW": "Tiene STW",
       "loadout": "Equipamiento",
@@ -559,6 +565,35 @@
       "title": "👋 Bienvenido, {name}",
       "description": "Has iniciado sesión con éxito en tu cuenta de Epic Games."
     }
+  },
+  "friendManagement": {
+    "page": {
+      "title": "Gestión de Amigos"
+    },
+    "lists": {
+      "friends": "Amigos",
+      "incoming": "Solicitudes Entrantes",
+      "outgoing": "Solicitudes Salientes",
+      "blocklist": "Lista de bloqueos"
+    },
+    "failedToAdd": "No se pudo agregar amigo o aceptar solicitud",
+    "failedToRemove": "No se pudo agregar amigo o aceptar solicitud",
+    "failedToBlock": "Error al bloquear el usuario",
+    "failedToUnblock": "Error al bloquear el usuario",
+    "failedToChangeNickname": "No se pudo cambiar el apodo",
+    "noFriends": "Sin Amigos",
+    "noIncomingRequests": "Solicitudes Entrantes",
+    "noOutgoingRequests": "Solicitudes Salientes",
+    "noBlockedUsers": "Sin usuarios bloqueados",
+    "sendFriendRequest": "Enviar Solicitud de Amistad",
+    "sendingRequest": "Enviando Solicitud De Amistad",
+    "acceptRequest": "Aceptar Solicitud",
+    "removeFriend": "Eliminar Amigo",
+    "cancelRequest": "Cancelar Solicitud",
+    "denyRequest": "Rechazar Solicitud",
+    "blockUser": "Bloquear",
+    "unblockUser": "Desbloquear",
+    "changeNickname": "Cambiar Apodo"
   },
   "docs": {
     "howToUse": "Cómo se usa",
