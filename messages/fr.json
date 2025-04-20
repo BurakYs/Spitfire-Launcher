@@ -1,0 +1,653 @@
+{
+  "$schema": "https://inlang.com/schema/inlang-message-format",
+  "language": "Français",
+  "common": {
+    "yes": "Oui",
+    "no": "Non",
+    "vbucks": "V-Bucks",
+    "xp": "EXP",
+    "quest": "Quête",
+    "stw": {
+      "xrayTickets": "Tickets à Rayons-X",
+      "gold": "Or",
+      "founderEditions": {
+        "none": "Non-Fondateur",
+        "founder": "Fondateur",
+        "standard": "Standard",
+        "deluxe": "Deluxe",
+        "superDeluxe": "Super Deluxe",
+        "limited": "Limité",
+        "ultimate": "Ultime"
+      }
+    },
+    "gameModes": {
+      "battleRoyale": "Battle Royale",
+      "creative": "Créatif",
+      "saveTheWorld": "Sauver Le Monde"
+    },
+    "cancel": "Annuler",
+    "confirm": "Confirmer"
+  },
+  "rarities": {
+    "common": "Commun",
+    "uncommon": "Atypique",
+    "rare": "Rare",
+    "epic": "Épique",
+    "legendary": "Légendaire",
+    "mythic": "Mythique"
+  },
+  "times": {
+    "seconds": {
+      "one": "{count} seconde",
+      "other": "{count} secondes"
+    },
+    "minutes": {
+      "one": "{count} minute",
+      "other": "{count} minutes"
+    },
+    "hours": {
+      "one": "{count} heure",
+      "other": "{count} heures"
+    },
+    "days": {
+      "one": "{count} jour",
+      "other": "{count} jours"
+    }
+  },
+  "sidebar": {
+    "externalLinks": {
+      "discord": "Serveur Discord",
+      "repository": "Répertoire GitHub"
+    },
+    "version": "Version",
+    "categories": {
+      "account": "Compte",
+      "brStw": "BR & SLM",
+      "authentication": "Authentification"
+    }
+  },
+  "newVersionAvailable": {
+    "title": "Nouvelle version disponible",
+    "description": "La version {version} est disponible. Clique sur le bouton ci-dessous pour mettre à jour.",
+    "download": "Télécharger"
+  },
+  "epicGamesSettings": {
+    "page": {
+      "title": "Paramètres Epic Games",
+      "description": "Clique sur le bouton ci-dessous pour te connecter à Epic Games."
+    },
+    "login": "Connecte-toi au site Web d'Epic Games",
+    "loggingIn": "Connexion",
+    "openedWebsite": "Ouverture du site Web d'Epic Games",
+    "failedToOpenWebsite": "Impossible d'ouvrir le site Web d'Epic Games"
+  },
+  "eula": {
+    "page": {
+      "title": "CLUF"
+    },
+    "check": "Vérifier le CLUF",
+    "checking": "Vérification du CLUF",
+    "allAccountsAlreadyAccepted": "Tous les comptes sélectionnés ont déjà accepté le CLUF"
+  },
+  "redeemCodes": {
+    "page": {
+      "title": "Utiliser des codes"
+    },
+    "codesPlaceholder": "Entre les codes à utiliser et appuie sur Entrée",
+    "redeemCodes": "Utiliser des codes",
+    "redeeming": "Activation",
+    "redeemed": "Activé",
+    "redeemErrors": {
+      "notFound": "Code introuvable",
+      "itemsAlreadyOwned": "Objets déjà possédés",
+      "alreadyUsed": "Code déjà utilisé",
+      "unknownError": "Erreur inconnue"
+    },
+    "loginExpired": "Connexion expirée. Veuillez vous reconnecter."
+  },
+  "vbucksInformation": {
+    "page": {
+      "title": "V-Bucks"
+    },
+    "getInformation": "Obtiens des informations sur les V-Bucks",
+    "loading": "Chargement des informations sur les V-Bucks",
+    "loginExpired": "Connexion expirée. Veuillez vous reconnecter.",
+    "unknownError": "Erreur inconnue"
+  },
+  "deviceAuthManagement": {
+    "page": {
+      "title": "Liste d'authentification des appareils"
+    },
+    "authInfo": {
+      "noName": "Pas de nom",
+      "activeAuth": "Le launcher utilise cette authentification d'appareil",
+      "id": "ID de l'appareil",
+      "created": "Créé",
+      "lastAccess": "Dernier accès",
+      "location": "Localisation",
+      "ip": "IP",
+      "date": "Date"
+    },
+    "failedToFetch": "Échec de la récupération de la liste d'authentification des appareils",
+    "generating": "Génération d'autorisations d'appareil...",
+    "generated": "Authentification de l'appareil générée",
+    "failedToGenerate": "Échec de la génération de l'authentification de l'appareil",
+    "deleting": "Suppression de l'authentification de l'appareil...",
+    "deleted": "Authentification de l'appareil supprimée",
+    "deletedAndLoggedOut": "L'authentification de l'appareil a été supprimée et la connexion a été interrompue",
+    "failedToDelete": "Échec de la suppression de l'authentification de l'appareil"
+  },
+  "accessTokenManagement": {
+    "page": {
+      "title": "Jeton d'accès"
+    },
+    "selectTokenType": "Sélectionnez le type de jeton",
+    "selectClient": "Sélectionner un client",
+    "generate": "Générer un jeton d'accès",
+    "generating": "Génération",
+    "generated": "Généré et copié dans le presse-papiers",
+    "failedToGenerate": "Échec de la génération du jeton d'accès"
+  },
+  "exchangeCodeManagement": {
+    "page": {
+      "title": "Code d'échange",
+      "description": "Clique sur le bouton ci-dessous pour générer un code d'échange."
+    },
+    "generate": "Générer un code d'échange",
+    "generating": "Génération",
+    "generated": "Généré et copié dans le presse-papiers",
+    "failedToGenerate": "Échec de la génération du code d'échange"
+  },
+  "autoKick": {
+    "page": {
+      "title": "Auto-Kick",
+      "description": "Active/désactive l'expulsion automatique, la réclamation automatique et le transfert automatique de matériaux pour les missions Sauver le monde."
+    },
+    "accountStatus": {
+      "active": "Actif",
+      "loginExpired": "Connexion expirée",
+      "disconnected": "Déconnecté"
+    },
+    "settings": {
+      "kick": "Kick",
+      "claim": "Réclamer des récompenses",
+      "transferMaterials": "Matériaux de transfert",
+      "invite": "Inviter"
+    }
+  },
+  "botLobby": {
+    "page": {
+      "title": "Lobby de bots",
+      "description": "Transforme ton compte en un bot de lobby."
+    },
+    "banWarning": {
+      "title": "Avertissement",
+      "description": "Le compte que tu transformes en bot lobby peut être banni ! À utiliser à tes risques et périls."
+    },
+    "settings": {
+      "availableStatus": {
+        "title": "Statut disponible",
+        "placeholder": "Le statut personnalisé du bot lorsqu'il est disponible",
+        "default": "Disponible pour le lobby de bots. Envoie une invitation pour rejoindre le groupe !"
+      },
+      "busyStatus": {
+        "title": "Statut occupé",
+        "placeholder": "Le statut personnalisé du bot lorsqu'il est occupé",
+        "default": "Actuellement dans un groupe. Bientôt disponible."
+      },
+      "autoAcceptFriendRequests": "Accepter auto les demandes d'amis"
+    },
+    "start": "Démarrer le lobby de bot",
+    "starting": "Démarrage",
+    "stop": "Arrêter le lobby de bot",
+    "stopping": "Arrêt",
+    "checkingEligibility": "Vérification",
+    "failedToFetchProfile": "Échec de la récupération des données de profil",
+    "matchmakingBan": {
+      "default": "Ce compte est banni du matchmaking.",
+      "indefinite": "Ce compte est banni indéfiniment du matchmaking.",
+      "temporary": "Ce compte est banni du matchmaking pour {time}."
+    },
+    "useNewAccount": "Tu dois utiliser un nouveau compte sans historique de match pour démarrer un lobby de bot.",
+    "taxiServiceActive": "Tu ne peux pas démarrer le lobby de bot lorsque le service de taxi est actif.",
+    "failedToStart": "Échec du démarrage du lobby de bot",
+    "failedToStop": "Impossible d'arrêter le lobby de bot"
+  },
+  "customStatus": {
+    "page": {
+      "title": "Statut personnalisé",
+      "description": "Définis un statut personnalisé pour ton compte."
+    },
+    "statusPlaceholder": "Entre ton statut personnalisé",
+    "setStatus": "Définir le statut",
+    "settingStatus": "Statut de réglage",
+    "statusSet": "Statut personnalisé défini avec succès",
+    "failedToSetStatus": "Échec de la définition du statut",
+    "resetStatus": "Réinitialiser le statut ",
+    "resettingStatus": "Réinitialisation du statut",
+    "statusReset": "Le statut personnalisé a été réinitialisé avec succès",
+    "failedToResetStatus": "Échec de la réinitialisation du statut personnalisé"
+  },
+  "dailyQuests": {
+    "page": {
+      "title": "Quêtes quotidiennes"
+    },
+    "getQuests": "Obtiens des quêtes quotidiennes",
+    "loading": "Chargement des quêtes"
+  },
+  "earnedXP": {
+    "page": {
+      "title": "EXP gagné",
+      "description": "Vérifie ta progression EXP dans Battle Royale, Créatif et Sauver Le Monde."
+    },
+    "check": "Vérifier l'EXP gagné",
+    "loading": "Chargement",
+    "resetsAt": "Se réinitialise à {time}"
+  },
+  "itemShop": {
+    "page": {
+      "title": "Boutique d'objets "
+    },
+    "lastUpdated": "Dernière mise à jour : {date}",
+    "nextRotation": "Prochaine rotation dans {time} ",
+    "failedtoFetch": "Impossible de récupérer les objets de la boutique. Veuille réessayer ultérieurement.",
+    "noItems": "Aucun objet trouvé",
+    "selectFilter": "Sélectionne un filtre",
+    "filters": {
+      "all": "Tout",
+      "new": "Nouveau",
+      "leavingSoon": "Part bientôt",
+      "longestWait": "La plus longue attente"
+    },
+    "owned": "Possédé",
+    "purchase": "Acheter",
+    "gift": "Cadeau",
+    "itemInformation": {
+      "price": "Prix",
+      "firstSeen": "Vu pour la première fois",
+      "lastSeen": "Vu pour la dernière fois",
+      "leavesOn": "Part le"
+    },
+    "notEnoughVbucks": "Pas assez de V-Bucks",
+    "noFriends": "Aucun ami trouvé",
+    "noRemainingGifts": "Aucun cadeau restant",
+    "purchaseConfirmation": {
+      "title": "Confirmation d'achat",
+      "description": "Es-tu sûr de vouloir acheter {name} pour {price} {vbucksIcon} ?"
+    },
+    "purchasing": "Achat",
+    "purchased": "Article acheté avec succès",
+    "needMoreVbucksToPurchase": "Vous avez besoin de {amount} V-Bucks pour acheter cet article",
+    "alreadyOwned": "Tu possèdes déjà cet article",
+    "failedToPurchase": "Échec de l'achat de l'article",
+    "giftConfirmation": {
+      "title": "Confirmation de cadeau",
+      "description": "Choisis des amis à offrir {name} pour {price} {vbucksIcon}."
+    },
+    "selectFriends": "Sélectionne des amis",
+    "selectedFriendCount": "{count} amis sélectionnés",
+    "sendGift": "Envoyer un cadeau",
+    "sentGift": "Cadeau envoyé avec succès",
+    "reachedDailyGiftLimit": "Tu as atteint la limite de cadeaux quotidiens",
+    "needMoreVbucksToGift": "Tu as besoin de {amount} V-Bucks pour offrir cet article ",
+    "friendsMayOwnItem": "Impossible d'envoyer des cadeaux, un ou plusieurs amis possèdent peut-être déjà cet article.",
+    "friendsNotEligible": "Impossible d'envoyer des cadeaux, un ou plusieurs amis ne sont pas éligibles.",
+    "friendsOwnItemFromBundle": "Impossible d'envoyer des cadeaux, un ou plusieurs amis possèdent un article de ce lot.",
+    "friendsDoNotAcceptGifts": "Impossible d'envoyer des cadeaux, un ou plusieurs amis n'acceptent pas les cadeaux.",
+    "enableMFA": "Tu dois activer l'A2F pour offrir des articles",
+    "failedToGift": "Impossible d'offrir l'article"
+  },
+  "taxiService": {
+    "page": {
+      "title": "Service de taxi",
+      "description": "Transforme ton compte en taxi et joue à des missions STW supérieures à ton niveau de puissance."
+    },
+    "alert": {
+      "title": "Avertissement",
+      "message": "Tu dois sélectionner « Pas comblé » pour que le taxi fonctionne correctement."
+    },
+    "settings": {
+      "powerLevel": "Niveau de puissance",
+      "availableStatus": {
+        "title": "Statut disponible",
+        "placeholder": "Le statut personnalisé du taxi lorsqu'il est disponible",
+        "default": "Service de taxi disponible. Envoie une invitation pour rejoindre !"
+      },
+      "busyStatus": {
+        "title": "Statut occupé",
+        "placeholder": "Le statut personnalisé du taxi lorsqu'il est occupé",
+        "default": "Actuellement dans un groupe. Bientôt disponible."
+      },
+      "autoAcceptFriendRequests": "Accepter auto les demandes d'amis"
+    },
+    "start": "Démarrer le service de taxi",
+    "starting": "Démarrage",
+    "stop": "Arrêter le service de taxi",
+    "stopping": "Arrêt",
+    "failedToStart": "Impossible de démarrer le service de taxi",
+    "failedToStop": "Impossible d'arrêter le service  de taxi",
+    "botLobbyActive": "Tu ne peux pas démarrer le service de taxi pendant que le lobby du bot est actif."
+  },
+  "stwMissionAlerts": {
+    "page": {
+      "title": "Alertes de mission SLM"
+    },
+    "tabs": {
+      "overview": "Aperçu",
+      "claimedAlerts": "Alertes réclamées"
+    },
+    "search": "Rechercher par nom ou par identifiant de compte",
+    "playerNotFound": "Joueur introuvable ",
+    "stwStatsPrivate": "Impossible de récupérer les données SLM du joueur. Ses statistiques de jeu sont privées.",
+    "playerInfo": {
+      "id": "ID",
+      "name": "Nom",
+      "commanderLevel": "Niveau de commandant",
+      "claimedAlerts": "Alertes terminées"
+    },
+    "sections": {
+      "survivors": "Survivants légendaires/mythiques",
+      "twinePeaks": "Pics Hardis ⚡️160",
+      "ventures": "Aventures ⚡️140",
+      "upgradeLlamaTokens": "Mettre à niveau les jetons de lama",
+      "perkup": "Décuplateur légendaire"
+    },
+    "noMissions": "Aucune mission disponible",
+    "rewards": "Récompenses",
+    "alertRewards": "Récompenses d'alerte"
+  },
+  "lookupPlayers": {
+    "page": {
+      "title": "Rechercher des joueurs"
+    },
+    "search": "Rechercher par nom ou par identifiant de compte",
+    "notFound": "Joueur introuvable",
+    "stwStatsPrivate": "Impossible de récupérer les données SLM du joueur. Ses statistiques de jeu sont privées.",
+    "playerInfo": {
+      "id": "ID",
+      "name": "Nom",
+      "commanderLevel": "Niveau de commandant",
+      "boostedXp": "EXP boosté",
+      "boostCount": "{count} boostés",
+      "founderEdition": "Édition Fondateur"
+    },
+    "stwDetails": {
+      "title": "Détails de Sauver le monde",
+      "players": "Joueurs",
+      "missionInformation": {
+        "title": "Informations sur les missions",
+        "name": "Nom",
+        "world": "Monde",
+        "zone": "Zone"
+      },
+      "heroLoadout": {
+        "commander": "Commandant",
+        "teamPerk": "Avantage d'équipe",
+        "supportTeam": "Équipe de soutien",
+        "gadgets": "Gadgets"
+      }
+    },
+    "claimedAlerts": {
+      "title": "Alertes de mission réclamées"
+    }
+  },
+  "serverStatus": {
+    "page": {
+      "title": "Statut du serveur"
+    },
+    "statuses": {
+      "operational": "Opérationnel",
+      "down": "Éteint",
+      "majorOutage": "Panne majeure",
+      "partialOutage": "Panne mineure",
+      "underMaintenance": "En maintenance",
+      "degradedPerformance": "Performances dégradées",
+      "unknown": "Inconnu"
+    },
+    "notification": {
+      "title": "Statut du serveur Fortnite",
+      "message": "Fortnite est de retour en ligne !"
+    },
+    "status": "Statut : {status}",
+    "failedToFetch": "Échec de la récupération de l'état du serveur",
+    "lastUpdated": "Dernière mise à jour : {date}",
+    "refresh": "Rafraîchir",
+    "refreshing": "Rafraîchissement",
+    "notifyMe": {
+      "title": "Me prévenir",
+      "description": "Reçois une notification lorsque Fortnite est de nouveau en ligne"
+    },
+    "queue": {
+      "title": "File d'attente active",
+      "description": "Temps d'attente prévu : {time}"
+    }
+  },
+  "partyManagement": {
+    "page": {
+      "title": "Gestion de groupe"
+    },
+    "tabs": {
+      "stwActions": "Actions SLM",
+      "partyMembers": "Membres du groupe"
+    },
+    "stwActions": {
+      "claimRewardsAfterLeaving": "Réclame des récompenses après avoir quitté la mission",
+      "kickAll": "Expulser tout le monde",
+      "leaveParty": "Quitter le groupe",
+      "claimRewards": "Réclame des récompenses",
+      "notInParty": "Tu n'es pas dans un groupe",
+      "notLeader": "Tu n'es pas le chef du groupe",
+      "kickedAll": "Tous les joueurs ont été expulsés avec succès",
+      "failedToKickAll": "Impossible d'expulser tous les joueurs",
+      "failedToKickMember": "Échec de l'expulsion du membre",
+      "leftParty": "Quitter le groupe avec succès",
+      "claimedRewards": "Récompenses réclamées avec succès",
+      "failedToClaimRewards": "Impossible de réclamer les récompenses",
+      "leftParties": "Groupes quittés avec succès",
+      "failedToLeaveParties": "N'a pas réussi à quitter les groupes",
+      "promotedMember": "Promu {name} avec succès au poste de chef du groupe",
+      "failedToPromoteMember": "Échec de la promotion du membre"
+    },
+    "partyMembers": {
+      "size": "Taille",
+      "region": "Région",
+      "createdAt": "Créé à",
+      "kick": "Expulser",
+      "kicking": "Expulsion",
+      "leaveParty": "Quitter le groupe",
+      "leavingParty": "Sortie du groupe",
+      "promote": "Promouvoir leader",
+      "promoting": "Promotion",
+      "sendFriendRequest": "Ajouter un ami",
+      "sendingFriendRequest": "Ajout d'ami",
+      "failedToSendFriendRequest": "Impossible d'ajouter un ami",
+      "removeFriend": "Supprimer un ami",
+      "removingFriend": "Suppression de l'ami",
+      "failedToRemoveFriend": "Impossible de supprimer l'ami",
+      "platform": "Plateforme",
+      "ownsSTW": "Possède SLM",
+      "loadout": "Chargement",
+      "ready": "Prêt",
+      "notReady": "Pas prêt"
+    }
+  },
+  "settings": {
+    "title": "Paramètres",
+    "tabs": {
+      "appSettings": "Paramètres de l'application",
+      "customizableMenu": "Menu personnalisable"
+    },
+    "appSettings": {
+      "invalidValue": "Tu as entré une valeur invalide.",
+      "gamePath": "Chemin de jeu personnalisé",
+      "missionCheckInterval": {
+        "title": "Intervalle de vérification de mission",
+        "description": "Intervalle en secondes pour vérifier si tu es en mission SLM. Utilisé avec la fonction Auto-Kick."
+      },
+      "claimRewardsDelay": {
+        "title": "Retard de réclamation des récompenses",
+        "description": "Délai en secondes avant de récupérer les récompenses après avoir quitté une mission SLM. Utilisé avec la fonction d'expulsion automatique."
+      },
+      "startingPage": {
+        "title": "Page de démarrage",
+        "description": "Sélectionne la page à afficher au démarrage du lanceur."
+      },
+      "startingAccount": {
+        "title": "Compte de démarrage",
+        "description": "Sélectionne le compte à utiliser au démarrage du lanceur.",
+        "values": {
+          "firstInList": "Premier dans la liste",
+          "lastUsed": "Dernière utilisation"
+        }
+      },
+      "hideToTray": "Masquer dans la barre d'état système",
+      "checkForUpdates": "Vérifier les mises à jour"
+    },
+    "unsavedChanges": {
+      "description": "Tu as des modifications non enregistrées",
+      "reset": "Réinitialiser",
+      "save": "Sauvegarder"
+    }
+  },
+  "launchGame": {
+    "launch": "Lancer le jeu",
+    "stop": "Arrêter le jeu",
+    "alreadyRunning": "Fortnite est déjà en cours d'exécution",
+    "launching": "Lancement de Fortnite...",
+    "notInstalled": "Fortnite n'est pas installé. Veuille d'abord l'installer.",
+    "launched": "Fortnite lancé avec succès",
+    "failedToLaunch": "Échec du lancement de Fortnite",
+    "stopping": "Arrêt de Fortnite...",
+    "stopped": "Fortnite s'est arrêté avec succès",
+    "failedToStop": "Impossible d'arrêter Fortnite"
+  },
+  "accountManager": {
+    "noAccount": "Pas de compte",
+    "searchAccounts": "Rechercher des comptes...",
+    "login": "Ajouter un nouveau compte",
+    "logout": "Déconnexion",
+    "failedToSwitch": "Impossible de passer à {name}",
+    "loggingOut": "Se déconnecter de {name}...",
+    "loggedOut": "Déconnecté de {name}",
+    "failedToLogout": "Échec de la déconnexion de {name}",
+    "selectAccount": "Sélectionne un compte",
+    "selectAccounts": "Sélectionne les comptes",
+    "selectedAccounts": "{count} comptes sélectionnés",
+    "chooseLoginMethod": "Choisis la méthode de connexion",
+    "back": "Retour",
+    "recommended": "Recommandé",
+    "continue": "Continuer",
+    "verifying": "Vérification...",
+    "loginSteps": {
+      "select": "Sélectionne la méthode",
+      "login": "Se connecter",
+      "completed": "Terminé"
+    },
+    "loginMethods": {
+      "webConfirmation": {
+        "title": "Confirmation Web",
+        "description": "Connecte-toi via le site Web d'Epic avec une simple étape de confirmation.",
+        "instructions": "Clique sur le bouton ci-dessous pour accéder au site web d'Epic Games. Une fois l'accès confirmé, clique sur « Continuer » pour continuer.",
+        "generatingURL": "Génération d'URL...",
+        "openWebsite": "Ouvrir le site Web d'Epic Games"
+      },
+      "exchangeCode": {
+        "title": "Code d'échange",
+        "description": "Connecte-toi en utilisant un code d'échange, si tu en as un.",
+        "instructions": "Colle le code d'échange et clique sur « Continuer ».",
+        "inputPlaceholder": "Colle ton code d'échange ici"
+      }
+    },
+    "failedToLogin": "Échec de la connexion",
+    "confirmRequest": "Veuille confirmer la connexion sur le site Web d'Epic Games pour continuer.",
+    "alreadyLoggedIn": "Tu es déjà connecté avec {name}.",
+    "welcome": {
+      "title": "👋 Bienvenue, {name}",
+      "description": "Tu t'es connecté avec succès à ton compte Epic Games."
+    }
+  },
+  "friendManagement": {
+    "page": {
+      "title": "Gestion d'ami"
+    },
+    "lists": {
+      "friends": "Amis",
+      "incoming": "Demandes reçues",
+      "outgoing": "Demandes envoyées",
+      "blocklist": "Liste de blocage"
+    },
+    "failedToAdd": "Impossible d'ajouter un ami ou d'accepter la demande",
+    "failedToRemove": "Impossible de supprimer l'ami ou de refuser la demande",
+    "failedToBlock": "Impossible de bloquer l'utilisateur",
+    "failedToUnblock": "Impossible de débloquer l'utilisateur",
+    "failedToChangeNickname": "Impossible de changer le pseudo",
+    "noFriends": "Pas d'amis",
+    "noIncomingRequests": "Aucune demandes reçues",
+    "noOutgoingRequests": "Aucune demandes envoyées",
+    "noBlockedUsers": "Aucun utilisateur bloqué",
+    "sendFriendRequest": "Envoyer une demande d'ami",
+    "sendingRequest": "Envoi de la demande d'ami",
+    "acceptRequest": "Accepter la demande",
+    "removeFriend": "Supprimer un ami",
+    "cancelRequest": "Annuler la demande",
+    "denyRequest": "Refuser la demande",
+    "blockUser": "Bloquer",
+    "unblockUser": "Débloquer",
+    "changeNickname": "Changer de surnom"
+  },
+  "docs": {
+    "howToUse": "Comment utiliser",
+    "importantNotes": "Notes importantes",
+    "faq": "Questions fréquemment posées",
+    "autoKick": {
+      "description": "L'Auto-Kick est un système qui renvoie automatiquement les joueurs d'une mission une fois qu'ils l'ont terminée. Il peut également réclamer des récompenses et transférer des matériaux de ta réserve à ton sac à dos.",
+      "importantNotes": {
+        "0": "Si tu as plusieurs comptes jouant la même mission, tu n'as pas besoin de les ajouter tous au système d'exclusion automatique. Le système les éliminera automatiquement.",
+        "1": "Si la réclamation de récompenses ne fonctionne pas ou s'il y a un bug, règle le \"délai de réclamation de récompenses\" dans les paramètres (situés dans le coin supérieur droit)."
+      }
+    },
+    "botLobby": {
+      "howToUse": {
+        "0": "Connecte-toi à un compte que tu souhaites transformer en lobby bot. Ce compte ne doit pas avoir d'historique de match !",
+        "1": "Démarre le bot en cliquant sur le bouton.",
+        "2": "Invite le bot dans ton groupe.",
+        "3": "Enfin, prépare-toi dans le lobby pour entrer dans un match rempli de bots."
+      },
+      "faq": {
+        "0": {
+          "question": "Dans quels modes les lobbies de bots fonctionnent-ils ?",
+          "answer": "Les lobbies de bots ne fonctionnent actuellement que dans les modes Battle Royale et Zéro Construction."
+        },
+        "1": {
+          "question": "Puis-je obtenir des couronnes de la victoire ?",
+          "answer": "Non, tu ne peux pas."
+        },
+        "2": {
+          "question": "Puis-je être banni ?",
+          "answer": "Le compte que tu transformes en lobby bot peut être banni, mais votre\n compte principal ne le sera probablement pas. Utilise-le à tes risques et périls."
+        },
+        "3": {
+          "question": "J'ai obtenu une erreur indiquant \"Connection Timeout\" (délai de connexion)",
+          "answer": "Essaie de redémarrer le bot du lobby. Si cela ne fonctionne pas, redémarre le lanceur."
+        }
+      }
+    },
+    "taxiService": {
+      "howToUse": {
+        "0": "Connecte-toi à un compte que tu souhaites transformer en taxi. Ce compte ne doit pas être ton compte principal !",
+        "1": "Démarre le service de taxi en cliquant sur le bouton.",
+        "2": "Invite le taxi à ton groupe",
+        "3": "Enfin, règle le remplissage de l'équipe sur \"Pas Comblé\" et démarre la mission."
+      },
+      "importantNotes": {
+        "0": "L'option Remplissage d'équipe doit être réglée sur \"Pas Comblé\".",
+        "1": "Le taxi-bot te permet d'accéder à des missions de haut niveau, mais il ne peut pas t'emmener dans des mondes comme Pics Hardis tant que tu n'as pas complété tes défenses de bouclier anti-tempête.",
+        "2": "Le taxi fonctionne aussi bien pour les missions normales que pour les aventures. Aucune configuration supplémentaire n'est nécessaire."
+      }
+    },
+    "customStatus": {
+      "description": "Comme son nom l'indique, il te permet de définir un statut personnalisé dans le jeu.",
+      "status": "Ton statut personnalisé ici"
+    }
+  }
+}
