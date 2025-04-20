@@ -558,6 +558,9 @@
         "inputPlaceholder": "Exchange code'u buraya yapıştırın"
       }
     },
+    "failedToLogin": "Giriş yapılamadı",
+    "confirmRequest": "Lütfen devam etmek için Epic Games'in web sitesinden erişimi onaylayın.",
+    "alreadyLoggedIn": "{name} hesabıyla zaten giriş yaptınız.",
     "welcome": {
       "title": "👋 Hoş Geldiniz, {name}",
       "description": "Epic Games hesabınıza başarıyla giriş yaptınız."
