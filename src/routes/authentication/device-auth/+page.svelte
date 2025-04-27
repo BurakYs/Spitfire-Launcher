@@ -14,7 +14,6 @@
   import RefreshCwIcon from 'lucide-svelte/icons/refresh-cw';
   import PlusIcon from 'lucide-svelte/icons/plus';
   import Trash2Icon from 'lucide-svelte/icons/trash-2';
-  import PencilIcon from 'lucide-svelte/icons/pencil';
   import { toast } from 'svelte-sonner';
   import DeviceAuthManager from '$lib/core/managers/deviceAuth';
   import type { DeviceAuthsSettings } from '$types/settings';
@@ -184,20 +183,17 @@
           <div class="flex justify-between items-start">
             <div class="flex flex-col gap-y-1">
               <div class="flex items-center gap-2 w-fit mb-1">
-                <div class="flex items-center gap-2 group">
-                  <PencilIcon class="hidden group-hover:block size-4"/>
-                  <span
-                    class="font-semibold outline-none hover:underline underline-offset-2"
-                    contenteditable
-                    onblur={(event) => saveDeviceName(event, auth.deviceId)}
-                    onkeydown={(event) => event.key === 'Enter' && event.preventDefault()}
-                    role="textbox"
-                    spellcheck="false"
-                    tabindex="0"
-                  >
-                    {deviceAuthsSettings?.find(x => x.deviceId === auth.deviceId)?.customName || $t('deviceAuthManagement.authInfo.noName')}
-                  </span>
-                </div>
+                <span
+                  class="font-semibold outline-none hover:underline underline-offset-2"
+                  contenteditable
+                  onblur={(event) => saveDeviceName(event, auth.deviceId)}
+                  onkeydown={(event) => event.key === 'Enter' && event.preventDefault()}
+                  role="textbox"
+                  spellcheck="false"
+                  tabindex="0"
+                >
+                  {deviceAuthsSettings?.find(x => x.deviceId === auth.deviceId)?.customName || $t('deviceAuthManagement.authInfo.noName')}
+                </span>
 
                 {#if auth.deviceId === activeAccount.deviceId}
                   <Tooltip tooltip={$t('deviceAuthManagement.authInfo.activeAuth')}>
