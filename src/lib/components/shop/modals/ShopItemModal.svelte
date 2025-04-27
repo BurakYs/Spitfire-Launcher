@@ -71,10 +71,10 @@
 </script>
 
 <Dialog
-  contentProps={{ class: '!max-w-160 !min-h-112 overflow-y-auto' }}
+  contentProps={{ class: '!max-w-160 !min-h-112 overflow-y-auto flex items-center justify-center' }}
   bind:open
 >
-  <div class="flex flex-col gap-y-6">
+  <div class="flex flex-col gap-y-6 w-full">
     <div class="flex flex-col xs:flex-row gap-x-6">
       <img
         class="size-48 xs:size-64 object-cover place-self-center xs:place-self-start rounded-md"
