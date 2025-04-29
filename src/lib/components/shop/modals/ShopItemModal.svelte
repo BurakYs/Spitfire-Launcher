@@ -71,7 +71,7 @@
 </script>
 
 <Dialog
-  contentProps={{ class: '!max-w-160 !min-h-112 overflow-y-auto flex items-center justify-center' }}
+  contentProps={{ class: '!max-w-160 !min-h-112 overflow-y-auto !min-h-0' }}
   bind:open
 >
   <div class="flex flex-col gap-y-6 w-full">
