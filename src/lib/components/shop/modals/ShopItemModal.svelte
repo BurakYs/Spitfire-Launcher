@@ -115,10 +115,10 @@
             <span class="text-muted-foreground">{$t('itemShop.itemInformation.price')}:</span>
 
             {#if $discountedPrice !== item.price.final}
-              <span class="mr-1">{$discountedPrice.toLocaleString()}</span>
-              <span class="line-through text-muted-foreground/95">{item.price.final.toLocaleString()}</span>
+              <span class="mr-1">{$discountedPrice.toLocaleString($language)}</span>
+              <span class="line-through text-muted-foreground/95">{item.price.final.toLocaleString($language)}</span>
             {:else}
-              <span>{item.price.final.toLocaleString()}</span>
+              <span>{item.price.final.toLocaleString($language)}</span>
             {/if}
 
             <img

@@ -15,7 +15,7 @@
   import Tabs from '$components/ui/Tabs.svelte';
   import FriendManager from '$lib/core/managers/friend';
   import XMPPManager from '$lib/core/managers/xmpp';
-  import { accountPartiesStore, accountsStore, friendsStore } from '$lib/stores';
+  import { accountPartiesStore, accountsStore, friendsStore, language } from '$lib/stores';
   import { nonNull, t } from '$lib/utils/util';
   import claimRewards from '$lib/utils/autoKick/claimRewards';
   import { Separator } from 'bits-ui';
@@ -391,7 +391,7 @@
 
         <div class="flex items-center gap-1">
           <span class="text-muted-foreground">{$t('partyManagement.partyMembers.createdAt')}:</span>
-          <span>{partyData.createdAt.toLocaleString()}</span>
+          <span>{partyData.createdAt.toLocaleString($language)}</span>
         </div>
       </div>
     {/if}

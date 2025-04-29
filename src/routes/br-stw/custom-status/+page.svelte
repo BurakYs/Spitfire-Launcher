@@ -51,10 +51,7 @@
     isResettingStatus = true;
 
     try {
-      const connection = await XMPPManager.create(
-        activeAccount,
-        'customStatus'
-      );
+      const connection = await XMPPManager.create(activeAccount, 'customStatus');
 
       connection.resetStatus();
       connection.removePurpose('customStatus');
@@ -94,15 +91,17 @@
       {$t('customStatus.setStatus')}
     </Button>
 
-    <Button
-      disabled={isResettingStatus || !statusSetAccounts.has(activeAccount.accountId)}
-      loading={isResettingStatus}
-      loadingText={$t('customStatus.resettingStatus')}
-      onclick={resetStatus}
-      type="button"
-      variant="epic"
-    >
-      {$t('customStatus.resetStatus')}
-    </Button>
+    {#if statusSetAccounts.has(activeAccount.accountId)}
+      <Button
+        disabled={isResettingStatus}
+        loading={isResettingStatus}
+        loadingText={$t('customStatus.resettingStatus')}
+        onclick={resetStatus}
+        type="button"
+        variant="epic"
+      >
+        {$t('customStatus.resetStatus')}
+      </Button>
+    {/if}
   </form>
 </CenteredPageContent>

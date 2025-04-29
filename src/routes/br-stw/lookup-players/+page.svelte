@@ -204,12 +204,13 @@
 
     const zoneData = matchmakingData.attributes.ZONEINSTANCEID_s && JSON.parse(matchmakingData.attributes.ZONEINSTANCEID_s);
     if (zoneData) {
-      const theaterData = $worldInfoCache?.get(zoneData?.theaterId);
-      const missionData = theaterData?.get(zoneData?.theaterMissionId);
+      const theaterData = $worldInfoCache?.get(zoneData.theaterId);
+      const missionData = theaterData?.get(zoneData.theaterMissionId);
+      const isStormShield = zoneData.zoneThemeClass.includes('TheOutpost');
 
       mission = {
-        nameId: missionData?.zone.type.id,
-        icon: missionData?.zone.type.imageUrl,
+        nameId: isStormShield ? 'storm-shield' : missionData?.zone.type.id,
+        icon: isStormShield ? '/assets/world/storm-shield.png' : missionData?.zone.type.imageUrl,
         powerLevel: missionData?.powerLevel,
         zone: zoneThemes[missionData?.zone.theme?.split('.')[1].toLowerCase() as never],
         theaterId: zoneData.theaterId
@@ -291,7 +292,8 @@
       },
       {
         name: $t('lookupPlayers.playerInfo.boostedXp', { count: stwData?.xpBoosts.boostedXp }),
-        value: stwData && `${stwData.xpBoosts.boostedXp.toLocaleString()} ${stwData.xpBoosts.boostAmount ? `(${$t('lookupPlayers.playerInfo.boostCount', { count: stwData.xpBoosts.boostAmount })})` : ''}`
+        value: stwData &&
+          `${stwData.xpBoosts.boostedXp.toLocaleString($language)} ${stwData.xpBoosts.boostAmount ? `(${$t('lookupPlayers.playerInfo.boostCount', { count: stwData.xpBoosts.boostAmount })})` : ''}`
       },
       {
         name: $t('lookupPlayers.playerInfo.founderEdition'),
@@ -330,7 +332,7 @@
       {#if stwData}
         <STWDetails {heroLoadoutPage} {loadoutData} {mission} {missionPlayers}/>
       {/if}
-      
+
       {#if stwData && stwData?.claimedMissionAlertIds.size > 0 && claimedMisssionAlerts && claimedMisssionAlerts.length > 0}
         <Separator.Root class="bg-border h-px"/>
 

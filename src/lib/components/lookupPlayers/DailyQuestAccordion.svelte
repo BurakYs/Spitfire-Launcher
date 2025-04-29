@@ -64,7 +64,7 @@
 
               {#if reward.amount > 1}
                 <span class="font-medium">
-                  × {reward.amount.toLocaleString()}
+                  × {reward.amount.toLocaleString($language)}
                 </span>
               {/if}
             </div>

@@ -2,7 +2,7 @@
   import { calculateDiscountedShopPrice, t } from '$lib/utils/util';
   import type { SpitfireShopItem } from '$types/game/shop';
   import { ItemColors } from '$lib/constants/itemColors';
-  import { activeAccountId, ownedItemsStore } from '$lib/stores';
+  import { activeAccountId, language, ownedItemsStore } from '$lib/stores';
   import ShopItemModal from '$components/shop/modals/ShopItemModal.svelte';
   import CheckIcon from 'lucide-svelte/icons/check';
   import { derived as jsDerived } from 'svelte/store';
@@ -84,10 +84,10 @@
           {#if isItemOwned}
             {$t('itemShop.owned')}
           {:else if $discountedPrice !== item.price.final}
-            {$discountedPrice.toLocaleString()}
-            <span class="line-through text-white/95">{item.price.final.toLocaleString()}</span>
+            {$discountedPrice.toLocaleString($language)}
+            <span class="line-through text-white/95">{item.price.final.toLocaleString($language)}</span>
           {:else}
-            {item.price.final.toLocaleString()}
+            {item.price.final.toLocaleString($language)}
           {/if}
         </span>
       </div>

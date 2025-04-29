@@ -87,11 +87,11 @@
         <div>
           <h4 class="text-lg font-semibold">{$t('lookupPlayers.stwDetails.missionInformation.title')}</h4>
 
-          {#if mission.nameId}
+          {#if mission.nameId && $ZoneNames[mission.nameId]}
             <div class="flex items-center gap-1">
               <span class="text-muted-foreground">{$t('lookupPlayers.stwDetails.missionInformation.name')}:</span>
               <img class="size-5" alt={$ZoneNames[mission.nameId]} src={mission.icon}/>
-              <span>{$ZoneNames[mission.nameId]} ⚡{mission.powerLevel}</span>
+              <span>{$ZoneNames[mission.nameId]}{mission.powerLevel != null ? ` ⚡ ${mission.powerLevel}` : ''}</span>
             </div>
           {/if}
 

@@ -1,5 +1,6 @@
 <script lang="ts">
   import Accordion from '$components/ui/Accordion/Accordion.svelte';
+  import { language } from '$lib/stores';
   import ChevronDownIcon from 'lucide-svelte/icons/chevron-down';
   import type { WorldParsedMission } from '$types/game/stw/worldInfo';
   import { cn, isLegendaryOrMythicSurvivor, t } from '$lib/utils/util';
@@ -35,7 +36,7 @@
     const normalReward = mission.rewards.find(({ itemId }) => itemId.includes('alteration_upgrade_sr'));
     const alertReward = mission.alert?.rewards.find(({ itemId }) => itemId.includes('alteration_upgrade_sr'));
 
-    return normalReward ? { ...normalReward, appendX: true } : alertReward;
+    return normalReward ? { ...normalReward, isMultiplier: true } : alertReward;
   }
 
   function getVbucksReward(mission: WorldParsedMission) {
@@ -82,7 +83,7 @@
 
                 {#if reward.quantity > 1}
                   <span class="font-bold">
-                    {reward.quantity.toLocaleString()}{'appendX' in reward ? 'x' : ''}
+                    {reward.quantity.toLocaleString($language)}{'isMultiplier' in reward ? 'x' : ''}
                   </span>
                 {/if}
 
@@ -136,7 +137,7 @@
 
                   {#if reward.quantity > 1}
                     <span class="font-medium">
-                      {reward.quantity.toLocaleString()}
+                      {reward.quantity.toLocaleString($language)}
                     </span>
                   {/if}
                 </div>
@@ -154,7 +155,7 @@
 
                 {#if reward.quantity > 1}
                   <span class="font-medium">
-                    × {reward.quantity.toLocaleString()}
+                    × {reward.quantity.toLocaleString($language)}
                   </span>
                 {/if}
               </div>

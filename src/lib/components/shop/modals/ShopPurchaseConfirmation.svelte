@@ -3,7 +3,7 @@
   import LoaderCircleIcon from 'lucide-svelte/icons/loader-circle';
   import type { SpitfireShopItem } from '$types/game/shop';
   import { toast } from 'svelte-sonner';
-  import { accountDataStore, accountsStore, activeAccountId, ownedItemsStore } from '$lib/stores';
+  import { accountDataStore, accountsStore, activeAccountId, language, ownedItemsStore } from '$lib/stores';
   import MCPManager from '$lib/core/managers/mcp';
   import { calculateDiscountedShopPrice, nonNull, t } from '$lib/utils/util';
   import EpicAPIError from '$lib/exceptions/EpicAPIError';
@@ -84,7 +84,7 @@
     <p class="flex items-center gap-1">
       {@html $t('itemShop.purchaseConfirmation.description', {
         name: `<span class="font-semibold shrink-0">${item.name}</span>`,
-        price: `<span class="font-semibold shrink-0">${$discountedPrice.toLocaleString()}</span>`,
+        price: `<span class="font-semibold shrink-0">${$discountedPrice.toLocaleString($language)}</span>`,
         vbucksIcon: '<img class="size-5 shrink-0" alt="V-Bucks" src="/assets/resources/currency_mtxswap.png"/>'
       })}
     </p>

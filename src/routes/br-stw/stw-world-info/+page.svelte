@@ -6,7 +6,7 @@
   import MCPManager from '$lib/core/managers/mcp';
   import type { WorldParsedMission } from '$types/game/stw/worldInfo';
   import WorldInfoSectionAccordion from '$components/worldInfo/WorldInfoSectionAccordion.svelte';
-  import { accountsStore, worldInfoCache } from '$lib/stores';
+  import { accountsStore, language, worldInfoCache } from '$lib/stores';
   import { WorldPowerLevels, Theaters } from '$lib/constants/stw/worldInfo';
   import { isLegendaryOrMythicSurvivor, t } from '$lib/utils/util';
 
@@ -135,7 +135,7 @@
             <img class="size-7" alt={name} src={icon}/>
           </div>
           <div class="grow px-2 font-medium text-center">
-            {amount.toLocaleString()}
+            {amount.toLocaleString($language)}
           </div>
         </div>
       {/each}

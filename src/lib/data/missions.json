@@ -319,6 +319,14 @@
       "tr": "Laboratuvar"
     }
   },
+  "surviveTheStorm": {
+    "names": {
+      "en": "Survive the Storm",
+      "fr": "Survivre à la tempête",
+      "es": "Sobrevive a la tormenta",
+      "tr": "Fırtınayı Atlat"
+    }
+  },
   "surviveTheStorm:3Days": {
     "names": {
       "en": "Survive the Storm: 3 Days",

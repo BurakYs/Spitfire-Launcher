@@ -135,7 +135,7 @@
                 </div>
 
                 <div class="text-sm">
-                  <span class="font-medium">{gamemode.value.toLocaleString()}</span>
+                  <span class="font-medium">{gamemode.value.toLocaleString($language)}</span>
                   <span class="text-muted-foreground">/ {new Intl.NumberFormat($language, {
                     notation: 'compact',
                     compactDisplay: 'short'

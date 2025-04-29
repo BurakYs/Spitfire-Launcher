@@ -14,7 +14,7 @@
   import CenteredPageContent from '$components/CenteredPageContent.svelte';
   import AccountCombobox from '$components/ui/Combobox/AccountCombobox.svelte';
   import Button from '$components/ui/Button.svelte';
-  import { accountsStore, doingBulkOperations } from '$lib/stores';
+  import { accountsStore, doingBulkOperations, language } from '$lib/stores';
   import MCPManager from '$lib/core/managers/mcp';
   import { calculateVbucks, t } from '$lib/utils/util';
   import EpicAPIError from '$lib/exceptions/EpicAPIError';
@@ -77,7 +77,7 @@
 
           {#if status.data.vbucksAmount != null}
             <div class="flex items-center gap-x-1">
-              <p>{status.data.vbucksAmount.toLocaleString()}</p>
+              <p>{status.data.vbucksAmount.toLocaleString($language)}</p>
               <img
                 class="size-5"
                 alt="V-Bucks"

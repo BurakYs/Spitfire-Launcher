@@ -5,7 +5,7 @@
   import UserIcon from 'lucide-svelte/icons/user';
   import ChevronsUpAndDownIcon from 'lucide-svelte/icons/chevrons-up-down';
   import GiftIcon from 'lucide-svelte/icons/gift';
-  import { accountDataStore, accountsStore } from '$lib/stores';
+  import { accountDataStore, accountsStore, language } from '$lib/stores';
   import { nonNull, t } from '$lib/utils/util';
   import { toast } from 'svelte-sonner';
   import type { SpitfireShopItem } from '$types/game/shop';
@@ -121,7 +121,7 @@
   {#snippet description()}
     {@html $t('itemShop.giftConfirmation.description', {
       name: `<span class="font-semibold shrink-0">${item.name}</span>`,
-      price: `<span class="font-semibold shrink-0">${(item.price.final * (selectedFriends.length || 1)).toLocaleString()}</span>`,
+      price: `<span class="font-semibold shrink-0">${(item.price.final * (selectedFriends.length || 1)).toLocaleString($language)}</span>`,
       vbucksIcon: '<img class="inline-block size-5 align-middle shrink-0" alt="V-Bucks" src="/assets/resources/currency_mtxswap.png"/>'
     })}
   {/snippet}
