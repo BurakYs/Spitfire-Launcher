@@ -1,5 +1,6 @@
 <script lang="ts">
   import { page } from '$app/state';
+  import Avatar from '$components/ui/Avatar.svelte';
   import ChevronDownIcon from 'lucide-svelte/icons/chevron-down';
   import PlusIcon from 'lucide-svelte/icons/plus';
   import LogOutIcon from 'lucide-svelte/icons/log-out';
@@ -8,7 +9,7 @@
   import { DropdownMenu } from '$components/ui/DropdownMenu';
   import Account from '$lib/core/account';
   import type { AccountData } from '$types/accounts';
-  import { accountsStore } from '$lib/stores';
+  import { accountsStore, avatarCache } from '$lib/stores';
   import { toast } from 'svelte-sonner';
   import LoginModal from '$components/login/LoginModal.svelte';
   import { t } from '$lib/utils/util';
@@ -100,12 +101,22 @@
       {#if filteredAccounts.length > 0}
         <div class="py-2 max-h-64 overflow-y-auto">
           {#each filteredAccounts as account (account.accountId)}
+            {@const fallbackAvatar = '/assets/misc/defaultOutfitIcon.png'}
+            {@const avatar = avatarCache.get(account.accountId) || fallbackAvatar}
+
             <DropdownMenu.Item onclick={() => changeAccounts(account)}>
-              {#if activeAccount?.accountId === account.accountId}
-                <CheckIcon class="size-5"/>
-              {/if}
+              <Avatar
+                alt={account.displayName}
+                fallback={fallbackAvatar}
+                imageClass="size-7"
+                src={avatar}
+              />
 
               <span class="truncate">{account.displayName}</span>
+
+              {#if activeAccount?.accountId === account.accountId}
+                <CheckIcon class="size-5 ml-auto"/>
+              {/if}
             </DropdownMenu.Item>
           {/each}
         </div>

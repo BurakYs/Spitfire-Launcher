@@ -69,7 +69,7 @@
       checkForUpdates(),
       activeAccount && FriendManager.getSummary(activeAccount),
       activeAccount && LookupManager.fetchByIds(activeAccount, allAccounts.map(account => account.accountId)),
-      activeAccount && AvatarManager.fetchAvatars(activeAccount, allAccounts.map(account => account.accountId))
+      allAccounts.map(account => AvatarManager.fetchAvatars(account, [account.accountId]))
     ]);
   });
 </script>
