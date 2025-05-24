@@ -1,21 +1,9 @@
 import ky from 'ky';
-import type { SpitfireResponse, SpitfireShop, SpitfireShopItem, SpitfireShopSection } from '$types/game/shop';
+import type { SpitfireShop, SpitfireShopItem, SpitfireShopSection } from '$types/game/shop';
 import { brShopStore } from '$lib/stores';
 
 const spitfireAPIService = ky.extend({
-  prefixUrl: 'https://api.rookie-spitfire.xyz/v1/epic',
-  hooks: {
-    afterResponse: [
-      async (request, options, response) => {
-        if (!response.ok) return;
-
-        const body = await response.json<SpitfireResponse<unknown>>();
-        if (!body.data) return;
-
-        return new Response(JSON.stringify(body.data), response);
-      }
-    ]
-  }
+  prefixUrl: 'https://api.rookie-spitfire.xyz/epic',
 });
 
 export default class ShopManager {

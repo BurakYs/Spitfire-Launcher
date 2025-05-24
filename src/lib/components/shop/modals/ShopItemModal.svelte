@@ -79,7 +79,7 @@
       <img
         class="size-48 xs:size-64 object-cover place-self-center xs:place-self-start rounded-md"
         alt={item.name}
-        src={item.assets.featured || item.assets.icon || item.assets.smallIcon}
+        src={item.assets.featured || item.assets.large || item.assets.small}
       />
 
       <div class="flex flex-col justify-between gap-y-4 mt-3 xs:mt-0">

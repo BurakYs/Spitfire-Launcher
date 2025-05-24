@@ -17,7 +17,7 @@
 
   const isItemOwned = $derived($activeAccountId && $ownedItemsStore[$activeAccountId!]?.has(item.id?.toLowerCase()));
   const displayName = item.name;
-  const imageUrl = item.assets.featured || item.assets.icon || item.assets.smallIcon;
+  const imageUrl = item.assets.featured || item.assets.large || item.assets.small;
   const discountedPrice = jsDerived([activeAccountId, ownedItemsStore], ([accountId]) => calculateDiscountedShopPrice(accountId!, item));
 
   const colors: Record<string, string> = { ...ItemColors.rarities, ...ItemColors.series };

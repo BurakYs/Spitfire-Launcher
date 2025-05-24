@@ -1,10 +1,3 @@
-export type SpitfireResponse<T> = {
-  success: boolean;
-  status: number;
-  data?: T;
-  error?: string;
-};
-
 export type SpitfireShopFilter = 'all' | 'new' | 'leavingSoon' | 'longestWait';
 
 export type SpitfireShop = {
@@ -25,19 +18,19 @@ export type SpitfireShopItem = {
     regular: number;
     floor: number;
   };
-  assets: {
+  assets: Partial<{
+    small: string;
+    large: string;
     featured: string;
-    icon: string;
-    smallIcon: string;
-    lego?: {
+    lego: Partial<{
       small: string;
       large: string;
-    };
-    bean?: {
+    }>;
+    bean: Partial<{
       small: string;
       large: string;
-    }
-  };
+    }>;
+  }>;
   type: {
     id: string;
     name: string;
@@ -65,14 +58,20 @@ export type SpitfireShopItem = {
     id: string;
     name: string;
   };
+  banner: {
+    id: string;
+    name: string;
+    intensity: string;
+  };
   contents: {
     id: string;
     name: string;
     alreadyOwnedPriceReduction: number;
   }[];
-  giftable: boolean;
   shopHistory: string[];
   sortPriority: number;
+  giftable: boolean;
+  refundable: boolean;
 };
 
 export type SpitfireShopSection = {
