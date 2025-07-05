@@ -67,6 +67,7 @@
       ]
     },
     "shell:default",
+    "shell:allow-open",
     {
       "identifier": "shell:allow-execute",
       "allow": [
@@ -100,6 +101,10 @@
               "validator": "FortniteClient-Win64-Shipping\\.exe|EasyAntiCheat_EOS\\.exe|FortniteClient-Win64-Shipping_EAC\\.exe|UnrealEditorFortnite-Win64-Shipping\\.exe|RocketLeague\\.exe|FallGuys_client_game\\.exe"
             }
           ]
+        },
+        {
+          "name": "../bin/legendary",
+          "sidecar": true
         }
       ]
     },
