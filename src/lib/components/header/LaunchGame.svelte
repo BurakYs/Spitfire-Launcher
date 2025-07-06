@@ -109,7 +109,7 @@
 
     try {
       const result = await Command.create('kill-epic-app', [...baseArgs, processData.mainExe]).execute();
-      if (result.stderr) throw new Error(result.stderr);
+      if (result.code !== 0) throw new Error(`Failed to stop process: ${processData.mainExe} | Code: ${result.code}`);
 
       launchingProcesses.delete(id);
       runningProccesses.delete(id);
