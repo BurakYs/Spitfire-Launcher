@@ -115,10 +115,16 @@ class DownloadManager {
           const type = item.hasUpdate ? 'update' : 'install';
           toast.error(type === 'update' ? `An error occurred while updating ${item.title}` : `An error occurred while installing ${item.title}`);
           this.afterInstallCleanup(item.id);
+
+          console.error(error);
         }
       });
     } catch (error) {
-      throw new LegendaryError('TODO');
+      const type = item.hasUpdate ? 'update' : 'install';
+      const errorMessage = type === 'update' ? `Failed to update ${item.title}` : `Failed to install ${item.title}`;
+      toast.error(errorMessage);
+
+      this.afterInstallCleanup(item.id);
     }
   }
 
@@ -197,7 +203,7 @@ class DownloadManager {
   }
 
   private parseDownloadOutput(output: string) {
-    const MiBtoBytes = (mib: number) => mib * 1024 * 1024;
+    const MiBtoBytes = (mib: string) => Number.parseFloat(mib) * 1024 * 1024;
     const timeToMs = (timeStr: string) => {
       const [h, m, s] = timeStr.split(':').map(Number);
       return ((h * 3600) + (m * 60) + s) * 1000;
@@ -207,13 +213,13 @@ class DownloadManager {
 
     let match = output.match(/Install size: ([\d.]+) MiB/);
     if (match) {
-      result.installSize = MiBtoBytes(parseFloat(match[1]));
+      result.installSize = MiBtoBytes(match[1]);
       return result;
     }
 
     match = output.match(/Download size: ([\d.]+) MiB/);
     if (match) {
-      result.downloadSize = MiBtoBytes(parseFloat(match[1]));
+      result.downloadSize = MiBtoBytes(match[1]);
       return result;
     }
 
@@ -226,19 +232,19 @@ class DownloadManager {
 
     match = output.match(/Downloaded: ([\d.]+) MiB/);
     if (match) {
-      result.downloaded = MiBtoBytes(parseFloat(match[1]));
+      result.downloaded = MiBtoBytes(match[1]);
       return result;
     }
 
     match = output.match(/Download\s+- ([\d.]+) MiB\/s \(raw\)/);
     if (match) {
-      result.downloadSpeed = MiBtoBytes(parseFloat(match[1]));
+      result.downloadSpeed = MiBtoBytes(match[1]);
       return result;
     }
 
     match = output.match(/Disk\s+- ([\d.]+) MiB\/s \(write\)/);
     if (match) {
-      result.diskWriteSpeed = MiBtoBytes(parseFloat(match[1]));
+      result.diskWriteSpeed = MiBtoBytes(match[1]);
       return result;
     }
 

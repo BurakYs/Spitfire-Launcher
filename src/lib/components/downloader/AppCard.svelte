@@ -2,7 +2,7 @@
   import { SvelteSet } from 'svelte/reactivity';
 
   const launchingAppIds = new SvelteSet<string>();
-  const runninngAppIds = new SvelteSet<string>();
+  const runningAppIds = new SvelteSet<string>();
   const deletingAppIds = new SvelteSet<string>();
   const verifyingAppIds = new SvelteSet<string>();
 </script>
@@ -49,7 +49,7 @@
 
     try {
       await Legendary.launch(app.id);
-      runninngAppIds.add(app.id);
+      runningAppIds.add(app.id);
     } catch (error) {
       console.error(error);
       toast.error('Failed to launch app');
@@ -181,7 +181,7 @@
       {#if !app.hasUpdate}
         <Button
           class="flex items-center justify-center flex-1 gap-1 font-medium px-4"
-          disabled={runninngAppIds.has(app.id) || launchingAppIds.has(app.id) || verifyingAppIds.has(app.id) || deletingAppIds.has(app.id)}
+          disabled={runningAppIds.has(app.id) || launchingAppIds.has(app.id) || verifyingAppIds.has(app.id) || deletingAppIds.has(app.id)}
           onclick={() => launchApp()}
           size="sm"
           variant="epic"
@@ -275,7 +275,7 @@
         <Button
           class="flex items-center justify-center flex-1 gap-2 font-medium px-4 py-2"
           disabled={isInstalling}
-          onclick={() => isInstalling ? goto('/downloads') : installApp()}
+          onclick={() => isInstalling ? goto('/downloader/downloads') : installApp()}
           size="sm"
           variant="outline"
         >

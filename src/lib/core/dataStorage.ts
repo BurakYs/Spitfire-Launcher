@@ -6,6 +6,7 @@ import {
   allSettingsSchema,
   automationSettingsSchema,
   deviceAuthsSettingsSchema,
+  downloaderSettingsSchema,
   taxiSettingsSchema
 } from '$lib/validations/settings';
 import type { AccountDataFile } from '$types/accounts';
@@ -137,7 +138,7 @@ export default class DataStorage {
     const data = await DataStorage.getFile<DownloaderSettings>(
       DOWNLOADER_FILE_PATH,
       DOWNLOADER_INITIAL_DATA,
-      undefined,
+      downloaderSettingsSchema,
       (data) => { DataStorage.caches.downloaderFile = data; }
     );
 
