@@ -46,7 +46,7 @@ export const TAXI_INITIAL_DATA: TaxiSettings = [];
 
 export const DOWNLOADER_FILE_PATH = dev ? 'downloader-dev.json' : 'downloader.json';
 export const DOWNLOADER_INITIAL_DATA: DownloaderSettings = {
-  downloadPath: '%HOME%\\Games\\Spitfire Launcher',
+  downloadPath: '%HOME%/Games/Spitfire Launcher',
   autoUpdate: true,
   sendNotifications: true,
   favoriteApps: [],
@@ -67,7 +67,7 @@ export default class DataStorage {
 
   static async init() {
     const home = await homeDir();
-    DOWNLOADER_INITIAL_DATA.downloadPath = DOWNLOADER_INITIAL_DATA.downloadPath!.replace('%HOME%', home);
+    DOWNLOADER_INITIAL_DATA.downloadPath = DOWNLOADER_INITIAL_DATA.downloadPath!.replace('%HOME%', home.replaceAll('\\', '/'));
     await DataStorage.getDataDirectory();
   }
 
