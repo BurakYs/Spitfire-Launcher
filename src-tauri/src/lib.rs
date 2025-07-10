@@ -53,7 +53,7 @@ fn get_locale() -> String {
 #[tauri::command]
 async fn run_legendary(app: AppHandle, args: Vec<String>) -> Result<CommandOutput, String> {
     let sidecar = create_legendary_sidecar(&app, args)?;
-    let (mut rx, child) = sidecar.spawn().map_err(|e| e.to_string())?;
+    let (mut rx, _) = sidecar.spawn().map_err(|e| e.to_string())?;
 
     let mut stdout = String::new();
     let mut stderr = String::new();
@@ -83,7 +83,6 @@ async fn run_legendary(app: AppHandle, args: Vec<String>) -> Result<CommandOutpu
         }
     }
 
-    let _ = child.kill();
     Ok(CommandOutput {
         code: None,
         signal: None,
@@ -194,7 +193,7 @@ async fn stop_legendary_stream(stream_id: String, force_kill_all: bool) -> Resul
             streams.remove(&stream_id)
         };
 
-        if let Some(mut child) = child {
+        if let Some(child) = child {
             match child.kill() {
                 Ok(_) => Ok(true),
                 Err(e) => Err(format!("Failed to kill process: {}", e)),
