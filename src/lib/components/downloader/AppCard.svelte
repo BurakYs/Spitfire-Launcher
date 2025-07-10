@@ -15,7 +15,6 @@
   import { favoritedAppIds, hiddenAppIds, ownedApps, perAppAutoUpdate } from '$lib/stores';
   import Legendary from '$lib/utils/legendary';
   import { bytesToSize } from '$lib/utils/util';
-  import type { ParsedApp } from '$types/legendary';
   import type { DownloaderSettings } from '$types/settings';
   import CircleMinusIcon from 'lucide-svelte/icons/circle-minus';
   import RefreshCwOffIcon from 'lucide-svelte/icons/refresh-cw-off';
