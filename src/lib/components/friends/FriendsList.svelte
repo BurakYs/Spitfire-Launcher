@@ -11,7 +11,7 @@
   import FriendManager from '$lib/core/managers/friend';
   import { DropdownMenu } from '$components/ui/DropdownMenu';
   import { writeText } from '@tauri-apps/plugin-clipboard-manager';
-  import { CopyIcon } from 'lucide-svelte';
+  import CopyIcon from 'lucide-svelte/icons/copy';
   import EllipsisIcon from 'lucide-svelte/icons/ellipsis';
   import LoaderCircleIcon from 'lucide-svelte/icons/loader-circle';
   import UserPlusIcon from 'lucide-svelte/icons/user-plus';

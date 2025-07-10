@@ -445,8 +445,8 @@
       "appSettings": "Uygulama Ayarları",
       "customizableMenu": "Özelleştirilebilir Menü"
     },
+    "invalidValue": "Geçersiz bir değer girdiniz.",
     "appSettings": {
-      "invalidValue": "Geçersiz bir değer girdiniz.",
       "gamePath": "Özel Oyun Dosya Yolu",
       "missionCheckInterval": {
         "title": "Görev Kontrol Aralığı",

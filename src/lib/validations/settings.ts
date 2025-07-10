@@ -6,7 +6,7 @@ export const appSettingsSchema = z.object({
   gamePath: z.string(),
   missionCheckInterval: z.number().positive(),
   claimRewardsDelay: z.number().positive(),
-  startingPage: z.enum(['autoKick', 'itemShop', 'stwWorldInfo', 'stwMissionAlerts', 'taxiService', 'dailyQuests']),
+  startingPage: z.enum(['autoKick', 'itemShop', 'stwWorldInfo', 'stwMissionAlerts', 'taxiService', 'dailyQuests', 'library']),
   startingAccount: z.enum(['firstInTheList', 'lastUsed']),
   hideToTray: z.boolean(),
   checkForUpdates: z.boolean()
@@ -18,6 +18,9 @@ export const deviceAuthsSettingsSchema = z.array(z.object({
 }));
 
 export const customizableMenuSettingsSchema = z.object({
+  library: z.boolean().default(true),
+  downloads: z.boolean().default(true),
+
   vbucksInformation: z.boolean().default(true),
   friendManagement: z.boolean().default(true),
   redeemCodes: z.boolean().default(true),
@@ -62,3 +65,12 @@ export const taxiSettingSchema = z.object({
 });
 
 export const taxiSettingsSchema = z.array(taxiSettingSchema);
+
+export const downloaderSettingsSchema = z.object({
+  downloadPath: z.string(),
+  autoUpdate: z.boolean(),
+  sendNotifications: z.boolean(),
+  favoriteApps: z.array(z.string()),
+  hiddenApps: z.array(z.string()),
+  perAppAutoUpdate: z.record(z.boolean())
+}).partial();

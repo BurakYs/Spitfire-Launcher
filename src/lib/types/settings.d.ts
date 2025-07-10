@@ -8,7 +8,8 @@ import {
   customizableMenuSettingsSchema,
   deviceAuthsSettingsSchema,
   taxiSettingSchema,
-  taxiSettingsSchema
+  taxiSettingsSchema,
+  downloaderSettingsSchema
 } from '$lib/validations/settings';
 
 export type AppSettings = z.infer<typeof appSettingsSchema>;
@@ -19,3 +20,4 @@ export type AutomationSetting = z.infer<typeof automationSettingSchema>;
 export type AutomationSettings = z.infer<typeof automationSettingsSchema>;
 export type TaxiSetting = z.infer<typeof taxiSettingSchema>;
 export type TaxiSettings = z.infer<typeof taxiSettingsSchema>;
+export type DownloaderSettings = z.infer<typeof downloaderSettingsSchema>;

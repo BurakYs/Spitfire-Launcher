@@ -76,6 +76,7 @@
 
     Promise.allSettled([
       AutoKickBase.loadAccounts(),
+      DataStorage.init(),
       handleWorldInfo(),
       checkForUpdates(),
       syncAccountNames(),

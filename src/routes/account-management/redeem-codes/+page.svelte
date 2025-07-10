@@ -112,8 +112,8 @@
       disabled={!selectedAccounts?.length || !codesToRedeem.length || isRedeeming}
       loading={isRedeeming}
       loadingText={$t('redeemCodes.redeeming')}
-      variant="epic"
       type="submit"
+      variant="epic"
     >
       {$t('redeemCodes.redeemCodes')}
     </Button>

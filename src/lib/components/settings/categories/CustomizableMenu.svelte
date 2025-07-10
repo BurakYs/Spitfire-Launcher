@@ -9,10 +9,7 @@
 
   let menuSettings = $derived($customizableMenuStore);
 
-  function setVisibility<K extends keyof NonNullable<AllSettings['customizableMenu']>>(
-    value: boolean,
-    key: K
-  ) {
+  function setVisibility(key: string, value: boolean) {
     menuSettings = {
       ...menuSettings,
       [key]: value
@@ -33,13 +30,13 @@
       <Separator.Root class="bg-border h-px mb-2"/>
 
       <div class="grid grid-cols-1 xs:grid-cols-2 gap-y-1 gap-x-3">
-        {#each category.items as item (item.name)}
+        {#each category.items as item (item.key)}
           <div class="flex items-center justify-between">
             <Label class="flex-1 text-sm font-normal" for={item.key}>{item.name}</Label>
             <Switch
               id={item.key}
               checked={menuSettings[item.key] !== false}
-              onCheckedChange={(checked) => setVisibility(checked, item.key)}
+              onCheckedChange={(checked) => setVisibility(item.key, checked)}
             />
           </div>
         {/each}

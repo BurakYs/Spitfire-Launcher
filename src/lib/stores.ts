@@ -1,14 +1,15 @@
 import type { BlockedAccountData, FriendData, IncomingFriendRequestData, OutgoingFriendRequestData } from '$types/game/friends';
 import type { PartyData } from '$types/game/party';
-import { SvelteMap } from 'svelte/reactivity';
+import type { ParsedApp } from '$types/legendary';
+import { SvelteMap, SvelteSet } from 'svelte/reactivity';
 import { writable } from 'svelte/store';
 import type { AccountData, AccountStoreData } from '$types/accounts';
 import type { ParsedWorldInfo } from '$types/game/stw/worldInfo';
 import type { EpicOAuthData } from '$types/game/authorizations';
-import type { AutomationSetting } from '$types/settings';
+import type { AutomationSetting, DownloaderSettings } from '$types/settings';
 import type { AutomationAccount } from '$lib/core/managers/automation/autoKickBase';
 import type { SpitfireShop } from '$types/game/shop';
-import type { Locale } from './paraglide/runtime';
+import { type Locale, baseLocale } from './paraglide/runtime';
 
 export const activeAccountId = writable<string | null>();
 export const accountsStore = writable<{
@@ -40,7 +41,7 @@ export const brShopStore = writable<SpitfireShop>();
 export const accountDataStore = writable<Record<string, AccountStoreData>>({});
 export const ownedItemsStore = writable<Record<string, Set<string>>>({});
 export const customizableMenuStore = writable<Record<string, boolean>>({});
-export const language = writable<Locale>('en');
+export const language = writable<Locale>(baseLocale);
 export const friendsStore = writable<Record<string, {
   friends: Map<string, FriendData>;
   incoming: Map<string, IncomingFriendRequestData>;
@@ -49,3 +50,7 @@ export const friendsStore = writable<Record<string, {
 }>>({});
 export const displayNamesCache = new SvelteMap<string, string>();
 export const avatarCache = new SvelteMap<string, string>();
+export const ownedApps = writable<ParsedApp[]>([]);
+export const favoritedAppIds = new SvelteSet<string>();
+export const hiddenAppIds = new SvelteSet<string>();
+export const perAppAutoUpdate = writable<NonNullable<DownloaderSettings['perAppAutoUpdate']>>({});

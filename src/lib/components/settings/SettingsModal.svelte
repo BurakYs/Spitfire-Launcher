@@ -1,13 +1,18 @@
 <script lang="ts">
+  import DownloaderSettings from '$components/settings/categories/DownloaderSettings.svelte';
   import Dialog from '$components/ui/Dialog.svelte';
   import AppSettings from '$components/settings/categories/AppSettings.svelte';
   import CustomizableMenu from '$components/settings/categories/CustomizableMenu.svelte';
+  import { platform as getPlatform } from '@tauri-apps/plugin-os';
   import SettingsIcon from 'lucide-svelte/icons/settings';
   import { cn, t } from '$lib/utils/util';
 
+  const platform = getPlatform();
+
   const categories = $derived([
     { id: 'appSettings', name: $t('settings.tabs.appSettings'), component: AppSettings },
-    { id: 'customizableMenu', name: $t('settings.tabs.customizableMenu'), component: CustomizableMenu }
+    { id: 'customizableMenu', name: $t('settings.tabs.customizableMenu'), component: CustomizableMenu },
+    ...(platform === 'windows' ? [{ id: 'downloaderSettings', name: $t('settings.tabs.downloaderSettings'), component: DownloaderSettings }] : [])
   ]);
 
   // svelte-ignore state_referenced_locally

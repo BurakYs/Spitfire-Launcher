@@ -12,6 +12,7 @@
     autoSelect?: boolean;
     disabled?: boolean;
     class?: ClassValue;
+    triggerClass?: ClassValue;
   } & (
     | {
       type: 'single';
@@ -29,7 +30,8 @@
     type = 'multiple',
     selected = $bindable(),
     disabled,
-    class: className
+    class: className,
+    triggerClass
   }: Props = $props();
 
   const accountList = $derived(customList || $accountsStore.allAccounts);
@@ -93,6 +95,7 @@
   inputProps={{ class: className }}
   {items}
   placeholder={selectedAccounts}
+  {triggerClass}
   {type}
   bind:value={selected as never}
 />

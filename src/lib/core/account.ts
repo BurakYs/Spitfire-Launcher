@@ -1,6 +1,7 @@
 import DataStorage, { ACCOUNTS_FILE_PATH } from '$lib/core/dataStorage';
 import AvatarManager from '$lib/core/managers/avatar';
 import XMPPManager from '$lib/core/managers/xmpp';
+import Legendary from '$lib/utils/legendary';
 import { get } from 'svelte/store';
 import { accountsStore, activeAccountId } from '$lib/stores';
 import type { AccountData, AccountDataFile } from '$types/accounts';
@@ -35,7 +36,7 @@ export default class Account {
 
   static async logout(accountId: string, deleteAuth = true) {
     const oldAccounts = get(accountsStore).allAccounts;
-    const oldActiveAccount = oldAccounts.find(account => account.accountId === accountId);
+    const oldActiveAccount = oldAccounts.find(account => account.accountId === accountId)!;
 
     const newAccounts = oldAccounts.filter(account => account.accountId !== accountId);
 
@@ -56,9 +57,18 @@ export default class Account {
     });
 
     AutoKickBase.removeAccount(accountId);
-    XMPPManager.instances.get(accountId)?.disconnect()
+    XMPPManager.instances.get(accountId)?.disconnect();
 
-    if (oldActiveAccount?.deviceId && deleteAuth)
+    if (oldActiveAccount.deviceId && deleteAuth)
       DeviceAuthManager.delete(oldActiveAccount, oldActiveAccount.deviceId).catch(console.error);
+
+    this.logoutLegendary(oldActiveAccount.accountId).catch(console.error);
+  }
+
+  private static async logoutLegendary(accountId: string) {
+    const legendaryId = await Legendary.getAccount();
+    if (legendaryId === accountId) {
+      await Legendary.logout();
+    }
   }
 }
