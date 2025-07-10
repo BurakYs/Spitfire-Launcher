@@ -62,7 +62,7 @@ fn get_locale() -> String {
 #[tauri::command]
 async fn run_legendary(app: AppHandle, args: Vec<String>) -> Result<CommandOutput, String> {
     let sidecar = create_legendary_sidecar(&app, args)?;
-    let (mut rx, _) = sidecar.spawn().map_err(|e| e.to_string())?;
+    let (mut rx, _child) = sidecar.spawn().map_err(|e| e.to_string())?;
 
     let mut stdout = String::new();
     let mut stderr = String::new();
@@ -179,24 +179,7 @@ async fn start_legendary_stream(app: AppHandle, stream_id: String, args: Vec<Str
 #[tauri::command]
 async fn stop_legendary_stream(stream_id: String, force_kill_all: bool) -> Result<bool, String> {
     if force_kill_all {
-        let mut system = System::new_all();
-        system.refresh_processes_specifics(ProcessesToUpdate::All, true, ProcessRefreshKind::nothing());
-
-        let mut count = 0;
-        for (_, process) in system.processes() {
-            let process_name = if cfg!(windows) { "legendary.exe" } else { "legendary" };
-            if process.name().eq(process_name) {
-                process.kill_with(Signal::Kill);
-                count += 1;
-            }
-        }
-
-        {
-            let mut streams = ACTIVE_STREAMS.lock().unwrap();
-            streams.clear();
-        }
-
-        Ok(count > 0)
+        return kill_legendary_processes();
     } else {
         let child = {
             let mut streams = ACTIVE_STREAMS.lock().unwrap();
@@ -230,18 +213,52 @@ fn create_legendary_sidecar(app: &AppHandle, args: Vec<String>) -> Result<tauri_
         .env("LEGENDARY_CONFIG_PATH", config_path))
 }
 
+fn kill_legendary_processes() -> Result<bool, String> {
+    {
+        let streams = ACTIVE_STREAMS.lock().unwrap();
+        if streams.is_empty() {
+            return Ok(true);
+        }
+    }
+
+    let mut system = System::new_all();
+    system.refresh_processes_specifics(ProcessesToUpdate::All, true, ProcessRefreshKind::nothing());
+
+    let mut count = 0;
+    for (_, process) in system.processes() {
+        let process_name = if cfg!(windows) { "legendary.exe" } else { "legendary" };
+        if process.name().eq(process_name) {
+            process.kill_with(Signal::Kill);
+            count += 1;
+        }
+    }
+
+    {
+        let mut streams = ACTIVE_STREAMS.lock().unwrap();
+        streams.clear();
+    }
+
+    Ok(count > 0)
+}
+
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     let mut builder = tauri::Builder::default();
 
     #[cfg(desktop)]
     {
-        builder = builder.plugin(tauri_plugin_single_instance::init(|app, _args, _cwd| {
-            let _ = app
-                .get_webview_window("main")
-                .expect("no main window")
-                .set_focus();
-        }));
+        builder = builder
+            .plugin(tauri_plugin_single_instance::init(|app, _args, _cwd| {
+                let _ = app
+                    .get_webview_window("main")
+                    .expect("no main window")
+                    .set_focus();
+            }))
+            .on_window_event(|_window, event| {
+                if let tauri::WindowEvent::Destroyed = event {
+                    let _ = kill_legendary_processes();
+                }
+            });
     }
 
     builder
