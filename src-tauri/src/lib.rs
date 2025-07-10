@@ -184,7 +184,8 @@ async fn stop_legendary_stream(stream_id: String, force_kill_all: bool) -> Resul
 
         let mut count = 0;
         for (_, process) in system.processes() {
-            if process.name().eq("legendary.exe") {
+            let process_name = if cfg!(windows) { "legendary.exe" } else { "legendary" };
+            if process.name().eq(process_name) {
                 process.kill_with(Signal::Kill);
                 count += 1;
             }
