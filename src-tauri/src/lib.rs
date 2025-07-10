@@ -16,9 +16,18 @@ pub struct CommandOutput {
 }
 
 #[derive(Debug, Serialize, Deserialize, Clone)]
+#[serde(rename_all = "snake_case")]
+pub enum EventType {
+    Stdout,
+    Stderr,
+    Terminated,
+    Error,
+}
+
+#[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct StreamEvent {
     pub stream_id: String,
-    pub event_type: String, // "stdout", "stderr", "terminated", "error"
+    pub event_type: EventType,
     pub data: String,
     pub code: Option<i32>,
     pub signal: Option<i32>,
@@ -111,14 +120,14 @@ async fn start_legendary_stream(app: AppHandle, stream_id: String, args: Vec<Str
             let stream_event = match event {
                 CommandEvent::Stdout(bytes) => StreamEvent {
                     stream_id: stream_id_clone.clone(),
-                    event_type: "stdout".to_string(),
+                    event_type: EventType::Stdout,
                     data: String::from_utf8_lossy(&bytes).to_string(),
                     code: None,
                     signal: None,
                 },
                 CommandEvent::Stderr(bytes) => StreamEvent {
                     stream_id: stream_id_clone.clone(),
-                    event_type: "stderr".to_string(),
+                    event_type: EventType::Stderr,
                     data: String::from_utf8_lossy(&bytes).to_string(),
                     code: None,
                     signal: None,
@@ -126,7 +135,7 @@ async fn start_legendary_stream(app: AppHandle, stream_id: String, args: Vec<Str
                 CommandEvent::Terminated(payload) => {
                     let event = StreamEvent {
                         stream_id: stream_id_clone.clone(),
-                        event_type: "terminated".to_string(),
+                        event_type: EventType::Terminated,
                         data: String::new(),
                         code: payload.code,
                         signal: payload.signal,
@@ -143,7 +152,7 @@ async fn start_legendary_stream(app: AppHandle, stream_id: String, args: Vec<Str
                 CommandEvent::Error(error) => {
                     let event = StreamEvent {
                         stream_id: stream_id_clone.clone(),
-                        event_type: "error".to_string(),
+                        event_type: EventType::Error,
                         data: error,
                         code: None,
                         signal: None,
