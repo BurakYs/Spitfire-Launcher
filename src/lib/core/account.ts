@@ -36,7 +36,7 @@ export default class Account {
 
   static async logout(accountId: string, deleteAuth = true) {
     const oldAccounts = get(accountsStore).allAccounts;
-    const oldActiveAccount = oldAccounts.find(account => account.accountId === accountId)!;
+    const oldActiveAccount = oldAccounts.find(account => account.accountId === accountId);
 
     const newAccounts = oldAccounts.filter(account => account.accountId !== accountId);
 
@@ -59,10 +59,13 @@ export default class Account {
     AutoKickBase.removeAccount(accountId);
     XMPPManager.instances.get(accountId)?.disconnect();
 
-    if (oldActiveAccount.deviceId && deleteAuth)
-      DeviceAuthManager.delete(oldActiveAccount, oldActiveAccount.deviceId).catch(console.error);
+    if (oldActiveAccount) {
+      if (deleteAuth) {
+        DeviceAuthManager.delete(oldActiveAccount, oldActiveAccount.deviceId).catch(console.error);
+      }
 
-    this.logoutLegendary(oldActiveAccount.accountId).catch(console.error);
+      Account.logoutLegendary(oldActiveAccount.accountId).catch(console.error);
+    }
   }
 
   private static async logoutLegendary(accountId: string) {
