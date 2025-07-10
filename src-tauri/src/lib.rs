@@ -204,17 +204,6 @@ async fn stop_legendary_stream(stream_id: String, force_kill_all: bool) -> Resul
     }
 }
 
-#[tauri::command]
-fn list_active_streams() -> Vec<StreamInfo> {
-    let streams = ACTIVE_STREAMS.lock().unwrap();
-    streams
-        .keys()
-        .map(|id| StreamInfo {
-            stream_id: id.clone()
-        })
-        .collect()
-}
-
 fn create_legendary_sidecar(app: &AppHandle, args: Vec<String>) -> Result<tauri_plugin_shell::process::Command, String> {
     let config_path = app.path()
         .data_dir()
@@ -251,8 +240,7 @@ pub fn run() {
             get_locale,
             run_legendary,
             start_legendary_stream,
-            stop_legendary_stream,
-            list_active_streams
+            stop_legendary_stream
         ])
         .plugin(tauri_plugin_shell::init())
         .plugin(tauri_plugin_http::init())
