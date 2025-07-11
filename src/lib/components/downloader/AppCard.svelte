@@ -1,21 +1,13 @@
-<script lang="ts" module>
-  import { SvelteSet } from 'svelte/reactivity';
-
-  const launchingAppIds = new SvelteSet<string>();
-  const runningAppIds = new SvelteSet<string>();
-  const deletingAppIds = new SvelteSet<string>();
-  const verifyingAppIds = new SvelteSet<string>();
-</script>
-
 <script lang="ts">
   import { goto } from '$app/navigation';
   import Button from '$components/ui/Button.svelte';
   import DataStorage, { DOWNLOADER_FILE_PATH } from '$lib/core/dataStorage';
   import DownloadManager from '$lib/core/managers/download.svelte';
-  import { favoritedAppIds, hiddenAppIds, ownedApps, perAppAutoUpdate } from '$lib/stores';
+  import { favoritedAppIds, hiddenAppIds, ownedApps, perAppAutoUpdate, runningAppIds } from '$lib/stores';
   import Legendary from '$lib/utils/legendary';
-  import { bytesToSize } from '$lib/utils/util';
+  import { bytesToSize, sleep } from '$lib/utils/util';
   import type { DownloaderSettings } from '$types/settings';
+  import { invoke } from '@tauri-apps/api/core';
   import CircleMinusIcon from 'lucide-svelte/icons/circle-minus';
   import RefreshCwOffIcon from 'lucide-svelte/icons/refresh-cw-off';
   import WrenchIcon from 'lucide-svelte/icons/wrench';
@@ -30,6 +22,7 @@
   import { DropdownMenu } from '$components/ui/DropdownMenu';
   import RefreshCwIcon from 'lucide-svelte/icons/refresh-cw';
   import Trash2Icon from 'lucide-svelte/icons/trash-2';
+  import XIcon from 'lucide-svelte/icons/x';
   import { toast } from 'svelte-sonner';
   import { get } from 'svelte/store';
 
@@ -39,26 +32,42 @@
   };
 
   let dropdownOpen = $state(false);
+  let isLaunching = $state(false);
+  let isStopping = $state(false);
+  let isDeleting = $state(false);
+  let isVerifying = $state(false);
 
   let { appId, globalAutoUpdate }: Props = $props();
 
   const app = $derived($ownedApps.find(app => app.id === appId)!);
 
   async function launchApp() {
-    launchingAppIds.add(app.id);
+    isLaunching = true;
 
     try {
       await Legendary.launch(app.id);
-      runningAppIds.add(app.id);
     } catch (error) {
       console.error(error);
       toast.error('Failed to launch app');
     } finally {
-      launchingAppIds.delete(app.id);
+      isLaunching = false;
     }
   }
 
   async function stopApp() {
+    isStopping = true;
+
+    try {
+      await invoke('stop_app', { appId: app.id });
+      toast.success(`Stopped ${app.title}`);
+    } catch (error) {
+      console.error(error);
+      toast.error(`Failed to stop ${app.title}`);
+    } finally {
+      // A delay to ensure the app is killed properly
+      await sleep(2000);
+      isStopping = false;
+    }
   }
 
   async function toggleFavorite() {
@@ -101,7 +110,7 @@
   }
 
   async function uninstallApp() {
-    deletingAppIds.add(app.id);
+    isDeleting = true;
 
     try {
       await Legendary.uninstall(app.id);
@@ -110,12 +119,12 @@
       console.error(error);
       toast.error(`Failed to uninstall ${app.title}`);
     } finally {
-      deletingAppIds.delete(app.id);
+      isDeleting = false;
     }
   }
 
   async function verify() {
-    verifyingAppIds.add(app.id);
+    isVerifying = true;
 
     try {
       const { requiresRepair } = await Legendary.verify(app.id);
@@ -124,7 +133,7 @@
       console.error(error);
       toast.error(`Failed to verify ${app.title}`);
     } finally {
-      verifyingAppIds.delete(app.id);
+      isVerifying = false;
     }
   }
 </script>
@@ -179,24 +188,43 @@
   <div class="flex gap-1 p-3 grow">
     {#if app.installed && !DownloadManager.isInQueue(app.id)}
       {#if !app.hasUpdate}
-        <Button
-          class="flex items-center justify-center flex-1 gap-1 font-medium px-4"
-          disabled={runningAppIds.has(app.id) || launchingAppIds.has(app.id) || verifyingAppIds.has(app.id) || deletingAppIds.has(app.id)}
-          onclick={() => launchApp()}
-          size="sm"
-          variant="epic"
-        >
-          {#if launchingAppIds.has(app.id)}
-            <LoaderCircleIcon class="size-5 animate-spin"/>
-          {:else}
-            <PlayIcon class="size-5"/>
-          {/if}
-          Play
-        </Button>
+        {#if runningAppIds.has(app.id)}
+          <Button
+            class="flex items-center justify-center flex-1 gap-1 font-medium px-4"
+            disabled={isStopping}
+            onclick={() => stopApp()}
+            size="sm"
+            variant="danger"
+          >
+            {#if isStopping}
+              <LoaderCircleIcon class="size-5 animate-spin"/>
+            {:else}
+              <XIcon class="size-5"/>
+            {/if}
+            Stop
+          </Button>
+        {:else}
+          <Button
+            class="flex items-center justify-center flex-1 gap-1 font-medium px-4"
+            disabled={isLaunching || isVerifying || isDeleting}
+            onclick={() => launchApp()}
+            size="sm"
+            variant="epic"
+          >
+            {#if isLaunching}
+              <LoaderCircleIcon class="size-5 animate-spin"/>
+            {:else}
+              <PlayIcon class="size-5"/>
+            {/if}
+            Play
+          </Button>
+        {/if}
       {:else}
+        {@const isUpdating = DownloadManager.downloadingAppId === app.id}
+
         <Button
           class="flex items-center justify-center flex-1 gap-2 font-medium px-4"
-          disabled={verifyingAppIds.has(app.id) || deletingAppIds.has(app.id) || DownloadManager.downloadingAppId === app.id}
+          disabled={isVerifying || isDeleting || DownloadManager.downloadingAppId === app.id}
           onclick={() => installApp()}
           size="sm"
           variant="secondary"
@@ -206,7 +234,7 @@
           {:else}
             <RefreshCwIcon class="size-5"/>
           {/if}
-          Update
+          Update {isUpdating && DownloadManager.progress.percent ? `(${Math.floor(DownloadManager.progress.percent)}%)` : ''}
         </Button>
       {/if}
 
@@ -231,8 +259,8 @@
               {/if}
             </DropdownMenu.Item>
 
-            <DropdownMenu.Item disabled={verifyingAppIds.has(app.id) || deletingAppIds.has(app.id)} onclick={() => verify()}>
-              {#if verifyingAppIds.has(app.id)}
+            <DropdownMenu.Item disabled={isVerifying || isDeleting || runningAppIds.has(app.id)} onclick={() => verify()}>
+              {#if isVerifying}
                 <LoaderCircleIcon class="size-5 animate-spin"/>
               {:else}
                 <WrenchIcon class="size-5"/>
@@ -240,8 +268,8 @@
               Verify & Repair
             </DropdownMenu.Item>
 
-            <DropdownMenu.Item class="hover:bg-destructive" disabled={verifyingAppIds.has(app.id) || deletingAppIds.has(app.id)} onclick={() => uninstallApp()}>
-              {#if deletingAppIds.has(app.id)}
+            <DropdownMenu.Item class="hover:bg-destructive" disabled={isVerifying || isDeleting || runningAppIds.has(app.id)} onclick={() => uninstallApp()}>
+              {#if isDeleting}
                 <LoaderCircleIcon class="size-5 animate-spin"/>
               {:else}
                 <Trash2Icon class="size-5"/>

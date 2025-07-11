@@ -142,3 +142,16 @@ export type ParsedApp = {
   installed?: boolean;
   canRunOffline: boolean;
 };
+
+export type LegendaryLaunchData = {
+  game_parameters: Array<string>;
+  game_executable: string;
+  game_directory: string;
+  egl_parameters: Array<string>;
+  launch_command: Array<string>;
+  working_directory: string;
+  user_parameters: Array<string>;
+  environment: Record<string, string>;
+  pre_launch_command: string;
+  pre_launch_wait: boolean;
+};

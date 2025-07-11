@@ -3,7 +3,7 @@ import LegendaryError from '$lib/exceptions/LegendaryError';
 import { ownedApps } from '$lib/stores';
 import type { AccountData } from '$types/accounts';
 import type { EpicOAuthData } from '$types/game/authorizations';
-import type { LegendaryAppInfo, LegendaryInstalledList, LegendaryList, LegendaryStatus } from '$types/legendary';
+import type { LegendaryAppInfo, LegendaryInstalledList, LegendaryLaunchData, LegendaryList, LegendaryStatus } from '$types/legendary';
 import { path } from '@tauri-apps/api';
 import { invoke } from '@tauri-apps/api/core';
 import { readTextFile } from '@tauri-apps/plugin-fs';
@@ -121,7 +121,13 @@ export default class Legendary {
   }
 
   static async launch(id: string) {
-    return await this.execute(['launch', id]);
+    const { stdout: launchData } = await this.execute<LegendaryLaunchData>(['launch', id, '--dry-run', '--json']);
+    return await invoke<number>('launch_app', {
+      launchData: {
+        ...launchData,
+        game_id: id
+      }
+    });
   }
 
   static async verify(id: string) {
