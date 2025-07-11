@@ -103,7 +103,7 @@
                 Paused
               {:else}
                 <ClockIcon class="size-4"/>
-                {formatRemainingDuration((progress.downloadSize - progress.downloaded) / progress.downloadSpeed * 1000)}
+                {formatRemainingDuration(progress.etaMs)}
               {/if}
             </span>
           </div>
