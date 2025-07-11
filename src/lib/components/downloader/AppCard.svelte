@@ -284,7 +284,7 @@
           {:else}
             <DownloadIcon class="size-5"/>
           {/if}
-          Install {DownloadManager.progress.percent ? `(${DownloadManager.progress.percent}%)` : ''}
+          Install {isInstalling && DownloadManager.progress.percent ? `(${Math.floor(DownloadManager.progress.percent)}%)` : ''}
         </Button>
       {/if}
     {/if}
