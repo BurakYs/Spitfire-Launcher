@@ -44,7 +44,7 @@ pub async fn launch_app(app: AppHandle, launch_data: LaunchData) -> Result<u32, 
 }
 
 #[command]
-pub async fn stop_app(app: AppHandle, app_id: String) -> Result<bool, String> {
+pub async fn stop_app(_app: AppHandle, app_id: String) -> Result<bool, String> {
     app_monitor::stop_app(&app_id)
 }
 

@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { z } from 'zod/v4';
 
 import {
   allSettingsSchema,
@@ -9,7 +9,7 @@ import {
   deviceAuthsSettingsSchema,
   taxiSettingSchema,
   taxiSettingsSchema,
-  downloaderSettingsSchema
+  downloaderSettingsSchema,
 } from '$lib/validations/settings';
 
 export type AppSettings = z.infer<typeof appSettingsSchema>;

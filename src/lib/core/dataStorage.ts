@@ -15,7 +15,7 @@ import { path } from '@tauri-apps/api';
 import { dataDir, homeDir } from '@tauri-apps/api/path';
 import { exists, mkdir, readTextFile, writeTextFile } from '@tauri-apps/plugin-fs';
 import { platform } from '@tauri-apps/plugin-os';
-import type { ZodSchema } from 'zod';
+import type { ZodType } from 'zod/v4';
 
 export const ACCOUNTS_FILE_PATH = dev ? 'accounts-dev.json' : 'accounts.json';
 export const ACCOUNTS_INITIAL_DATA: AccountDataFile = {
@@ -51,7 +51,8 @@ export const DOWNLOADER_INITIAL_DATA: DownloaderSettings = {
   sendNotifications: true,
   favoriteApps: [],
   hiddenApps: [],
-  perAppAutoUpdate: {}
+  perAppAutoUpdate: {},
+  queue: {}
 };
 
 export default class DataStorage {
@@ -150,8 +151,8 @@ export default class DataStorage {
   private static async getFile<T>(
     filePath: string,
     initialData: T,
-    schema?: ZodSchema,
-    setCacheCallback?: (data: T) => void
+    schema: ZodType<T>,
+    setCacheCallback: (data: T) => void
   ): Promise<T> {
     const file = await DataStorage.getConfigFile<T>(filePath, initialData);
 
@@ -180,14 +181,14 @@ export default class DataStorage {
       case SETTINGS_FILE_PATH:
         DataStorage.caches.settingsFile = newData as AllSettings;
         break;
+      case DEVICE_AUTHS_FILE_PATH:
+        DataStorage.caches.deviceAuthsFile = newData as DeviceAuthsSettings;
+        break;
       case AUTOMATION_FILE_PATH:
         DataStorage.caches.automationFile = newData as AutomationSettings;
         break;
       case TAXI_FILE_PATH:
         DataStorage.caches.taxiFile = newData as TaxiSettings;
-        break;
-      case DEVICE_AUTHS_FILE_PATH:
-        DataStorage.caches.deviceAuthsFile = newData as DeviceAuthsSettings;
         break;
       case DOWNLOADER_FILE_PATH:
         DataStorage.caches.downloaderFile = newData as DownloaderSettings;

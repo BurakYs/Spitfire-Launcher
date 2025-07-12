@@ -6,6 +6,7 @@
   import AvatarManager from '$lib/core/managers/avatar';
   import FriendManager from '$lib/core/managers/friend';
   import LookupManager from '$lib/core/managers/lookup';
+  import DownloadManager from '$lib/core/managers/download.svelte';
   import type { AccountDataFile } from '$types/accounts';
   import { getVersion } from '@tauri-apps/api/app';
   import { listen } from '@tauri-apps/api/event';
@@ -76,8 +77,9 @@
     document.addEventListener('keydown', disableF5);
 
     Promise.allSettled([
-      AutoKickBase.loadAccounts(),
+      AutoKickBase.init(),
       DataStorage.init(),
+      DownloadManager.init(),
       handleWorldInfo(),
       checkForUpdates(),
       syncAccountNames(),

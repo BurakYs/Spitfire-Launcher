@@ -1,3 +1,6 @@
+import type { parsedAppSchema } from '$lib/validations/settings';
+import { z } from 'zod/v4';
+
 export type AppFilterValue = 'hidden' | 'installed' | 'updatesAvailable';
 
 export type LegendaryList = Array<{
@@ -130,18 +133,7 @@ export type LegendaryInstalledList = Array<{
   save_path: string | null;
 }>;
 
-export type ParsedApp = {
-  id: string;
-  title: string;
-  images: {
-    tall: string;
-    wide: string;
-  };
-  hasUpdate: boolean;
-  sizeBytes: number;
-  installed?: boolean;
-  canRunOffline: boolean;
-};
+export type ParsedApp = z.infer<typeof parsedAppSchema>;
 
 export type LegendaryLaunchData = {
   game_parameters: Array<string>;

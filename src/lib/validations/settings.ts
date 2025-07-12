@@ -1,5 +1,6 @@
 import { locales } from '$lib/paraglide/runtime';
-import { z } from 'zod';
+import type { ParsedApp } from '$types/legendary';
+import { z } from 'zod/v4';
 
 export const appSettingsSchema = z.object({
   language: z.enum(locales).nullish(),
@@ -66,11 +67,33 @@ export const taxiSettingSchema = z.object({
 
 export const taxiSettingsSchema = z.array(taxiSettingSchema);
 
+export const parsedAppSchema = z.object({
+  id: z.string(),
+  title: z.string(),
+  images: z.object({
+    tall: z.string(),
+    wide: z.string()
+  }),
+  hasUpdate: z.boolean().optional(),
+  sizeBytes: z.number(),
+  installed: z.boolean().optional(),
+  canRunOffline: z.boolean()
+});
+
+export const queueItemSchema = z.object({
+  status: z.enum(['queued', 'downloading', 'completed', 'failed', 'paused']),
+  item: parsedAppSchema,
+  addedAt: z.number(),
+  startedAt: z.number().optional(),
+  completedAt: z.number().optional()
+});
+
 export const downloaderSettingsSchema = z.object({
   downloadPath: z.string(),
   autoUpdate: z.boolean(),
   sendNotifications: z.boolean(),
   favoriteApps: z.array(z.string()),
   hiddenApps: z.array(z.string()),
-  perAppAutoUpdate: z.record(z.boolean())
+  perAppAutoUpdate: z.record(z.string(), z.boolean()),
+  queue: z.record(z.string(), z.array(queueItemSchema))
 }).partial();

@@ -18,12 +18,13 @@
 
   let allSettings = $state<AllSettings>(SETTINGS_INITIAL_DATA);
 
+  type Settings = NonNullable<AllSettings['app']>;
   type SelectOption<T extends string> = {
     label: string;
     value: T;
   };
 
-  const startingPageValues = appSettingsSchema.shape.startingPage._def.innerType._def.values as string[];
+  const startingPageValues = Object.values<string>(appSettingsSchema.shape.startingPage.def.innerType.def.entries);
   const startingPageOptions = $SidebarCategories
     .map((category) => category.items)
     .flat()
@@ -33,7 +34,7 @@
       value: item.key
     }));
 
-  const startingAccountOptions: SelectOption<NonNullable<NonNullable<AllSettings['app']>['startingAccount']>>[] = [
+  const startingAccountOptions: SelectOption<NonNullable<Settings['startingAccount']>>[] = [
     {
       label: $t('settings.appSettings.startingAccount.values.firstInList'),
       value: 'firstInTheList'
@@ -44,8 +45,9 @@
     }
   ];
 
-  type SettingKey = keyof NonNullable<AllSettings['app']>;
+  type SettingKey = keyof Settings;
   type SettingValue = string | number | boolean;
+
   function handleSettingChange<K extends SettingKey, V extends SettingValue = SettingValue>(
     eventOrValue: Event | V,
     key: K

@@ -41,7 +41,7 @@
 
   const app = $derived.by(() => {
     // Need to explicitly declare $ownedApps because Svelte can't detect $ownedApps store changes for some reason
-    const apps = $ownedApps
+    const apps = $ownedApps;
     return apps.find(a => a.id === appId)!;
   });
 
@@ -297,8 +297,8 @@
           class="flex items-center justify-center flex-1 gap-2 font-medium px-4 py-2"
           onclick={() => DownloadManager.removeFromQueue(app.id)}
           size="sm"
-          variant="danger"
           title="Remove from Queue"
+          variant="danger"
         >
           <CircleMinusIcon class="size-5"/>
           Remove

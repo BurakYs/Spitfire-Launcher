@@ -1,3 +1,7 @@
+<script lang="ts" module>
+  let fetchedGames = false;
+</script>
+
 <script lang="ts">
   import AppCard from '$components/downloader/AppCard.svelte';
   import AppFilter from '$components/downloader/AppFilter.svelte';
@@ -77,7 +81,7 @@
       hiddenAppIds.add(id);
     }
 
-    if ($ownedApps.length) return;
+    if (fetchedGames) return;
 
     const [list, installedList] = await Promise.all([
       Legendary.getList(),
@@ -108,6 +112,8 @@
         };
       })
     );
+
+    fetchedGames = true;
   });
 </script>
 
