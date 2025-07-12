@@ -65,6 +65,15 @@
 
     downloadSize = appInfo.manifest.download_size;
     installSize = appInfo.manifest.disk_size;
+
+    app.downloadSize = downloadSize;
+    ownedApps.update(current => {
+      return current.map(app =>
+        app.id === id
+          ? { ...app, downloadSize }
+          : app
+      );
+    });
   });
 </script>
 

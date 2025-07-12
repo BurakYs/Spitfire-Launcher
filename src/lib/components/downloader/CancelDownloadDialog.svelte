@@ -18,8 +18,8 @@
 </script>
 
 <Dialog
-  title="Cancel Confirmation"
   description="Are you sure you want to cancel the download? Downloaded files will be kept."
+  title="Cancel Confirmation"
   bind:open
 >
   <div class="flex w-full items-center justify-center gap-2">

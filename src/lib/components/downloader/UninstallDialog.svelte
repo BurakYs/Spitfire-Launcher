@@ -35,9 +35,9 @@
 </script>
 
 <Dialog
-  title="Uninstall Confirmation"
   description="Are you sure you want to uninstall {app.title}?"
   onOpenChangeComplete={(open) => !open && (id = '')}
+  title="Uninstall Confirmation"
   bind:open={isOpen}
 >
   <div class="flex w-full items-center justify-center gap-2">

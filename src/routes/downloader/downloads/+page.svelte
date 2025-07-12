@@ -15,6 +15,8 @@
   import PauseIcon from 'lucide-svelte/icons/pause';
   import PlayIcon from 'lucide-svelte/icons/play';
   import XIcon from 'lucide-svelte/icons/x';
+  import ChevronUpIcon from 'lucide-svelte/icons/chevron-up';
+  import ChevronDownIcon from 'lucide-svelte/icons/chevron-down';
 
   let showCancelDialog = $state(false);
   let isCancelling = $state(false);
@@ -140,7 +142,7 @@
     <div class="w-full border rounded-md p-4 mt-2">
       <h3 class="font-semibold text-2xl mb-4">Queue</h3>
       <div class="space-y-4">
-        {#each queue as { item } (item.id)}
+        {#each queue as { item }, index (item.id)}
           <div class="flex items-center gap-4 p-3 rounded-lg border bg-surface-alt">
             <img
               class="w-12 h-16 object-cover rounded"
@@ -150,11 +152,36 @@
 
             <div class="flex-1">
               <h4 class="font-medium">{item.title}</h4>
-              <p class="text-sm text-muted-foreground">{bytesToSize(item.installSize, 2)}</p>
+              <p class="text-sm text-muted-foreground">{bytesToSize(item.downloadSize || item.installSize, 2)}</p>
             </div>
 
             <div class="flex items-center gap-2">
-              <Button onclick={() => DownloadManager.removeFromQueue(item.id)} variant="outline">
+              <Button
+                class="p-2"
+                disabled={index === 0}
+                onclick={() => DownloadManager.moveQueueItem(item.id, 'up')}
+                size="sm"
+                variant="outline"
+              >
+                <ChevronUpIcon class="size-4"/>
+              </Button>
+
+              <Button
+                class="p-2"
+                disabled={index === queue.length - 1}
+                onclick={() => DownloadManager.moveQueueItem(item.id, 'down')}
+                size="sm"
+                variant="outline"
+              >
+                <ChevronDownIcon class="size-4"/>
+              </Button>
+
+              <Button
+                class="p-2"
+                onclick={() => DownloadManager.removeFromQueue(item.id)}
+                size="sm"
+                variant="outline"
+              >
                 <XIcon class="size-4"/>
               </Button>
             </div>
@@ -205,7 +232,7 @@
   {/if}
 
   <CancelDownloadDialog
-    bind:open={showCancelDialog}
     onConfirm={cancelDownload}
+    bind:open={showCancelDialog}
   />
 </PageContent>

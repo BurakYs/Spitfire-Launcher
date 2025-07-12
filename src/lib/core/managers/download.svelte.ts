@@ -84,6 +84,31 @@ class DownloadManager {
     await this.saveQueueToFile();
   }
 
+  async moveQueueItem(appId: string, direction: 'up' | 'down') {
+    const queueIndexes = this.queue
+      .map((item, index) => ({ item, index }))
+      .filter(({ item }) => item.status === 'queued')
+      .map(({ index }) => index);
+
+    const currentQueuePosition = queueIndexes.findIndex(i => this.queue[i].item.id === appId);
+    if (currentQueuePosition === -1) return;
+
+    const newQueuePosition = direction === 'up'
+      ? currentQueuePosition - 1
+      : currentQueuePosition + 1;
+
+    if (newQueuePosition < 0 || newQueuePosition >= queueIndexes.length) {
+      return;
+    }
+
+    const currentIndex = queueIndexes[currentQueuePosition];
+    const targetIndex = queueIndexes[newQueuePosition];
+
+    [this.queue[currentIndex], this.queue[targetIndex]] = [this.queue[targetIndex], this.queue[currentIndex]];
+
+    await this.saveQueueToFile();
+  }
+
   isInQueue(appId: string): boolean {
     return this.queue.some(({ item, status }) => item.id === appId && ['queued', 'downloading', 'paused'].includes(status));
   }
