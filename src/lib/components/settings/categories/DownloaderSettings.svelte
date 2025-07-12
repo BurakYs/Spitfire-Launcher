@@ -3,6 +3,7 @@
   import AccountCombobox from '$components/ui/Combobox/AccountCombobox.svelte';
   import Input from '$components/ui/Input.svelte';
   import Switch from '$components/ui/Switch.svelte';
+  import DownloadManager from '$lib/core/managers/download.svelte';
   import DataStorage, { DOWNLOADER_FILE_PATH, DOWNLOADER_INITIAL_DATA } from '$lib/core/dataStorage';
   import { accountsStore } from '$lib/stores';
   import Legendary from '$lib/utils/legendary';
@@ -117,7 +118,7 @@
     title={$t('settings.downloaderSettings.account.title')}
   >
     <AccountCombobox
-      disabled={switchingDownloaderAccount || loadingSettings}
+      disabled={switchingDownloaderAccount || loadingSettings || !!DownloadManager.downloadingAppId}
       triggerClass="bg-transparent"
       type="single"
       bind:selected={downloaderAccountId}
