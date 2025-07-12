@@ -146,12 +146,11 @@ export default class Legendary {
     const data = await this.execute(['uninstall', appId, '-y']);
 
     ownedApps.update(current => {
-      const existingGame = current.find(g => g.id === appId);
-      if (existingGame) {
-        existingGame.installed = false;
-      }
-
-      return current;
+      return current.map(app =>
+        app.id === appId
+          ? { ...app, installed: false }
+          : app
+      );
     });
 
     return data;

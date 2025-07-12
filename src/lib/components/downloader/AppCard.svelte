@@ -39,11 +39,7 @@
 
   let { appId, globalAutoUpdate }: Props = $props();
 
-  const app = $derived.by(() => {
-    // Need to explicitly declare $ownedApps because Svelte can't detect $ownedApps store changes for some reason
-    const apps = $ownedApps;
-    return apps.find(a => a.id === appId)!;
-  });
+  const app = $derived($ownedApps.find(x => x.id === appId)!);
 
   async function launchApp() {
     isLaunching = true;
