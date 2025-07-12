@@ -154,9 +154,6 @@
             </div>
 
             <div class="flex items-center gap-2">
-              <Button variant="outline">
-                <PlayIcon class="size-4"/>
-              </Button>
               <Button onclick={() => DownloadManager.removeFromQueue(item.id)} variant="outline">
                 <XIcon class="size-4"/>
               </Button>

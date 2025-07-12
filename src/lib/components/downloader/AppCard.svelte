@@ -181,53 +181,12 @@
     {#if app.installed && !DownloadManager.isInQueue(app.id)}
       {#if !app.hasUpdate}
         {#if runningAppIds.has(app.id)}
-          <Button
-            class="flex items-center justify-center flex-1 gap-1 font-medium px-4"
-            disabled={isStopping}
-            onclick={() => stopApp()}
-            size="sm"
-            variant="danger"
-          >
-            {#if isStopping}
-              <LoaderCircleIcon class="size-5 animate-spin"/>
-            {:else}
-              <XIcon class="size-5"/>
-            {/if}
-            Stop
-          </Button>
+          {@render StopButton()}
         {:else}
-          <Button
-            class="flex items-center justify-center flex-1 gap-1 font-medium px-4"
-            disabled={isLaunching || isVerifying || isDeleting}
-            onclick={() => launchApp()}
-            size="sm"
-            variant="epic"
-          >
-            {#if isLaunching}
-              <LoaderCircleIcon class="size-5 animate-spin"/>
-            {:else}
-              <PlayIcon class="size-5"/>
-            {/if}
-            Play
-          </Button>
+          {@render PlayButton()}
         {/if}
       {:else}
-        {@const isUpdating = DownloadManager.downloadingAppId === app.id}
-
-        <Button
-          class="flex items-center justify-center flex-1 gap-2 font-medium px-4"
-          disabled={isVerifying || isDeleting || DownloadManager.downloadingAppId === app.id}
-          onclick={() => installApp()}
-          size="sm"
-          variant="secondary"
-        >
-          {#if DownloadManager.downloadingAppId === app.id}
-            <LoaderCircleIcon class="size-5 animate-spin"/>
-          {:else}
-            <RefreshCwIcon class="size-5"/>
-          {/if}
-          Update {isUpdating && DownloadManager.progress.percent ? `(${Math.floor(DownloadManager.progress.percent)}%)` : ''}
-        </Button>
+        {@render UpdateButton()}
       {/if}
 
       <Button
@@ -285,32 +244,93 @@
       {@const isInQueue = DownloadManager.isInQueue(app.id) && !isInstalling}
 
       {#if isInQueue}
-        <Button
-          class="flex items-center justify-center flex-1 gap-2 font-medium px-4 py-2"
-          onclick={() => DownloadManager.removeFromQueue(app.id)}
-          size="sm"
-          title="Remove from Queue"
-          variant="danger"
-        >
-          <CircleMinusIcon class="size-5"/>
-          Remove
-        </Button>
+        {@render RemoveFromQueueButton()}
       {:else}
-        <Button
-          class="flex items-center justify-center flex-1 gap-2 font-medium px-4 py-2"
-          disabled={isInstalling}
-          onclick={() => installDialogAppId = app.id}
-          size="sm"
-          variant="outline"
-        >
-          {#if isInstalling}
-            <LoaderCircleIcon class="size-5 animate-spin"/>
-          {:else}
-            <DownloadIcon class="size-5"/>
-          {/if}
-          Install {isInstalling && DownloadManager.progress.percent ? `(${Math.floor(DownloadManager.progress.percent)}%)` : ''}
-        </Button>
+        {@render InstallButton(isInstalling)}
       {/if}
     {/if}
   </div>
 </div>
+
+{#snippet StopButton()}
+  <Button
+    class="flex items-center justify-center flex-1 gap-1 font-medium px-4"
+    disabled={isStopping}
+    onclick={() => stopApp()}
+    size="sm"
+    variant="danger"
+  >
+    {#if isStopping}
+      <LoaderCircleIcon class="size-5 animate-spin"/>
+    {:else}
+      <XIcon class="size-5"/>
+    {/if}
+    Stop
+  </Button>
+{/snippet}
+
+{#snippet PlayButton()}
+  <Button
+    class="flex items-center justify-center flex-1 gap-1 font-medium px-4"
+    disabled={isLaunching || isVerifying || isDeleting}
+    onclick={() => launchApp()}
+    size="sm"
+    variant="epic"
+  >
+    {#if isLaunching}
+      <LoaderCircleIcon class="size-5 animate-spin"/>
+    {:else}
+      <PlayIcon class="size-5"/>
+    {/if}
+    Play
+  </Button>
+{/snippet}
+
+{#snippet UpdateButton()}
+  {@const isUpdating = DownloadManager.downloadingAppId === app.id}
+
+  <Button
+    class="flex items-center justify-center flex-1 gap-2 font-medium px-4"
+    disabled={isVerifying || isDeleting || DownloadManager.downloadingAppId === app.id}
+    onclick={() => installApp()}
+    size="sm"
+    variant="secondary"
+  >
+    {#if DownloadManager.downloadingAppId === app.id}
+      <LoaderCircleIcon class="size-5 animate-spin"/>
+    {:else}
+      <RefreshCwIcon class="size-5"/>
+    {/if}
+    Update {isUpdating && DownloadManager.progress.percent ? `(${Math.floor(DownloadManager.progress.percent)}%)` : ''}
+  </Button>
+{/snippet}
+
+{#snippet RemoveFromQueueButton()}
+  <Button
+    class="flex items-center justify-center flex-1 gap-2 font-medium px-4 py-2"
+    onclick={() => DownloadManager.removeFromQueue(app.id)}
+    size="sm"
+    title="Remove from Queue"
+    variant="danger"
+  >
+    <CircleMinusIcon class="size-5"/>
+    Remove
+  </Button>
+{/snippet}
+
+{#snippet InstallButton(isInstalling: boolean)}
+  <Button
+    class="flex items-center justify-center flex-1 gap-2 font-medium px-4 py-2"
+    disabled={isInstalling}
+    onclick={() => installDialogAppId = app.id}
+    size="sm"
+    variant="outline"
+  >
+    {#if isInstalling}
+      <LoaderCircleIcon class="size-5 animate-spin"/>
+    {:else}
+      <DownloadIcon class="size-5"/>
+    {/if}
+    Install {isInstalling && DownloadManager.progress.percent ? `(${Math.floor(DownloadManager.progress.percent)}%)` : ''}
+  </Button>
+{/snippet}

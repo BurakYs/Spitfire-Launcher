@@ -51,7 +51,7 @@ class DownloadManager {
     }
 
     this.queue = downloaderSettings.queue[accountId];
-    await this.processQueue();
+    await this.processQueue(true);
   }
 
   async addToQueue(app: ParsedApp) {
@@ -88,8 +88,16 @@ class DownloadManager {
     return this.queue.some(({ item, status }) => item.id === appId && ['queued', 'downloading', 'paused'].includes(status));
   }
 
-  async processQueue() {
-    const item = this.queue.find(({ status }) => status === 'paused') || this.queue.find(({ status }) => status === 'queued');
+  async processQueue(processPaused = false) {
+    const pausedItem = this.queue.find(({ status }) => status === 'paused');
+
+    let item: QueueItem | undefined;
+    if (pausedItem) {
+      item = processPaused ? pausedItem : undefined;
+    } else {
+      item = this.queue.find(({ status }) => status === 'queued');
+    }
+
     if (!item || (this.downloadingAppId && item.status !== 'paused')) return;
 
     const app = item.item;
@@ -200,7 +208,7 @@ class DownloadManager {
   }
 
   async resumeDownload() {
-    await this.processQueue();
+    await this.processQueue(true);
   }
 
   async clearCompleted() {
