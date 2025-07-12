@@ -46,7 +46,9 @@ class DownloadManager {
       Legendary.getAccount()
     ]);
 
-    if (!downloaderSettings.queue?.length || !accountId) return;
+    if (!downloaderSettings.queue || !Object.keys(downloaderSettings.queue).length || !accountId) {
+      return;
+    }
 
     this.queue = downloaderSettings.queue[accountId];
     await this.processQueue();
