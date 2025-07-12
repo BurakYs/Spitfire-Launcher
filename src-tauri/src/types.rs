@@ -68,3 +68,10 @@ pub struct TrackedApp {
     pub app_id: String,
     pub is_running: bool,
 }
+
+#[derive(Debug, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub struct DiskSpace {
+    pub total: u64,
+    pub available: u64,
+}

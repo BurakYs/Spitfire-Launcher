@@ -1,4 +1,5 @@
 <script lang="ts">
+  import CancelDownloadDialog from '$components/downloader/CancelDownloadDialog.svelte';
   import PageContent from '$components/PageContent.svelte';
   import Button from '$components/ui/Button.svelte';
   import Tooltip from '$components/ui/Tooltip.svelte';
@@ -15,6 +16,7 @@
   import PlayIcon from 'lucide-svelte/icons/play';
   import XIcon from 'lucide-svelte/icons/x';
 
+  let showCancelDialog = $state(false);
   let isCancelling = $state(false);
   let isTogglingPause = $state(false);
 
@@ -80,7 +82,7 @@
                 {/if}
               {/if}
             </Button>
-            <Button class="p-2" disabled={isCancelling || isTogglingPause} onclick={cancelDownload} size="sm" variant="outline">
+            <Button class="p-2" disabled={isCancelling || isTogglingPause} onclick={() => showCancelDialog = true} size="sm" variant="outline">
               {#if isCancelling}
                 <LoaderCircleIcon class="size-4 animate-spin"/>
               {:else}
@@ -148,7 +150,7 @@
 
             <div class="flex-1">
               <h4 class="font-medium">{item.title}</h4>
-              <p class="text-sm text-muted-foreground">{bytesToSize(item.sizeBytes, 2)}</p>
+              <p class="text-sm text-muted-foreground">{bytesToSize(item.installSize, 2)}</p>
             </div>
 
             <div class="flex items-center gap-2">
@@ -204,4 +206,9 @@
       </div>
     </div>
   {/if}
+
+  <CancelDownloadDialog
+    bind:open={showCancelDialog}
+    onConfirm={cancelDownload}
+  />
 </PageContent>

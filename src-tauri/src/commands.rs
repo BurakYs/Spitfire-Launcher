@@ -1,7 +1,8 @@
 use crate::app_monitor;
 use crate::legendary;
 use crate::types::AppState;
-use crate::types::{CommandOutput, LaunchData};
+use crate::types::{CommandOutput, DiskSpace, LaunchData};
+use fs2;
 use std::path::Path;
 use sysinfo::{ProcessRefreshKind, ProcessesToUpdate, System};
 use tauri::{command, AppHandle};
@@ -24,6 +25,25 @@ pub fn get_locale() -> String {
     sys_locale::get_locale()
         .and_then(|locale| locale.split(['_', '-']).next().map(|s| s.to_string()))
         .unwrap_or_else(|| "en".to_string())
+}
+
+#[command]
+pub fn get_disk_space(dir: String) -> Result<DiskSpace, String> {
+    let path = Path::new(&dir);
+
+    match (fs2::total_space(path), fs2::available_space(path)) {
+        (Ok(total), Ok(available)) => {
+            let disk_space = DiskSpace {
+                total,
+                available,
+            };
+
+            Ok(disk_space)
+        }
+        (Err(e), _) | (_, Err(e)) => {
+            Err(e.to_string())
+        }
+    }
 }
 
 #[command]

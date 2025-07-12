@@ -46,7 +46,7 @@ class DownloadManager {
       Legendary.getAccount()
     ]);
 
-    if (!downloaderSettings.queue || !Object.keys(downloaderSettings.queue).length || !accountId) {
+    if (!downloaderSettings.queue || !accountId || !downloaderSettings.queue[accountId]?.length) {
       return;
     }
 
@@ -72,7 +72,7 @@ class DownloadManager {
     ];
 
     await this.saveQueueToFile();
-    await this.processQueue();
+    return this.processQueue();
   }
 
   async removeFromQueue(appId: string) {

@@ -74,7 +74,7 @@ export type LegendaryAppInfo = {
     install_tags: Array<string>;
     requires_ovt: number;
     installed_dlc: Array<string>;
-  };
+  } | null;
   manifest: {
     size: number;
     type: string;

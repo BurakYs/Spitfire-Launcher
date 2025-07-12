@@ -5,7 +5,9 @@
 <script lang="ts">
   import AppCard from '$components/downloader/AppCard.svelte';
   import AppFilter from '$components/downloader/AppFilter.svelte';
+  import InstallDialog from '$components/downloader/InstallDialog.svelte';
   import SkeletonAppCard from '$components/downloader/SkeletonAppCard.svelte';
+  import UninstallDialog from '$components/downloader/UninstallDialog.svelte';
   import PageContent from '$components/PageContent.svelte';
   import Input from '$components/ui/Input.svelte';
   import DataStorage, { DOWNLOADER_INITIAL_DATA } from '$lib/core/dataStorage';
@@ -18,7 +20,10 @@
   import { toast } from 'svelte-sonner';
 
   const activeAccount = $derived(nonNull($accountsStore.activeAccount));
+
   let searchQuery = $state<string>('');
+  let installDialogAppId = $state<string>();
+  let uninstallDialogAppId = $state<string>();
   let filters = $state<AppFilterValue[]>([]);
   let globalAutoUpdate = $state(DOWNLOADER_INITIAL_DATA.autoUpdate!);
 
@@ -106,7 +111,7 @@
             wide: images.DieselGameBox || images.Featured || app.metadata.keyImages[0]?.url
           },
           hasUpdate: installed ? installed.version !== app.asset_infos.Windows.build_version : false,
-          sizeBytes: installed?.install_size || 0,
+          installSize: installed?.install_size || 0,
           installed: !!installed,
           canRunOffline: installed?.can_run_offline || false
         };
@@ -131,7 +136,12 @@
   <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
     {#if Object.keys($ownedApps).length}
       {#each filteredApps as app (app.id)}
-        <AppCard appId={app.id} {globalAutoUpdate}/>
+        <AppCard
+          appId={app.id}
+          {globalAutoUpdate}
+          bind:installDialogAppId
+          bind:uninstallDialogAppId
+        />
       {/each}
     {:else}
       {#each Array(8) as _, i (i)}
@@ -139,4 +149,12 @@
       {/each}
     {/if}
   </div>
+
+  {#if installDialogAppId}
+    <InstallDialog bind:id={installDialogAppId}/>
+  {/if}
+
+  {#if uninstallDialogAppId}
+    <UninstallDialog bind:id={uninstallDialogAppId}/>
+  {/if}
 </PageContent>

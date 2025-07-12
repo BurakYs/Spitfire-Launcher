@@ -39,7 +39,8 @@ pub fn run() {
             start_legendary_stream,
             stop_legendary_stream,
             launch_app,
-            stop_app
+            stop_app,
+            get_disk_space,
         ])
         .plugin(tauri_plugin_shell::init())
         .plugin(tauri_plugin_http::init())

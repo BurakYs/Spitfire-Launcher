@@ -151,7 +151,8 @@
     <div class="flex w-full gap-3">
       <Tooltip
         class="w-full"
-        tooltip={ownedVbucks < $discountedPrice ? $t('itemShop.notEnoughVbucks') : ''}>
+        tooltip={ownedVbucks < $discountedPrice ? $t('itemShop.notEnoughVbucks') : ''}
+      >
         <Button
           class="flex justify-center items-center gap-x-2 w-full"
           disabled={isPurchasing || ownedVbucks < $discountedPrice || isItemOwned}
@@ -170,7 +171,8 @@
 
       <Tooltip
         class="w-full"
-        tooltip={remainingGifts < 1 ? $t('itemShop.noRemainingGifts') : ownedVbucks < item.price.final ? $t('itemShop.notEnoughVbucks') : !friends.length ? $t('itemShop.noFriends') : ''}>
+        tooltip={remainingGifts < 1 ? $t('itemShop.noRemainingGifts') : ownedVbucks < item.price.final ? $t('itemShop.notEnoughVbucks') : !friends.length ? $t('itemShop.noFriends') : ''}
+      >
         <Button
           class="flex justify-center items-center gap-x-2 w-full"
           disabled={isSendingGifts || remainingGifts < 1 || ownedVbucks < item.price.final || !item.giftable || !friends.length}

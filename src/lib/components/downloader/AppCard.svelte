@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { goto } from '$app/navigation';
   import Button from '$components/ui/Button.svelte';
   import DataStorage, { DOWNLOADER_FILE_PATH } from '$lib/core/dataStorage';
   import DownloadManager from '$lib/core/managers/download.svelte';
@@ -29,6 +28,8 @@
   type Props = {
     appId: string;
     globalAutoUpdate: boolean;
+    installDialogAppId?: string;
+    uninstallDialogAppId?: string;
   };
 
   let dropdownOpen = $state(false);
@@ -37,7 +38,12 @@
   let isDeleting = $state(false);
   let isVerifying = $state(false);
 
-  let { appId, globalAutoUpdate }: Props = $props();
+  let {
+    appId,
+    globalAutoUpdate,
+    installDialogAppId = $bindable(),
+    uninstallDialogAppId = $bindable()
+  }: Props = $props();
 
   const app = $derived($ownedApps.find(x => x.id === appId)!);
 
@@ -107,20 +113,6 @@
 
   async function installApp() {
     await DownloadManager.addToQueue(app);
-  }
-
-  async function uninstallApp() {
-    isDeleting = true;
-
-    try {
-      await Legendary.uninstall(app.id);
-      toast.success(`Uninstalled ${app.title}`);
-    } catch (error) {
-      console.error(error);
-      toast.error(`Failed to uninstall ${app.title}`);
-    } finally {
-      isDeleting = false;
-    }
   }
 
   async function verify() {
@@ -268,7 +260,11 @@
               Verify & Repair
             </DropdownMenu.Item>
 
-            <DropdownMenu.Item class="hover:bg-destructive" disabled={isVerifying || isDeleting || runningAppIds.has(app.id)} onclick={() => uninstallApp()}>
+            <DropdownMenu.Item
+              class="hover:bg-destructive"
+              disabled={isVerifying || isDeleting || runningAppIds.has(app.id) || !!DownloadManager.downloadingAppId}
+              onclick={() => uninstallDialogAppId = app.id}
+            >
               {#if isDeleting}
                 <LoaderCircleIcon class="size-5 animate-spin"/>
               {:else}
@@ -279,7 +275,7 @@
 
             <DropdownMenu.Item disabled={true}>
               <HardDriveIcon class="size-5"/>
-              Size: {bytesToSize(app.sizeBytes)}
+              Size: {bytesToSize(app.installSize)}
             </DropdownMenu.Item>
           {/if}
         </DropdownMenu.Root>
@@ -303,7 +299,7 @@
         <Button
           class="flex items-center justify-center flex-1 gap-2 font-medium px-4 py-2"
           disabled={isInstalling}
-          onclick={() => isInstalling ? goto('/downloader/downloads') : installApp()}
+          onclick={() => installDialogAppId = app.id}
           size="sm"
           variant="outline"
         >
