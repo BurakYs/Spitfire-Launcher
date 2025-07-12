@@ -1,4 +1,5 @@
 import { dev } from '$app/environment';
+import DownloadManager from '$lib/core/managers/download.svelte';
 import { Menu } from '@tauri-apps/api/menu/menu';
 import { TrayIcon } from '@tauri-apps/api/tray';
 import { defaultWindowIcon } from '@tauri-apps/api/app';
@@ -40,6 +41,7 @@ export default class SystemTray {
           id: 'quit',
           text: 'Quit',
           action: async () => {
+            await DownloadManager.pauseDownload();
             await getCurrentWindow().close();
           }
         }
