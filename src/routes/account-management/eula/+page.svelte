@@ -20,7 +20,7 @@
   import { launcherAppClient2 } from '$lib/constants/clients';
   import EULAManager from '$lib/core/managers/eula';
   import ExternalLinkIcon from 'lucide-svelte/icons/external-link';
-  import { accountsStore, doingBulkOperations } from '$lib/stores';
+  import { doingBulkOperations } from '$lib/stores';
   import { toast } from 'svelte-sonner';
   import Authentication from '$lib/core/authentication';
   import EpicAPIError from '$lib/exceptions/EpicAPIError';
@@ -88,8 +88,8 @@
       disabled={!selectedAccounts?.length || isFetching}
       loading={isFetching}
       loadingText={$t('eula.checking')}
-      variant="epic"
       type="submit"
+      variant="epic"
     >
       {$t('eula.check')}
     </Button>

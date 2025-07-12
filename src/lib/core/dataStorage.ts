@@ -6,15 +6,16 @@ import {
   allSettingsSchema,
   automationSettingsSchema,
   deviceAuthsSettingsSchema,
+  downloaderSettingsSchema,
   taxiSettingsSchema
 } from '$lib/validations/settings';
 import type { AccountDataFile } from '$types/accounts';
-import type { AllSettings, AutomationSettings, DeviceAuthsSettings, TaxiSettings } from '$types/settings';
+import type { AllSettings, AutomationSettings, DeviceAuthsSettings, DownloaderSettings, TaxiSettings } from '$types/settings';
 import { path } from '@tauri-apps/api';
-import { dataDir } from '@tauri-apps/api/path';
+import { dataDir, homeDir } from '@tauri-apps/api/path';
 import { exists, mkdir, readTextFile, writeTextFile } from '@tauri-apps/plugin-fs';
 import { platform } from '@tauri-apps/plugin-os';
-import type { ZodSchema } from 'zod';
+import type { ZodType } from 'zod/v4';
 
 export const ACCOUNTS_FILE_PATH = dev ? 'accounts-dev.json' : 'accounts.json';
 export const ACCOUNTS_INITIAL_DATA: AccountDataFile = {
@@ -43,15 +44,33 @@ export const AUTOMATION_INITIAL_DATA: AutomationSettings = [];
 export const TAXI_FILE_PATH = dev ? 'taxi-dev.json' : 'taxi.json';
 export const TAXI_INITIAL_DATA: TaxiSettings = [];
 
+export const DOWNLOADER_FILE_PATH = dev ? 'downloader-dev.json' : 'downloader.json';
+export const DOWNLOADER_INITIAL_DATA: DownloaderSettings = {
+  downloadPath: '%HOME%/Games/Spitfire Launcher',
+  autoUpdate: true,
+  sendNotifications: true,
+  favoriteApps: [],
+  hiddenApps: [],
+  perAppAutoUpdate: {},
+  queue: {}
+};
+
 export default class DataStorage {
+  private static dataDirectory: string;
   private static caches: {
-    dataDirectory?: string;
     accountsFile?: AccountDataFile;
     settingsFile?: AllSettings;
     deviceAuthsFile?: DeviceAuthsSettings;
     automationFile?: AutomationSettings;
     taxiFile?: TaxiSettings;
+    downloaderFile?: DownloaderSettings;
   } = {};
+
+  static async init() {
+    const home = await homeDir();
+    DOWNLOADER_INITIAL_DATA.downloadPath = DOWNLOADER_INITIAL_DATA.downloadPath!.replace('%HOME%', home.replaceAll('\\', '/'));
+    await DataStorage.getDataDirectory();
+  }
 
   static async getAccountsFile(bypassCache = false) {
     if (DataStorage.caches.accountsFile && !bypassCache) return DataStorage.caches.accountsFile;
@@ -114,11 +133,26 @@ export default class DataStorage {
     );
   }
 
+  static async getDownloaderFile(bypassCache = false) {
+    if (DataStorage.caches.downloaderFile && !bypassCache) return DataStorage.caches.downloaderFile;
+
+    const data = await DataStorage.getFile<DownloaderSettings>(
+      DOWNLOADER_FILE_PATH,
+      DOWNLOADER_INITIAL_DATA,
+      downloaderSettingsSchema,
+      (data) => { DataStorage.caches.downloaderFile = data; }
+    );
+
+    const home = await homeDir();
+    data.downloadPath = data.downloadPath?.replace('%HOME%', home);
+    return data;
+  }
+
   private static async getFile<T>(
     filePath: string,
     initialData: T,
-    schema?: ZodSchema,
-    setCacheCallback?: (data: T) => void
+    schema: ZodType<T>,
+    setCacheCallback: (data: T) => void
   ): Promise<T> {
     const file = await DataStorage.getConfigFile<T>(filePath, initialData);
 
@@ -147,14 +181,17 @@ export default class DataStorage {
       case SETTINGS_FILE_PATH:
         DataStorage.caches.settingsFile = newData as AllSettings;
         break;
+      case DEVICE_AUTHS_FILE_PATH:
+        DataStorage.caches.deviceAuthsFile = newData as DeviceAuthsSettings;
+        break;
       case AUTOMATION_FILE_PATH:
         DataStorage.caches.automationFile = newData as AutomationSettings;
         break;
       case TAXI_FILE_PATH:
         DataStorage.caches.taxiFile = newData as TaxiSettings;
         break;
-      case DEVICE_AUTHS_FILE_PATH:
-        DataStorage.caches.deviceAuthsFile = newData as DeviceAuthsSettings;
+      case DOWNLOADER_FILE_PATH:
+        DataStorage.caches.downloaderFile = newData as DownloaderSettings;
         break;
     }
 
@@ -162,7 +199,7 @@ export default class DataStorage {
   }
 
   private static async getDataDirectory() {
-    if (DataStorage.caches.dataDirectory) return DataStorage.caches.dataDirectory;
+    if (DataStorage.dataDirectory) return DataStorage.dataDirectory;
 
     const dataDirectory = platform() === 'android' ? await dataDir() : await path.join(await dataDir(), config.identifier);
 
@@ -170,7 +207,7 @@ export default class DataStorage {
       await mkdir(dataDirectory, { recursive: true });
     }
 
-    DataStorage.caches.dataDirectory = dataDirectory;
+    DataStorage.dataDirectory = dataDirectory;
     return dataDirectory;
   }
 

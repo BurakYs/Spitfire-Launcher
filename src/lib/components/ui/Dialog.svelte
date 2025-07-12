@@ -59,8 +59,7 @@
       {#if title || description}
         <div class="flex flex-col gap-2 mb-6">
           {#if title}
-            <Dialog.Title class="text-lg font-semibold tracking-tight"
-            >
+            <Dialog.Title class="text-lg font-semibold tracking-tight">
               {#if typeof title === 'string'}
                 {title}
               {:else}

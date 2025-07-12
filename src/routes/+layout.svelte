@@ -6,8 +6,10 @@
   import AvatarManager from '$lib/core/managers/avatar';
   import FriendManager from '$lib/core/managers/friend';
   import LookupManager from '$lib/core/managers/lookup';
+  import DownloadManager from '$lib/core/managers/download.svelte';
   import type { AccountDataFile } from '$types/accounts';
   import { getVersion } from '@tauri-apps/api/app';
+  import { listen } from '@tauri-apps/api/event';
   import LoaderCircleIcon from 'lucide-svelte/icons/loader-circle';
   import { Toaster } from 'svelte-sonner';
   import { onMount } from 'svelte';
@@ -20,7 +22,7 @@
   import DataStorage, { ACCOUNTS_FILE_PATH } from '$lib/core/dataStorage';
   import { Tooltip } from 'bits-ui';
   import WorldInfoManager from '$lib/core/managers/worldInfo';
-  import { accountsStore, worldInfoCache } from '$lib/stores';
+  import { accountsStore, runningAppIds, worldInfoCache } from '$lib/stores';
   import AutoKickBase from '$lib/core/managers/automation/autoKickBase';
   import { t } from '$lib/utils/util';
 
@@ -75,13 +77,27 @@
     document.addEventListener('keydown', disableF5);
 
     Promise.allSettled([
-      AutoKickBase.loadAccounts(),
+      AutoKickBase.init(),
+      DataStorage.init(),
+      DownloadManager.init(),
       handleWorldInfo(),
       checkForUpdates(),
       syncAccountNames(),
       activeAccount && FriendManager.getSummary(activeAccount),
       allAccounts.map(account => AvatarManager.fetchAvatars(account, [account.accountId]))
     ]);
+
+    listen<{
+      pid: number;
+      app_id: string;
+      state: 'running' | 'stopped';
+    }>('app_state_changed', async (event) => {
+      if (event.payload.state === 'running') {
+        runningAppIds.add(event.payload.app_id);
+      } else {
+        runningAppIds.delete(event.payload.app_id);
+      }
+    });
   });
 </script>
 

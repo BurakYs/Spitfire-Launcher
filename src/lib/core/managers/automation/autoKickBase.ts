@@ -21,7 +21,7 @@ export default class AutoKickBase {
   private static autoKickManagers: Map<string, AutoKickManager> = new Map();
   private static abortControllers: Map<string, AbortController> = new Map();
 
-  static async loadAccounts() {
+  static async init() {
     const accounts = await DataStorage.getAutomationFile();
     if (!accounts?.length) return;
 

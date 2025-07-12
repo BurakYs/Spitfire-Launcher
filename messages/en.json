@@ -66,6 +66,7 @@
     },
     "version": "Version",
     "categories": {
+      "downloader": "Downloader",
       "account": "Account",
       "brStw": "BR & STW",
       "authentication": "Authentication"
@@ -443,10 +444,11 @@
     "title": "Settings",
     "tabs": {
       "appSettings": "App Settings",
-      "customizableMenu": "Customizable Menu"
+      "customizableMenu": "Customizable Menu",
+      "downloaderSettings": "Downloader Settings"
     },
+    "invalidValue": "You have entered an invalid value.",
     "appSettings": {
-      "invalidValue": "You have entered an invalid value.",
       "gamePath": "Custom Game Path",
       "missionCheckInterval": {
         "title": "Mission Check Interval",
@@ -470,6 +472,24 @@
       },
       "hideToTray": "Hide to System Tray",
       "checkForUpdates": "Check for Updates"
+    },
+    "downloaderSettings": {
+      "downloadPath": {
+        "title": "Download Path",
+        "description": "Select the path where the launcher will download games."
+      },
+      "autoUpdate":{
+        "title": "Auto Update",
+        "description": "Automatically update games when a new version is available."
+      },
+      "sendNotifications": {
+        "title": "Send Notifications",
+        "description": "Send notifications when a game is updated or downloaded."
+      },
+      "account": {
+        "title": "Account",
+        "description": "Select the account to use for downloading games."
+      }
     }
   },
   "launchGame": {
@@ -573,6 +593,16 @@
     "blockUser": "Block",
     "unblockUser": "Unblock",
     "changeNickname": "Change Nickname"
+  },
+  "library": {
+    "page": {
+      "title": "Library"
+    }
+  },
+  "downloads": {
+    "page": {
+      "title": "Downloads"
+    }
   },
   "docs": {
     "howToUse": "How to Use",

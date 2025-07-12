@@ -1,29 +1,30 @@
 <script lang="ts">
   import SettingItem from '$components/settings/SettingItem.svelte';
-  import SystemTray from '$lib/core/system/systemTray';
-  import { allSettingsSchema, appSettingsSchema } from '$lib/validations/settings';
-  import { platform } from '@tauri-apps/plugin-os';
-  import { onMount } from 'svelte';
   import Input from '$components/ui/Input.svelte';
-  import Switch from '$components/ui/Switch.svelte';
-  import DataStorage, { SETTINGS_FILE_PATH, SETTINGS_INITIAL_DATA } from '$lib/core/dataStorage';
-  import type { AllSettings } from '$types/settings';
   import Select from '$components/ui/Select.svelte';
-  import ChevronsUpAndDownIcon from 'lucide-svelte/icons/chevrons-up-down';
-  import { toast } from 'svelte-sonner';
-  import { t } from '$lib/utils/util';
+  import Switch from '$components/ui/Switch.svelte';
   import { SidebarCategories } from '$lib/constants/sidebar';
+  import DataStorage, { SETTINGS_FILE_PATH, SETTINGS_INITIAL_DATA } from '$lib/core/dataStorage';
+  import SystemTray from '$lib/core/system/systemTray';
+  import { t } from '$lib/utils/util';
+  import { allSettingsSchema, appSettingsSchema } from '$lib/validations/settings';
+  import type { AllSettings } from '$types/settings';
+  import { platform } from '@tauri-apps/plugin-os';
+  import ChevronsUpAndDownIcon from 'lucide-svelte/icons/chevrons-up-down';
+  import { onMount } from 'svelte';
+  import { toast } from 'svelte-sonner';
 
   const currentPlatform = platform();
 
   let allSettings = $state<AllSettings>(SETTINGS_INITIAL_DATA);
 
+  type Settings = NonNullable<AllSettings['app']>;
   type SelectOption<T extends string> = {
     label: string;
     value: T;
   };
 
-  const startingPageValues = appSettingsSchema.shape.startingPage._def.innerType._def.values as string[];
+  const startingPageValues = Object.values<string>(appSettingsSchema.shape.startingPage.def.innerType.def.entries);
   const startingPageOptions = $SidebarCategories
     .map((category) => category.items)
     .flat()
@@ -33,7 +34,7 @@
       value: item.key
     }));
 
-  const startingAccountOptions: SelectOption<NonNullable<NonNullable<AllSettings['app']>['startingAccount']>>[] = [
+  const startingAccountOptions: SelectOption<NonNullable<Settings['startingAccount']>>[] = [
     {
       label: $t('settings.appSettings.startingAccount.values.firstInList'),
       value: 'firstInTheList'
@@ -44,8 +45,9 @@
     }
   ];
 
-  type SettingKey = keyof NonNullable<AllSettings['app']>;
+  type SettingKey = keyof Settings;
   type SettingValue = string | number | boolean;
+
   function handleSettingChange<K extends SettingKey, V extends SettingValue = SettingValue>(
     eventOrValue: Event | V,
     key: K
@@ -63,7 +65,7 @@
     };
 
     if (!allSettingsSchema.safeParse(newSettings).success) {
-      return toast.error($t('settings.appSettings.invalidValue'));
+      return toast.error($t('settings.invalidValue'));
     }
 
     allSettings = newSettings;
@@ -76,8 +78,7 @@
   }
 
   onMount(async function () {
-    const settingsData = await DataStorage.getSettingsFile(true);
-    allSettings = settingsData || SETTINGS_INITIAL_DATA;
+    allSettings = await DataStorage.getSettingsFile(true);
   });
 </script>
 

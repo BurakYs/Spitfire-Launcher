@@ -5,7 +5,6 @@ import XMPPManager from '$lib/core/managers/xmpp';
 import { SvelteSet } from 'svelte/reactivity';
 import homebaseRatingMapping from '$lib/data/homebaseRatingMapping.json';
 import { accountPartiesStore } from '$lib/stores';
-import { toast } from 'svelte-sonner';
 import { evaluateCurve, t } from '$lib/utils/util';
 import { get } from 'svelte/store';
 import type { AccountData } from '$types/accounts';

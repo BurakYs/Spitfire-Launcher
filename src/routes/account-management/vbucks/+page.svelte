@@ -60,8 +60,8 @@
       disabled={!selectedAccounts?.length || isFetching}
       loading={isFetching}
       loadingText={$t('vbucksInformation.loading')}
-      variant="epic"
       type="submit"
+      variant="epic"
     >
       {$t('vbucksInformation.getInformation')}
     </Button>

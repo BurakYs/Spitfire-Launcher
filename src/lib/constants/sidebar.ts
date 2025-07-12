@@ -1,6 +1,9 @@
 import type { AllSettings } from '$types/settings';
+import { platform as getPlatform } from '@tauri-apps/plugin-os';
 import { derived } from 'svelte/store';
 import { t } from '$lib/utils/util';
+
+const platform = getPlatform();
 
 type Category = {
   key: string;
@@ -100,6 +103,23 @@ export const SidebarCategories = derived(t, ($t) => [
       }
     ]
   },
+  platform === 'windows' ? {
+    // todo: change category key and name later, i suck at naming
+    key: 'downloader',
+    name: $t('sidebar.categories.downloader'),
+    items: [
+      {
+        key: 'library',
+        name: $t('library.page.title'),
+        href: '/downloader/library'
+      },
+      {
+        key: 'downloads',
+        name: $t('downloads.page.title'),
+        href: '/downloader/downloads'
+      }
+    ]
+  } : null,
   {
     key: 'authentication',
     name: $t('sidebar.categories.authentication'),
@@ -121,4 +141,4 @@ export const SidebarCategories = derived(t, ($t) => [
       }
     ]
   }
-] satisfies Category[]);
+].filter(x => !!x) satisfies Category[]);

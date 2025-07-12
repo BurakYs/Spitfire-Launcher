@@ -1,5 +1,6 @@
 <script lang="ts">
   import DataStorage from '$lib/core/dataStorage';
+  import DownloadManager from '$lib/core/managers/download.svelte';
   import { getCurrentWindow } from '@tauri-apps/api/window';
   import { platform } from '@tauri-apps/plugin-os';
   import LaunchGame from '$components/header/LaunchGame.svelte';
@@ -24,6 +25,7 @@
   }
 
   async function close() {
+    await DownloadManager.pauseDownload();
     await appWindow.close();
   }
 </script>

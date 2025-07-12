@@ -26,7 +26,7 @@
     doingBulkOperations.set(true);
     xpStatuses = [];
 
-    const accounts = getAccountsFromSelection(selectedAccounts)
+    const accounts = getAccountsFromSelection(selectedAccounts);
     await Promise.allSettled(accounts.map(async (account) => {
       const status: XPStatus = { accountId: account.accountId, displayName: account.displayName, data: { battleRoyale: 0, saveTheWorld: 0, creative: 0 } };
       xpStatuses.push(status);

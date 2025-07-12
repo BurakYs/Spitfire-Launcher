@@ -445,8 +445,8 @@
       "appSettings": "Ajustes de la aplicación",
       "customizableMenu": "Menú personalizable"
     },
+    "invalidValue": "Ha introducido un valor no válido.",
     "appSettings": {
-      "invalidValue": "Ha introducido un valor no válido.",
       "gamePath": "Ruta de juego personalizada",
       "missionCheckInterval": {
         "title": "Intervalo de verificación de misión",

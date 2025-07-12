@@ -88,8 +88,8 @@
       disabled={generatingAccessToken || !selectedTokenType || !selectedClient}
       loading={generatingAccessToken}
       loadingText={$t('accessTokenManagement.generating')}
-      variant="epic"
       type="submit"
+      variant="epic"
     >
       {$t('accessTokenManagement.generate')}
     </Button>

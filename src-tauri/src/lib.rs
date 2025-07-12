@@ -1,24 +1,11 @@
-use sysinfo::{System, ProcessesToUpdate, ProcessRefreshKind};
 use tauri::{generate_handler, Manager};
 
-#[tauri::command]
-fn get_processes() -> Vec<String> {
-    let mut system = System::new_all();
-    system.refresh_processes_specifics(ProcessesToUpdate::All, true, ProcessRefreshKind::nothing());
+mod app_monitor;
+mod commands;
+mod legendary;
+mod types;
 
-    system
-        .processes()
-        .iter()
-        .map(|(pid, process)| format!("{} - {}", pid, process.name().to_string_lossy()))
-        .collect()
-}
-
-#[tauri::command]
-fn get_locale() -> String {
-    sys_locale::get_locale()
-        .and_then(|locale| locale.split(['_', '-']).next().map(|s| s.to_string()))
-        .unwrap_or_else(|| "en".to_string())
-}
+use commands::*;
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
@@ -26,16 +13,34 @@ pub fn run() {
 
     #[cfg(desktop)]
     {
-        builder = builder.plugin(tauri_plugin_single_instance::init(|app, _args, _cwd| {
-            let _ = app
-                .get_webview_window("main")
-                .expect("no main window")
-                .set_focus();
-        }));
+        builder = builder
+            .plugin(tauri_plugin_single_instance::init(|app, _args, _cwd| {
+                let _ = app
+                    .get_webview_window("main")
+                    .expect("no main window")
+                    .set_focus();
+            }))
+            .setup(|app| {
+                app_monitor::start_monitoring(app.handle().clone());
+                Ok(())
+            })
+            .on_window_event(|_window, event| {
+                if let tauri::WindowEvent::Destroyed = event {
+                    let _ = legendary::kill_legendary_processes();
+                }
+            });
     }
 
     builder
-        .invoke_handler(generate_handler![get_processes,get_locale])
+        .invoke_handler(generate_handler![
+            get_processes,
+            get_locale,
+            run_legendary,
+            start_legendary_stream,
+            stop_legendary_stream,
+            launch_app,
+            stop_app
+        ])
         .plugin(tauri_plugin_shell::init())
         .plugin(tauri_plugin_http::init())
         .plugin(tauri_plugin_fs::init())
