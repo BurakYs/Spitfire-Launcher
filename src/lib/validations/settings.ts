@@ -74,6 +74,7 @@ export const parsedAppSchema = z.object({
     tall: z.string(),
     wide: z.string()
   }),
+  requiresRepair: z.boolean().optional(),
   hasUpdate: z.boolean().optional(),
   downloadSize: z.number().optional(),
   installSize: z.number(),

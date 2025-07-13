@@ -115,12 +115,17 @@
     await DownloadManager.addToQueue(app);
   }
 
-  async function verify() {
+  async function verifyAndRepair() {
     isVerifying = true;
 
     try {
       const { requiresRepair } = await Legendary.verify(app.id);
-      toast.success(`Verified ${app.title}`);
+      if (!requiresRepair) {
+        return toast.success(`Verified ${app.title}`);
+      }
+
+      toast.success(`${app.title} requires repair, adding to queue`);
+      await DownloadManager.addToQueue(app);
     } catch (error) {
       console.error(error);
       toast.error(`Failed to verify ${app.title}`);
@@ -179,71 +184,72 @@
 
   <div class="flex gap-1 p-3 grow">
     {#if app.installed && !DownloadManager.isInQueue(app.id)}
-      {#if !app.hasUpdate}
+      {#if app.hasUpdate}
+        {@render UpdateButton()}
+      {:else if app.requiresRepair}
+        {@render RepairButton()}
+      {:else}
         {#if runningAppIds.has(app.id)}
           {@render StopButton()}
         {:else}
           {@render PlayButton()}
         {/if}
-      {:else}
-        {@render UpdateButton()}
       {/if}
 
-      <Button
-        class="font-medium ml-auto"
-        size="sm"
-        variant="ghost"
-      >
-        <DropdownMenu.Root bind:open={dropdownOpen}>
-          {#snippet trigger()}
+      <DropdownMenu.Root bind:open={dropdownOpen}>
+        {#snippet trigger()}
+          <Button
+            class="font-medium ml-auto"
+            size="sm"
+            variant="ghost"
+          >
             <MoreHorizontalIcon class="size-6"/>
-          {/snippet}
+          </Button>
+        {/snippet}
 
-          {#if app.installed}
-            <DropdownMenu.Item onclick={() => toggleAutoUpdate()}>
-              {#if $perAppAutoUpdate[app.id] ?? globalAutoUpdate}
-                <RefreshCwOffIcon class="size-5"/>
-                Disable Auto Update
-              {:else}
-                <RefreshCwIcon class="size-5"/>
-                Enable Auto Update
-              {/if}
-            </DropdownMenu.Item>
+        {#if app.installed}
+          <DropdownMenu.Item onclick={() => toggleAutoUpdate()}>
+            {#if $perAppAutoUpdate[app.id] ?? globalAutoUpdate}
+              <RefreshCwOffIcon class="size-5"/>
+              Disable Auto Update
+            {:else}
+              <RefreshCwIcon class="size-5"/>
+              Enable Auto Update
+            {/if}
+          </DropdownMenu.Item>
 
-            <DropdownMenu.Item disabled={isVerifying || isDeleting || runningAppIds.has(app.id)} onclick={() => verify()}>
-              {#if isVerifying}
-                <LoaderCircleIcon class="size-5 animate-spin"/>
-              {:else}
-                <WrenchIcon class="size-5"/>
-              {/if}
-              Verify & Repair
-            </DropdownMenu.Item>
+          <DropdownMenu.Item disabled={isVerifying || isDeleting || runningAppIds.has(app.id)} onclick={() => verifyAndRepair()}>
+            {#if isVerifying}
+              <LoaderCircleIcon class="size-5 animate-spin"/>
+            {:else}
+              <WrenchIcon class="size-5"/>
+            {/if}
+            Verify & Repair
+          </DropdownMenu.Item>
 
-            <DropdownMenu.Item
-              class="hover:bg-destructive"
-              disabled={isVerifying || isDeleting || runningAppIds.has(app.id) || !!DownloadManager.downloadingAppId}
-              onclick={() => uninstallDialogAppId = app.id}
-            >
-              {#if isDeleting}
-                <LoaderCircleIcon class="size-5 animate-spin"/>
-              {:else}
-                <Trash2Icon class="size-5"/>
-              {/if}
-              Uninstall
-            </DropdownMenu.Item>
+          <DropdownMenu.Item
+            class="hover:bg-destructive"
+            disabled={isVerifying || isDeleting || runningAppIds.has(app.id) || !!DownloadManager.downloadingAppId}
+            onclick={() => uninstallDialogAppId = app.id}
+          >
+            {#if isDeleting}
+              <LoaderCircleIcon class="size-5 animate-spin"/>
+            {:else}
+              <Trash2Icon class="size-5"/>
+            {/if}
+            Uninstall
+          </DropdownMenu.Item>
 
-            <DropdownMenu.Item disabled={true}>
-              <HardDriveIcon class="size-5"/>
-              Size: {bytesToSize(app.installSize)}
-            </DropdownMenu.Item>
-          {/if}
-        </DropdownMenu.Root>
-      </Button>
+          <DropdownMenu.Item disabled={true}>
+            <HardDriveIcon class="size-5"/>
+            Size: {bytesToSize(app.installSize)}
+          </DropdownMenu.Item>
+        {/if}
+      </DropdownMenu.Root>
     {:else}
       {@const isInstalling = DownloadManager.downloadingAppId === app.id}
-      {@const isInQueue = DownloadManager.isInQueue(app.id) && !isInstalling}
 
-      {#if isInQueue}
+      {#if DownloadManager.isInQueue(app.id) && !isInstalling}
         {@render RemoveFromQueueButton()}
       {:else}
         {@render InstallButton(isInstalling)}
@@ -254,10 +260,9 @@
 
 {#snippet StopButton()}
   <Button
-    class="flex items-center justify-center flex-1 gap-1 font-medium px-4"
+    class="flex items-center justify-center flex-1 gap-2 text-sm"
     disabled={isStopping}
     onclick={() => stopApp()}
-    size="sm"
     variant="danger"
   >
     {#if isStopping}
@@ -271,10 +276,9 @@
 
 {#snippet PlayButton()}
   <Button
-    class="flex items-center justify-center flex-1 gap-1 font-medium px-4"
+    class="flex items-center justify-center flex-1 gap-2 text-sm"
     disabled={isLaunching || isVerifying || isDeleting}
     onclick={() => launchApp()}
-    size="sm"
     variant="epic"
   >
     {#if isLaunching}
@@ -287,21 +291,26 @@
 {/snippet}
 
 {#snippet UpdateButton()}
-  {@const isUpdating = DownloadManager.downloadingAppId === app.id}
-
   <Button
-    class="flex items-center justify-center flex-1 gap-2 font-medium px-4"
-    disabled={isVerifying || isDeleting || DownloadManager.downloadingAppId === app.id}
-    onclick={() => installApp()}
-    size="sm"
+    class="flex items-center justify-center flex-1 gap-2 text-sm"
+    disabled={isVerifying || isDeleting}
+    onclick={installApp}
     variant="secondary"
   >
-    {#if DownloadManager.downloadingAppId === app.id}
-      <LoaderCircleIcon class="size-5 animate-spin"/>
-    {:else}
-      <RefreshCwIcon class="size-5"/>
-    {/if}
-    Update {isUpdating && DownloadManager.progress.percent ? `(${Math.floor(DownloadManager.progress.percent)}%)` : ''}
+    <RefreshCwIcon class="size-5"/>
+    Update
+  </Button>
+{/snippet}
+
+{#snippet RepairButton()}
+  <Button
+    class="flex items-center justify-center flex-1 gap-2 text-sm"
+    disabled={isVerifying || isDeleting}
+    onclick={verifyAndRepair}
+    variant="secondary"
+  >
+    <WrenchIcon class="size-5"/>
+    Repair
   </Button>
 {/snippet}
 
@@ -319,11 +328,11 @@
 {/snippet}
 
 {#snippet InstallButton(isInstalling: boolean)}
+  {@const type = app.hasUpdate ? 'Update' : app.requiresRepair ? 'Repair' : 'Install'}
   <Button
-    class="flex items-center justify-center flex-1 gap-2 font-medium px-4 py-2"
+    class="flex items-center justify-center flex-1 gap-2 text-sm"
     disabled={isInstalling}
     onclick={() => installDialogAppId = app.id}
-    size="sm"
     variant="outline"
   >
     {#if isInstalling}
@@ -331,6 +340,6 @@
     {:else}
       <DownloadIcon class="size-5"/>
     {/if}
-    Install {isInstalling && DownloadManager.progress.percent ? `(${Math.floor(DownloadManager.progress.percent)}%)` : ''}
+    {type} {isInstalling && DownloadManager.progress.percent ? `(${Math.floor(DownloadManager.progress.percent)}%)` : ''}
   </Button>
 {/snippet}

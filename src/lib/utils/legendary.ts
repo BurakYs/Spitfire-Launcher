@@ -7,6 +7,7 @@ import type { LegendaryAppInfo, LegendaryInstalledList, LegendaryLaunchData, Leg
 import { path } from '@tauri-apps/api';
 import { invoke } from '@tauri-apps/api/core';
 import { readTextFile } from '@tauri-apps/plugin-fs';
+import { get } from 'svelte/store';
 
 type ExecuteResult<T = any> = {
   code: number | null;
@@ -132,14 +133,20 @@ export default class Legendary {
 
   static async verify(id: string) {
     const { stderr } = await this.execute<string>(['verify', id, '-y', '--skip-sdl']);
+    const requiresRepair = stderr.includes('repair your game installation');
+    const requiredRepair = get(ownedApps).find(app => app.id === id)?.requiresRepair || false;
 
-    return {
-      requiresRepair: stderr.includes('repair your game installation')
-    };
-  }
+    if (requiresRepair !== requiredRepair) {
+      ownedApps.update(current => {
+        return current.map(app =>
+          app.id === id
+            ? { ...app, requiresRepair }
+            : app
+        );
+      });
+    }
 
-  static async repair(id: string) {
-    return await this.execute(['repair', id, '-y', '--skip-sdl']);
+    return { requiresRepair };
   }
 
   static async uninstall(appId: string) {

@@ -10,6 +10,7 @@ import { listen, type UnlistenFn } from '@tauri-apps/api/event';
 import { toast } from 'svelte-sonner';
 import type { z } from 'zod/v4';
 
+type DownloadType = 'install' | 'update' | 'repair';
 type QueueItem = z.infer<typeof queueItemSchema>;
 type DownloadCallbacks = Partial<{
   onProgress: (progress: Partial<DownloadProgress>) => void;
@@ -126,6 +127,8 @@ class DownloadManager {
     if (!item || (this.downloadingAppId && item.status !== 'paused')) return;
 
     const app = item.item;
+    const type: DownloadType = app.requiresRepair ? 'repair' : app.hasUpdate ? 'update' : 'install';
+
     this.downloadingAppId = app.id;
     this.progress = {
       installSize: 0,
@@ -141,7 +144,7 @@ class DownloadManager {
     await this.setItemStatus(item, 'downloading');
 
     try {
-      await this.installOrUpdate(app.id, {
+      await this.startInstallation(app, {
         onProgress: (progress: Partial<DownloadProgress>) => {
           this.progress = {
             ...this.progress,
@@ -150,14 +153,20 @@ class DownloadManager {
         },
         onComplete: async (success) => {
           const downloaderSettings = await DataStorage.getDownloaderFile();
-          const type = app.hasUpdate ? 'update' : 'install';
 
           if (success) {
             app.installed = true;
             app.hasUpdate = false;
+            app.requiresRepair = false;
+
             item.completedAt = Date.now();
 
-            const notificationMessage = type === 'update' ? `Successfully updated ${app.title}` : `Successfully installed ${app.title}`;
+            const notificationMessage = type === 'repair'
+              ? `Successfully repaired ${app.title}`
+              : type === 'update'
+                ? `Successfully updated ${app.title}`
+                : `Successfully installed ${app.title}`;
+
             toast.success(notificationMessage);
 
             if (downloaderSettings.sendNotifications) {
@@ -177,7 +186,7 @@ class DownloadManager {
 
             await this.setItemStatus(item, 'completed');
           } else if (!this.activeDownload?.cancelled && !this.activeDownload?.paused) {
-            await this.handleDownloadError(item);
+            await this.handleDownloadError(item, type);
           }
 
           if (!this.activeDownload?.paused) {
@@ -185,12 +194,12 @@ class DownloadManager {
           }
         },
         onError: async (error) => {
-          await this.handleDownloadError(item, error);
+          await this.handleDownloadError(item, type, error);
           this.cleanupActiveDownload();
         }
       });
     } catch (error) {
-      await this.handleDownloadError(item, error);
+      await this.handleDownloadError(item, type, error);
       this.cleanupActiveDownload();
     }
   }
@@ -241,21 +250,25 @@ class DownloadManager {
     await this.saveQueueToFile();
   }
 
-  private async handleDownloadError(item: QueueItem, error?: unknown) {
+  private async handleDownloadError(item: QueueItem, type: DownloadType, error?: unknown) {
     if (error) console.error(error);
 
     const app = item.item;
-    const type = app.hasUpdate ? 'update' : 'install';
-    const errorMessage = type === 'update' ? `An error occurred while updating ${app.title}` : `An error occurred while installing ${app.title}`;
+    const errorMessage = type === 'repair'
+      ? `An error occurred while repairing ${app.title}`
+      : type === 'update'
+        ? `An error occurred while updating ${app.title}`
+        : `An error occurred while installing ${app.title}`;
+
     toast.error(errorMessage);
 
     await this.setItemStatus(item, 'failed');
   }
 
-  private async installOrUpdate(appId: string, callbacks: DownloadCallbacks = {}) {
+  private async startInstallation(app: ParsedApp, callbacks: DownloadCallbacks = {}) {
     const settings = await DataStorage.getDownloaderFile();
-    const streamId = `install_${appId}_${Date.now()}`;
-    const args = ['install', appId, '-y', '--skip-sdl', '--skip-dlcs', '--base-path', settings.downloadPath!];
+    const streamId = `install_${app.id}_${Date.now()}`;
+    const args = [app.requiresRepair ? 'repair' : 'install', app.id, '-y', '--skip-sdl', '--skip-dlcs', '--base-path', settings.downloadPath!];
 
     const unlisten = await listen<StreamEvent>(`legendary_stream:${streamId}`, (event) => {
       const payload = event.payload;
