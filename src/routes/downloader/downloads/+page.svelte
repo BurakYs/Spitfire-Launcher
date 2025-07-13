@@ -133,14 +133,16 @@
       </div>
     {:else}
       <div class="flex items-center justify-center h-full">
-        <p class="text-muted-foreground">No downloads in progress</p>
+        <p class="text-muted-foreground">
+          {$t('downloads.noDownloads')}
+        </p>
       </div>
     {/if}
   </div>
 
   {#if queue.length > 0}
     <div class="w-full border rounded-md p-4 mt-2">
-      <h3 class="font-semibold text-2xl mb-4">Queue</h3>
+      <h3 class="font-semibold text-2xl mb-4">{$t('downloads.queued')}</h3>
       <div class="space-y-4">
         {#each queue as { item }, index (item.id)}
           <div class="flex items-center gap-4 p-3 rounded-lg border bg-surface-alt">
@@ -194,9 +196,9 @@
   {#if completed.length > 0}
     <div class="w-full border rounded-md p-4 mt-2">
       <div class="flex items-center gap-2 mb-4">
-        <h3 class="font-semibold text-2xl">Completed</h3>
-        <Button onclick={() => DownloadManager.clearCompleted()} size="sm" variant="outline">
-          Clear All
+        <h3 class="font-semibold text-2xl">{$t('downloads.completed')}</h3>
+        <Button onclick={DownloadManager.clearCompleted} size="sm" variant="outline">
+          {$t('downloads.clearAll')}
         </Button>
       </div>
       <div class="space-y-4">

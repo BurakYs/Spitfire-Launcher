@@ -18,8 +18,8 @@
 </script>
 
 <Dialog
-  description="Are you sure you want to cancel the download? Downloaded files will be kept."
-  title="Cancel Confirmation"
+  description={$t('downloads.cancelDownloadConfirmation.description')}
+  title={$t('downloads.cancelDownloadConfirmation.title')}
   bind:open
 >
   <div class="flex w-full items-center justify-center gap-2">

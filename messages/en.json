@@ -478,7 +478,7 @@
         "title": "Download Path",
         "description": "Select the path where the launcher will download games."
       },
-      "autoUpdate":{
+      "autoUpdate": {
         "title": "Auto Update",
         "description": "Automatically update games when a new version is available."
       },
@@ -582,11 +582,85 @@
   "library": {
     "page": {
       "title": "Library"
+    },
+    "loggingIn": "Logging in...",
+    "loggedIn": "Logged in successfully",
+    "failedToLogin": "Failed to login",
+    "searchPlaceholder": "Search for games...",
+    "filters": {
+      "select": "Select filters",
+      "showHidden": "Show Hidden",
+      "installedOnly": "Installed Only",
+      "updatesAvailable": "Updates Available"
+    },
+    "app": {
+      "unfavorite": "Unfavorite",
+      "favorite": "Favorite",
+      "show": "Show",
+      "hide": "Hide",
+      "stop": "Stop",
+      "play": "Play",
+      "update": "Update",
+      "repair": "Repair",
+      "install": "Install",
+      "removeFromQueue": {
+        "short": "Remove",
+        "long": "Remove from Queue"
+      },
+      "dropdown": {
+        "autoUpdate": {
+          "enable": "Enable Auto Update",
+          "disable": "Disable Auto Update"
+        },
+        "verifyAndRepair": "Verify & Repair",
+        "uninstall": "Uninstall",
+        "size": "Size"
+      },
+      "failedToLaunch": "Failed to launch {name}",
+      "stopped": "{name} stopped successfully",
+      "failedToStop": "Failed to stop {name}",
+      "verified": "{name} files verified successfully",
+      "requiresRepair": "{name} requires repair, added to the queue",
+      "failedToVerify": "Failed to verify {name} files",
+      "installed": "{name} installed successfully",
+      "failedToInstall": "Failed to install {name}",
+      "updated": "{name} updated successfully",
+      "failedToUpdate": "Failed to update {name}",
+      "repaired": "{name} repaired successfully",
+      "failedToRepair": "Failed to repair {name}"
+    },
+    "installConfirmation": {
+      "downloadSize": "Download Size",
+      "compressed": "Compressed",
+      "installSize": "Install Size",
+      "afterExtraction": "After Extraction",
+      "storage": {
+        "title": "Storage",
+        "current": "Current",
+        "after": "After"
+      },
+      "notEnoughSpace": "Not enough space available",
+      "download": "Download"
+    },
+    "uninstallConfirmation": {
+      "title": "Uninstall Confirmation",
+      "description": "Are you sure you want to uninstall {name}?",
+      "uninstalled": "{name} uninstalled successfully",
+      "failedToUninstall": "Failed to uninstall {name}"
     }
   },
   "downloads": {
     "page": {
       "title": "Downloads"
+    },
+    "noDownloads": "No downloads in progress",
+    "paused": "Paused",
+    "queued": "Queued",
+    "completed": "Completed",
+    "clearAll": "Clear All",
+    "cancelDownloadConfirmation": {
+      "title": "Cancel Download Confirmation",
+      "description": "Are you sure you want to cancel the download? Downloaded files will be kept."
     }
   },
   "docs": {

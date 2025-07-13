@@ -4,7 +4,7 @@
   import DownloadManager from '$lib/core/managers/download.svelte';
   import { favoritedAppIds, hiddenAppIds, ownedApps, perAppAutoUpdate, runningAppIds } from '$lib/stores';
   import Legendary from '$lib/utils/legendary';
-  import { bytesToSize, sleep } from '$lib/utils/util';
+  import { bytesToSize, sleep, t } from '$lib/utils/util';
   import type { DownloaderSettings } from '$types/settings';
   import { invoke } from '@tauri-apps/api/core';
   import CircleMinusIcon from 'lucide-svelte/icons/circle-minus';
@@ -54,7 +54,7 @@
       await Legendary.launch(app.id);
     } catch (error) {
       console.error(error);
-      toast.error('Failed to launch app');
+      toast.error($t('library.app.failedToLaunch', { name: app.title }));
     } finally {
       isLaunching = false;
     }
@@ -65,10 +65,10 @@
 
     try {
       await invoke('stop_app', { appId: app.id });
-      toast.success(`Stopped ${app.title}`);
+      toast.success($t('library.app.stopped', { name: app.title }));
     } catch (error) {
       console.error(error);
-      toast.error(`Failed to stop ${app.title}`);
+      toast.error($t('library.app.failedToStop', { name: app.title }));
     } finally {
       // A delay to ensure the app is killed properly
       await sleep(2000);
@@ -121,14 +121,14 @@
     try {
       const { requiresRepair } = await Legendary.verify(app.id);
       if (!requiresRepair) {
-        return toast.success(`Verified ${app.title}`);
+        return toast.success($t('library.app.verified', { name: app.title }));
       }
 
-      toast.success(`${app.title} requires repair, adding to queue`);
+      toast.success($t('library.app.requiresRepair', { name: app.title }));
       await DownloadManager.addToQueue(app);
     } catch (error) {
       console.error(error);
-      toast.error(`Failed to verify ${app.title}`);
+      toast.error($t('library.app.failedToVerify', { name: app.title }));
     } finally {
       isVerifying = false;
     }
@@ -148,28 +148,28 @@
     <img
       class="size-full h-60 object-cover rounded-t-md group-hover:grayscale-0"
       class:grayscale={!app.installed}
-      alt="App Thumbnail"
+      alt="Thumbnail"
       loading="lazy"
       src={app.images.tall}
     />
 
     <div class="absolute top-2 right-2 flex flex-col space-y-2">
       {#if favoritedAppIds.has(app.id)}
-        <button class="bg-black rounded-full p-1.5" onclick={() => toggleFavorite()} title="Unfavorite">
+        <button class="bg-black rounded-full p-1.5" onclick={toggleFavorite} title={$t('library.app.unfavorite')}>
           <HeartIcon class="text-red-500 size-4.5" fill="red"/>
         </button>
       {:else}
-        <button class="hidden group-hover:block bg-black rounded-full p-1.5" onclick={() => toggleFavorite()} title="Favorite">
+        <button class="hidden group-hover:block bg-black rounded-full p-1.5" onclick={toggleFavorite} title={$t('library.app.favorite')}>
           <HeartIcon class="text-gray-400 size-4.5"/>
         </button>
       {/if}
 
       {#if hiddenAppIds.has(app.id)}
-        <button class="hidden group-hover:block bg-black rounded-full p-1.5" onclick={() => toggleHidden()} title="Unhide">
+        <button class="hidden group-hover:block bg-black rounded-full p-1.5" onclick={toggleHidden} title={$t('library.app.show')}>
           <EyeOffIcon class="text-gray-400 size-4.5"/>
         </button>
       {:else}
-        <button class="hidden group-hover:block bg-black rounded-full p-1.5" onclick={() => toggleHidden()} title="Hide">
+        <button class="hidden group-hover:block bg-black rounded-full p-1.5" onclick={toggleHidden} title={$t('library.app.hide')}>
           <EyeIcon class="text-gray-400 size-4.5"/>
         </button>
       {/if}
@@ -208,23 +208,23 @@
         {/snippet}
 
         {#if app.installed}
-          <DropdownMenu.Item onclick={() => toggleAutoUpdate()}>
+          <DropdownMenu.Item onclick={toggleAutoUpdate}>
             {#if $perAppAutoUpdate[app.id] ?? globalAutoUpdate}
               <RefreshCwOffIcon class="size-5"/>
-              Disable Auto Update
+              {$t('library.app.dropdown.autoUpdate.disable')}
             {:else}
               <RefreshCwIcon class="size-5"/>
-              Enable Auto Update
+              {$t('library.app.dropdown.autoUpdate.enable')}
             {/if}
           </DropdownMenu.Item>
 
-          <DropdownMenu.Item disabled={isVerifying || isDeleting || runningAppIds.has(app.id)} onclick={() => verifyAndRepair()}>
+          <DropdownMenu.Item disabled={isVerifying || isDeleting || runningAppIds.has(app.id)} onclick={verifyAndRepair}>
             {#if isVerifying}
               <LoaderCircleIcon class="size-5 animate-spin"/>
             {:else}
               <WrenchIcon class="size-5"/>
             {/if}
-            Verify & Repair
+            {$t('library.app.dropdown.verifyAndRepair')}
           </DropdownMenu.Item>
 
           <DropdownMenu.Item
@@ -237,12 +237,12 @@
             {:else}
               <Trash2Icon class="size-5"/>
             {/if}
-            Uninstall
+            {$t('library.app.dropdown.uninstall')}
           </DropdownMenu.Item>
 
           <DropdownMenu.Item disabled={true}>
             <HardDriveIcon class="size-5"/>
-            Size: {bytesToSize(app.installSize)}
+            {$t('library.app.dropdown.size')}: {bytesToSize(app.installSize)}
           </DropdownMenu.Item>
         {/if}
       </DropdownMenu.Root>
@@ -270,7 +270,7 @@
     {:else}
       <XIcon class="size-5"/>
     {/if}
-    Stop
+    {$t('library.app.stop')}
   </Button>
 {/snippet}
 
@@ -286,7 +286,7 @@
     {:else}
       <PlayIcon class="size-5"/>
     {/if}
-    Play
+    {$t('library.app.play')}
   </Button>
 {/snippet}
 
@@ -298,7 +298,7 @@
     variant="secondary"
   >
     <RefreshCwIcon class="size-5"/>
-    Update
+    {$t('library.app.update')}
   </Button>
 {/snippet}
 
@@ -310,25 +310,25 @@
     variant="secondary"
   >
     <WrenchIcon class="size-5"/>
-    Repair
+    {$t('library.app.repair')}
   </Button>
 {/snippet}
 
 {#snippet RemoveFromQueueButton()}
   <Button
-    class="flex items-center justify-center flex-1 gap-2 font-medium px-4 py-2"
+    class="flex items-center justify-center flex-1 gap-2 text-sm"
     onclick={() => DownloadManager.removeFromQueue(app.id)}
-    size="sm"
-    title="Remove from Queue"
+    title={$t('library.app.removeFromQueue.long')}
     variant="danger"
   >
     <CircleMinusIcon class="size-5"/>
-    Remove
+    {$t('library.app.removeFromQueue.short')}
   </Button>
 {/snippet}
 
 {#snippet InstallButton(isInstalling: boolean)}
-  {@const type = app.hasUpdate ? 'Update' : app.requiresRepair ? 'Repair' : 'Install'}
+  {@const percent = isInstalling && DownloadManager.progress.percent ? `(${Math.floor(DownloadManager.progress.percent)}%)` : ''}
+
   <Button
     class="flex items-center justify-center flex-1 gap-2 text-sm"
     disabled={isInstalling}
@@ -340,6 +340,6 @@
     {:else}
       <DownloadIcon class="size-5"/>
     {/if}
-    {type} {isInstalling && DownloadManager.progress.percent ? `(${Math.floor(DownloadManager.progress.percent)}%)` : ''}
+    {app.hasUpdate ? $t('library.app.update') : app.requiresRepair ? $t('library.app.repair') : $t('library.app.install')} {percent}
   </Button>
 {/snippet}

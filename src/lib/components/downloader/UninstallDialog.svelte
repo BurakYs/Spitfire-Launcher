@@ -3,7 +3,7 @@
   import Dialog from '$components/ui/Dialog.svelte';
   import { ownedApps } from '$lib/stores';
   import Legendary from '$lib/utils/legendary';
-  import { t } from '$lib/utils/util';
+  import { bytesToSize, t } from '$lib/utils/util';
   import LoaderCircleIcon from 'lucide-svelte/icons/loader-circle';
   import { toast } from 'svelte-sonner';
 
@@ -23,10 +23,10 @@
 
     try {
       await Legendary.uninstall(app.id);
-      toast.success(`Uninstalled ${app.title}`);
+      toast.success($t('library.uninstallConfirmation.uninstalled', { name: app.title }));
     } catch (error) {
       console.error(error);
-      toast.error(`Failed to uninstall ${app.title}`);
+      toast.error($t('library.uninstallConfirmation.failedToUninstall', { name: app.title }));
     } finally {
       isDeleting = false;
       isOpen = false;
@@ -35,9 +35,9 @@
 </script>
 
 <Dialog
-  description="Are you sure you want to uninstall {app.title}?"
+  description={$t('library.uninstallConfirmation.description', { name: app.title })}
   onOpenChangeComplete={(open) => !open && (id = '')}
-  title="Uninstall Confirmation"
+  title={$t('library.uninstallConfirmation.title')}
   bind:open={isOpen}
 >
   <div class="flex w-full items-center justify-center gap-2">

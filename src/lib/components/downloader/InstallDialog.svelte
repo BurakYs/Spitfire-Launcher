@@ -83,7 +83,7 @@
       <div class="bg-accent/30 rounded-lg p-4">
         <div class="flex items-center gap-2">
           <DownloadIcon class="size-6 text-epic"/>
-          <span class="text-sm font-medium">Download Size</span>
+          <span class="text-sm font-medium">{$t('library.installConfirmation.downloadSize')}</span>
         </div>
 
         {#if downloadSize === 0}
@@ -91,33 +91,33 @@
         {:else}
           <div class="text-2xl font-bold mt-1">{bytesToSize(downloadSize)}</div>
         {/if}
-        <div class="text-xs text-muted-foreground mt-1">Compressed</div>
+        <div class="text-xs text-muted-foreground mt-1">{$t('library.installConfirmation.compressed')}</div>
       </div>
 
       <div class="bg-accent/30 rounded-lg p-4">
         <div class="flex items-center gap-2">
           <HardDriveIcon class="size-6 text-epic"/>
-          <span class="text-sm font-medium">Install Size</span>
+          <span class="text-sm font-medium">{$t('library.installConfirmation.installSize')}</span>
         </div>
         {#if installSize === 0}
           <div class="text-2xl text-muted-foreground mt-1 skeleton-loader p-4"></div>
         {:else}
           <div class="text-2xl font-bold mt-1">{bytesToSize(installSize)}</div>
         {/if}
-        <div class="text-xs text-muted-foreground mt-1">After extraction</div>
+        <div class="text-xs text-muted-foreground mt-1">{$t('library.installConfirmation.afterExtraction')}</div>
       </div>
     </div>
 
     <div class="bg-accent/30 border border-border rounded-lg p-3">
       <div class="flex items-center gap-2 mb-1">
         <HardDriveIcon class="size-5 text-epic"/>
-        <span class="font-medium">Storage</span>
+        <span class="font-medium">{$t('library.installConfirmation.storage.title')}</span>
       </div>
 
       <div class="space-y-2">
         <div class="flex justify-between text-xs">
           <span class="text-muted-foreground">
-            Current:
+            {$t('library.installConfirmation.storage.current')}:
             {#if usedSpace === 0 || totalSpace === 0}
               <span class="skeleton-loader py-0.5 px-5 ml-1 rounded"></span>
             {:else}
@@ -139,7 +139,7 @@
               <AlertTriangleIcon class="size-4"/>
             {/if}
 
-            After:
+            {$t('library.installConfirmation.storage.after')}:
             {#if usedSpace === 0 || totalSpace === 0 || installSize === 0}
               <span class="skeleton-loader py-2.5 px-5 -ml-0.5 rounded"></span>
             {:else}
@@ -166,14 +166,14 @@
         {$t('common.cancel')}
       </Button>
 
-      <Tooltip tooltip={afterInstallPercentage >= 100 ? 'Not enough space available' : undefined}>
+      <Tooltip tooltip={afterInstallPercentage >= 100 ? $t('library.installConfirmation.notEnoughSpace') : undefined}>
         <Button
           disabled={!afterInstallPercentage || afterInstallPercentage >= 100 || isStartingDownload}
           loading={isStartingDownload}
           onclick={installApp}
           variant="epic"
         >
-          Download
+          {$t('library.installConfirmation.download')}
         </Button>
       </Tooltip>
     </div>

@@ -6,9 +6,9 @@
   import { t } from '$lib/utils/util';
 
   const filters: { label: string; value: AppFilterValue }[] = $derived([
-    { label: 'Show Hidden', value: 'hidden' },
-    { label: 'Installed Only', value: 'installed' },
-    { label: 'Updates Available', value: 'updatesAvailable' }
+    { label: $t('library.filters.showHidden'), value: 'hidden' },
+    { label: $t('library.filters.installedOnly'), value: 'installed' },
+    { label: $t('library.filters.updatesAvailable'), value: 'updatesAvailable' }
   ]);
 
   type Props = {
@@ -27,7 +27,7 @@
 >
   {#snippet trigger(label)}
     <FilterIcon class="text-muted-foreground size-5 mr-2"/>
-    <span class="text-muted-foreground truncate">{label || 'Select filters'}</span>
+    <span class="text-muted-foreground truncate">{label || $t('library.filters.select')}</span>
     <ChevronsUpAndDownIcon class="text-muted-foreground size-5 ml-auto"/>
   {/snippet}
 </Select>

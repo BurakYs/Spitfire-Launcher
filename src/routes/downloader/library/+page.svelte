@@ -60,14 +60,14 @@
   onMount(async () => {
     const isLoggedIn = (await Legendary.getStatus()).account;
     if (!isLoggedIn) {
-      toast.loading('Logging in...');
+      toast.loading($t('library.loggingIn'));
 
       try {
         await Legendary.login(activeAccount);
-        toast.success('Logged in successfully');
+        toast.success($t('library.loggedIn'));
       } catch (error) {
         console.error(error);
-        toast.error('Failed to log in');
+        toast.error($t('library.failedToLogin'));
         return;
       }
     }
@@ -126,7 +126,7 @@
   <div class="flex items-center gap-2">
     <Input
       class="max-w-64 max-xs:max-w-full w-full"
-      placeholder="Search for games..."
+      placeholder={$t('library.searchPlaceholder')}
       type="search"
       bind:value={searchQuery}
     />

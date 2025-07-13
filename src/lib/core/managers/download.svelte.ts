@@ -2,12 +2,14 @@ import DataStorage, { DOWNLOADER_FILE_PATH } from '$lib/core/dataStorage';
 import NotificationManager from '$lib/core/managers/notification';
 import { ownedApps } from '$lib/stores';
 import Legendary, { type StreamEvent } from '$lib/utils/legendary';
+import { t } from '$lib/utils/util';
 import type { queueItemSchema } from '$lib/validations/settings';
 import type { ParsedApp } from '$types/legendary';
 import type { DownloaderSettings } from '$types/settings';
 import { invoke } from '@tauri-apps/api/core';
 import { listen, type UnlistenFn } from '@tauri-apps/api/event';
 import { toast } from 'svelte-sonner';
+import { get } from 'svelte/store';
 import type { z } from 'zod/v4';
 
 type DownloadType = 'install' | 'update' | 'repair';
@@ -161,11 +163,10 @@ class DownloadManager {
 
             item.completedAt = Date.now();
 
-            const notificationMessage = type === 'repair'
-              ? `Successfully repaired ${app.title}`
-              : type === 'update'
-                ? `Successfully updated ${app.title}`
-                : `Successfully installed ${app.title}`;
+            const notificationMessage = get(t)(
+              type === 'repair' ? 'library.app.repaired' : type === 'update' ? 'library.app.updated' : 'library.app.installed',
+              { name: app.title }
+            );
 
             toast.success(notificationMessage);
 
@@ -254,11 +255,10 @@ class DownloadManager {
     if (error) console.error(error);
 
     const app = item.item;
-    const errorMessage = type === 'repair'
-      ? `An error occurred while repairing ${app.title}`
-      : type === 'update'
-        ? `An error occurred while updating ${app.title}`
-        : `An error occurred while installing ${app.title}`;
+    const errorMessage = get(t)(
+      type === 'repair' ? 'library.app.failedToRepair' : type === 'update' ? 'library.app.failedToUpdate' : 'library.app.failedToInstall',
+      { name: app.title }
+    );
 
     toast.error(errorMessage);
 

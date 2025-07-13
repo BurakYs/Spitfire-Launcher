@@ -66,6 +66,7 @@
     },
     "version": "Sürüm",
     "categories": {
+      "downloader": "İndirme",
       "account": "Hesap",
       "brStw": "BR & STW",
       "authentication": "Yetkilendirme"
@@ -443,7 +444,8 @@
     "title": "Ayarlar",
     "tabs": {
       "appSettings": "Uygulama Ayarları",
-      "customizableMenu": "Özelleştirilebilir Menü"
+      "customizableMenu": "Özelleştirilebilir Menü",
+      "downloaderSettings": "İndirme Ayarları"
     },
     "invalidValue": "Geçersiz bir değer girdiniz.",
     "appSettings": {
@@ -470,6 +472,24 @@
       },
       "hideToTray": "Sistem Tepsisine Gizle",
       "checkForUpdates": "Güncellemeleri Kontrol Et"
+    },
+    "downloaderSettings": {
+      "downloadPath": {
+        "title": "İndirme Yolu",
+        "description": "Başlatıcının oyunları indireceği yolu seçin."
+      },
+      "autoUpdate": {
+        "title": "Otomatik Güncelleme",
+        "description": "Yeni bir sürüm mevcut olduğunda oyunları otomatik olarak güncelle."
+      },
+      "sendNotifications": {
+        "title": "Bildirim Gönder",
+        "description": "Bir oyun güncellendiğinde veya indirildiğinde bildirim gönder."
+      },
+      "account": {
+        "title": "Hesap",
+        "description": "Oyunları indirmek için kullanılacak hesabı seçin."
+      }
     }
   },
   "launchGame": {
@@ -558,6 +578,90 @@
     "blockUser": "Engelle",
     "unblockUser": "Engeli Kaldır",
     "changeNickname": "Takma Adını Değiştir"
+  },
+  "library": {
+    "page": {
+      "title": "Kütüphane"
+    },
+    "loggingIn": "Giriş yapılıyor...",
+    "loggedIn": "Başarıyla giriş yapıldı",
+    "failedToLogin": "Giriş yapılamadı",
+    "searchPlaceholder": "Oyun ara...",
+    "filters": {
+      "select": "Filtre Seçin",
+      "showHidden": "Gizlenenleri Göster",
+      "installedOnly": "Yalnızca Yüklü Oyunlar",
+      "updatesAvailable": "Güncelleme Mevcut"
+    },
+    "app": {
+      "unfavorite": "Favorilerden Kaldır",
+      "favorite": "Favorilere Ekle",
+      "show": "Göster",
+      "hide": "Gizle",
+      "stop": "Durdur",
+      "play": "Oyna",
+      "update": "Güncelle",
+      "repair": "Onar",
+      "install": "İndir",
+      "removeFromQueue": {
+        "short": "Kaldır",
+        "long": "Kuyruktan Kaldır"
+      },
+      "dropdown": {
+        "autoUpdate": {
+          "enable": "Oto Güncellemeyi Aç",
+          "disable": "Oto Güncellemeyi Kapat"
+        },
+        "verifyAndRepair": "Doğrula ve Onar",
+        "uninstall": "Sil",
+        "size": "Boyut"
+      },
+      "failedToLaunch": "{name} başlatılamadı",
+      "stopped": "{name} başarıyla durduruldu",
+      "failedToStop": "{name} durdurulamadı",
+      "verified": "{name} dosyaları başarıyla doğrulandı",
+      "requiresRepair": "{name} onarım gerektiriyor, kuyruğa eklendi",
+      "failedToVerify": "{name} dosyaları doğrulanamadı",
+      "installed": "{name} başarıyla yüklendi",
+      "failedToInstall": "{name} yüklenemedi",
+      "updated": "{name} başarıyla güncellendi",
+      "failedToUpdate": "{name} güncellenemedi",
+      "repaired": "{name} başarıyla onarıldı",
+      "failedToRepair": "{name} onarılamadı"
+    },
+    "installConfirmation": {
+      "downloadSize": "İndirme Boyutu",
+      "compressed": "Sıkıştırılmış",
+      "installSize": "Kurulum Boyutu",
+      "afterExtraction": "Çıkarıldıktan Sonra",
+      "storage": {
+        "title": "Depolama",
+        "current": "Şu Anki",
+        "after": "Sonraki"
+      },
+      "notEnoughSpace": "Yeterli depolama alanı yok",
+      "download": "İndir"
+    },
+    "uninstallConfirmation": {
+      "title": "Silme Onayı",
+      "description": "{name} oyununu silmek istediğinizden emin misiniz?",
+      "uninstalled": "{name} başarıyla silindi",
+      "failedToUninstall": "{name} silinemedi"
+    }
+  },
+  "downloads": {
+    "page": {
+      "title": "İndirmeler"
+    },
+    "noDownloads": "Devam eden indirme yok",
+    "paused": "Duraklatıldı",
+    "queued": "Kuyrukta",
+    "completed": "Tamamlandı",
+    "clearAll": "Tümünü Temizle",
+    "cancelDownloadConfirmation": {
+      "title": "İndirmeyi İptal Etme Onayı",
+      "description": "İndirmeyi iptal etmek istediğinizden emin misiniz? İndirilen dosyalar silinmeyecektir."
+    }
   },
   "docs": {
     "howToUse": "Nasıl Kullanılır",
