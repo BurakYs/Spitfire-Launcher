@@ -475,29 +475,14 @@
   "launchGame": {
     "launch": "Oyunu Başlat",
     "stop": "Oyunu Durdur",
-    "alreadyRunning": "Bu oyun zaten çalışıyor",
-    "launching": "Oyun başlatılıyor...",
-    "notInstalled": "Bu oyun yüklü değil. Lütfen önce yükleyin.",
-    "launched": "Oyun başarıyla başlatıldı",
-    "failedToLaunch": "Oyun başlatılamadı",
-    "stopping": "Oyun durduruluyor...",
-    "stopped": "Oyun başarıyla durduruldu",
-    "failedToStop": "Oyun durdurulamadı",
-    "dropdown": {
-      "launching": "Başlatılıyor...",
-      "unrealEditorForFortnite": {
-        "launch": "UEFN'yi Başlat",
-        "stop": "UEFN'yi Durdur"
-      },
-      "rocketLeague": {
-        "launch": "Rocket League'i Başlat",
-        "stop": "Rocket League'i Durdur"
-      },
-      "fallGuys": {
-        "launch": "Fall Guys'ı Başlat",
-        "stop": "Fall Guys'ı Durdur"
-      }
-    }
+    "alreadyRunning": "Fortnite zaten çalışıyor",
+    "launching": "Fortnite başlatılıyor...",
+    "notInstalled": "Fortnite yüklü değil. Lütfen önce yükleyin.",
+    "launched": "Fortnite başarıyla başlatıldı",
+    "failedToLaunch": "Fortnite başlatılamadı",
+    "stopping": "Fortnite durduruluyor...",
+    "stopped": "Fortnite başarıyla durduruldu",
+    "failedToStop": "Fortnite durdurulamadı"
   },
   "accountManager": {
     "noAccount": "Hesap Yok",

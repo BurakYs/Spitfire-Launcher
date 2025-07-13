@@ -475,29 +475,14 @@
   "launchGame": {
     "launch": "Lancer le jeu",
     "stop": "Arrêter le jeu",
-    "alreadyRunning": "Ce jeu est déjà en cours d'exécution",
-    "launching": "Lancement du jeu...",
-    "notInstalled": "Ce jeu n'est pas installé. Veuille l'installer d'abord.",
-    "launched": "Jeu lancé avec succès",
-    "failedToLaunch": "Échec du lancement du jeu",
-    "stopping": "Arrêt du jeu...",
-    "stopped": "Jeu arrêté avec succès",
-    "failedToStop": "Échec de l'arrêt du jeu",
-    "dropdown": {
-      "launching": "Lancement...",
-      "unrealEditorForFortnite": {
-        "launch": "Lancer UEFN",
-        "stop": "Arrêter UEFN"
-      },
-      "rocketLeague": {
-        "launch": "Lancer Rocket League",
-        "stop": "Arrêter Rocket League"
-      },
-      "fallGuys": {
-        "launch": "Lancer Fall Guys",
-        "stop": "Arrêter Fall Guys"
-      }
-    }
+    "alreadyRunning": "Fortnite est déjà en cours d'exécution",
+    "launching": "Lancement de Fortnite...",
+    "notInstalled": "Fortnite n'est pas installé. Veuillez l'installer d'abord.",
+    "launched": "Fortnite lancé avec succès",
+    "failedToLaunch": "Échec du lancement de Fortnite",
+    "stopping": "Arrêt de Fortnite...",
+    "stopped": "Fortnite arrêté avec succès",
+    "failedToStop": "Échec de l'arrêt de Fortnite"
   },
   "accountManager": {
     "noAccount": "Pas de compte",

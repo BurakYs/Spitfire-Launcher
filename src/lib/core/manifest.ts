@@ -4,6 +4,7 @@ import { platform } from '@tauri-apps/plugin-os';
 
 type ManifestData = {
   appVersionString: string;
+  namespace: string;
   launchCommand: string;
   userAgent?: string;
   installLocation: string;
@@ -11,67 +12,55 @@ type ManifestData = {
   executableLocation: string;
 }
 
-const appCatalogIds = {
-  fortnite: '4fe75bbc5a674f4f9b356b5c90567da5',
-  rocketLeague: '530145df28a24424923f5828cc9031a1',
-  fallGuys: '38ec4849ea4f4de6aa7b6fb0f2d278e1',
-  unrealEditorForFortnite: '1e8bda5cfbb641b9a9aea8bd62285f73'
-} as const;
-
-type AppName = keyof typeof appCatalogIds;
-
 export default class Manifest {
-  private static fileCaches = new Map<AppName, ManifestData>();
+  private static fortniteManifestCache: ManifestData | null = null;
 
   static async getFortniteUserAgent() {
-    const gameData = await Manifest.getAppData('fortnite');
-    return gameData?.userAgent || 'Fortnite/++Fortnite+Release-35.00-CL-41994699-Windows';
+    const gameData = await Manifest.getFortniteManifest().catch(() => null);
+    return gameData?.userAgent || 'Fortnite/++Fortnite+Release-36.10-CL-43997926-Windows';
   }
 
-  static async getAppData(name: AppName) {
+  static async getFortniteManifest() {
     if (platform() !== 'windows') return null;
-    if (Manifest.fileCaches.has(name)) return Manifest.fileCaches.get(name)!;
+    if (Manifest.fortniteManifestCache) return Manifest.fortniteManifestCache;
 
-    try {
-      const manifestsDirectory = 'C:\\ProgramData\\Epic\\EpicGamesLauncher\\Data\\Manifests';
-      const manifestFiles = await readDir(manifestsDirectory);
+    const manifestsDirectory = 'C:\\ProgramData\\Epic\\EpicGamesLauncher\\Data\\Manifests';
+    const manifestFiles = await readDir(manifestsDirectory);
 
-      let parsedManifest: ManifestData | null = null;
+    let parsedManifest: ManifestData | null = null;
 
-      for (const dirEntry of manifestFiles) {
-        if (dirEntry.name.endsWith('.item')) {
-          const fileContent = await readTextFile(await path.join(manifestsDirectory, dirEntry.name));
-          const file = JSON.parse(fileContent) as {
-            AppVersionString: string;
-            LaunchCommand: string;
-            DisplayName: string;
-            InstallLocation: string;
-            LaunchExecutable: string;
-            CatalogItemId: string;
-          };
+    for (const dirEntry of manifestFiles) {
+      if (dirEntry.name.endsWith('.item')) {
+        const fileContent = await readTextFile(await path.join(manifestsDirectory, dirEntry.name));
+        const file = JSON.parse(fileContent) as {
+          AppVersionString: string;
+          CatalogNamespace: string;
+          LaunchCommand: string;
+          DisplayName: string;
+          InstallLocation: string;
+          LaunchExecutable: string;
+          CatalogItemId: string;
+        };
 
+        if (file.DisplayName.toLowerCase() === 'fortnite') {
           const appVersionString = file.AppVersionString?.trim();
 
-          if (file.CatalogItemId === appCatalogIds[name]) {
-            parsedManifest = {
-              appVersionString: appVersionString ?? '',
-              launchCommand: file.LaunchCommand?.trim() ?? '',
-              userAgent: name === 'fortnite' && appVersionString ? `Fortnite/${appVersionString}` : '',
-              installLocation: file.InstallLocation,
-              launchExecutable: file.LaunchExecutable,
-              executableLocation: file.InstallLocation + '\\' + file.LaunchExecutable
-            };
+          parsedManifest = {
+            appVersionString: appVersionString ?? '',
+            namespace: file.CatalogNamespace,
+            launchCommand: file.LaunchCommand?.trim() ?? '',
+            userAgent: appVersionString ? `Fortnite/${appVersionString}` : '',
+            installLocation: file.InstallLocation,
+            launchExecutable: file.LaunchExecutable,
+            executableLocation: file.LaunchExecutable
+          };
 
-            break;
-          }
+          break;
         }
       }
-
-      if (parsedManifest) Manifest.fileCaches.set(name, parsedManifest);
-      return parsedManifest;
-    } catch (error) {
-      console.error(error);
-      return null;
     }
+
+    Manifest.fortniteManifestCache = parsedManifest;
+    return parsedManifest;
   }
 }

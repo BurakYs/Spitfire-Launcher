@@ -4,21 +4,8 @@ use crate::types::AppState;
 use crate::types::{CommandOutput, DiskSpace, LaunchData};
 use fs2;
 use std::path::Path;
-use sysinfo::{ProcessRefreshKind, ProcessesToUpdate, System};
 use tauri::{command, AppHandle};
 use tauri_plugin_shell::ShellExt;
-
-#[command]
-pub fn get_processes() -> Vec<String> {
-    let mut system = System::new_all();
-    system.refresh_processes_specifics(ProcessesToUpdate::All, true, ProcessRefreshKind::nothing());
-
-    system
-        .processes()
-        .iter()
-        .map(|(pid, process)| format!("{} - {}", pid, process.name().to_string_lossy()))
-        .collect()
-}
 
 #[command]
 pub fn get_locale() -> String {

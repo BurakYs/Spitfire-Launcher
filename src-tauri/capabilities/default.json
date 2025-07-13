@@ -71,34 +71,12 @@
       "identifier": "shell:allow-execute",
       "allow": [
         {
-          "name": "start-epic-app",
-          "cmd": "cmd",
-          "args": [
-            "/c",
-            "start",
-            {
-              "validator": "FortniteLauncher\\.exe|UnrealEditorFortnite-Win64-Shipping\\.exe|RocketLeague\\.exe|RunFallGuys\\.exe"
-            },
-            "-AUTH_LOGIN=unused",
-            {
-              "validator": "-AUTH_PASSWORD=[a-z0-9]{32}"
-            },
-            "-AUTH_TYPE=exchangecode",
-            "-EpicPortal",
-            {
-              "validator": "-epicuserid=[a-z0-9]{32}"
-            }
-          ]
-        },
-        {
-          "name": "kill-epic-app",
+          "name": "kill-fortnite",
           "cmd": "taskkill",
           "args": [
             "/F",
             "/IM",
-            {
-              "validator": "FortniteClient-Win64-Shipping\\.exe|EasyAntiCheat_EOS\\.exe|FortniteClient-Win64-Shipping_EAC\\.exe|UnrealEditorFortnite-Win64-Shipping\\.exe|RocketLeague\\.exe|FallGuys_client_game\\.exe"
-            }
+            "FortniteClient-Win64-Shipping.exe"
           ]
         },
         {

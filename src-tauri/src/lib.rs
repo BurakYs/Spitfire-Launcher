@@ -33,7 +33,6 @@ pub fn run() {
 
     builder
         .invoke_handler(generate_handler![
-            get_processes,
             get_locale,
             run_legendary,
             start_legendary_stream,
