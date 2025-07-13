@@ -3916,6 +3916,7 @@ dependencies = [
  "fs2",
  "serde",
  "serde_json",
+ "shlex",
  "sys-locale",
  "sysinfo",
  "tauri",

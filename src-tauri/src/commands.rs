@@ -3,6 +3,7 @@ use crate::legendary;
 use crate::types::AppState;
 use crate::types::{CommandOutput, DiskSpace, LaunchData};
 use fs2;
+use shlex;
 use std::path::Path;
 use tauri::{command, AppHandle};
 use tauri_plugin_shell::ShellExt;
@@ -20,16 +21,11 @@ pub fn get_disk_space(dir: String) -> Result<DiskSpace, String> {
 
     match (fs2::total_space(path), fs2::available_space(path)) {
         (Ok(total), Ok(available)) => {
-            let disk_space = DiskSpace {
-                total,
-                available,
-            };
+            let disk_space = DiskSpace { total, available };
 
             Ok(disk_space)
         }
-        (Err(e), _) | (_, Err(e)) => {
-            Err(e.to_string())
-        }
+        (Err(e), _) | (_, Err(e)) => Err(e.to_string()),
     }
 }
 
@@ -83,12 +79,14 @@ async fn execute_pre_launch_command(
 ) -> Result<(), String> {
     let shell = app.shell();
 
-    let command_parts: Vec<&str> = launch_data.pre_launch_command.split_whitespace().collect();
+    let command_parts = shlex::split(&launch_data.pre_launch_command)
+        .ok_or_else(|| "Invalid command format".to_string())?;
+
     if command_parts.is_empty() {
         return Ok(());
     }
 
-    let program = command_parts[0];
+    let program = &command_parts[0];
     let args = if command_parts.len() > 1 {
         command_parts[1..].to_vec()
     } else {

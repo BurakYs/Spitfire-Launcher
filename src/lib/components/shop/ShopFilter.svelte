@@ -14,7 +14,6 @@
 
   type Props = {
     selected: SpitfireShopFilter;
-    disabled?: boolean;
   };
 
   let { selected = $bindable() }: Props = $props();

@@ -61,7 +61,6 @@ pub struct AppStateEvent {
     pub state: AppState,
 }
 
-#[allow(dead_code)]
 #[derive(Debug, Clone)]
 pub struct TrackedApp {
     pub pid: u32,

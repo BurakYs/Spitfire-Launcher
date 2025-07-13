@@ -13,7 +13,6 @@
 
   type Props = {
     selected: AppFilterValue[];
-    disabled?: boolean;
   };
 
   let { selected = $bindable() }: Props = $props();

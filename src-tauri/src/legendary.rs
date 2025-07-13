@@ -179,7 +179,7 @@ pub fn kill_legendary_processes() {
         }
     }
 
-    let mut system = System::new_all();
+    let mut system = System::new();
     system.refresh_processes_specifics(ProcessesToUpdate::All, true, ProcessRefreshKind::nothing());
 
     for (_, process) in system.processes() {
