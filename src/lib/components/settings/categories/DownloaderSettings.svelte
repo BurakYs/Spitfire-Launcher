@@ -99,6 +99,7 @@
 
 <div class="space-y-6">
   <SettingItem
+    description={$t('settings.downloaderSettings.downloadPath.description')}
     labelFor="downloadPath"
     orientation="vertical"
     title={$t('settings.downloaderSettings.downloadPath.title')}
@@ -113,6 +114,7 @@
   </SettingItem>
 
   <SettingItem
+    description={$t('settings.downloaderSettings.account.description')}
     labelFor="account"
     orientation="vertical"
     title={$t('settings.downloaderSettings.account.title')}
@@ -126,6 +128,7 @@
   </SettingItem>
 
   <SettingItem
+    description={$t('settings.downloaderSettings.autoUpdate.description')}
     labelFor="autoUpdate"
     orientation="horizontal"
     title={$t('settings.downloaderSettings.autoUpdate.title')}
@@ -138,6 +141,7 @@
   </SettingItem>
 
   <SettingItem
+    description={$t('settings.downloaderSettings.sendNotifications.description')}
     labelFor="sendNotifications"
     orientation="horizontal"
     title={$t('settings.downloaderSettings.sendNotifications.title')}
