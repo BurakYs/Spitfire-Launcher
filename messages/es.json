@@ -66,7 +66,7 @@
     },
     "version": "Versión",
     "categories": {
-      "downloader": "Downloader",
+      "downloader": "Descargador",
       "account": "Cuenta",
       "brStw": "BR & STW",
       "authentication": "Autenticación"
@@ -445,7 +445,7 @@
     "tabs": {
       "appSettings": "Ajustes de la aplicación",
       "customizableMenu": "Menú personalizable",
-      "downloaderSettings": "Downloader Settings"
+      "downloaderSettings": "Ajustes de Descarga"
     },
     "invalidValue": "Ha introducido un valor no válido.",
     "appSettings": {
@@ -475,20 +475,20 @@
     },
     "downloaderSettings": {
       "downloadPath": {
-        "title": "Download Path",
-        "description": "Select the path where the launcher will download games."
+        "title": "Ruta de descarga",
+        "description": "Seleccione la ruta donde el lanzador descargará los juegos."
       },
       "autoUpdate": {
-        "title": "Auto Update",
-        "description": "Automatically update games when a new version is available."
+        "title": "Actualización automática",
+        "description": "Actualizar automáticamente los juegos cuando una nueva versión esté disponible."
       },
       "sendNotifications": {
-        "title": "Send Notifications",
-        "description": "Send notifications when a game is updated or downloaded."
+        "title": "Enviar notificaciones",
+        "description": "Enviar notificaciones cuando un juego es actualizado o descargado."
       },
       "account": {
-        "title": "Account",
-        "description": "Select the account to use for downloading games."
+        "title": "Cuenta",
+        "description": "Seleccione la cuenta a utilizar para descargar juegos."
       }
     }
   },
@@ -581,89 +581,89 @@
   },
   "library": {
     "page": {
-      "title": "Library"
+      "title": "Biblioteca"
     },
-    "loggingIn": "Logging in...",
-    "loggedIn": "Logged in successfully",
-    "failedToLogin": "Failed to login",
-    "searchPlaceholder": "Search for games...",
+    "loggingIn": "Iniciando sesión...",
+    "loggedIn": "Sesión iniciada correctamente",
+    "failedToLogin": "No se ha podido iniciar sesión",
+    "searchPlaceholder": "Buscar juegos...",
     "filters": {
-      "select": "Select filters",
-      "showHidden": "Show Hidden",
-      "installedOnly": "Installed Only",
-      "updatesAvailable": "Updates Available"
+      "select": "Selecciona Filtros",
+      "showHidden": "Mostrar ocultos",
+      "installedOnly": "Solo instalados",
+      "updatesAvailable": "Hay actualizaciones disponibles"
     },
     "app": {
-      "unfavorite": "Unfavorite",
-      "favorite": "Favorite",
-      "show": "Show",
-      "hide": "Hide",
-      "stop": "Stop",
-      "play": "Play",
-      "update": "Update",
-      "repair": "Repair",
-      "install": "Install",
+      "unfavorite": "Eliminar favorito",
+      "favorite": "Agregar a favoritos",
+      "show": "Mostrar",
+      "hide": "Ocultar",
+      "stop": "Detener",
+      "play": "Reproducir",
+      "update": "Actualización",
+      "repair": "Reparar",
+      "install": "Instalar",
       "removeFromQueue": {
-        "short": "Remove",
-        "long": "Remove from Queue"
+        "short": "Eliminar",
+        "long": "Quitar de la cola"
       },
       "dropdown": {
         "autoUpdate": {
-          "enable": "Enable Auto Update",
-          "disable": "Disable Auto Update"
+          "enable": "Habilitar actualizaciones automáticas",
+          "disable": "Desactivar actualización automática"
         },
-        "verifyAndRepair": "Verify & Repair",
-        "uninstall": "Uninstall",
-        "size": "Size"
+        "verifyAndRepair": "Verificar y reparar",
+        "uninstall": "Desinstalar",
+        "size": "Tamaño"
       },
-      "failedToLaunch": "Failed to launch {name}",
-      "stopped": "{name} stopped successfully",
-      "failedToStop": "Failed to stop {name}",
-      "verified": "{name} files verified successfully",
-      "requiresRepair": "{name} requires repair, added to the queue",
-      "failedToVerify": "Failed to verify {name} files",
-      "installed": "{name} installed successfully",
-      "failedToInstall": "Failed to install {name}",
-      "updated": "{name} updated successfully",
-      "failedToUpdate": "Failed to update {name}",
-      "repaired": "{name} repaired successfully",
-      "failedToRepair": "Failed to repair {name}",
-      "startedInstallation": "Started installation of {name}",
-      "startedUpdate": "Started update of {name}",
-      "startedRepair": "Started repair of {name}"
+      "failedToLaunch": "Error al iniciar {name}",
+      "stopped": "{name} detenido correctamente",
+      "failedToStop": "Error al detener {name}",
+      "verified": "Archivos {name} verificados con éxito",
+      "requiresRepair": "{name} requiere una reparación, añadida a la cola",
+      "failedToVerify": "Error al verificar archivos {name}",
+      "installed": "{name} instalado correctamente",
+      "failedToInstall": "Error al instalar {name}",
+      "updated": "{name} actualizado correctamente",
+      "failedToUpdate": "Error al actualizar {name}",
+      "repaired": "Archivos {name} verificados con éxito",
+      "failedToRepair": "Error al reparar {name}",
+      "startedInstallation": "Se inició la instalación de {name}",
+      "startedUpdate": "Se inició la actualización de {name}",
+      "startedRepair": "Se inició la reparación de {name}"
     },
     "installConfirmation": {
-      "downloadSize": "Download Size",
-      "compressed": "Compressed",
-      "installSize": "Install Size",
-      "afterExtraction": "After Extraction",
+      "downloadSize": "Tamaño de descarga",
+      "compressed": "Comprimido",
+      "installSize": "Tamaño de instalación",
+      "afterExtraction": "Después de la extracción",
       "storage": {
-        "title": "Storage",
-        "current": "Current",
-        "after": "After"
+        "title": "Almacenamiento",
+        "current": "Actual",
+        "after": "Después"
       },
-      "notEnoughSpace": "Not enough space available",
-      "download": "Download"
+      "notEnoughSpace": "Espacio insuficiente disponible",
+      "download": "Descarga"
     },
     "uninstallConfirmation": {
-      "title": "Uninstall Confirmation",
-      "description": "Are you sure you want to uninstall {name}?",
-      "uninstalled": "{name} uninstalled successfully",
-      "failedToUninstall": "Failed to uninstall {name}"
+      "title": "Confirmación de desinstalación",
+      "description": "¿Seguro que quieres desinstalar {name}?",
+      "uninstalled": "{name} desinstalado correctamente",
+      "failedToUninstall": "Error al desinstalar {name}"
     }
   },
   "downloads": {
     "page": {
-      "title": "Downloads"
+      "title": "Descargas"
     },
-    "noDownloads": "No downloads in progress",
-    "paused": "Paused",
-    "queued": "Queued",
-    "completed": "Completed",
-    "clearAll": "Clear All",
+    "noDownloads": "No hay descargas en proceso",
+    "paused": "Pausado",
+    "queued": "En cola",
+    "completed": "Completado",
+    "clearAll": "Borrar todo",
     "cancelDownloadConfirmation": {
-      "title": "Cancel Download Confirmation",
-      "description": "Are you sure you want to cancel the download? Downloaded files will be kept."
+      "title": "Confirmación de cancelación de descarga",
+      "description": "¿Estás seguro de que quieres cancelar la descarga? Los archivos descargados se conservarán."
     }
   },
   "docs": {
