@@ -15,6 +15,7 @@
   import { bytesToSize, cn, t } from '$lib/utils/util';
   import { invoke } from '@tauri-apps/api/core';
   import { Progress } from 'bits-ui';
+  import PackageIcon from 'lucide-svelte/icons/package';
   import DownloadIcon from 'lucide-svelte/icons/download';
   import HardDriveIcon from 'lucide-svelte/icons/hard-drive';
   import AlertTriangleIcon from 'lucide-svelte/icons/alert-triangle';
@@ -77,40 +78,48 @@
   });
 </script>
 
-<Dialog onOpenChangeComplete={(open) => !open && (id = '')} title={app.title} bind:open={isOpen}>
+<Dialog
+  contentProps={{
+    class: 'sm:max-w-xl'
+  }}
+  onOpenChangeComplete={(open) => !open && (id = '')}
+  title={app.title}
+  bind:open={isOpen}
+>
   <div class="space-y-4">
     <div class="grid grid-cols-2 gap-4">
-      <div class="bg-accent/30 rounded-lg p-4">
-        <div class="flex items-center gap-2">
+      <div class="bg-accent/30 border rounded-lg p-4">
+        <div class="flex items-center gap-2 mb-1">
           <DownloadIcon class="size-6 text-epic"/>
-          <span class="text-sm font-medium">{$t('library.installConfirmation.downloadSize')}</span>
+          <span class="font-medium">{$t('library.installConfirmation.downloadSize')}</span>
         </div>
 
         {#if downloadSize === 0}
-          <div class="text-2xl text-muted-foreground mt-1 skeleton-loader p-4"></div>
+          <div class="text-2xl text-muted-foreground skeleton-loader p-4"></div>
         {:else}
-          <div class="text-2xl font-bold mt-1">{bytesToSize(downloadSize)}</div>
+          <div class="text-2xl font-bold">{bytesToSize(downloadSize)}</div>
         {/if}
-        <div class="text-xs text-muted-foreground mt-1">{$t('library.installConfirmation.compressed')}</div>
+        <div class="text-xs text-muted-foreground">{$t('library.installConfirmation.compressed')}</div>
       </div>
 
-      <div class="bg-accent/30 rounded-lg p-4">
-        <div class="flex items-center gap-2">
-          <HardDriveIcon class="size-6 text-epic"/>
-          <span class="text-sm font-medium">{$t('library.installConfirmation.installSize')}</span>
+      <div class="bg-accent/30 border rounded-lg p-4">
+        <div class="flex items-center gap-2 mb-1">
+          <PackageIcon class="size-6 text-epic"/>
+          <span class="font-medium">{$t('library.installConfirmation.installSize')}</span>
         </div>
+
         {#if installSize === 0}
-          <div class="text-2xl text-muted-foreground mt-1 skeleton-loader p-4"></div>
+          <div class="text-2xl text-muted-foreground skeleton-loader p-4"></div>
         {:else}
-          <div class="text-2xl font-bold mt-1">{bytesToSize(installSize)}</div>
+          <div class="text-2xl font-bold">{bytesToSize(installSize)}</div>
         {/if}
-        <div class="text-xs text-muted-foreground mt-1">{$t('library.installConfirmation.afterExtraction')}</div>
+        <div class="text-xs text-muted-foreground">{$t('library.installConfirmation.afterExtraction')}</div>
       </div>
     </div>
 
-    <div class="bg-accent/30 border border-border rounded-lg p-3">
+    <div class="bg-accent/30 border rounded-lg p-4">
       <div class="flex items-center gap-2 mb-1">
-        <HardDriveIcon class="size-5 text-epic"/>
+        <HardDriveIcon class="size-6 text-epic"/>
         <span class="font-medium">{$t('library.installConfirmation.storage.title')}</span>
       </div>
 
@@ -119,7 +128,7 @@
           <span class="text-muted-foreground">
             {$t('library.installConfirmation.storage.current')}:
             {#if usedSpace === 0 || totalSpace === 0}
-              <span class="skeleton-loader py-0.5 px-5 ml-1 rounded"></span>
+              <span class="skeleton-loader px-5 ml-1 rounded"></span>
             {:else}
               {bytesToSize(usedSpace)} / {bytesToSize(totalSpace)}
             {/if}
@@ -141,7 +150,7 @@
 
             {$t('library.installConfirmation.storage.after')}:
             {#if usedSpace === 0 || totalSpace === 0 || installSize === 0}
-              <span class="skeleton-loader py-2.5 px-5 -ml-0.5 rounded"></span>
+              <span class="skeleton-loader py-2 px-5 -ml-0.5 rounded"></span>
             {:else}
               {bytesToSize(usedSpace + installSize)} / {bytesToSize(totalSpace)}
             {/if}
@@ -162,7 +171,7 @@
     </div>
 
     <div class="flex gap-2 justify-end mt-2">
-      <Button variant="outline">
+      <Button variant="outline" onclick={() => isOpen = false}>
         {$t('common.cancel')}
       </Button>
 
