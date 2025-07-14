@@ -1,7 +1,3 @@
-<script lang="ts" module>
-  let fetchedGames = false;
-</script>
-
 <script lang="ts">
   import AppCard from '$components/downloader/AppCard.svelte';
   import AppFilter from '$components/downloader/AppFilter.svelte';
@@ -11,7 +7,7 @@
   import PageContent from '$components/PageContent.svelte';
   import Input from '$components/ui/Input.svelte';
   import DataStorage, { DOWNLOADER_INITIAL_DATA } from '$lib/core/dataStorage';
-  import { accountsStore, favoritedAppIds, hiddenAppIds, ownedApps, perAppAutoUpdate } from '$lib/stores';
+  import { accountsStore, favoritedAppIds, hiddenAppIds, ownedApps } from '$lib/stores';
   import Legendary from '$lib/utils/legendary';
   import { t, nonNull } from '$lib/utils/util';
   import type { AppFilterValue } from '$types/legendary';
@@ -74,7 +70,6 @@
 
     const downloaderSettings = await DataStorage.getDownloaderFile();
     globalAutoUpdate = downloaderSettings.autoUpdate!;
-    perAppAutoUpdate.set(downloaderSettings.perAppAutoUpdate!);
 
     favoritedAppIds.clear();
     for (const id of downloaderSettings.favoriteApps || []) {
@@ -86,39 +81,7 @@
       hiddenAppIds.add(id);
     }
 
-    if (fetchedGames) return;
-
-    const [list, installedList] = await Promise.all([
-      Legendary.getList(),
-      Legendary.getInstalledList()
-    ]);
-
-    ownedApps.set(list.stdout
-      .filter(app => app.metadata.entitlementType === 'EXECUTABLE')
-      .map(app => {
-        const images = app.metadata.keyImages.reduce<Record<string, string>>((acc, image) => {
-          acc[image.type] = image.url;
-          return acc;
-        }, {});
-
-        const installed = installedList.stdout.find(installed => installed.app_name === app.app_name);
-
-        return {
-          id: app.app_name,
-          title: app.app_title,
-          images: {
-            tall: images.DieselGameBoxTall || app.metadata.keyImages[0]?.url,
-            wide: images.DieselGameBox || images.Featured || app.metadata.keyImages[0]?.url
-          },
-          hasUpdate: installed ? installed.version !== app.asset_infos.Windows.build_version : false,
-          installSize: installed?.install_size || 0,
-          installed: !!installed,
-          canRunOffline: installed?.can_run_offline || false
-        };
-      })
-    );
-
-    fetchedGames = true;
+    await Legendary.cacheApps();
   });
 </script>
 

@@ -7,6 +7,7 @@
   import FriendManager from '$lib/core/managers/friend';
   import LookupManager from '$lib/core/managers/lookup';
   import DownloadManager from '$lib/core/managers/download.svelte';
+  import Legendary from '$lib/utils/legendary';
   import type { AccountDataFile } from '$types/accounts';
   import { getVersion } from '@tauri-apps/api/app';
   import { listen } from '@tauri-apps/api/event';
@@ -73,6 +74,14 @@
     });
   }
 
+  async function autoUpdateApps() {
+    const { account } = await Legendary.getStatus();
+    if (!account) return;
+
+    await Legendary.cacheApps();
+    await Legendary.autoUpdateApps();
+  }
+
   onMount(() => {
     document.addEventListener('keydown', disableF5);
 
@@ -83,6 +92,7 @@
       handleWorldInfo(),
       checkForUpdates(),
       syncAccountNames(),
+      autoUpdateApps(),
       activeAccount && FriendManager.getSummary(activeAccount),
       allAccounts.map(account => AvatarManager.fetchAvatars(account, [account.accountId]))
     ]);

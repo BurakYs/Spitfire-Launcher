@@ -197,7 +197,7 @@
     <div class="w-full border rounded-md p-4 mt-2">
       <div class="flex items-center gap-2 mb-4">
         <h3 class="font-semibold text-2xl">{$t('downloads.completed')}</h3>
-        <Button onclick={DownloadManager.clearCompleted} size="sm" variant="outline">
+        <Button onclick={() => DownloadManager.clearCompleted()} size="sm" variant="outline">
           {$t('downloads.clearAll')}
         </Button>
       </div>

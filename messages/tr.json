@@ -627,7 +627,10 @@
       "updated": "{name} başarıyla güncellendi",
       "failedToUpdate": "{name} güncellenemedi",
       "repaired": "{name} başarıyla onarıldı",
-      "failedToRepair": "{name} onarılamadı"
+      "failedToRepair": "{name} onarılamadı",
+      "startedInstallation": "{name} indirilmeye başlandı",
+      "startedUpdate": "{name} güncellenmeye başlandı",
+      "startedRepair": "{name} onarılmaya başlandı"
     },
     "installConfirmation": {
       "downloadSize": "İndirme Boyutu",

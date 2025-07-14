@@ -1,12 +1,16 @@
 import Authentication from '$lib/core/authentication';
+import DataStorage from '$lib/core/dataStorage';
+import DownloadManager from '$lib/core/managers/download.svelte';
 import LegendaryError from '$lib/exceptions/LegendaryError';
-import { ownedApps } from '$lib/stores';
+import { ownedApps, perAppAutoUpdate } from '$lib/stores';
+import { t } from '$lib/utils/util';
 import type { AccountData } from '$types/accounts';
 import type { EpicOAuthData } from '$types/game/authorizations';
 import type { LegendaryAppInfo, LegendaryInstalledList, LegendaryLaunchData, LegendaryList, LegendaryStatus } from '$types/legendary';
 import { path } from '@tauri-apps/api';
 import { invoke } from '@tauri-apps/api/core';
 import { readTextFile } from '@tauri-apps/plugin-fs';
+import { toast } from 'svelte-sonner';
 import { get } from 'svelte/store';
 
 type ExecuteResult<T = any> = {
@@ -25,6 +29,7 @@ export type StreamEvent = {
 }
 
 export default class Legendary {
+  private static cachedApps = false;
   private static caches: {
     status?: LegendaryStatus;
     account?: string;
@@ -77,10 +82,8 @@ export default class Legendary {
     return await this.execute<LegendaryList>(['list', '--json']);
   }
 
-  static async getStatus(useCache = true) {
-    if (useCache && this.caches.status) {
-      return this.caches.status;
-    }
+  static async getStatus() {
+    if (this.caches.status) return this.caches.status;
 
     const { stdout } = await this.execute<LegendaryStatus>(['status', '--json']);
 
@@ -112,8 +115,8 @@ export default class Legendary {
     }
   }
 
-  static async getAppInfo(id: string) {
-    return await this.execute<LegendaryAppInfo>(['info', id, '--json']);
+  static async getAppInfo(appId: string) {
+    return await this.execute<LegendaryAppInfo>(['info', appId, '--json']);
   }
 
   static async getInstalledList() {
@@ -121,25 +124,25 @@ export default class Legendary {
     return await this.execute<LegendaryInstalledList>(['list-installed', '--json']);
   }
 
-  static async launch(id: string) {
-    const { stdout: launchData } = await this.execute<LegendaryLaunchData>(['launch', id, '--dry-run', '--json']);
+  static async launch(appId: string) {
+    const { stdout: launchData } = await this.execute<LegendaryLaunchData>(['launch', appId, '--dry-run', '--json']);
     return await invoke<number>('launch_app', {
       launchData: {
         ...launchData,
-        game_id: id
+        game_id: appId
       }
     });
   }
 
-  static async verify(id: string) {
-    const { stderr } = await this.execute<string>(['verify', id, '-y', '--skip-sdl']);
+  static async verify(appId: string) {
+    const { stderr } = await this.execute<string>(['verify', appId, '-y', '--skip-sdl']);
     const requiresRepair = stderr.includes('repair your game installation');
-    const requiredRepair = get(ownedApps).find(app => app.id === id)?.requiresRepair || false;
+    const requiredRepair = get(ownedApps).find(app => app.id === appId)?.requiresRepair || false;
 
     if (requiresRepair !== requiredRepair) {
       ownedApps.update(current => {
         return current.map(app =>
-          app.id === id
+          app.id === appId
             ? { ...app, requiresRepair }
             : app
         );
@@ -161,5 +164,61 @@ export default class Legendary {
     });
 
     return data;
+  }
+
+  static async cacheApps() {
+    if (Legendary.cachedApps) return;
+
+    const [list, installedList] = await Promise.all([
+      Legendary.getList(),
+      Legendary.getInstalledList()
+    ]);
+
+    ownedApps.set(list.stdout
+      .filter(app => app.metadata.entitlementType === 'EXECUTABLE')
+      .map(app => {
+        const images = app.metadata.keyImages.reduce<Record<string, string>>((acc, image) => {
+          acc[image.type] = image.url;
+          return acc;
+        }, {});
+
+        const installed = installedList.stdout.find(installed => installed.app_name === app.app_name);
+
+        return {
+          id: app.app_name,
+          title: app.app_title,
+          images: {
+            tall: images.DieselGameBoxTall || app.metadata.keyImages[0]?.url,
+            wide: images.DieselGameBox || images.Featured || app.metadata.keyImages[0]?.url
+          },
+          requiresRepair: installed && installed.needs_verification,
+          hasUpdate: installed ? installed.version !== app.asset_infos.Windows.build_version : false,
+          installSize: installed?.install_size || 0,
+          installed: !!installed,
+          canRunOffline: installed?.can_run_offline || false
+        };
+      }));
+
+    Legendary.cachedApps = true;
+  }
+
+  static async autoUpdateApps() {
+    const settings = await DataStorage.getDownloaderFile();
+
+    const updatableApps = get(ownedApps).filter(app => app.hasUpdate);
+    const appAutoUpdate = get(perAppAutoUpdate);
+
+    let sentFirstNotification = false;
+
+    for (const app of updatableApps) {
+      if (appAutoUpdate[app.id] ?? settings.autoUpdate) {
+        await DownloadManager.addToQueue(app);
+
+        if (!sentFirstNotification) {
+          sentFirstNotification = true;
+          toast.info(get(t)('library.app.startedUpdate', { name: app.title }));
+        }
+      }
+    }
   }
 }

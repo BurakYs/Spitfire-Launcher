@@ -1,6 +1,7 @@
 import { dev } from '$app/environment';
 import config from '$lib/config';
 import SystemTray from '$lib/core/system/systemTray';
+import { perAppAutoUpdate } from '$lib/stores';
 import { accountDataFileSchema } from '$lib/validations/accounts';
 import {
   allSettingsSchema,
@@ -145,6 +146,7 @@ export default class DataStorage {
 
     const home = await homeDir();
     data.downloadPath = data.downloadPath?.replace('%HOME%', home);
+    perAppAutoUpdate.set(data.perAppAutoUpdate!);
     return data;
   }
 

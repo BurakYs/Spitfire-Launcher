@@ -627,7 +627,10 @@
       "updated": "{name} updated successfully",
       "failedToUpdate": "Failed to update {name}",
       "repaired": "{name} repaired successfully",
-      "failedToRepair": "Failed to repair {name}"
+      "failedToRepair": "Failed to repair {name}",
+      "startedInstallation": "Started installation of {name}",
+      "startedUpdate": "Started update of {name}",
+      "startedRepair": "Started repair of {name}"
     },
     "installConfirmation": {
       "downloadSize": "Download Size",
