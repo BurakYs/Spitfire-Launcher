@@ -599,7 +599,7 @@
       "show": "Mostrar",
       "hide": "Ocultar",
       "stop": "Detener",
-      "play": "Reproducir",
+      "play": "Iniciar",
       "update": "Actualización",
       "repair": "Reparar",
       "install": "Instalar",
@@ -609,8 +609,8 @@
       },
       "dropdown": {
         "autoUpdate": {
-          "enable": "Habilitar actualizaciones automáticas",
-          "disable": "Desactivar actualización automática"
+          "enable": "Habilitar autoactualización",
+          "disable": "Desactivar autoactualización"
         },
         "verifyAndRepair": "Verificar y reparar",
         "uninstall": "Desinstalar",

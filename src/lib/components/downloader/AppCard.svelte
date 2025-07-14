@@ -196,7 +196,12 @@
         {/if}
       {/if}
 
-      <DropdownMenu.Root bind:open={dropdownOpen}>
+      <DropdownMenu.Root
+        contentProps={{
+          class: 'w-fit'
+        }}
+        bind:open={dropdownOpen}
+      >
         {#snippet trigger()}
           <Button
             class="font-medium ml-auto"

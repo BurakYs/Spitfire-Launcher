@@ -66,7 +66,7 @@
     },
     "version": "Version",
     "categories": {
-      "downloader": "Downloader",
+      "downloader": "Installateur",
       "account": "Compte",
       "brStw": "BR & SLM",
       "authentication": "Authentification"
@@ -120,7 +120,7 @@
     "page": {
       "title": "V-Bucks"
     },
-    "getInformation": "Obtiens des informations sur les V-Bucks",
+    "getInformation": "Obtenir des informations sur les V-Bucks",
     "loading": "Chargement des informations sur les V-Bucks",
     "loginExpired": "Connexion expirée. Veuillez vous reconnecter.",
     "unknownError": "Erreur inconnue"
@@ -435,7 +435,7 @@
       "failedToRemoveFriend": "Impossible de supprimer l'ami",
       "platform": "Plateforme",
       "ownsSTW": "Possède SLM",
-      "loadout": "Chargement",
+      "loadout": "Casier",
       "ready": "Prêt",
       "notReady": "Pas prêt"
     }
@@ -445,7 +445,7 @@
     "tabs": {
       "appSettings": "Paramètres de l'application",
       "customizableMenu": "Menu personnalisable",
-      "downloaderSettings": "Downloader Settings"
+      "downloaderSettings": "Paramètres de l'installateur"
     },
     "invalidValue": "Tu as entré une valeur invalide.",
     "appSettings": {
@@ -475,20 +475,20 @@
     },
     "downloaderSettings": {
       "downloadPath": {
-        "title": "Download Path",
-        "description": "Select the path where the launcher will download games."
+        "title": "Chemin de l'installateur",
+        "description": "Sélectionne le chemin où le lanceur téléchargera les jeux."
       },
       "autoUpdate": {
-        "title": "Auto Update",
-        "description": "Automatically update games when a new version is available."
+        "title": "Mise à jour automatique",
+        "description": "Mettre à jour automatiquement les jeux lorsqu'une nouvelle version est disponible."
       },
       "sendNotifications": {
-        "title": "Send Notifications",
-        "description": "Send notifications when a game is updated or downloaded."
+        "title": "Envoyer des notifications",
+        "description": "Envoyer des notifications lorsqu'un jeu est mis à jour ou téléchargé."
       },
       "account": {
-        "title": "Account",
-        "description": "Select the account to use for downloading games."
+        "title": "Compte",
+        "description": "Sélectionne le compte à utiliser pour télécharger des jeux."
       }
     }
   },
@@ -581,89 +581,89 @@
   },
   "library": {
     "page": {
-      "title": "Library"
+      "title": "Bibliothèque"
     },
-    "loggingIn": "Logging in...",
-    "loggedIn": "Logged in successfully",
-    "failedToLogin": "Failed to login",
-    "searchPlaceholder": "Search for games...",
+    "loggingIn": "Connexion...",
+    "loggedIn": "Connecté avec succès",
+    "failedToLogin": "Échec de la connexion",
+    "searchPlaceholder": "Rechercher des jeux...",
     "filters": {
-      "select": "Select filters",
-      "showHidden": "Show Hidden",
-      "installedOnly": "Installed Only",
-      "updatesAvailable": "Updates Available"
+      "select": "Sélectionner les filtres",
+      "showHidden": "Afficher masqué",
+      "installedOnly": "Installé uniquement",
+      "updatesAvailable": "Mises à jour disponibles"
     },
     "app": {
-      "unfavorite": "Unfavorite",
-      "favorite": "Favorite",
-      "show": "Show",
-      "hide": "Hide",
-      "stop": "Stop",
-      "play": "Play",
-      "update": "Update",
-      "repair": "Repair",
-      "install": "Install",
+      "unfavorite": "Supprimer des favoris",
+      "favorite": "Ajouter aux favoris",
+      "show": "Afficher",
+      "hide": "Masquer",
+      "stop": "Arrêter",
+      "play": "Jouer",
+      "update": "Mise à jour",
+      "repair": "Réparer",
+      "install": "Installer",
       "removeFromQueue": {
-        "short": "Remove",
-        "long": "Remove from Queue"
+        "short": "Retirer",
+        "long": "Supprimer de la file d'attente"
       },
       "dropdown": {
         "autoUpdate": {
-          "enable": "Enable Auto Update",
-          "disable": "Disable Auto Update"
+          "enable": "Activer auto-mise à jour",
+          "disable": "Désactiver auto-mise à jour"
         },
-        "verifyAndRepair": "Verify & Repair",
-        "uninstall": "Uninstall",
-        "size": "Size"
+        "verifyAndRepair": "Vérifier & Réparer",
+        "uninstall": "Désinstaller",
+        "size": "Taille"
       },
-      "failedToLaunch": "Failed to launch {name}",
-      "stopped": "{name} stopped successfully",
-      "failedToStop": "Failed to stop {name}",
-      "verified": "{name} files verified successfully",
-      "requiresRepair": "{name} requires repair, added to the queue",
-      "failedToVerify": "Failed to verify {name} files",
-      "installed": "{name} installed successfully",
-      "failedToInstall": "Failed to install {name}",
-      "updated": "{name} updated successfully",
-      "failedToUpdate": "Failed to update {name}",
-      "repaired": "{name} repaired successfully",
-      "failedToRepair": "Failed to repair {name}",
-      "startedInstallation": "Started installation of {name}",
-      "startedUpdate": "Started update of {name}",
-      "startedRepair": "Started repair of {name}"
+      "failedToLaunch": "Échec du lancement de {name}",
+      "stopped": "{name} s'est arrêté avec succès",
+      "failedToStop": "Impossible d'arrêter {name}",
+      "verified": "Les fichiers {name} ont été vérifiés avec succès",
+      "requiresRepair": "{name} nécessite une réparation, ajoutée à la file d'attente",
+      "failedToVerify": "Impossible de vérifier les fichiers {name}",
+      "installed": "{name} s'est arrêté avec succès",
+      "failedToInstall": "Impossible d'installer {name}",
+      "updated": "{name} s'est mis à jour avec succès",
+      "failedToUpdate": "Impossible de mettre à jour {name}",
+      "repaired": "{name} s'est réparé avec succès",
+      "failedToRepair": "Impossible de réparer {name}",
+      "startedInstallation": "Début de l'installation de {name}",
+      "startedUpdate": "Début de la mise à jour de {name}",
+      "startedRepair": "Début de la réparation de {name}"
     },
     "installConfirmation": {
-      "downloadSize": "Download Size",
-      "compressed": "Compressed",
-      "installSize": "Install Size",
-      "afterExtraction": "After Extraction",
+      "downloadSize": "Taille du téléchargement",
+      "compressed": "Compressé",
+      "installSize": "Taille de l'installation",
+      "afterExtraction": "Après extraction",
       "storage": {
-        "title": "Storage",
-        "current": "Current",
-        "after": "After"
+        "title": "Stockage",
+        "current": "Actuel",
+        "after": "Après"
       },
-      "notEnoughSpace": "Not enough space available",
-      "download": "Download"
+      "notEnoughSpace": "Pas assez d'espace libre",
+      "download": "Télécharger"
     },
     "uninstallConfirmation": {
-      "title": "Uninstall Confirmation",
-      "description": "Are you sure you want to uninstall {name}?",
-      "uninstalled": "{name} uninstalled successfully",
-      "failedToUninstall": "Failed to uninstall {name}"
+      "title": "Confirmation de la désinstallation",
+      "description": "Êtes-vous sûr de vouloir désinstaller {name}?",
+      "uninstalled": "{name} s'est désinstallé avec succès",
+      "failedToUninstall": "Impossible de désinstaller {name}"
     }
   },
   "downloads": {
     "page": {
-      "title": "Downloads"
+      "title": "Téléchargements"
     },
-    "noDownloads": "No downloads in progress",
-    "paused": "Paused",
-    "queued": "Queued",
-    "completed": "Completed",
-    "clearAll": "Clear All",
+    "noDownloads": "Aucun téléchargements en cours",
+    "paused": "En pause",
+    "queued": "En file d'attente",
+    "completed": "Terminés",
+    "clearAll": "Tout supprimer",
     "cancelDownloadConfirmation": {
-      "title": "Cancel Download Confirmation",
-      "description": "Are you sure you want to cancel the download? Downloaded files will be kept."
+      "title": "Annuler la confirmation du téléchargement",
+      "description": "Êtes-vous sûr de vouloir annuler le téléchargement ? Les fichiers téléchargés seront conservés."
     }
   },
   "docs": {
