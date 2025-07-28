@@ -29,10 +29,10 @@
   import FriendManager from '$lib/core/managers/friend';
   import XMPPManager from '$lib/core/managers/xmpp';
   import PartyManager from '$lib/core/managers/party';
-  import AutoKickBase from '$lib/core/managers/automation/autoKickBase';
+  import AutoKickBase from '$lib/core/managers/automation/autokick-base';
   import { accountPartiesStore, accountsStore, friendsStore, language } from '$lib/stores';
-  import transferBuildingMaterials from '$lib/utils/autoKick/transferBuildingMaterials';
-  import claimRewards from '$lib/utils/autoKick/claimRewards';
+  import transferBuildingMaterials from '$lib/utils/autokick/transfer-building-materials';
+  import claimRewards from '$lib/utils/autokick/claim-rewards';
   import { handleError, nonNull, t } from '$lib/utils/util';
   import { toast } from 'svelte-sonner';
   import type { AccountData } from '$types/accounts';

@@ -1,6 +1,6 @@
 import { dev } from '$app/environment';
 import config from '$lib/config';
-import SystemTray from '$lib/core/system/systemTray';
+import SystemTray from '$lib/core/system/tray';
 import { perAppAutoUpdate } from '$lib/stores';
 import { accountDataFileSchema } from '$lib/validations/accounts';
 import {

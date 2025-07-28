@@ -1,4 +1,4 @@
-import DataStorage, { DOWNLOADER_FILE_PATH } from '$lib/core/dataStorage';
+import DataStorage, { DOWNLOADER_FILE_PATH } from '$lib/core/data-storage';
 import NotificationManager from '$lib/core/managers/notification';
 import { ownedApps } from '$lib/stores';
 import Legendary, { type StreamEvent } from '$lib/utils/legendary';

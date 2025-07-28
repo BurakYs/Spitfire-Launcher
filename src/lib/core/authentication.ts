@@ -1,5 +1,5 @@
 import { oauthService } from '$lib/core/services';
-import AsyncLock from '$lib/utils/asyncLock';
+import AsyncLock from '$lib/utils/async-lock';
 import { t } from '$lib/utils/util';
 import type {
   DeviceAuthData,

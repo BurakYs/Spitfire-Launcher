@@ -19,11 +19,11 @@
   import Button from '$components/ui/Button.svelte';
   import ExternalLinkIcon from 'lucide-svelte/icons/external-link';
   import { Dialog } from '$components/ui/Dialog';
-  import DataStorage, { ACCOUNTS_FILE_PATH } from '$lib/core/dataStorage';
+  import DataStorage, { ACCOUNTS_FILE_PATH } from '$lib/core/data-storage';
   import { Tooltip } from 'bits-ui';
   import WorldInfoManager from '$lib/core/managers/worldInfo';
   import { accountsStore, runningAppIds, worldInfoCache } from '$lib/stores';
-  import AutoKickBase from '$lib/core/managers/automation/autoKickBase';
+  import AutoKickBase from '$lib/core/managers/automation/autokick-base';
   import { t } from '$lib/utils/util';
 
   const { children } = $props();

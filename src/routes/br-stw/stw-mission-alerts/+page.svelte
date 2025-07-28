@@ -9,7 +9,7 @@
   import type { WorldParsedMission } from '$types/game/stw/worldInfo';
   import WorldInfoSectionAccordion from '$components/worldInfo/WorldInfoSectionAccordion.svelte';
   import { accountsStore, language, worldInfoCache } from '$lib/stores';
-  import { WorldPowerLevels, Theaters } from '$lib/constants/stw/worldInfo';
+  import { WorldPowerLevels, Theaters } from '$lib/constants/stw/world-info';
   import { isLegendaryOrMythicSurvivor, t } from '$lib/utils/util';
 
   const activeAccount = $derived($accountsStore.activeAccount);

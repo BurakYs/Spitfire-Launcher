@@ -15,14 +15,14 @@ import type {
 
 import resourcesJson from '$lib/data/resources.json';
 import survivorsJson from '$lib/data/survivors.json';
-import survivorsMythicLeadsJson from '$lib/data/survivorsMythicLeads.json';
+import survivorsMythicLeadsJson from '$lib/data/survivors-mythic-leads.json';
 import ingredientsJson from '$lib/data/ingredients.json';
 import trapsJson from '$lib/data/traps.json';
-import dailyQuestsJson from '$lib/data/dailyQuests.json';
-import teamPerksJson from '$lib/data/teamPerks.json';
+import dailyQuestsJson from '$lib/data/daily-quests.json';
+import teamPerksJson from '$lib/data/team-perks.json';
 import gadgetsJson from '$lib/data/gadgets.json';
 import heroesJson from '$lib/data/heroes.json';
-import zoneThemesJson from '$lib/data/zoneThemes.json';
+import zoneThemesJson from '$lib/data/zone-themes.json';
 import theatersJson from '$lib/data/theaters.json';
 import missionsJson from '$lib/data/missions.json';
 import { derived } from 'svelte/store';

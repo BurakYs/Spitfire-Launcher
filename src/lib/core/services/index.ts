@@ -1,5 +1,5 @@
 import { defaultClient } from '$lib/constants/clients';
-import tauriKy from '$lib/core/services/tauriKy';
+import tauriKy from '$lib/core/services/tauri-ky';
 
 export { tauriKy };
 

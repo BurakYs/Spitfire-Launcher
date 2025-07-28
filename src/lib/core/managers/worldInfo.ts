@@ -10,7 +10,7 @@ import {
   WorldStormKingZones,
   ZoneCategories,
   GroupZones
-} from '$lib/constants/stw/worldInfo';
+} from '$lib/constants/stw/world-info';
 import type { ParsedModifierData, ParsedResourceData, RarityType } from '$types/game/stw/resources';
 import { ingredients, RarityNames, RarityTypes, resources, survivors, survivorsMythicLeads, traps } from '$lib/constants/stw/resources';
 import { baseGameService } from '$lib/core/services';

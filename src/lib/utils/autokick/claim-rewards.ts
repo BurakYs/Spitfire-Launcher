@@ -1,4 +1,4 @@
-import DataStorage from '$lib/core/dataStorage';
+import DataStorage from '$lib/core/data-storage';
 import MCPManager from '$lib/core/managers/mcp';
 import { sleep } from '$lib/utils/util';
 import type { AccountData } from '$types/accounts';

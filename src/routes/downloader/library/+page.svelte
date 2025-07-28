@@ -6,7 +6,7 @@
   import UninstallDialog from '$components/downloader/UninstallDialog.svelte';
   import PageContent from '$components/PageContent.svelte';
   import Input from '$components/ui/Input.svelte';
-  import DataStorage, { DOWNLOADER_INITIAL_DATA } from '$lib/core/dataStorage';
+  import DataStorage, { DOWNLOADER_INITIAL_DATA } from '$lib/core/data-storage';
   import { accountsStore, favoritedAppIds, hiddenAppIds, ownedApps } from '$lib/stores';
   import Legendary from '$lib/utils/legendary';
   import { t, nonNull, handleError } from '$lib/utils/util';

@@ -9,7 +9,7 @@ import EpicAPIError from '$lib/exceptions/EpicAPIError';
 import type { EpicAPIErrorData } from '$types/game/authorizations';
 import type { FullQueryProfile } from '$types/game/mcp';
 import type { AllSettings } from '$types/settings';
-import DataStorage, { SETTINGS_FILE_PATH } from '$lib/core/dataStorage';
+import DataStorage, { SETTINGS_FILE_PATH } from '$lib/core/data-storage';
 import { Pages } from '$lib/constants/pages';
 import { m } from '$lib/paraglide/messages';
 import { setLocale, type Locale } from '$lib/paraglide/runtime';

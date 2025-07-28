@@ -1,12 +1,12 @@
-import DataStorage, { ACCOUNTS_FILE_PATH } from '$lib/core/dataStorage';
+import DataStorage, { ACCOUNTS_FILE_PATH } from '$lib/core/data-storage';
 import AvatarManager from '$lib/core/managers/avatar';
 import XMPPManager from '$lib/core/managers/xmpp';
 import Legendary from '$lib/utils/legendary';
 import { get } from 'svelte/store';
 import { accountsStore, activeAccountId } from '$lib/stores';
 import type { AccountData, AccountDataFile } from '$types/accounts';
-import DeviceAuthManager from '$lib/core/managers/deviceAuth';
-import AutoKickBase from '$lib/core/managers/automation/autoKickBase';
+import DeviceAuthManager from '$lib/core/managers/device-auth';
+import AutoKickBase from '$lib/core/managers/automation/autokick-base';
 
 export default class Account {
   static async changeActiveAccount(id: string | null) {

@@ -7,7 +7,7 @@ import type { AccountData, AccountStoreData } from '$types/accounts';
 import type { ParsedWorldInfo } from '$types/game/stw/worldInfo';
 import type { EpicOAuthData } from '$types/game/authorizations';
 import type { AutomationSetting, DownloaderSettings } from '$types/settings';
-import type { AutomationAccount } from '$lib/core/managers/automation/autoKickBase';
+import type { AutomationAccount } from '$lib/core/managers/automation/autokick-base';
 import type { SpitfireShop } from '$types/game/shop';
 import { type Locale, baseLocale } from './paraglide/runtime';
 

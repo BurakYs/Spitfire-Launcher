@@ -9,7 +9,7 @@
   import Button from '$components/ui/Button.svelte';
   import { Dialog } from '$components/ui/Dialog';
   import Tooltip from '$components/ui/Tooltip.svelte';
-  import DataStorage from '$lib/core/dataStorage';
+  import DataStorage from '$lib/core/data-storage';
   import { ownedApps } from '$lib/stores';
   import Legendary from '$lib/utils/legendary';
   import DownloadManager from '$lib/core/managers/download.svelte';

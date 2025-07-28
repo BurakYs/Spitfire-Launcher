@@ -1,5 +1,5 @@
 import type { ParsedResourceData, RarityType } from '$types/game/stw/resources';
-import { Theaters, type ZoneCategories } from '$lib/constants/stw/worldInfo';
+import { Theaters, type ZoneCategories } from '$lib/constants/stw/world-info';
 
 export type WorldInfoData = {
   missionAlerts: Array<WorldInfoMissionAlert>;

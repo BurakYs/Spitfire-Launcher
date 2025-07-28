@@ -1,13 +1,13 @@
-import DataStorage, { AUTOMATION_FILE_PATH } from '$lib/core/dataStorage';
+import DataStorage, { AUTOMATION_FILE_PATH } from '$lib/core/data-storage';
 import { get } from 'svelte/store';
 import { accountsStore, automationStore, doingBulkOperations } from '$lib/stores';
 import type { AccountData } from '$types/accounts';
 import type { AutomationSetting, AutomationSettings } from '$types/settings';
 import XMPPManager from '$lib/core/managers/xmpp';
 import { EpicEvents, ConnectionEvents } from '$lib/constants/events';
-import AutoKickManager from '$lib/core/managers/automation/autoKickManager';
-import claimRewards from '$lib/utils/autoKick/claimRewards';
-import transferBuildingMaterials from '$lib/utils/autoKick/transferBuildingMaterials';
+import AutokickManager from '$lib/core/managers/automation/autokick-manager';
+import claimRewards from '$lib/utils/autokick/claim-rewards';
+import transferBuildingMaterials from '$lib/utils/autokick/transfer-building-materials';
 
 export type AutomationAccount = {
   status: 'LOADING' | 'ACTIVE' | 'INVALID_CREDENTIALS' | 'DISCONNECTED';
@@ -18,7 +18,7 @@ export type AutomationAccount = {
 export default class AutoKickBase {
   private static accounts = new Map<string, AutomationAccount>();
   private static connections = new Map<string, XMPPManager>();
-  private static autoKickManagers = new Map<string, AutoKickManager>();
+  private static autoKickManagers = new Map<string, AutokickManager>();
   private static abortControllers = new Map<string, AbortController>();
 
   static async init() {
@@ -141,7 +141,7 @@ export default class AutoKickBase {
       AutoKickBase.autoKickManagers.delete(account.accountId);
     }
 
-    const autoKickManager = new AutoKickManager(account, connection);
+    const autoKickManager = new AutokickManager(account, connection);
     AutoKickBase.autoKickManagers.set(account.accountId, autoKickManager);
 
     let partyState: string;

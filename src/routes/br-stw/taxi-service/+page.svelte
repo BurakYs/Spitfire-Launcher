@@ -1,5 +1,5 @@
 <script lang="ts" module>
-  import TaxiManager from '$lib/core/managers/automation/taxiManager.svelte';
+  import TaxiManager from '$lib/core/managers/automation/taxi-manager.svelte.js';
   import { SvelteMap } from 'svelte/reactivity';
 
   const taxiManagers = new SvelteMap<string, TaxiManager>();
@@ -9,7 +9,7 @@
   import PageContent from '$components/PageContent.svelte';
   import Alert from '$components/ui/Alert.svelte';
   import Label from '$components/ui/Label.svelte';
-  import DataStorage, { TAXI_FILE_PATH } from '$lib/core/dataStorage';
+  import DataStorage, { TAXI_FILE_PATH } from '$lib/core/data-storage';
   import { accountPartiesStore, accountsStore } from '$lib/stores';
   import { handleError, nonNull, t } from '$lib/utils/util';
   import type { TaxiSettings } from '$types/settings';

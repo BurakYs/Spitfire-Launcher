@@ -9,7 +9,7 @@
 <script lang="ts">
   import PageContent from '$components/PageContent.svelte';
   import CustomStatusTutorial from '$components/docs/tutorials/CustomStatus.svelte';
-  import TaxiManager from '$lib/core/managers/automation/taxiManager.svelte';
+  import TaxiManager from '$lib/core/managers/automation/taxi-manager.svelte.js';
   import { accountsStore } from '$lib/stores';
   import Button from '$components/ui/Button.svelte';
   import Input from '$components/ui/Input.svelte';

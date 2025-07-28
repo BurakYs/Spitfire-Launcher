@@ -1,6 +1,6 @@
 import Authentication from '$lib/core/authentication';
 import PartyManager from '$lib/core/managers/party';
-import EventEmitter from '$lib/utils/eventEmitter';
+import EventEmitter from '$lib/utils/event-emitter';
 import { accountPartiesStore, accountsStore, friendsStore } from '$lib/stores';
 import { EpicEvents, ConnectionEvents } from '$lib/constants/events';
 import { get } from 'svelte/store';

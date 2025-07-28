@@ -1,4 +1,4 @@
-import DataStorage from '$lib/core/dataStorage';
+import DataStorage from '$lib/core/data-storage';
 import { accountsStore, activeAccountId, customizableMenuStore, language } from '$lib/stores';
 import { changeLocale } from '$lib/utils/util';
 import { baseLocale, locales } from '$lib/paraglide/runtime';

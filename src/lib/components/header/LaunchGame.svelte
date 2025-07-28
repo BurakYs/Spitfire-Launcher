@@ -2,7 +2,7 @@
   import Button from '$components/ui/Button.svelte';
   import { launcherAppClient2 } from '$lib/constants/clients';
   import Authentication from '$lib/core/authentication';
-  import DataStorage from '$lib/core/dataStorage';
+  import DataStorage from '$lib/core/data-storage';
   import Manifest from '$lib/core/manifest';
   import { accountsStore, runningAppIds } from '$lib/stores';
   import { handleError, shouldIgnoreError, t } from '$lib/utils/util';

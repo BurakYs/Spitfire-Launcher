@@ -1,5 +1,5 @@
 <script lang="ts" module>
-  import { Theaters } from '$lib/constants/stw/worldInfo';
+  import { Theaters } from '$lib/constants/stw/world-info';
   import type { RarityType, ZoneThemeData } from '$types/game/stw/resources';
 
   type Theater = typeof Theaters[keyof typeof Theaters];
@@ -46,7 +46,7 @@
   import ExternalLink from '$components/ui/ExternalLink.svelte';
   import Pagination from '$components/ui/Pagination.svelte';
   import { RarityColors } from '$lib/constants/stw/resources';
-  import { TheaterNames, ZoneNames } from '$lib/constants/stw/worldInfo';
+  import { TheaterNames, ZoneNames } from '$lib/constants/stw/world-info';
   import { language } from '$lib/stores';
   import { Separator } from 'bits-ui';
   import { t } from '$lib/utils/util';

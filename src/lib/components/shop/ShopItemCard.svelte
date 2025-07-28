@@ -1,7 +1,7 @@
 <script lang="ts">
   import { calculateDiscountedShopPrice, t } from '$lib/utils/util';
   import type { SpitfireShopItem } from '$types/game/shop';
-  import { ItemColors } from '$lib/constants/itemColors';
+  import { ItemColors } from '$lib/constants/item-colors';
   import { activeAccountId, language, ownedItemsStore } from '$lib/stores';
   import CheckIcon from 'lucide-svelte/icons/check';
   import { derived as jsDerived } from 'svelte/store';

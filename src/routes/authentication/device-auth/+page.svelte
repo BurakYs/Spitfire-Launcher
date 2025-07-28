@@ -15,10 +15,10 @@
   import PlusIcon from 'lucide-svelte/icons/plus';
   import Trash2Icon from 'lucide-svelte/icons/trash-2';
   import { toast } from 'svelte-sonner';
-  import DeviceAuthManager from '$lib/core/managers/deviceAuth';
+  import DeviceAuthManager from '$lib/core/managers/device-auth';
   import type { DeviceAuthsSettings } from '$types/settings';
   import { onMount } from 'svelte';
-  import DataStorage, { DEVICE_AUTHS_FILE_PATH } from '$lib/core/dataStorage';
+  import DataStorage, { DEVICE_AUTHS_FILE_PATH } from '$lib/core/data-storage';
   import { accountsStore, language } from '$lib/stores';
   import { getStartingPage, handleError, nonNull, t } from '$lib/utils/util';
   import Account from '$lib/core/account';

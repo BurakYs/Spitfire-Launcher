@@ -4,11 +4,11 @@ import { getResolvedResults, sleep } from '$lib/utils/util';
 import type { AccountData } from '$types/accounts';
 import MatchmakingManager from '$lib/core/managers/matchmaking';
 import { EpicEvents } from '$lib/constants/events';
-import AutoKickBase from '$lib/core/managers/automation/autoKickBase';
+import AutoKickBase from '$lib/core/managers/automation/autokick-base';
 import PartyManager from '$lib/core/managers/party';
-import claimRewards from '$lib/utils/autoKick/claimRewards';
-import transferBuildingMaterials from '$lib/utils/autoKick/transferBuildingMaterials';
-import DataStorage from '$lib/core/dataStorage';
+import claimRewards from '$lib/utils/autokick/claim-rewards';
+import transferBuildingMaterials from '$lib/utils/autokick/transfer-building-materials';
+import DataStorage from '$lib/core/data-storage';
 import type { PartyData } from '$types/game/party';
 import { get } from 'svelte/store';
 import { accountsStore } from '$lib/stores';
@@ -18,7 +18,7 @@ type MatchmakingState = {
   started: boolean;
 };
 
-export default class AutoKickManager {
+export default class AutokickManager {
   private missionCheckerIntervalInitTimeout?: number;
   private missionCheckerInterval?: number;
 

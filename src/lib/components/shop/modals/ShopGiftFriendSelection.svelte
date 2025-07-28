@@ -140,8 +140,8 @@
       !selectedFriends.length
         ? $t('itemShop.selectFriends')
         : selectedFriends.length > 1
-          ? $t('itemShop.selectedFriendCount', { count: selectedFriends.length })
-          :friends.find((f) => f.accountId === selectedFriends[0])?.displayName
+        ? $t('itemShop.selectedFriendCount', { count: selectedFriends.length })
+        :friends.find((f) => f.accountId === selectedFriends[0])?.displayName
     }
     type="multiple"
     bind:value={selectedFriends}

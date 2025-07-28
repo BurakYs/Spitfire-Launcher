@@ -1,6 +1,6 @@
 <script lang="ts">
   import Button from '$components/ui/Button.svelte';
-  import DataStorage, { DOWNLOADER_FILE_PATH } from '$lib/core/dataStorage';
+  import DataStorage, { DOWNLOADER_FILE_PATH } from '$lib/core/data-storage';
   import DownloadManager from '$lib/core/managers/download.svelte';
   import { favoritedAppIds, hiddenAppIds, ownedApps, perAppAutoUpdate, runningAppIds } from '$lib/stores';
   import Legendary from '$lib/utils/legendary';

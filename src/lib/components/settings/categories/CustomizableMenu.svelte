@@ -1,7 +1,7 @@
 <script lang="ts">
   import Label from '$components/ui/Label.svelte';
   import Switch from '$components/ui/Switch.svelte';
-  import DataStorage, { SETTINGS_FILE_PATH } from '$lib/core/dataStorage';
+  import DataStorage, { SETTINGS_FILE_PATH } from '$lib/core/data-storage';
   import type { AllSettings } from '$types/settings';
   import { customizableMenuStore } from '$lib/stores';
   import { Separator } from 'bits-ui';

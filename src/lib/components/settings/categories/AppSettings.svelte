@@ -4,8 +4,8 @@
   import Select from '$components/ui/Select.svelte';
   import Switch from '$components/ui/Switch.svelte';
   import { SidebarCategories } from '$lib/constants/sidebar';
-  import DataStorage, { SETTINGS_FILE_PATH, SETTINGS_INITIAL_DATA } from '$lib/core/dataStorage';
-  import SystemTray from '$lib/core/system/systemTray';
+  import DataStorage, { SETTINGS_FILE_PATH, SETTINGS_INITIAL_DATA } from '$lib/core/data-storage';
+  import SystemTray from '$lib/core/system/tray';
   import { t } from '$lib/utils/util';
   import { allSettingsSchema, appSettingsSchema } from '$lib/validations/settings';
   import type { AllSettings } from '$types/settings';

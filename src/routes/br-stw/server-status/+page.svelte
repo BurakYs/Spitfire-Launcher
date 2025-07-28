@@ -34,9 +34,9 @@
   import Tooltip from '$components/ui/Tooltip.svelte';
   import StatusCard from '$components/ui/StatusCard.svelte';
   import NotificationManager from '$lib/core/managers/notification';
-  import ServerStatusManager from '$lib/core/managers/serverStatus';
+  import ServerStatusManager from '$lib/core/managers/server-status';
   import { accountsStore, language } from '$lib/stores';
-  import type { LightswitchData } from '$types/game/serverStatus';
+  import type { LightswitchData } from '$types/game/server-status';
   import { Separator } from 'bits-ui';
   import ExternalLinkIcon from 'lucide-svelte/icons/external-link';
   import { onMount } from 'svelte';

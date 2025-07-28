@@ -3,7 +3,7 @@ import FriendManager from '$lib/core/managers/friend';
 import PartyManager from '$lib/core/managers/party';
 import XMPPManager from '$lib/core/managers/xmpp';
 import { SvelteSet } from 'svelte/reactivity';
-import homebaseRatingMapping from '$lib/data/homebaseRatingMapping.json';
+import homebaseRatingMapping from '$lib/data/homebase-rating-mapping.json';
 import { accountPartiesStore } from '$lib/stores';
 import { evaluateCurve, t } from '$lib/utils/util';
 import { get } from 'svelte/store';

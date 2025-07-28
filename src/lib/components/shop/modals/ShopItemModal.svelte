@@ -8,7 +8,7 @@
   import GiftIcon from 'lucide-svelte/icons/gift';
   import ShoppingCartIcon from 'lucide-svelte/icons/shopping-cart';
   import CheckIcon from 'lucide-svelte/icons/check';
-  import { ItemColors } from '$lib/constants/itemColors';
+  import { ItemColors } from '$lib/constants/item-colors';
   import { accountDataStore, activeAccountId, brShopStore, language, ownedItemsStore } from '$lib/stores';
   import ShopPurchaseConfirmation from '$components/shop/modals/ShopPurchaseConfirmation.svelte';
   import ShopGiftFriendSelection from '$components/shop/modals/ShopGiftFriendSelection.svelte';

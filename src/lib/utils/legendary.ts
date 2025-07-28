@@ -1,5 +1,5 @@
 import Authentication from '$lib/core/authentication';
-import DataStorage from '$lib/core/dataStorage';
+import DataStorage from '$lib/core/data-storage';
 import DownloadManager from '$lib/core/managers/download.svelte';
 import LegendaryError from '$lib/exceptions/LegendaryError';
 import { ownedApps, perAppAutoUpdate } from '$lib/stores';

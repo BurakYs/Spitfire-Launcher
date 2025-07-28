@@ -1,5 +1,5 @@
 <script lang="ts">
-  import DataStorage from '$lib/core/dataStorage';
+  import DataStorage from '$lib/core/data-storage';
   import DownloadManager from '$lib/core/managers/download.svelte';
   import { getCurrentWindow } from '@tauri-apps/api/window';
   import { platform } from '@tauri-apps/plugin-os';
