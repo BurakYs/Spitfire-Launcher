@@ -61,6 +61,7 @@ pub struct AppStateEvent {
     pub state: AppState,
 }
 
+#[cfg(desktop)]
 #[derive(Debug, Clone)]
 pub struct TrackedApp {
     pub pid: u32,

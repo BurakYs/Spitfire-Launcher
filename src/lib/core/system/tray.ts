@@ -4,13 +4,15 @@ import { Menu } from '@tauri-apps/api/menu/menu';
 import { TrayIcon } from '@tauri-apps/api/tray';
 import { defaultWindowIcon } from '@tauri-apps/api/app';
 import { getCurrentWindow } from '@tauri-apps/api/window';
+import { type } from '@tauri-apps/plugin-os';
 
 export default class SystemTray {
   private static trayIconId: string;
 
   static async setVisibility(visible: boolean) {
+    const isMobile = type() === 'android' || type() === 'ios';
     // Old tray icons remain after HMR reloads, causing duplicates. So we disable tray icons in dev mode
-    if (dev) return;
+    if (dev || isMobile) return;
 
     if (visible) {
       await SystemTray.addTrayIcon();

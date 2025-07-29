@@ -8,11 +8,11 @@
   import { t } from '$lib/utils/util';
   import { allSettingsSchema, appSettingsSchema } from '$lib/validations/settings';
   import type { AllSettings } from '$types/settings';
-  import { platform } from '@tauri-apps/plugin-os';
+  import { type } from '@tauri-apps/plugin-os';
   import ChevronsUpDownIcon from 'lucide-svelte/icons/chevrons-up-down';
   import { toast } from 'svelte-sonner';
 
-  const currentPlatform = platform();
+  const currentPlatform = type();
 
   const startingPageValues = Object.values<string>(appSettingsSchema.shape.startingPage.def.innerType.def.entries);
   const startingPageOptions = $SidebarCategories

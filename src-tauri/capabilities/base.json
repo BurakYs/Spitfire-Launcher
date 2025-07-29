@@ -1,0 +1,41 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "base",
+  "description": "Capability for the main window",
+  "windows": [
+    "main"
+  ],
+  "permissions": [
+    "core:default",
+    "opener:default",
+    "fs:default",
+    {
+      "identifier": "http:default",
+      "allow": [
+        {
+          "url": "https://*.epicgames.com"
+        },
+        {
+          "url": "https://api.rookie-spitfire.xyz"
+        }
+      ]
+    },
+    {
+      "identifier": "fs:allow-app-write-recursive",
+      "allow": [
+        {
+          "path": "$DATA/spitfire-launcher/**"
+        },
+        {
+          "path": "$DATA/spitfire-launcher"
+        }
+      ]
+    },
+    "clipboard-manager:default",
+    "clipboard-manager:allow-write-text",
+    "clipboard-manager:allow-read-text",
+    "os:default",
+    "notification:default",
+    "websocket:default"
+  ]
+}

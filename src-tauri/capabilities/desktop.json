@@ -1,12 +1,16 @@
 {
   "$schema": "../gen/schemas/desktop-schema.json",
-  "identifier": "default",
-  "description": "Capability for the main window",
+  "identifier": "desktop",
+  "description": "Capability for the main window (desktop only)",
   "windows": [
     "main"
   ],
+  "platforms": [
+    "linux",
+    "macOS",
+    "windows"
+  ],
   "permissions": [
-    "core:default",
     "core:window:default",
     "core:window:allow-start-dragging",
     "core:window:allow-minimize",
@@ -14,8 +18,6 @@
     "core:window:allow-hide",
     "core:window:allow-show",
     "core:app:allow-default-window-icon",
-    "opener:default",
-    "fs:default",
     {
       "identifier": "fs:allow-app-read-recursive",
       "allow": [
@@ -24,17 +26,6 @@
         },
         {
           "path": "C:/ProgramData/Epic/EpicGamesLauncher/Data/Manifests"
-        }
-      ]
-    },
-    {
-      "identifier": "fs:allow-app-write-recursive",
-      "allow": [
-        {
-          "path": "$DATA/spitfire-launcher/**"
-        },
-        {
-          "path": "$DATA/spitfire-launcher"
         }
       ]
     },
@@ -56,18 +47,6 @@
       ]
     },
     {
-      "identifier": "http:default",
-      "allow": [
-        {
-          "url": "https://*.epicgames.com"
-        },
-        {
-          "url": "https://api.rookie-spitfire.xyz"
-        }
-      ]
-    },
-    "shell:default",
-    {
       "identifier": "shell:allow-execute",
       "allow": [
         {
@@ -84,12 +63,6 @@
           "sidecar": true
         }
       ]
-    },
-    "clipboard-manager:default",
-    "clipboard-manager:allow-write-text",
-    "clipboard-manager:allow-read-text",
-    "os:default",
-    "notification:default",
-    "websocket:default"
+    }
   ]
 }

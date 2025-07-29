@@ -1,12 +1,15 @@
-use crate::app_monitor;
-use crate::legendary;
-use crate::types::AppState;
-use crate::types::{CommandOutput, DiskSpace, LaunchData};
-use fs2;
-use shlex;
-use std::path::Path;
-use tauri::{command, AppHandle};
-use tauri_plugin_shell::ShellExt;
+#[cfg(desktop)]
+use {
+    crate::app_monitor,
+    crate::legendary,
+    crate::types::{AppState, CommandOutput, DiskSpace, LaunchData},
+    fs2, shlex,
+    std::path::Path,
+    tauri::AppHandle,
+    tauri_plugin_shell::ShellExt,
+};
+
+use tauri::command;
 
 #[command]
 pub fn get_locale() -> String {
@@ -15,6 +18,7 @@ pub fn get_locale() -> String {
         .unwrap_or_else(|| "".to_string())
 }
 
+#[cfg(desktop)]
 #[command]
 pub fn get_disk_space(dir: String) -> Result<DiskSpace, String> {
     let path = Path::new(&dir);
@@ -29,6 +33,7 @@ pub fn get_disk_space(dir: String) -> Result<DiskSpace, String> {
     }
 }
 
+#[cfg(desktop)]
 #[command]
 pub async fn launch_app(app: AppHandle, launch_data: LaunchData) -> Result<u32, String> {
     if !launch_data.pre_launch_command.is_empty() {
@@ -46,16 +51,19 @@ pub async fn launch_app(app: AppHandle, launch_data: LaunchData) -> Result<u32, 
     Ok(pid)
 }
 
+#[cfg(desktop)]
 #[command]
 pub async fn stop_app(_app: AppHandle, app_id: String) -> Result<bool, String> {
     app_monitor::stop_app(&app_id)
 }
 
+#[cfg(desktop)]
 #[command]
 pub async fn run_legendary(app: AppHandle, args: Vec<String>) -> Result<CommandOutput, String> {
     legendary::run_legendary(app, args).await
 }
 
+#[cfg(desktop)]
 #[command]
 pub async fn start_legendary_stream(
     app: AppHandle,
@@ -65,6 +73,7 @@ pub async fn start_legendary_stream(
     legendary::start_legendary_stream(app, stream_id, args).await
 }
 
+#[cfg(desktop)]
 #[command]
 pub async fn stop_legendary_stream(
     stream_id: String,
@@ -73,6 +82,7 @@ pub async fn stop_legendary_stream(
     legendary::stop_legendary_stream(stream_id, force_kill_all).await
 }
 
+#[cfg(desktop)]
 async fn execute_pre_launch_command(
     app: &AppHandle,
     launch_data: &LaunchData,
@@ -132,6 +142,7 @@ async fn execute_pre_launch_command(
     Ok(())
 }
 
+#[cfg(desktop)]
 async fn launch_application(app: &AppHandle, launch_data: &LaunchData) -> Result<u32, String> {
     let shell = app.shell();
 

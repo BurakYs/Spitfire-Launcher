@@ -1,20 +1,30 @@
-use tauri::{generate_handler, Manager};
+use tauri::generate_handler;
+#[cfg(desktop)]
+use tauri::Manager;
 use tauri_plugin_prevent_default::{Builder as PreventDefaultBuilder, Flags, KeyboardShortcut};
 
+#[cfg(desktop)]
 mod app_monitor;
-mod commands;
+#[cfg(desktop)]
 mod legendary;
+
+mod commands;
 mod types;
 
 use commands::*;
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
+    #[cfg(desktop)]
     let mut builder = tauri::Builder::default();
+
+    #[cfg(not(desktop))]
+    let builder = tauri::Builder::default();
 
     #[cfg(desktop)]
     {
         builder = builder
+            .plugin(tauri_plugin_shell::init())
             .plugin(tauri_plugin_single_instance::init(|app, _args, _cwd| {
                 let _ = app
                     .get_webview_window("main")
@@ -40,15 +50,20 @@ pub fn run() {
     builder
         .invoke_handler(generate_handler![
             get_locale,
+            #[cfg(desktop)]
             run_legendary,
+            #[cfg(desktop)]
             start_legendary_stream,
+            #[cfg(desktop)]
             stop_legendary_stream,
+            #[cfg(desktop)]
             launch_app,
+            #[cfg(desktop)]
             stop_app,
+            #[cfg(desktop)]
             get_disk_space,
         ])
         .plugin(prevent)
-        .plugin(tauri_plugin_shell::init())
         .plugin(tauri_plugin_http::init())
         .plugin(tauri_plugin_fs::init())
         .plugin(tauri_plugin_opener::init())
