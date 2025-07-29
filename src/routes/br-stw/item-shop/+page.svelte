@@ -24,7 +24,7 @@
     fetchAccountData();
   });
 
-  let remainingTime = $state<number>();
+  let remainingTime = $state(getResetDate().getTime() - Date.now());
   let shopSections = $state<SpitfireShopSection[] | null>(null);
   let errorOccurred = $state(false);
   let searchQuery = $state<string>('');
@@ -151,8 +151,6 @@
   }
 
   onMount(() => {
-    remainingTime = getResetDate().getTime() - Date.now();
-
     let isFetching = true;
     fetchShop().finally(() => isFetching = false);
 
