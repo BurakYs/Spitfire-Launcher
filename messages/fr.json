@@ -625,9 +625,8 @@
       "failedToUpdate": "Impossible de mettre à jour {name}",
       "repaired": "{name} s'est réparé avec succès",
       "failedToRepair": "Impossible de réparer {name}",
-      "startedInstallation": "Début de l'installation de {name}",
-      "startedUpdate": "Début de la mise à jour de {name}",
-      "startedRepair": "Début de la réparation de {name}"
+      "startedDownload": "Le téléchargement a commencé. Pour voir la progression, {el}cliquez ici{elEnd}",
+      "startedUpdate": "Début de la mise à jour de {name}"
     },
     "installConfirmation": {
       "downloadSize": "Taille du téléchargement",

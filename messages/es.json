@@ -625,9 +625,8 @@
       "failedToUpdate": "Error al actualizar {name}",
       "repaired": "Archivos {name} verificados con éxito",
       "failedToRepair": "Error al reparar {name}",
-      "startedInstallation": "Se inició la instalación de {name}",
-      "startedUpdate": "Se inició la actualización de {name}",
-      "startedRepair": "Se inició la reparación de {name}"
+      "startedDownload": "La descarga ha comenzado. Para ver el progreso, {el}haz clic aquí{elEnd}",
+      "startedUpdate": "Se inició la actualización de {name}"
     },
     "installConfirmation": {
       "downloadSize": "Tamaño de descarga",

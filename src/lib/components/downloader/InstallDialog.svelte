@@ -21,6 +21,8 @@
   import HardDriveIcon from 'lucide-svelte/icons/hard-drive';
   import AlertTriangleIcon from 'lucide-svelte/icons/alert-triangle';
   import { onMount } from 'svelte';
+  import { toast } from 'svelte-sonner';
+  import DownloadStartedToast from '$components/downloader/DownloadStartedToast.svelte';
 
   type Props = {
     id: string;
@@ -44,10 +46,18 @@
 
   async function installApp() {
     isStartingDownload = true;
-    DownloadManager.addToQueue(app).finally(() => {
+
+    try {
+      await DownloadManager.addToQueue(app);
+      if (DownloadManager.downloadingAppId === app.id) {
+        toast.info(DownloadStartedToast);
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
       isStartingDownload = false;
       isOpen = false;
-    });
+    }
   }
 
   onMount(async () => {
