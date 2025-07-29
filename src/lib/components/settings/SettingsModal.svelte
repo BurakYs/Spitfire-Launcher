@@ -50,7 +50,7 @@
       </div>
     </div>
 
-    <div class="flex-1 p-1 sm:p-4 max-h-114 max-xs:max-h-128 overflow-y-auto">
+    <div class="flex-1 p-1 sm:p-4 max-h-114 max-xs:h-128 overflow-y-auto min-h-114">
       <div>
         {#each categories as category (category.id)}
           {@const CategoryComponent = category.component}
