@@ -20,6 +20,15 @@
     }
 }
 
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
 @theme {
     --breakpoint-xxs: 23rem;
     --breakpoint-xs: 32rem;
@@ -136,6 +145,10 @@
         background-color: transparent;
     }
 
+    main {
+        scrollbar-gutter: stable;
+    }
+
     input::-webkit-outer-spin-button,
     input::-webkit-inner-spin-button {
         -webkit-appearance: none;
@@ -145,7 +158,6 @@
         -webkit-appearance: none;
         appearance: none;
     }
-
 
     body {
         background-color: hsl(var(--background));
@@ -171,14 +183,5 @@
     .skeleton-loader {
         background: hsl(var(--muted) / 0.7);
         animation: pulse 1.5s ease-in-out infinite;
-    }
-
-    @keyframes pulse {
-        0%, 100% {
-            opacity: 1;
-        }
-        50% {
-            opacity: 0.5;
-        }
     }
 }
