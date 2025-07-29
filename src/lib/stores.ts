@@ -7,7 +7,7 @@ import type { AccountStoreData } from '$types/accounts';
 import type { ParsedWorldInfo } from '$types/game/stw/worldInfo';
 import type { EpicOAuthData } from '$types/game/authorizations';
 import type { AutomationSetting } from '$types/settings';
-import type { AutomationAccount } from '$lib/core/managers/autokick-base';
+import type { AutomationAccount } from '$lib/core/managers/autokick/base';
 import type { SpitfireShop } from '$types/game/shop';
 
 // To prevent redirecting the user to the home page in bulk operations if there is a credential error

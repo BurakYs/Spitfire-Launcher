@@ -11,7 +11,7 @@
   import Tooltip from '$components/ui/Tooltip.svelte';
   import { downloaderStorage } from '$lib/core/data-storage';
   import { ownedApps } from '$lib/stores';
-  import Legendary from '$lib/utils/legendary';
+  import Legendary from '$lib/core/legendary';
   import DownloadManager from '$lib/core/managers/download.svelte';
   import { bytesToSize, cn, t } from '$lib/utils/util';
   import { invoke } from '@tauri-apps/api/core';

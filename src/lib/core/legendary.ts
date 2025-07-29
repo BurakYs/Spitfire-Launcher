@@ -1,6 +1,6 @@
 import Authentication from '$lib/core/authentication';
 import { downloaderStorage } from '$lib/core/data-storage';
-import DownloadManager from '$lib/core/managers/download.svelte';
+import DownloadManager from '$lib/core/managers/download.svelte.js';
 import LegendaryError from '$lib/exceptions/LegendaryError';
 import { ownedApps } from '$lib/stores';
 import { t } from '$lib/utils/util';

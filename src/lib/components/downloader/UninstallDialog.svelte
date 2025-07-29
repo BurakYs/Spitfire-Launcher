@@ -1,7 +1,7 @@
 <script lang="ts">
   import { Dialog } from '$components/ui/Dialog';
   import { ownedApps } from '$lib/stores';
-  import Legendary from '$lib/utils/legendary';
+  import Legendary from '$lib/core/legendary';
   import { handleError, t } from '$lib/utils/util';
   import LoaderCircleIcon from 'lucide-svelte/icons/loader-circle';
   import { toast } from 'svelte-sonner';

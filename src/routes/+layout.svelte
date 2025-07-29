@@ -7,7 +7,7 @@
   import LookupManager from '$lib/core/managers/lookup';
   import DownloadManager from '$lib/core/managers/download.svelte';
   import SystemTray from '$lib/core/system/tray';
-  import Legendary from '$lib/utils/legendary';
+  import Legendary from '$lib/core/legendary';
   import { getVersion } from '@tauri-apps/api/app';
   import { listen } from '@tauri-apps/api/event';
   import LoaderCircleIcon from 'lucide-svelte/icons/loader-circle';
@@ -23,7 +23,7 @@
   import { Tooltip } from 'bits-ui';
   import WorldInfoManager from '$lib/core/managers/worldInfo';
   import { runningAppIds, worldInfoCache } from '$lib/stores';
-  import AutoKickBase from '$lib/core/managers/autokick-base';
+  import AutoKickBase from '$lib/core/managers/autokick/base';
   import { t } from '$lib/utils/util';
 
   const { children } = $props();

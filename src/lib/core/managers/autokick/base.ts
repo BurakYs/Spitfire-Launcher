@@ -5,9 +5,9 @@ import type { AccountData } from '$types/accounts';
 import type { AutomationSetting } from '$types/settings';
 import XMPPManager from '$lib/core/managers/xmpp';
 import { EpicEvents, ConnectionEvents } from '$lib/constants/events';
-import AutokickManager from '$lib/core/managers/autokick-manager';
-import claimRewards from '$lib/utils/autokick/claim-rewards';
-import transferBuildingMaterials from '$lib/utils/autokick/transfer-building-materials';
+import AutokickManager from '$lib/core/managers/autokick/manager';
+import claimRewards from '$lib/core/managers/autokick/claim-rewards';
+import transferBuildingMaterials from '$lib/core/managers/autokick/transfer-building-materials';
 
 export type AutomationAccount = {
   status: 'LOADING' | 'ACTIVE' | 'INVALID_CREDENTIALS' | 'DISCONNECTED';

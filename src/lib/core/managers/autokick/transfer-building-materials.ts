@@ -25,34 +25,20 @@ export default async function transferBuildingMaterials(account: AccountData, sk
     await sleep((delaySeconds || 1.5) * 1000);
   }
 
-  const wood: BuildingMaterialData = {
-    total: 0,
-    items: []
-  };
-
-  const stone: BuildingMaterialData = {
-    total: 0,
-    items: []
-  };
-
-  const metal: BuildingMaterialData = {
-    total: 0,
-    items: []
-  };
-
-  const buildingMaterialArrays: Record<string, BuildingMaterialData> = {
-    'WorldItem:wooditemdata': wood,
-    'WorldItem:stoneitemdata': stone,
-    'WorldItem:metalitemdata': metal
+  const materials: Record<string, BuildingMaterialData> = {
+    'WorldItem:wooditemdata': { total: 0, items: [] },
+    'WorldItem:stoneitemdata': { total: 0, items: [] },
+    'WorldItem:metalitemdata': { total: 0, items: [] }
   };
 
   const storageProfile = await MCPManager.queryProfile(account, 'outpost0');
   const profile = storageProfile.profileChanges[0].profile;
-  const ownedBuildingMaterials = Object.entries(profile.items).filter(([, item]) => Object.keys(buildingMaterialArrays).includes(item.templateId));
-  if (!ownedBuildingMaterials.length) return;
+  const materialIds = Object.keys(materials);
+  const ownedMaterials = Object.entries(profile.items).filter(([, item]) => materialIds.includes(item.templateId));
+  if (!ownedMaterials.length) return;
 
-  for (const [itemId, itemData] of ownedBuildingMaterials) {
-    const buildingMaterial = buildingMaterialArrays[itemData.templateId];
+  for (const [itemId, itemData] of ownedMaterials) {
+    const buildingMaterial = materials[itemData.templateId];
     const quantity = calculateMaterial(itemData, buildingMaterial.total);
 
     buildingMaterial.total += quantity;
@@ -65,7 +51,7 @@ export default async function transferBuildingMaterials(account: AccountData, sk
   }
 
   return MCPManager.compose(account, 'StorageTransfer', 'theater0', {
-    transferOperations: [...wood.items, ...stone.items, ...metal.items].filter(x => x.quantity > 0)
+    transferOperations: Object.values(materials).flatMap(material => material.items).filter(x => x.quantity > 0)
   });
 }
 

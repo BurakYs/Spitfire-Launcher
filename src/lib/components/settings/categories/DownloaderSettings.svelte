@@ -5,7 +5,7 @@
   import Switch from '$components/ui/Switch.svelte';
   import DownloadManager from '$lib/core/managers/download.svelte';
   import { accountsStorage, downloaderStorage } from '$lib/core/data-storage';
-  import Legendary from '$lib/utils/legendary';
+  import Legendary from '$lib/core/legendary';
   import { handleError, nonNull, t } from '$lib/utils/util';
   import { downloaderSettingsSchema } from '$lib/validations/settings';
   import type { DownloaderSettings } from '$types/settings';

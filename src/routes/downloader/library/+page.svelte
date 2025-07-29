@@ -8,7 +8,7 @@
   import Input from '$components/ui/Input.svelte';
   import { activeAccountStore, downloaderStorage } from '$lib/core/data-storage';
   import { favoritedAppIds, hiddenAppIds, ownedApps } from '$lib/stores';
-  import Legendary from '$lib/utils/legendary';
+  import Legendary from '$lib/core/legendary';
   import { t, nonNull, handleError } from '$lib/utils/util';
   import type { AppFilterValue } from '$types/legendary';
   import Fuse from 'fuse.js';

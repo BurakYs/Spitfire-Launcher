@@ -1,7 +1,7 @@
 import { downloaderStorage } from '$lib/core/data-storage';
 import NotificationManager from '$lib/core/managers/notification';
 import { ownedApps } from '$lib/stores';
-import Legendary, { type StreamEvent } from '$lib/utils/legendary';
+import Legendary, { type StreamEvent } from '$lib/core/legendary';
 import { t } from '$lib/utils/util';
 import type { queueItemSchema } from '$lib/validations/settings';
 import type { ParsedApp } from '$types/legendary';

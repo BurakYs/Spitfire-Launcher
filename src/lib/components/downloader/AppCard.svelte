@@ -3,7 +3,7 @@
   import { downloaderStorage } from '$lib/core/data-storage';
   import DownloadManager from '$lib/core/managers/download.svelte';
   import { favoritedAppIds, hiddenAppIds, ownedApps, runningAppIds } from '$lib/stores';
-  import Legendary from '$lib/utils/legendary';
+  import Legendary from '$lib/core/legendary';
   import { bytesToSize, handleError, sleep, t } from '$lib/utils/util';
   import type { DownloaderSettings } from '$types/settings';
   import { invoke } from '@tauri-apps/api/core';
