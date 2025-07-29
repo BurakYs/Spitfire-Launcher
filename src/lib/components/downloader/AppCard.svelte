@@ -2,10 +2,9 @@
   import Button from '$components/ui/Button.svelte';
   import { downloaderStorage } from '$lib/core/data-storage';
   import DownloadManager from '$lib/core/managers/download.svelte';
-  import { favoritedAppIds, hiddenAppIds, ownedApps, runningAppIds } from '$lib/stores';
+  import { ownedApps, runningAppIds } from '$lib/stores';
   import Legendary from '$lib/core/legendary';
   import { bytesToSize, handleError, sleep, t } from '$lib/utils/util';
-  import type { DownloaderSettings } from '$types/settings';
   import { invoke } from '@tauri-apps/api/core';
   import CircleMinusIcon from 'lucide-svelte/icons/circle-minus';
   import RefreshCwOffIcon from 'lucide-svelte/icons/refresh-cw-off';
@@ -72,27 +71,29 @@
   }
 
   async function toggleFavorite() {
-    if (favoritedAppIds.has(app.id)) {
-      favoritedAppIds.delete(app.id);
-    } else {
-      favoritedAppIds.add(app.id);
-    }
-
     downloaderStorage.update(current => {
-      current.favoriteApps = Array.from(favoritedAppIds);
+      current.favoriteApps ??= [];
+
+      if (current.favoriteApps.includes(app.id)) {
+        current.favoriteApps = current.favoriteApps.filter(id => id !== app.id);
+      } else {
+        current.favoriteApps.push(app.id);
+      }
+
       return current;
     });
   }
 
   async function toggleHidden() {
-    if (hiddenAppIds.has(app.id)) {
-      hiddenAppIds.delete(app.id);
-    } else {
-      hiddenAppIds.add(app.id);
-    }
-
     downloaderStorage.update(current => {
-      current.hiddenApps = Array.from(hiddenAppIds);
+      current.hiddenApps ??= [];
+
+      if (current.hiddenApps.includes(app.id)) {
+        current.hiddenApps = current.hiddenApps.filter(id => id !== app.id);
+      } else {
+        current.hiddenApps.push(app.id);
+      }
+
       return current;
     });
   }
@@ -147,7 +148,7 @@
     />
 
     <div class="absolute top-2 right-2 flex flex-col space-y-2">
-      {#if favoritedAppIds.has(app.id)}
+      {#if $downloaderStorage.favoriteApps?.includes(app.id)}
         <button class="bg-black rounded-full p-1.5" onclick={toggleFavorite} title={$t('library.app.unfavorite')}>
           <HeartIcon class="text-red-500 size-4.5" fill="red"/>
         </button>
@@ -157,7 +158,7 @@
         </button>
       {/if}
 
-      {#if hiddenAppIds.has(app.id)}
+      {#if $downloaderStorage.hiddenApps?.includes(app.id)}
         <button class="hidden group-hover:block bg-black rounded-full p-1.5" onclick={toggleHidden} title={$t('library.app.show')}>
           <EyeOffIcon class="text-gray-400 size-4.5"/>
         </button>

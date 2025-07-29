@@ -7,7 +7,7 @@
   import PageContent from '$components/PageContent.svelte';
   import Input from '$components/ui/Input.svelte';
   import { activeAccountStore, downloaderStorage } from '$lib/core/data-storage';
-  import { favoritedAppIds, hiddenAppIds, ownedApps } from '$lib/stores';
+  import { ownedApps } from '$lib/stores';
   import Legendary from '$lib/core/legendary';
   import { t, nonNull, handleError } from '$lib/utils/util';
   import type { AppFilterValue } from '$types/legendary';
@@ -26,7 +26,7 @@
     const query = searchQuery.trim().toLowerCase();
 
     let filtered = Object.values($ownedApps).filter(app => {
-      if (!filters.includes('hidden') && hiddenAppIds.has(app.id)) return false;
+      if (!filters.includes('hidden') && $downloaderStorage.hiddenApps?.includes(app.id)) return false;
       if (filters.includes('installed') && !app.installed) return false;
       if (filters.includes('updatesAvailable') && !app.hasUpdate) return false;
       return true;
@@ -42,8 +42,8 @@
     }
 
     return filtered.sort((a, b) => {
-      const favoriteA = favoritedAppIds.has(a.id) ? 0 : 1;
-      const favoriteB = favoritedAppIds.has(b.id) ? 0 : 1;
+      const favoriteA = $downloaderStorage.favoriteApps?.includes(a.id) ? 0 : 1;
+      const favoriteB = $downloaderStorage.favoriteApps?.includes(b.id) ? 0 : 1;
 
       const installedA = a.installed ? 0 : 1;
       const installedB = b.installed ? 0 : 1;
@@ -64,16 +64,6 @@
         handleError(error, $t('library.failedToLogin'));
         return;
       }
-    }
-
-    favoritedAppIds.clear();
-    for (const id of $downloaderStorage.favoriteApps || []) {
-      favoritedAppIds.add(id);
-    }
-
-    hiddenAppIds.clear();
-    for (const id of $downloaderStorage.hiddenApps || []) {
-      hiddenAppIds.add(id);
     }
 
     await Legendary.cacheApps();
