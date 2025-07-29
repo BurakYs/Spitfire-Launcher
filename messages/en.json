@@ -82,9 +82,9 @@
     "selectItems": "Select items",
     "noResults": "No results found"
   },
-  "epicGamesSettings": {
+  "epicGamesWebsite": {
     "page": {
-      "title": "Epic Games Settings",
+      "title": "Epic Games Website",
       "description": "Click the button below to login to Epic Games."
     },
     "login": "Login to Epic Games Website",
@@ -125,9 +125,9 @@
     "loginExpired": "Login expired. Please login again.",
     "unknownError": "Unknown error"
   },
-  "deviceAuthManagement": {
+  "deviceAuth": {
     "page": {
-      "title": "Device Auth List"
+      "title": "Device Auth"
     },
     "authInfo": {
       "noName": "No Name",
@@ -148,7 +148,7 @@
     "deletedAndLoggedOut": "Device auth deleted and logged out",
     "failedToDelete": "Failed to delete device auth"
   },
-  "accessTokenManagement": {
+  "accessToken": {
     "page": {
       "title": "Access Token"
     },
@@ -159,7 +159,7 @@
     "generated": "Generated and copied to clipboard",
     "failedToGenerate": "Failed to generate access token"
   },
-  "exchangeCodeManagement": {
+  "exchangeCode": {
     "page": {
       "title": "Exchange Code",
       "description": "Click the button below to generate an exchange code."
@@ -546,9 +546,9 @@
       "description": "You have successfully logged into your Epic Games account."
     }
   },
-  "friendManagement": {
+  "friendsManagement": {
     "page": {
-      "title": "Friend Management"
+      "title": "Friends Management"
     },
     "lists": {
       "friends": "Friends",

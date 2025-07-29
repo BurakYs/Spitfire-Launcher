@@ -58,7 +58,7 @@
     try {
       await FriendManager.addFriend(activeAccount, id);
     } catch (error) {
-      handleError(error, $t('friendManagement.failedToAdd'));
+      handleError(error, $t('friendsManagement.failedToAdd'));
     } finally {
       accountsAdding.delete(id);
     }
@@ -70,7 +70,7 @@
     try {
       await FriendManager.removeFriend(activeAccount, id);
     } catch (error) {
-      handleError(error, $t('friendManagement.failedToRemove'));
+      handleError(error, $t('friendsManagement.failedToRemove'));
     } finally {
       accountsRemoving.delete(id);
     }
@@ -82,7 +82,7 @@
     try {
       await FriendManager.block(activeAccount, id);
     } catch (error) {
-      handleError(error, $t('friendManagement.failedToBlock'));
+      handleError(error, $t('friendsManagement.failedToBlock'));
     } finally {
       accountsBlocking.delete(id);
     }
@@ -94,7 +94,7 @@
     try {
       await FriendManager.unblock(activeAccount, id);
     } catch (error) {
-      handleError(error, $t('friendManagement.failedToUnblock'));
+      handleError(error, $t('friendsManagement.failedToUnblock'));
     } finally {
       accountsUnblocking.delete(id);
     }
@@ -154,13 +154,13 @@
 
       <h3 class="text-xl font-medium">
         {#if listType === 'friends'}
-          {$t('friendManagement.noFriends')}
+          {$t('friendsManagement.noFriends')}
         {:else if listType === 'incoming'}
-          {$t('friendManagement.noIncomingRequests')}
+          {$t('friendsManagement.noIncomingRequests')}
         {:else if listType === 'outgoing'}
-          {$t('friendManagement.noOutgoingRequests')}
+          {$t('friendsManagement.noOutgoingRequests')}
         {:else if listType === 'blocklist'}
-          {$t('friendManagement.noBlockedUsers')}
+          {$t('friendsManagement.noBlockedUsers')}
         {/if}
       </h3>
     </div>
@@ -170,7 +170,7 @@
 {#snippet CopyIdDropdownItem(friendId: string)}
   <DropdownMenu.Item onclick={() => writeText(friendId)}>
     <CopyIcon class="size-5"/>
-    {$t('friendManagement.copyId')}
+    {$t('friendsManagement.copyId')}
   </DropdownMenu.Item>
 {/snippet}
 
@@ -184,7 +184,7 @@
     {:else}
       <UserPlusIcon class="size-5"/>
     {/if}
-    {$t('friendManagement.acceptRequest')}
+    {$t('friendsManagement.acceptRequest')}
   </DropdownMenu.Item>
 {/snippet}
 
@@ -198,7 +198,7 @@
     {:else}
       <UserMinusIcon class="size-5"/>
     {/if}
-    {type === 'friend' ? $t('friendManagement.removeFriend') : type === 'outgoing' ? $t('friendManagement.cancelRequest') : $t('friendManagement.denyRequest')}
+    {type === 'friend' ? $t('friendsManagement.removeFriend') : type === 'outgoing' ? $t('friendsManagement.cancelRequest') : $t('friendsManagement.denyRequest')}
   </DropdownMenu.Item>
 {/snippet}
 
@@ -212,7 +212,7 @@
     {:else}
       <BanIcon class="size-5"/>
     {/if}
-    {$t('friendManagement.blockUser')}
+    {$t('friendsManagement.blockUser')}
   </DropdownMenu.Item>
 {/snippet}
 
@@ -226,6 +226,6 @@
     {:else}
       <ShieldMinus class="size-5"/>
     {/if}
-    {$t('friendManagement.unblockUser')}
+    {$t('friendsManagement.unblockUser')}
   </DropdownMenu.Item>
 {/snippet}

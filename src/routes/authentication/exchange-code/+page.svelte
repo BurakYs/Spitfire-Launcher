@@ -21,9 +21,9 @@
       const { code } = await Authentication.getExchangeCodeUsingAccessToken(accessToken);
 
       await writeText(code);
-      toast.success($t('exchangeCodeManagement.generated'));
+      toast.success($t('exchangeCode.generated'));
     } catch (error) {
-      handleError(error, $t('exchangeCodeManagement.failedToGenerate'));
+      handleError(error, $t('exchangeCode.failedToGenerate'));
     } finally {
       generatingExchangeCode = false;
     }
@@ -31,17 +31,17 @@
 </script>
 
 <PageContent
-  description={$t('exchangeCodeManagement.page.description')}
+  description={$t('exchangeCode.page.description')}
   small={true}
-  title={$t('exchangeCodeManagement.page.title')}
+  title={$t('exchangeCode.page.title')}
 >
   <Button
     disabled={generatingExchangeCode}
     loading={generatingExchangeCode}
-    loadingText={$t('exchangeCodeManagement.generating')}
+    loadingText={$t('exchangeCode.generating')}
     onclick={openEpicGamesWebsite}
     variant="epic"
   >
-    {$t('exchangeCodeManagement.generate')}
+    {$t('exchangeCode.generate')}
   </Button>
 </PageContent>

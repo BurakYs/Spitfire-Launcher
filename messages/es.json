@@ -82,9 +82,9 @@
     "selectItems": "Seleccionar elementos",
     "noResults": "No se encontraron resultados"
   },
-  "epicGamesSettings": {
+  "epicGamesWebsite": {
     "page": {
-      "title": "Configuración de Epic Games",
+      "title": "Sitio web de Epic Games",
       "description": "Haga clic en el botón a continuación para iniciar sesión en Epic Games."
     },
     "login": "Iniciar sesión en Epic",
@@ -125,9 +125,9 @@
     "loginExpired": "Código expirado. Por favor inicia otra vez.",
     "unknownError": "Código desconocido"
   },
-  "deviceAuthManagement": {
+  "deviceAuth": {
     "page": {
-      "title": "Lista de dispositivos"
+      "title": "Dispositivo Auth"
     },
     "authInfo": {
       "noName": "Sin nombre",
@@ -148,7 +148,7 @@
     "deletedAndLoggedOut": "Autenticación del dispositivo eliminada y desconectada",
     "failedToDelete": "Error al eliminar la autenticación del dispositivo"
   },
-  "accessTokenManagement": {
+  "accessToken": {
     "page": {
       "title": "Token de Acceso"
     },
@@ -159,7 +159,7 @@
     "generated": "Generado y copiado",
     "failedToGenerate": "Fallo al generar código"
   },
-  "exchangeCodeManagement": {
+  "exchangeCode": {
     "page": {
       "title": "Código Exchange",
       "description": "Dale click al botón para generar código."
@@ -546,7 +546,7 @@
       "description": "Has iniciado sesión con éxito en tu cuenta de Epic Games."
     }
   },
-  "friendManagement": {
+  "friendsManagement": {
     "page": {
       "title": "Gestión de Amigos"
     },

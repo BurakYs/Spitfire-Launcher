@@ -82,9 +82,9 @@
     "selectItems": "Öğeleri seçin",
     "noResults": "Sonuç bulunamadı"
   },
-  "epicGamesSettings": {
+  "epicGamesWebsite": {
     "page": {
-      "title": "Epic Games Ayarları",
+      "title": "Epic Games Web Sitesi",
       "description": "Epic Games'e giriş yapmak için aşağıdaki butona tıklayın."
     },
     "login": "Giriş Yap",
@@ -125,9 +125,9 @@
     "loginExpired": "Oturumunuz süresi doldu. Lütfen tekrar giriş yapın.",
     "unknownError": "Bilinmeyen hata"
   },
-  "deviceAuthManagement": {
+  "deviceAuth": {
     "page": {
-      "title": "Device Auth Listesi"
+      "title": "Cihaz Yetkilendirmeleri"
     },
     "authInfo": {
       "noName": "İsim Yok",
@@ -148,7 +148,7 @@
     "deletedAndLoggedOut": "Device auth silindi ve çıkış yapıldı",
     "failedToDelete": "Device auth silinemedi"
   },
-  "accessTokenManagement": {
+  "accessToken": {
     "page": {
       "title": "Access Token"
     },
@@ -159,7 +159,7 @@
     "generated": "Oluşturuldu ve panoya kopyalandı",
     "failedToGenerate": "Access token oluşturulamadı"
   },
-  "exchangeCodeManagement": {
+  "exchangeCode": {
     "page": {
       "title": "Exchange Code",
       "description": "Exchange code oluşturmak için aşağıdaki butona tıklayın."
@@ -546,7 +546,7 @@
       "description": "Epic Games hesabınıza başarıyla giriş yaptınız."
     }
   },
-  "friendManagement": {
+  "friendsManagement": {
     "page": {
       "title": "Arkadaş Yönetimi"
     },

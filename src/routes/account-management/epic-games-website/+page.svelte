@@ -21,9 +21,9 @@
       const { code: exchangeCode } = await Authentication.getExchangeCodeUsingAccessToken(accessToken);
 
       await openUrl(`https://www.epicgames.com/id/exchange?exchangeCode=${exchangeCode}`);
-      toast.success($t('epicGamesSettings.openedWebsite'));
+      toast.success($t('epicGamesWebsite.openedWebsite'));
     } catch (error) {
-      handleError(error, $t('epicGamesSettings.failedToOpenWebsite'));
+      handleError(error, $t('epicGamesWebsite.failedToOpenWebsite'));
     } finally {
       isLoggingIn = false;
     }
@@ -31,17 +31,17 @@
 </script>
 
 <PageContent
-  description={$t('epicGamesSettings.page.description')}
+  description={$t('epicGamesWebsite.page.description')}
   small={true}
-  title={$t('epicGamesSettings.page.title')}
+  title={$t('epicGamesWebsite.page.title')}
 >
   <Button
     disabled={isLoggingIn}
     loading={isLoggingIn}
-    loadingText={$t('epicGamesSettings.loggingIn')}
+    loadingText={$t('epicGamesWebsite.loggingIn')}
     onclick={openEpicGamesWebsite}
     variant="epic"
   >
-    {$t('epicGamesSettings.login')}
+    {$t('epicGamesWebsite.login')}
   </Button>
 </PageContent>

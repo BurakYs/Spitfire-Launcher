@@ -6,7 +6,7 @@ export const appSettingsSchema = z.object({
   gamePath: z.string(),
   missionCheckInterval: z.number().positive(),
   claimRewardsDelay: z.number().positive(),
-  startingPage: z.enum(['autoKick', 'itemShop', 'stwWorldInfo', 'stwMissionAlerts', 'taxiService', 'dailyQuests', 'library']),
+  startingPage: z.enum(['autoKick', 'itemShop', 'stwMissionAlerts', 'taxiService', 'dailyQuests', 'library'] satisfies typeof sidebarItems[number][]),
   hideToTray: z.boolean(),
   checkForUpdates: z.boolean()
 }).partial();
@@ -18,9 +18,9 @@ export const deviceAuthsSettingsSchema = z.array(z.object({
 
 export const sidebarItems = [
   'vbucksInformation',
-  'friendManagement',
+  'friendsManagement',
   'redeemCodes',
-  'epicGamesSettings',
+  'epicGamesWebsite',
   'eula',
 
   'autoKick',
@@ -29,7 +29,7 @@ export const sidebarItems = [
   'partyManagement',
   'serverStatus',
   'itemShop',
-  'earnedXp',
+  'earnedXP',
   'dailyQuests',
   'stwMissionAlerts',
   'lookupPlayers',

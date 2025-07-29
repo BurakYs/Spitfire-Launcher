@@ -43,16 +43,16 @@
       }
 
       await writeText(accessTokenData.access_token);
-      toast.success($t('accessTokenManagement.generated'));
+      toast.success($t('accessToken.generated'));
     } catch (error) {
-      handleError(error, $t('accessTokenManagement.failedToGenerate'));
+      handleError(error, $t('accessToken.failedToGenerate'));
     } finally {
       generatingAccessToken = false;
     }
   }
 </script>
 
-<PageContent small={true} title={$t('accessTokenManagement.page.title')}>
+<PageContent small={true} title={$t('accessToken.page.title')}>
   <form class="flex flex-col gap-y-2" onsubmit={generateAccessToken}>
     <Select
       items={tokenTypeOptions}
@@ -62,7 +62,7 @@
     >
       {#snippet trigger(label)}
         <KeyRound class="text-muted-foreground size-5 mr-2"/>
-        <span class="text-muted-foreground">{label || $t('accessTokenManagement.selectTokenType')}</span>
+        <span class="text-muted-foreground">{label || $t('accessToken.selectTokenType')}</span>
         <ChevronsUpDownIcon class="text-muted-foreground size-5 ml-auto"/>
       {/snippet}
     </Select>
@@ -75,7 +75,7 @@
     >
       {#snippet trigger(label)}
         <KeyRound class="text-muted-foreground size-5 mr-2"/>
-        <span class="text-muted-foreground">{label || $t('accessTokenManagement.selectClient')}</span>
+        <span class="text-muted-foreground">{label || $t('accessToken.selectClient')}</span>
         <ChevronsUpDownIcon class="text-muted-foreground size-5 ml-auto"/>
       {/snippet}
     </Select>
@@ -84,11 +84,11 @@
       class="mt-2"
       disabled={generatingAccessToken || !selectedTokenType || !selectedClient}
       loading={generatingAccessToken}
-      loadingText={$t('accessTokenManagement.generating')}
+      loadingText={$t('accessToken.generating')}
       type="submit"
       variant="epic"
     >
-      {$t('accessTokenManagement.generate')}
+      {$t('accessToken.generate')}
     </Button>
   </form>
 </PageContent>

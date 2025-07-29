@@ -25,16 +25,16 @@
 
   $effect(() => {
     FriendManager.getSummary(activeAccount);
-    XMPPManager.create(activeAccount, 'friendManagement').then(xmpp => {
+    XMPPManager.create(activeAccount, 'friendsManagement').then(xmpp => {
       xmpp.connect();
     });
   });
 
   const tabs = $derived([
-    { id: 'friends', name: $t('friendManagement.lists.friends'), disabled: !hasFriendsInList('friends') },
-    { id: 'incoming', name: $t('friendManagement.lists.incoming'), disabled: !hasFriendsInList('incoming') },
-    { id: 'outgoing', name: $t('friendManagement.lists.outgoing'), disabled: !hasFriendsInList('outgoing') },
-    { id: 'blocklist', name: $t('friendManagement.lists.blocklist'), disabled: !hasFriendsInList('blocklist') }
+    { id: 'friends', name: $t('friendsManagement.lists.friends'), disabled: !hasFriendsInList('friends') },
+    { id: 'incoming', name: $t('friendsManagement.lists.incoming'), disabled: !hasFriendsInList('incoming') },
+    { id: 'outgoing', name: $t('friendsManagement.lists.outgoing'), disabled: !hasFriendsInList('outgoing') },
+    { id: 'blocklist', name: $t('friendsManagement.lists.blocklist'), disabled: !hasFriendsInList('blocklist') }
   ]);
 
   // svelte-ignore state_referenced_locally
@@ -58,9 +58,9 @@
       try {
         await FriendManager.addFriend(activeAccount, lookupData.accountId);
         searchQuery = '';
-        toast.success($t('friendManagement.sentFriendRequest'));
+        toast.success($t('friendsManagement.sentFriendRequest'));
       } catch (error) {
-        handleError(error, $t('friendManagement.failedToAdd'));
+        handleError(error, $t('friendsManagement.failedToAdd'));
       }
     } catch (error) {
       handleError(error, $t('lookupPlayers.notFound'));
@@ -70,7 +70,7 @@
   }
 </script>
 
-<PageContent title={$t('friendManagement.page.title')}>
+<PageContent title={$t('friendsManagement.page.title')}>
   <form class="flex items-center gap-x-2" onsubmit={searchAndAdd}>
     <Input
       class="grow"
@@ -84,7 +84,7 @@
     <Button
       class="p-2"
       disabled={isLoading || isSendingRequest || !searchQuery || searchQuery.length < 3}
-      title={$t('friendManagement.sendFriendRequest')}
+      title={$t('friendsManagement.sendFriendRequest')}
       type="submit"
       variant="epic"
     >

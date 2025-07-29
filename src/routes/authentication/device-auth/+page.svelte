@@ -30,7 +30,7 @@
 
     const newName = event.currentTarget.textContent?.trim();
     if (!newName) {
-      event.currentTarget.textContent = $t('deviceAuthManagement.authInfo.noName');
+      event.currentTarget.textContent = $t('deviceAuth.authInfo.noName');
 
       deviceAuthsStorage.update((settings) => {
         const index = settings.findIndex((x) => x.deviceId === deviceId);
@@ -77,7 +77,7 @@
         return hasCustomName || dateDifference || 0;
       });
     } catch (error) {
-      handleError(error, $t('deviceAuthManagement.failedToFetch'));
+      handleError(error, $t('deviceAuth.failedToFetch'));
     } finally {
       isFetching = false;
     }
@@ -88,13 +88,13 @@
 
     isGenerating = true;
 
-    const toastId = toast.loading($t('deviceAuthManagement.generating'));
+    const toastId = toast.loading($t('deviceAuth.generating'));
     try {
       const deviceAuth = await DeviceAuthManager.create(activeAccount);
       allDeviceAuths[activeAccount.accountId] = [deviceAuth, ...deviceAuths];
-      toast.success($t('deviceAuthManagement.generated'), { id: toastId });
+      toast.success($t('deviceAuth.generated'), { id: toastId });
     } catch (error) {
-      handleError(error, $t('deviceAuthManagement.failedToGenerate'), toastId);
+      handleError(error, $t('deviceAuth.failedToGenerate'), toastId);
     } finally {
       isGenerating = false;
     }
@@ -103,13 +103,13 @@
   async function deleteDeviceAuth(deviceId: string) {
     isDeleting = true;
 
-    const toastId = toast.loading($t('deviceAuthManagement.deleting'));
+    const toastId = toast.loading($t('deviceAuth.deleting'));
     const isCurrentDevice = deviceId === activeAccount.deviceId;
 
     try {
       await DeviceAuthManager.delete(activeAccount, deviceId);
       allDeviceAuths[activeAccount.accountId] = deviceAuths.filter((auth) => auth.deviceId !== deviceId);
-      toast.success(isCurrentDevice ? $t('deviceAuthManagement.deletedAndLoggedOut') : $t('deviceAuthManagement.deleted'), { id: toastId });
+      toast.success(isCurrentDevice ? $t('deviceAuth.deletedAndLoggedOut') : $t('deviceAuth.deleted'), { id: toastId });
 
       if (isCurrentDevice) {
         allDeviceAuths[activeAccount.accountId] = [];
@@ -119,7 +119,7 @@
         }
       }
     } catch (error) {
-      handleError(error, $t('deviceAuthManagement.failedToDelete'), toastId);
+      handleError(error, $t('deviceAuth.failedToDelete'), toastId);
     } finally {
       isDeleting = false;
     }
@@ -145,7 +145,7 @@
 <PageContent>
   {#snippet title()}
     <h2 class="text-4xl font-bold">
-      {$t('deviceAuthManagement.page.title')}
+      {$t('deviceAuth.page.title')}
     </h2>
 
     <PlusIcon
@@ -177,11 +177,11 @@
                   spellcheck="false"
                   tabindex="0"
                 >
-                  {$deviceAuthsStorage.find(x => x.deviceId === auth.deviceId)?.customName || $t('deviceAuthManagement.authInfo.noName')}
+                  {$deviceAuthsStorage.find(x => x.deviceId === auth.deviceId)?.customName || $t('deviceAuth.authInfo.noName')}
                 </span>
 
                 {#if auth.deviceId === activeAccount.deviceId}
-                  <Tooltip tooltip={$t('deviceAuthManagement.authInfo.activeAuth')}>
+                  <Tooltip tooltip={$t('deviceAuth.authInfo.activeAuth')}>
                     <div class="size-2 bg-green-500 rounded-full shrink-0"></div>
                   </Tooltip>
                 {/if}
@@ -189,7 +189,7 @@
 
               <div class="flex flex-col gap-y-2">
                 {#each [
-                  { title: $t('deviceAuthManagement.authInfo.id'), value: auth.deviceId },
+                  { title: $t('deviceAuth.authInfo.id'), value: auth.deviceId },
                   { title: 'User-Agent', value: auth.userAgent },
                   { title: 'Secret', value: auth.secret }
                 ] as { title, value } (title)}
@@ -202,22 +202,22 @@
                 {/each}
 
                 {#each [
-                  { title: $t('deviceAuthManagement.authInfo.created'), data: auth.created },
-                  { title: $t('deviceAuthManagement.authInfo.lastAccess'), data: auth.lastAccess }
+                  { title: $t('deviceAuth.authInfo.created'), data: auth.created },
+                  { title: $t('deviceAuth.authInfo.lastAccess'), data: auth.lastAccess }
                 ] as { title, data } (title)}
                   {#if data}
                     <div>
                       <span class="font-semibold">{title}</span>
                       <div>
-                        <span class="text-sm font-semibold">{$t('deviceAuthManagement.authInfo.location')}:</span>
+                        <span class="text-sm font-semibold">{$t('deviceAuth.authInfo.location')}:</span>
                         <span class="text-sm text-muted-foreground">{data.location}</span>
                       </div>
                       <div>
-                        <span class="text-sm font-semibold">{$t('deviceAuthManagement.authInfo.ip')}:</span>
+                        <span class="text-sm font-semibold">{$t('deviceAuth.authInfo.ip')}:</span>
                         <span class="text-sm text-muted-foreground">{data.ipAddress}</span>
                       </div>
                       <div>
-                        <span class="text-sm font-semibold">{$t('deviceAuthManagement.authInfo.date')}:</span>
+                        <span class="text-sm font-semibold">{$t('deviceAuth.authInfo.date')}:</span>
                         <span class="text-sm text-muted-foreground">{formatDate(data.dateTime)}</span>
                       </div>
                     </div>

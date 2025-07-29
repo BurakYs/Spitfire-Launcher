@@ -93,7 +93,7 @@
 
   async function fetchAccountData() {
     const account = $activeAccount!;
-    const [athenaProfile, commonCoreProfile, friendList] = await getResolvedResults([
+    const [athenaProfile, commonCoreProfile, friendsList] = await getResolvedResults([
       MCPManager.queryProfile(account, 'athena'),
       MCPManager.queryProfile(account, 'common_core'),
       FriendManager.getFriends(account)
@@ -122,8 +122,8 @@
       accountData.remainingGifts = profile.stats.attributes.allowed_to_send_gifts ? 5 : 0;
     }
 
-    if (friendList) {
-      const accountsData = await LookupManager.fetchByIds(account, friendList.map((friend) => friend.accountId));
+    if (friendsList) {
+      const accountsData = await LookupManager.fetchByIds(account, friendsList.map((friend) => friend.accountId));
 
       accountData.friends = accountsData
         .sort((a, b) => a.displayName.localeCompare(b.displayName))
@@ -133,7 +133,7 @@
         }));
     }
 
-    if (commonCoreProfile || friendList) {
+    if (commonCoreProfile || friendsList) {
       accountDataStore.update((accounts) => {
         accounts[account.accountId] = accountData;
         return accounts;

@@ -51,7 +51,7 @@ type AccountOptions = {
   accessToken: string;
 };
 
-type Purpose = 'autoKick' | 'taxiService' | 'customStatus' | 'partyManagement' | 'friendManagement';
+type Purpose = 'autoKick' | 'taxiService' | 'customStatus' | 'partyManagement' | 'friendsManagement';
 
 const MAX_RECONNECT_ATTEMPTS = 50;
 

@@ -23,12 +23,12 @@ export const SidebarCategories = derived(t, ($t) => [
       {
         key: 'vbucksInformation' as const,
         name: $t('vbucksInformation.page.title'),
-        href: '/account-management/vbucks'
+        href: '/account-management/vbucks-information'
       },
       {
-        key: 'friendManagement' as const,
-        name: $t('friendManagement.page.title'),
-        href: '/account-management/friends'
+        key: 'friendsManagement' as const,
+        name: $t('friendsManagement.page.title'),
+        href: '/account-management/friends-management'
       },
       {
         key: 'redeemCodes' as const,
@@ -36,9 +36,9 @@ export const SidebarCategories = derived(t, ($t) => [
         href: '/account-management/redeem-codes'
       },
       {
-        key: 'epicGamesSettings' as const,
-        name: $t('epicGamesSettings.page.title'),
-        href: '/account-management/epic-games-settings'
+        key: 'epicGamesWebsite' as const,
+        name: $t('epicGamesWebsite.page.title'),
+        href: '/account-management/epic-games-website'
       },
       {
         key: 'eula' as const,
@@ -69,7 +69,7 @@ export const SidebarCategories = derived(t, ($t) => [
       {
         key: 'partyManagement' as const,
         name: $t('partyManagement.page.title'),
-        href: '/br-stw/party'
+        href: '/br-stw/party-management'
       },
       {
         key: 'serverStatus' as const,
@@ -82,7 +82,7 @@ export const SidebarCategories = derived(t, ($t) => [
         href: '/br-stw/item-shop'
       },
       {
-        key: 'earnedXp' as const,
+        key: 'earnedXP' as const,
         name: $t('earnedXP.page.title'),
         href: '/br-stw/earned-xp'
       },
@@ -125,17 +125,17 @@ export const SidebarCategories = derived(t, ($t) => [
     items: [
       {
         key: 'exchangeCode' as const,
-        name: $t('exchangeCodeManagement.page.title'),
-        href: '/authentication/generate-exchange-code'
+        name: $t('exchangeCode.page.title'),
+        href: '/authentication/exchange-code'
       },
       {
         key: 'accessToken' as const,
-        name: $t('accessTokenManagement.page.title'),
-        href: '/authentication/generate-access-token'
+        name: $t('accessToken.page.title'),
+        href: '/authentication/access-token'
       },
       {
         key: 'deviceAuth' as const,
-        name: $t('deviceAuthManagement.page.title'),
+        name: $t('deviceAuth.page.title'),
         href: '/authentication/device-auth'
       }
     ]
