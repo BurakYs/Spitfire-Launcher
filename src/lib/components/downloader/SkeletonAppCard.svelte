@@ -1,4 +1,4 @@
-<div class="w-44 bg-surface-alt mt-3 rounded-md skeleton-loader animate-pulse">
+<div class="w-44 bg-surface-alt mt-3 rounded-md skeleton-loader">
   <div class="relative">
     <div class="h-60 rounded-t-md skeleton-loader"></div>
 
