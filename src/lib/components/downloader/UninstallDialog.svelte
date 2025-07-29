@@ -44,14 +44,16 @@
     </Dialog.Button>
 
     <Dialog.Button
+      class="flex items-center gap-2"
       buttonType="action"
       color="epic"
       disabled={isDeleting}
       onclick={uninstallApp}
     >
       {#if isDeleting}
-        <LoaderCircleIcon class="size-5 animate-spin mr-2"/>
+        <LoaderCircleIcon class="size-5 animate-spin"/>
       {/if}
+
       {$t('common.confirm')}
     </Dialog.Button>
   </div>

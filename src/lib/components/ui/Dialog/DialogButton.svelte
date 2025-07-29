@@ -5,7 +5,7 @@
   import type { Snippet } from 'svelte';
 
   const dialogButtonVariants = tv({
-    base: 'rounded-md inline-flex w-full items-center justify-center font-medium p-2 transition-all duration-200 disabled:opacity-50',
+    base: 'rounded-md inline-flex w-full items-center justify-center font-medium p-2 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed',
     variants: {
       color: {
         primary: 'bg-primary text-primary-foreground hover:bg-primary/80',

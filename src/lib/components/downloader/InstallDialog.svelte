@@ -6,7 +6,6 @@
 </script>
 
 <script lang="ts">
-  import Button from '$components/ui/Button.svelte';
   import { Dialog } from '$components/ui/Dialog';
   import Tooltip from '$components/ui/Tooltip.svelte';
   import { downloaderStorage } from '$lib/core/data-storage';
@@ -16,6 +15,7 @@
   import { bytesToSize, cn, t } from '$lib/utils/util';
   import { invoke } from '@tauri-apps/api/core';
   import { Progress } from 'bits-ui';
+  import LoaderCircleIcon from 'lucide-svelte/icons/loader-circle';
   import PackageIcon from 'lucide-svelte/icons/package';
   import DownloadIcon from 'lucide-svelte/icons/download';
   import HardDriveIcon from 'lucide-svelte/icons/hard-drive';
@@ -166,20 +166,25 @@
       </div>
     </div>
 
-    <div class="flex gap-2 justify-end mt-2">
-      <Button onclick={() => isOpen = false} variant="outline">
+    <div class="flex w-full items-center justify-center gap-2">
+      <Dialog.Button buttonType="cancel" onclick={() => isOpen = false}>
         {$t('common.cancel')}
-      </Button>
+      </Dialog.Button>
 
-      <Tooltip tooltip={afterInstallPercentage >= 100 ? $t('library.installConfirmation.notEnoughSpace') : undefined}>
-        <Button
+      <Tooltip class="w-full" tooltip={afterInstallPercentage >= 100 ? $t('library.installConfirmation.notEnoughSpace') : undefined}>
+        <Dialog.Button
+          class="flex items-center gap-2"
+          buttonType="action"
+          color="epic"
           disabled={!afterInstallPercentage || afterInstallPercentage >= 100 || isStartingDownload}
-          loading={isStartingDownload}
           onclick={installApp}
-          variant="epic"
         >
+          {#if isStartingDownload}
+            <LoaderCircleIcon class="size-5 animate-spin"/>
+          {/if}
+
           {$t('library.installConfirmation.download')}
-        </Button>
+        </Dialog.Button>
       </Tooltip>
     </div>
   </div>
