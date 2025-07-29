@@ -153,22 +153,20 @@
   onMount(() => {
     remainingTime = getResetDate().getTime() - Date.now();
 
-    let intervalId: number;
-    let isFetching = false;
+    let isFetching = true;
+    fetchShop().finally(() => isFetching = false);
 
-    fetchShop().then(() => {
-      intervalId = window.setInterval(() => {
-        const nextResetDate = getResetDate();
-        remainingTime = nextResetDate.getTime() - Date.now();
+    let intervalId = setInterval(() => {
+      const nextResetDate = getResetDate();
+      remainingTime = nextResetDate.getTime() - Date.now();
 
-        if (Date.now() > nextResetDate.getTime() && !isFetching) {
-          isFetching = true;
-          fetchShop(true).then(() => {
-            isFetching = false;
-          });
-        }
-      }, 1000);
-    });
+      if (Date.now() > nextResetDate.getTime() && !isFetching) {
+        isFetching = true;
+        fetchShop(true).finally(() => {
+          isFetching = false;
+        });
+      }
+    }, 1000);
 
     return () => {
       clearInterval(intervalId);
