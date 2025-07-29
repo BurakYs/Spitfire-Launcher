@@ -42,7 +42,7 @@ const tauriKy = ky.create({
     if (isJsonResponse) {
       data = await response.json();
     } else {
-      data = await response.text();
+      data = await response.arrayBuffer();
     }
 
     if (isEpicApiError(data)) {
@@ -80,7 +80,17 @@ const tauriKy = ky.create({
       throw new EpicAPIError(data, request, response.status);
     }
 
-    return new Response(data && typeof data === 'object' ? JSON.stringify(data) : data ? String(data) : null, {
+    let body: BodyInit | null = null;
+
+    if (![101, 103, 204, 205, 304].includes(response.status)) {
+      if (isJsonResponse) {
+        body = JSON.stringify(data);
+      } else if (data) {
+        body = data as ArrayBuffer;
+      }
+    }
+
+    return new Response(body, {
       status: response.status,
       statusText: response.statusText,
       headers: response.headers
