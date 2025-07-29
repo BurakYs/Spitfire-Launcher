@@ -8,19 +8,20 @@
   import FriendsList from '$components/friends/FriendsList.svelte';
   import Button from '$components/ui/Button.svelte';
   import Tabs from '$components/ui/Tabs.svelte';
+  import { activeAccountStore } from '$lib/core/data-storage';
   import FriendManager from '$lib/core/managers/friend';
   import LookupManager from '$lib/core/managers/lookup';
   import XMPPManager from '$lib/core/managers/xmpp';
   import LoaderCircleIcon from 'lucide-svelte/icons/loader-circle';
   import UserPlusIcon from 'lucide-svelte/icons/user-plus';
-  import { accountsStore, friendsStore } from '$lib/stores';
+  import { friendsStore } from '$lib/stores';
   import Input from '$components/ui/Input.svelte';
   import { handleError, nonNull, t } from '$lib/utils/util';
   import { toast } from 'svelte-sonner';
 
   type ListType = 'friends' | 'incoming' | 'outgoing' | 'blocklist';
 
-  const activeAccount = $derived(nonNull($accountsStore.activeAccount));
+  const activeAccount = $derived(nonNull($activeAccountStore));
 
   $effect(() => {
     FriendManager.getSummary(activeAccount);

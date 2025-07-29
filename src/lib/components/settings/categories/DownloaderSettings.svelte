@@ -4,8 +4,7 @@
   import Input from '$components/ui/Input.svelte';
   import Switch from '$components/ui/Switch.svelte';
   import DownloadManager from '$lib/core/managers/download.svelte';
-  import DataStorage, { DOWNLOADER_FILE_PATH, DOWNLOADER_INITIAL_DATA } from '$lib/core/data-storage';
-  import { accountsStore } from '$lib/stores';
+  import { accountsStorage, downloaderStorage } from '$lib/core/data-storage';
   import Legendary from '$lib/utils/legendary';
   import { handleError, nonNull, t } from '$lib/utils/util';
   import { downloaderSettingsSchema } from '$lib/validations/settings';
@@ -13,10 +12,9 @@
   import { onMount, untrack } from 'svelte';
   import { toast } from 'svelte-sonner';
 
-  const allAccounts = $derived(nonNull($accountsStore.allAccounts));
+  const allAccounts = $derived(nonNull($accountsStorage.accounts));
 
-  let loadingSettings = $state(true);
-  let downloaderSettings = $state<DownloaderSettings>(DOWNLOADER_INITIAL_DATA);
+  let loadingAccount = $state(true);
   let downloaderAccountId = $state<string>();
   let switchingDownloaderAccount = $state(false);
   let mounted = false;
@@ -42,7 +40,7 @@
       : eventOrValue;
 
     const newSettings: DownloaderSettings = {
-      ...downloaderSettings,
+      ...$downloaderStorage,
       [key]: value
     };
 
@@ -50,8 +48,7 @@
       return toast.error($t('settings.invalidValue'));
     }
 
-    downloaderSettings = newSettings;
-    await DataStorage.writeConfigFile<DownloaderSettings>(DOWNLOADER_FILE_PATH, downloaderSettings);
+    downloaderStorage.set(newSettings);
   }
 
   async function switchDownloaderAccount(accountId?: string) {
@@ -83,12 +80,8 @@
   }
 
   onMount(async function () {
-    loadingSettings = true;
-
-    downloaderSettings = await DataStorage.getDownloaderFile(true);
     downloaderAccountId = await Legendary.getAccount() || undefined;
-
-    loadingSettings = false;
+    loadingAccount = false;
 
     setTimeout(() => {
       mounted = true;
@@ -106,8 +99,8 @@
     <Input
       id="downloadPath"
       onConfirm={(e) => handleSettingChange(e, 'downloadPath')}
-      placeholder={DOWNLOADER_INITIAL_DATA.downloadPath}
-      value={downloaderSettings?.downloadPath}
+      placeholder={$downloaderStorage.downloadPath}
+      value={$downloaderStorage?.downloadPath}
       variant="outline"
     />
   </SettingItem>
@@ -119,7 +112,7 @@
     title={$t('settings.downloaderSettings.account.title')}
   >
     <AccountCombobox
-      disabled={switchingDownloaderAccount || loadingSettings || !!DownloadManager.downloadingAppId}
+      disabled={switchingDownloaderAccount || loadingAccount || !!DownloadManager.downloadingAppId}
       triggerClass="bg-transparent"
       type="single"
       bind:selected={downloaderAccountId}
@@ -134,7 +127,7 @@
   >
     <Switch
       id="autoUpdate"
-      checked={downloaderSettings.autoUpdate}
+      checked={$downloaderStorage.autoUpdate}
       onCheckedChange={(checked) => handleSettingChange(checked, 'autoUpdate')}
     />
   </SettingItem>
@@ -147,7 +140,7 @@
   >
     <Switch
       id="sendNotifications"
-      checked={downloaderSettings.sendNotifications}
+      checked={$downloaderStorage.sendNotifications}
       onCheckedChange={(checked) => handleSettingChange(checked, 'sendNotifications')}
     />
   </SettingItem>

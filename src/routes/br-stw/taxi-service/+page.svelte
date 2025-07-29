@@ -9,11 +9,9 @@
   import PageContent from '$components/PageContent.svelte';
   import Alert from '$components/ui/Alert.svelte';
   import Label from '$components/ui/Label.svelte';
-  import DataStorage, { TAXI_FILE_PATH } from '$lib/core/data-storage';
-  import { accountPartiesStore, accountsStore } from '$lib/stores';
+  import { activeAccountStore, taxiStorage } from '$lib/core/data-storage';
+  import { accountPartiesStore } from '$lib/stores';
   import { handleError, nonNull, t } from '$lib/utils/util';
-  import type { TaxiSettings } from '$types/settings';
-  import { onMount } from 'svelte';
   import Button from '$components/ui/Button.svelte';
   import { Separator } from 'bits-ui';
   import Switch from '$components/ui/Switch.svelte';
@@ -26,8 +24,7 @@
   const MIN_POWER_LEVEL = 1;
   const MAX_POWER_LEVEL = 145;
 
-  const activeAccount = $derived(nonNull($accountsStore.activeAccount));
-  let customTaxiSettings = $state<TaxiSettings>([]);
+  const activeAccount = $derived(nonNull($activeAccountStore));
 
   $effect(() => {
     if (!taxiManagers.has(activeAccount.accountId)) {
@@ -35,7 +32,7 @@
     }
 
     const taxiManager = taxiManagers.get(activeAccount.accountId);
-    const accountSettings = customTaxiSettings.find(settings => settings.accountId === activeAccount.accountId);
+    const accountSettings = $taxiStorage.find(settings => settings.accountId === activeAccount.accountId);
     if (!taxiManager || !accountSettings) return;
 
     taxiManager.availableStatus = accountSettings.availableStatus || taxiManager.availableStatus;
@@ -89,11 +86,10 @@
     const oldStatus = statusType === 'available' ? taxiManager.availableStatus : taxiManager.busyStatus;
     if (value === oldStatus) return;
 
-    let settings = customTaxiSettings.find(settings => settings.accountId === activeAccount.accountId);
+    let settings = $taxiStorage.find(s => s.accountId === activeAccount.accountId);
 
     if (!settings) {
       settings = { accountId: activeAccount.accountId };
-      customTaxiSettings.push(settings);
     }
 
     if (statusType === 'available') {
@@ -106,12 +102,18 @@
 
     event.currentTarget.value = value;
     taxiManager.setIsAvailable(taxiManager.isAvailable);
-    DataStorage.writeConfigFile<TaxiSettings>(TAXI_FILE_PATH, customTaxiSettings);
-  }
 
-  onMount(async () => {
-    customTaxiSettings = await DataStorage.getTaxiFile();
-  });
+    taxiStorage.update((data) => {
+      const index = data.findIndex(s => s.accountId === activeAccount.accountId);
+      if (index !== -1) {
+        data[index] = settings;
+      } else {
+        data.push(settings);
+      }
+
+      return data;
+    });
+  }
 </script>
 
 <PageContent

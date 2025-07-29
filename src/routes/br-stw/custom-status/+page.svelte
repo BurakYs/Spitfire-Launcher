@@ -9,15 +9,15 @@
 <script lang="ts">
   import PageContent from '$components/PageContent.svelte';
   import CustomStatusTutorial from '$components/docs/tutorials/CustomStatus.svelte';
+  import { activeAccountStore } from '$lib/core/data-storage';
   import TaxiManager from '$lib/core/managers/automation/taxi-manager.svelte.js';
-  import { accountsStore } from '$lib/stores';
   import Button from '$components/ui/Button.svelte';
   import Input from '$components/ui/Input.svelte';
   import { toast } from 'svelte-sonner';
   import { handleError, nonNull, t } from '$lib/utils/util';
   import XMPPManager from '$lib/core/managers/xmpp';
 
-  const activeAccount = $derived(nonNull($accountsStore.activeAccount));
+  const activeAccount = $derived(nonNull($activeAccountStore));
   const isCustomStatusInUse = $derived(TaxiManager.taxiAccountIds.has(activeAccount.accountId));
   let customStatus = $state<string>();
 

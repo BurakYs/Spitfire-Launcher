@@ -1,8 +1,8 @@
-import DataStorage, { AUTOMATION_FILE_PATH } from '$lib/core/data-storage';
+import { accountsStorage, automationStorage } from '$lib/core/data-storage';
 import { get } from 'svelte/store';
-import { accountsStore, automationStore, doingBulkOperations } from '$lib/stores';
+import { automationStore, doingBulkOperations } from '$lib/stores';
 import type { AccountData } from '$types/accounts';
-import type { AutomationSetting, AutomationSettings } from '$types/settings';
+import type { AutomationSetting } from '$types/settings';
 import XMPPManager from '$lib/core/managers/xmpp';
 import { EpicEvents, ConnectionEvents } from '$lib/constants/events';
 import AutokickManager from '$lib/core/managers/automation/autokick-manager';
@@ -22,14 +22,14 @@ export default class AutoKickBase {
   private static abortControllers = new Map<string, AbortController>();
 
   static async init() {
-    const accounts = await DataStorage.getAutomationFile();
+    const accounts = get(automationStorage);
     if (!accounts?.length) return;
 
     doingBulkOperations.set(true);
 
-    const { allAccounts } = get(accountsStore);
+    const userAccounts = get(accountsStorage).accounts;
     await Promise.allSettled(accounts.map(async automationAccount => {
-      const account = allAccounts.find(a => a.accountId === automationAccount.accountId);
+      const account = userAccounts.find(a => a.accountId === automationAccount.accountId);
       const isAnySettingEnabled = Object.entries(automationAccount)
         .filter(([key]) => key !== 'accountId')
         .some(([, value]) => value);
@@ -71,10 +71,10 @@ export default class AutoKickBase {
     automationStore.update(s => s.filter(a => a.accountId !== accountId));
     AutoKickBase.accounts.delete(accountId);
 
-    DataStorage.writeConfigFile<AutomationSettings>(AUTOMATION_FILE_PATH, Array.from(AutoKickBase.accounts.values()).map((x) => ({
+    automationStorage.set(Array.from(AutoKickBase.accounts.values()).map((x) => ({
       accountId: x.account.accountId,
       ...x.settings
-    }))).catch(() => null);
+    })));
   }
 
   static async updateSettings(accountId: string, settings: Partial<AutomationSetting>, writeToFile = true) {
@@ -96,13 +96,15 @@ export default class AutoKickBase {
       status: AutoKickBase.getAccountById(x.accountId)?.status ?? 'LOADING'
     })));
 
-    if (writeToFile) await DataStorage.writeConfigFile<AutomationSettings>(AUTOMATION_FILE_PATH, newSettings);
+    if (writeToFile) {
+      automationStorage.set(newSettings);
+    }
   }
 
   static async startAccount(accountId: string) {
     doingBulkOperations.set(true);
 
-    const account = get(accountsStore).allAccounts.find(a => a.accountId === accountId)!;
+    const account = get(accountsStorage).accounts.find(a => a.accountId === accountId)!;
     const automationAccount = AutoKickBase.getAccountById(accountId);
     if (!automationAccount) return;
 

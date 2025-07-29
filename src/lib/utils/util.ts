@@ -1,7 +1,7 @@
 import type { SpitfireShopItem } from '$types/game/shop';
 import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
-import { accountsStore, language, ownedItemsStore } from '$lib/stores';
+import { ownedItemsStore } from '$lib/stores';
 import { derived, get } from 'svelte/store';
 import { toast } from 'svelte-sonner';
 import { goto } from '$app/navigation';
@@ -9,7 +9,7 @@ import EpicAPIError from '$lib/exceptions/EpicAPIError';
 import type { EpicAPIErrorData } from '$types/game/authorizations';
 import type { FullQueryProfile } from '$types/game/mcp';
 import type { AllSettings } from '$types/settings';
-import DataStorage, { SETTINGS_FILE_PATH } from '$lib/core/data-storage';
+import { accountsStorage, activeAccountStore, language, settingsStorage } from '$lib/core/data-storage';
 import { Pages } from '$lib/constants/pages';
 import { m } from '$lib/paraglide/messages';
 import { setLocale, type Locale } from '$lib/paraglide/runtime';
@@ -19,7 +19,7 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export function checkLogin() {
-  const hasAccount = !!get(accountsStore).activeAccount;
+  const hasAccount = !!get(activeAccountStore);
   if (!hasAccount) {
     goto(Pages.stwMissionAlerts, {
       state: {
@@ -53,7 +53,6 @@ export function calculateVbucks(queryProfile: FullQueryProfile<'common_core'>) {
   return vbucksItems.reduce((acc, x) => acc + x.quantity, 0);
 }
 
-// TODO: Temporary solution to avoid showing multiple toasts when the system logs the user out
 export function shouldIgnoreError(error: unknown) {
   if (error instanceof EpicAPIError && error.errorCode === 'errors.com.epicgames.account.invalid_account_credentials') {
     console.error(error);
@@ -64,9 +63,8 @@ export function shouldIgnoreError(error: unknown) {
 }
 
 export function handleError(error: unknown, message: string, toastId?: string | number) {
-  console.error(error);
-
   if (!shouldIgnoreError(error)) {
+    console.error(error);
     toast.error(message, { id: toastId });
   }
 }
@@ -76,7 +74,7 @@ export function isLegendaryOrMythicSurvivor(itemId: string) {
 }
 
 export async function getStartingPage(settingsData?: AllSettings) {
-  const settings = settingsData || await DataStorage.getSettingsFile();
+  const settings = settingsData || get(settingsStorage);
   const startingPage = settings.app?.startingPage!;
 
   return Pages[startingPage] || Pages.stwMissionAlerts;
@@ -164,6 +162,7 @@ type MessageFn<K extends MessageKey> = typeof m[K];
 type InputsOf<K extends MessageKey> = Parameters<MessageFn<K>>[0];
 type OptionsOf<K extends MessageKey> = Parameters<MessageFn<K>>[1];
 
+// todo: circular dependency issue with this import
 export const t = derived(language, ($language) => {
   return function t<K extends MessageKey>(
     key: K,
@@ -177,14 +176,17 @@ export const t = derived(language, ($language) => {
   };
 });
 
-export async function changeLocale(locale: Locale) {
+export function changeLocale(locale: Locale) {
   setLocale(locale, { reload: false });
-  language.set(locale);
 
-  const allSettings = await DataStorage.getSettingsFile();
-  allSettings.app = { ...allSettings.app, language: locale };
+  settingsStorage.update((settings) => {
+    if (!settings.app) {
+      settings.app = {};
+    }
 
-  DataStorage.writeConfigFile<AllSettings>(SETTINGS_FILE_PATH, allSettings).catch(console.error);
+    settings.app.language = locale;
+    return settings;
+  });
 }
 
 export function sleep(ms: number) {
@@ -216,8 +218,8 @@ export async function processChunks<T, R>(
 }
 
 export function getAccountsFromSelection(selection: string[]) {
-  const { allAccounts } = get(accountsStore);
-  return selection.map((id) => allAccounts.find((account) => account.accountId === id)).filter((x) => !!x);
+  const { accounts } = get(accountsStorage);
+  return selection.map((id) => accounts.find((account) => account.accountId === id)).filter((x) => !!x);
 }
 
 export function bytesToSize(bytes: number, decimals = 2, unit = 1000): string {

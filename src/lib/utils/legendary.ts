@@ -1,8 +1,8 @@
 import Authentication from '$lib/core/authentication';
-import DataStorage from '$lib/core/data-storage';
+import { downloaderStorage } from '$lib/core/data-storage';
 import DownloadManager from '$lib/core/managers/download.svelte';
 import LegendaryError from '$lib/exceptions/LegendaryError';
-import { ownedApps, perAppAutoUpdate } from '$lib/stores';
+import { ownedApps } from '$lib/stores';
 import { t } from '$lib/utils/util';
 import type { AccountData } from '$types/accounts';
 import type { EpicOAuthData } from '$types/game/authorizations';
@@ -210,10 +210,10 @@ export default class Legendary {
   }
 
   static async autoUpdateApps() {
-    const settings = await DataStorage.getDownloaderFile();
+    const settings = get(downloaderStorage)
 
     const updatableApps = get(ownedApps).filter(app => app.hasUpdate);
-    const appAutoUpdate = get(perAppAutoUpdate);
+    const appAutoUpdate = get(downloaderStorage).perAppAutoUpdate || {};
 
     let sentFirstNotification = false;
 

@@ -47,7 +47,7 @@
   import Pagination from '$components/ui/Pagination.svelte';
   import { RarityColors } from '$lib/constants/stw/resources';
   import { TheaterNames, ZoneNames } from '$lib/constants/stw/world-info';
-  import { language } from '$lib/stores';
+  import { language } from '$lib/core/data-storage';
   import { Separator } from 'bits-ui';
   import { t } from '$lib/utils/util';
   import ExternalLinkIcon from 'lucide-svelte/icons/external-link';

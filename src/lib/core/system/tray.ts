@@ -9,7 +9,7 @@ export default class SystemTray {
   private static trayIconId: string;
 
   static async setVisibility(visible: boolean) {
-    // Because multiple icons are shown because of HMR
+    // Old tray icons remain after HMR reloads, causing duplicates. So we disable tray icons in dev mode
     if (dev) return;
 
     if (visible) {

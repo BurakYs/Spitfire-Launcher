@@ -1,10 +1,11 @@
 <script lang="ts">
   import Combobox from '$components/ui/Combobox/Combobox.svelte';
   import { Dialog } from '$components/ui/Dialog';
+  import { activeAccountStore, language } from '$lib/core/data-storage';
   import LoaderCircleIcon from 'lucide-svelte/icons/loader-circle';
   import UserIcon from 'lucide-svelte/icons/user';
   import GiftIcon from 'lucide-svelte/icons/gift';
-  import { accountDataStore, accountsStore, language } from '$lib/stores';
+  import { accountDataStore } from '$lib/stores';
   import { nonNull, t } from '$lib/utils/util';
   import { toast } from 'svelte-sonner';
   import type { SpitfireShopItem } from '$types/game/shop';
@@ -20,7 +21,7 @@
 
   let { item, isSendingGifts, open = $bindable(false) }: Props = $props();
 
-  const activeAccount = $derived(nonNull($accountsStore.activeAccount));
+  const activeAccount = $derived(nonNull($activeAccountStore));
 
   const {
     vbucks: ownedVbucks = 0,

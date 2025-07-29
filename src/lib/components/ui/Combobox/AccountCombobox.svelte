@@ -1,7 +1,7 @@
 <script lang="ts">
   import Combobox from '$components/ui/Combobox/Combobox.svelte';
+  import { accountsStorage } from '$lib/core/data-storage';
   import UserIcon from 'lucide-svelte/icons/user';
-  import { accountsStore } from '$lib/stores';
   import type { AccountData } from '$types/accounts';
   import type { ClassValue } from 'svelte/elements';
   import { t } from '$lib/utils/util';
@@ -34,7 +34,7 @@
     triggerClass
   }: Props = $props();
 
-  const accountList = $derived(customList || $accountsStore.allAccounts);
+  const accountList = $derived(customList || $accountsStorage.accounts);
   const items = $derived(accountList.map((account) => ({
     value: account.accountId,
     label: account.displayName

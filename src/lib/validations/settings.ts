@@ -7,7 +7,6 @@ export const appSettingsSchema = z.object({
   missionCheckInterval: z.number().positive(),
   claimRewardsDelay: z.number().positive(),
   startingPage: z.enum(['autoKick', 'itemShop', 'stwWorldInfo', 'stwMissionAlerts', 'taxiService', 'dailyQuests', 'library']),
-  startingAccount: z.enum(['firstInTheList', 'lastUsed']),
   hideToTray: z.boolean(),
   checkForUpdates: z.boolean()
 }).partial();

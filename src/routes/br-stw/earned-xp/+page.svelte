@@ -14,7 +14,8 @@
 
 <script lang="ts">
   import PageContent from '$components/PageContent.svelte';
-  import { doingBulkOperations, language } from '$lib/stores';
+  import { language } from '$lib/core/data-storage';
+  import { doingBulkOperations } from '$lib/stores';
   import Button from '$components/ui/Button.svelte';
   import AccountCombobox from '$components/ui/Combobox/AccountCombobox.svelte';
   import { getAccountsFromSelection, getResolvedResults, t } from '$lib/utils/util';

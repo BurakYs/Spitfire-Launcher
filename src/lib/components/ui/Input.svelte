@@ -1,7 +1,8 @@
 <script lang="ts">
   import Avatar from '$components/ui/Avatar.svelte';
+  import { activeAccountStore as activeAccount } from '$lib/core/data-storage';
   import LookupManager from '$lib/core/managers/lookup';
-  import { accountsStore, avatarCache, displayNamesCache } from '$lib/stores';
+  import { avatarCache, displayNamesCache } from '$lib/stores';
   import { cn } from '$lib/utils/util';
   import { onMount } from 'svelte';
   import { cubicInOut } from 'svelte/easing';
@@ -46,7 +47,6 @@
     ...restProps
   }: InputProps = $props();
 
-  const activeAccount = $derived($accountsStore.activeAccount);
   const initialValue = value || '';
 
   let inputElement = $state<HTMLInputElement>();
@@ -106,8 +106,8 @@
     }
 
     debounceTimeout = window.setTimeout(() => {
-      if (!nameAutocomplete || !activeAccount || !value || value.length < 3) return;
-      LookupManager.searchByName(activeAccount, value);
+      if (!nameAutocomplete || !$activeAccount || !value || value.length < 3) return;
+      LookupManager.searchByName($activeAccount, value);
     }, 500);
   }
 

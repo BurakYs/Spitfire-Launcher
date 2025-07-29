@@ -1,5 +1,5 @@
 import { missions, theaters } from '$lib/constants/stw/resources';
-import { language } from '$lib/stores';
+import { language } from '$lib/core/data-storage';
 import { t } from '$lib/utils/util';
 import { derived } from 'svelte/store';
 

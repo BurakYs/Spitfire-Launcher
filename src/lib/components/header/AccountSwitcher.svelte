@@ -1,5 +1,6 @@
 <script lang="ts">
   import { page } from '$app/state';
+  import { accountsStorage, activeAccountStore } from '$lib/core/data-storage';
   import { MediaQuery } from 'svelte/reactivity';
   import Avatar from '$components/ui/Avatar.svelte';
   import ChevronDownIcon from 'lucide-svelte/icons/chevron-down';
@@ -9,16 +10,17 @@
   import { DropdownMenu } from '$components/ui/DropdownMenu';
   import Account from '$lib/core/account';
   import type { AccountData } from '$types/accounts';
-  import { accountsStore, avatarCache } from '$lib/stores';
+  import { avatarCache } from '$lib/stores';
   import { toast } from 'svelte-sonner';
   import LoginModal from '$components/login/LoginModal.svelte';
-  import { cn, handleError, t } from '$lib/utils/util';
+  import { cn, handleError, nonNull, t } from '$lib/utils/util';
 
   type PageState = {
     showLoginModal?: boolean;
   };
 
-  const { allAccounts, activeAccount } = $derived($accountsStore);
+  const allAccounts = $derived(nonNull($accountsStorage.accounts));
+  const activeAccount = $derived(nonNull($activeAccountStore));
 
   let dropdownOpen = $state(false);
   let searchTerm = $state<string>();
@@ -43,11 +45,7 @@
   async function changeAccounts(account: AccountData) {
     dropdownOpen = false;
 
-    try {
-      await Account.changeActiveAccount(account.accountId);
-    } catch (error) {
-      handleError(error, $t('accountManager.failedToSwitch', { name: account.displayName }));
-    }
+    Account.changeActiveAccount(account.accountId);
   }
 
   function addNewAccount() {

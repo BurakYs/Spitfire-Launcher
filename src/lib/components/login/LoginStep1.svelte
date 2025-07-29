@@ -4,9 +4,9 @@
   import { defaultClient, fortniteNewSwitchGameClient } from '$lib/constants/clients';
   import Account from '$lib/core/account';
   import Authentication from '$lib/core/authentication';
+  import { accountsStorage } from '$lib/core/data-storage';
   import DeviceAuthManager from '$lib/core/managers/device-auth';
   import { oauthService } from '$lib/core/services';
-  import { accountsStore } from '$lib/stores';
   import { handleError, nonNull, t } from '$lib/utils/util';
   import type { DeviceCodeLoginData, EpicOAuthData } from '$types/game/authorizations';
   import { readText } from '@tauri-apps/plugin-clipboard-manager';
@@ -29,7 +29,7 @@
     goToNextStep
   }: Props = $props();
 
-  const allAccounts = $derived(nonNull($accountsStore.allAccounts));
+  const allAccounts = $derived(nonNull($accountsStorage.accounts));
 
   let exchangeCode = $state<string>();
   let exchangeForm = $state<HTMLFormElement>();
@@ -45,26 +45,23 @@
         deviceCodeVerifyButtonDisabled = false;
       }, 5000);
     }
-  });
-
-  $effect(() => {
-    async function exchangeCodeFromClipboard() {
-      const clipboardText = (await readText()).replace(/["'`|]/g, '').trim();
-      const matchesExchange = /^[a-z0-9]{32}$/.test(clipboardText);
-      if (!matchesExchange) return;
-
-      exchangeCode = clipboardText;
-
-      setTimeout(() => {
-        exchangeForm?.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
-      }, 100);
-    }
 
     if (selectedMethod === 'exchangeCode') {
       exchangeCodeFromClipboard();
     }
   });
 
+  async function exchangeCodeFromClipboard() {
+    const clipboardText = (await readText()).replace(/["'`|]/g, '').trim();
+    const matchesExchange = /^[a-z0-9]{32}$/.test(clipboardText);
+    if (!matchesExchange) return;
+
+    exchangeCode = clipboardText;
+
+    setTimeout(() => {
+      exchangeForm?.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
+    });
+  }
 
   async function handleExchangeCodeSubmit(event: SubmitEvent) {
     event.preventDefault();
@@ -216,7 +213,7 @@
       <Button
         class="w-full flex items-center justify-center gap-2 mt-auto"
         disabled={!exchangeCode?.trim() ||
-          exchangeCode?.trim().length < 32 ||
+          exchangeCode?.trim().length !== 32 ||
           isLoggingIn}
         loading={isLoggingIn}
         loadingText={$t('accountManager.verifying')}

@@ -463,14 +463,6 @@
         "title": "Page de démarrage",
         "description": "Sélectionne la page à afficher au démarrage du lanceur."
       },
-      "startingAccount": {
-        "title": "Compte de démarrage",
-        "description": "Sélectionne le compte à utiliser au démarrage du lanceur.",
-        "values": {
-          "firstInList": "Premier dans la liste",
-          "lastUsed": "Dernière utilisation"
-        }
-      },
       "hideToTray": "Masquer dans la barre d'état système",
       "checkForUpdates": "Vérifier les mises à jour"
     },

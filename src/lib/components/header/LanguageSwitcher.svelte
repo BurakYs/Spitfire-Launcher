@@ -1,7 +1,7 @@
 <script lang="ts">
+  import { language } from '$lib/core/data-storage';
   import LanguagesIcon from 'lucide-svelte/icons/languages';
   import CheckIcon from 'lucide-svelte/icons/check';
-  import { language } from '$lib/stores';
   import type { Locale } from '$lib/paraglide/runtime';
   import { DropdownMenu } from '$components/ui/DropdownMenu';
   import { changeLocale, t } from '$lib/utils/util';

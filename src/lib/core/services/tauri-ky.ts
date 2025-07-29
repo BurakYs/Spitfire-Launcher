@@ -1,5 +1,6 @@
 import Authentication from '$lib/core/authentication';
-import { accessTokenCache, accountsStore } from '$lib/stores';
+import { accountsStorage } from '$lib/core/data-storage';
+import { accessTokenCache } from '$lib/stores';
 import ky from 'ky';
 import { fetch } from '@tauri-apps/plugin-http';
 import Manifest from '$lib/core/manifest';
@@ -91,11 +92,11 @@ const tauriKy = ky.create({
 
 function getAccountFromRequest(request: Request) {
   const tokenCache = get(accessTokenCache);
-  const { allAccounts } = get(accountsStore);
+  const accounts = get(accountsStorage).accounts;
   const token = request.headers.get('Authorization')?.split(' ')[1];
   const accountId = Object.keys(tokenCache).find(accountId => tokenCache[accountId]?.access_token === token);
 
-  return allAccounts.find(account => account.accountId === accountId);
+  return accounts.find(account => account.accountId === accountId);
 }
 
 export default tauriKy;

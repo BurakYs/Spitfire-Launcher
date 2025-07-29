@@ -3,8 +3,8 @@
   import PageContent from '$components/PageContent.svelte';
   import Button from '$components/ui/Button.svelte';
   import Tooltip from '$components/ui/Tooltip.svelte';
+  import { language } from '$lib/core/data-storage';
   import DownloadManager, { type DownloadProgress } from '$lib/core/managers/download.svelte';
-  import { language } from '$lib/stores';
   import { bytesToSize, formatRemainingDuration, t } from '$lib/utils/util';
   import { Progress } from 'bits-ui';
   import TriangleAlertIcon from 'lucide-svelte/icons/triangle-alert';

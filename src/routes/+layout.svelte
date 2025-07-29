@@ -6,8 +6,8 @@
   import FriendManager from '$lib/core/managers/friend';
   import LookupManager from '$lib/core/managers/lookup';
   import DownloadManager from '$lib/core/managers/download.svelte';
+  import SystemTray from '$lib/core/system/tray';
   import Legendary from '$lib/utils/legendary';
-  import type { AccountDataFile } from '$types/accounts';
   import { getVersion } from '@tauri-apps/api/app';
   import { listen } from '@tauri-apps/api/event';
   import LoaderCircleIcon from 'lucide-svelte/icons/loader-circle';
@@ -19,16 +19,17 @@
   import Button from '$components/ui/Button.svelte';
   import ExternalLinkIcon from 'lucide-svelte/icons/external-link';
   import { Dialog } from '$components/ui/Dialog';
-  import DataStorage, { ACCOUNTS_FILE_PATH } from '$lib/core/data-storage';
+  import { accountsStorage, activeAccountStore as activeAccount, settingsStorage } from '$lib/core/data-storage';
   import { Tooltip } from 'bits-ui';
   import WorldInfoManager from '$lib/core/managers/worldInfo';
-  import { accountsStore, runningAppIds, worldInfoCache } from '$lib/stores';
+  import { runningAppIds, worldInfoCache } from '$lib/stores';
   import AutoKickBase from '$lib/core/managers/automation/autokick-base';
   import { t } from '$lib/utils/util';
 
   const { children } = $props();
 
-  const { activeAccount, allAccounts } = $derived($accountsStore);
+  const allAccounts = $derived($accountsStorage.accounts);
+
   let hasNewVersion = $state(false);
   let newVersionData = $state<{ tag: string; downloadUrl: string }>();
 
@@ -39,8 +40,7 @@
   }
 
   async function checkForUpdates() {
-    const settings = await DataStorage.getSettingsFile();
-    if (!settings.app?.checkForUpdates) return;
+    if (!$settingsStorage.app?.checkForUpdates) return;
 
     const { owner, name } = config.repository;
 
@@ -57,10 +57,11 @@
   }
 
   async function syncAccountNames() {
-    if (!activeAccount) return;
+    if (!$activeAccount) return;
 
-    const accounts = await LookupManager.fetchByIds(activeAccount, allAccounts.map(account => account.accountId));
-    await DataStorage.writeConfigFile<AccountDataFile>(ACCOUNTS_FILE_PATH, {
+    const accounts = await LookupManager.fetchByIds($activeAccount, allAccounts.map(account => account.accountId));
+    accountsStorage.set({
+      activeAccountId: $accountsStorage.activeAccountId,
       accounts: allAccounts.map(account => ({
         ...account,
         displayName: accounts.find(acc => acc.id === account.accountId)?.displayName || account.displayName
@@ -77,15 +78,18 @@
   }
 
   onMount(() => {
+    settingsStorage.subscribe((data) => {
+      SystemTray.setVisibility(data.app?.hideToTray || false).catch(console.error);
+    });
+
     Promise.allSettled([
       AutoKickBase.init(),
-      DataStorage.init(),
       DownloadManager.init(),
       handleWorldInfo(),
       checkForUpdates(),
       syncAccountNames(),
       autoUpdateApps(),
-      activeAccount && FriendManager.getSummary(activeAccount),
+      $activeAccount && FriendManager.getSummary($activeAccount),
       allAccounts.map(account => AvatarManager.fetchAvatars(account, [account.accountId]))
     ]);
 

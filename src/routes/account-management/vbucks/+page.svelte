@@ -15,7 +15,8 @@
   import PageContent from '$components/PageContent.svelte';
   import AccountCombobox from '$components/ui/Combobox/AccountCombobox.svelte';
   import Button from '$components/ui/Button.svelte';
-  import { doingBulkOperations, language } from '$lib/stores';
+  import { language } from '$lib/core/data-storage';
+  import { doingBulkOperations } from '$lib/stores';
   import MCPManager from '$lib/core/managers/mcp';
   import { calculateVbucks, getAccountsFromSelection, t } from '$lib/utils/util';
   import EpicAPIError from '$lib/exceptions/EpicAPIError';

@@ -21,7 +21,8 @@
 <script lang="ts">
   import { DropdownMenu } from '$components/ui/DropdownMenu';
   import ExternalLink from '$components/ui/ExternalLink.svelte';
-  import { accountPartiesStore, accountsStore } from '$lib/stores';
+  import { activeAccountStore } from '$lib/core/data-storage';
+  import { accountPartiesStore } from '$lib/stores';
   import { nonNull, t } from '$lib/utils/util';
   import CrownIcon from 'lucide-svelte/icons/crown';
   import EllipsisIcon from 'lucide-svelte/icons/ellipsis';
@@ -33,7 +34,7 @@
   import UserXIcon from 'lucide-svelte/icons/user-x';
   import type { SvelteSet } from 'svelte/reactivity';
 
-  const activeAccount = $derived(nonNull($accountsStore.activeAccount));
+  const activeAccount = $derived(nonNull($activeAccountStore));
   const currentAccountParty = $derived(accountPartiesStore.get(activeAccount.accountId));
 
   type Props = {

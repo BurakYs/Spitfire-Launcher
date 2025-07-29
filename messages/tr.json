@@ -463,14 +463,6 @@
         "title": "Başlangıç Sayfası",
         "description": "Başlatıcı başladığında gösterilecek sayfayı seçin."
       },
-      "startingAccount": {
-        "title": "Başlangıç Hesabı",
-        "description": "Başlatıcı başladığında kullanılacak hesabı seçin.",
-        "values": {
-          "firstInList": "Listeden İlk",
-          "lastUsed": "Son Kullanılan"
-        }
-      },
       "hideToTray": "Sistem Tepsisine Gizle",
       "checkForUpdates": "Güncellemeleri Kontrol Et"
     },

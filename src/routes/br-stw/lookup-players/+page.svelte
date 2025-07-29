@@ -33,8 +33,9 @@
   import STWDetails from '$components/lookupPlayers/STWDetails.svelte';
   import ExternalLink from '$components/ui/ExternalLink.svelte';
   import WorldInfoSectionAccordion from '$components/worldInfo/WorldInfoSectionAccordion.svelte';
+  import { activeAccountStore, language } from '$lib/core/data-storage';
   import MatchmakingManager from '$lib/core/managers/matchmaking';
-  import { accountsStore, avatarCache, language, worldInfoCache } from '$lib/stores';
+  import { avatarCache, worldInfoCache } from '$lib/stores';
   import { dailyQuests as dailyQuestsResource } from '$lib/constants/stw/resources';
   import Button from '$components/ui/Button.svelte';
   import Input from '$components/ui/Input.svelte';
@@ -49,7 +50,7 @@
   import MCPManager from '$lib/core/managers/mcp';
   import { FounderEditionNames, RarityTypes, zoneThemes } from '$lib/constants/stw/resources';
 
-  const activeAccount = $derived(nonNull($accountsStore.activeAccount));
+  const activeAccount = $derived(nonNull($activeAccountStore));
   const claimedMissionAlerts = $derived.by(() => {
     if (!$worldInfoCache || !stwData?.claimedMissionAlertIds?.size) {
       return [];

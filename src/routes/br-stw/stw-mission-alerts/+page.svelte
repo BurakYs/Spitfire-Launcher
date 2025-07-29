@@ -5,29 +5,16 @@
 
 <script lang="ts">
   import PageContent from '$components/PageContent.svelte';
+  import { activeAccountStore, language } from '$lib/core/data-storage';
   import MCPManager from '$lib/core/managers/mcp';
   import type { WorldParsedMission } from '$types/game/stw/worldInfo';
   import WorldInfoSectionAccordion from '$components/worldInfo/WorldInfoSectionAccordion.svelte';
-  import { accountsStore, language, worldInfoCache } from '$lib/stores';
+  import { worldInfoCache } from '$lib/stores';
   import { WorldPowerLevels, Theaters } from '$lib/constants/stw/world-info';
-  import { isLegendaryOrMythicSurvivor, t } from '$lib/utils/util';
+  import { isLegendaryOrMythicSurvivor, nonNull, t } from '$lib/utils/util';
 
-  const activeAccount = $derived($accountsStore.activeAccount);
-
-  $effect(() => {
-    if (!activeAccount || claimedMissionAlerts.has(activeAccount.accountId)) return;
-
-    MCPManager.queryProfile(activeAccount, 'campaign').then((queryProfile) => {
-      const attributes = queryProfile.profileChanges[0].profile.stats.attributes;
-      const doneMissionAlerts = attributes.mission_alert_redemption_record?.claimData?.map((claimData) => claimData.missionAlertId) || [];
-
-      claimedMissionAlerts.set(activeAccount.accountId, new Set(doneMissionAlerts));
-    });
-  });
-
-  const parsedWorldInfo = $derived($worldInfoCache);
-  const parsedWorldInfoArray = $derived(parsedWorldInfo && Array.from(parsedWorldInfo.values(), worldMissions => Array.from(worldMissions.values())).flat());
-  const isLoading = $derived(!parsedWorldInfo || !parsedWorldInfoArray);
+  const activeAccount = $derived(nonNull($activeAccountStore));
+  const parsedWorldInfoArray = $derived($worldInfoCache && Array.from($worldInfoCache.values(), worldMissions => Array.from(worldMissions.values())).flat());
 
   const filteredMissions = $derived.by(() => {
     if (!parsedWorldInfoArray) return null;
@@ -121,6 +108,17 @@
       return acc;
     }, 0);
   }
+
+  $effect(() => {
+    if (!activeAccount || claimedMissionAlerts.has(activeAccount.accountId)) return;
+
+    MCPManager.queryProfile(activeAccount, 'campaign').then((queryProfile) => {
+      const attributes = queryProfile.profileChanges[0].profile.stats.attributes;
+      const doneMissionAlerts = attributes.mission_alert_redemption_record?.claimData?.map((claimData) => claimData.missionAlertId) || [];
+
+      claimedMissionAlerts.set(activeAccount.accountId, new Set(doneMissionAlerts));
+    });
+  });
 </script>
 
 <PageContent title={$t('stwMissionAlerts.page.title')}>
@@ -145,7 +143,7 @@
 
           {#if missions.length}
             <WorldInfoSectionAccordion claimedMissionAlerts={!activeAccount ? undefined : claimedMissionAlerts.get(activeAccount.accountId)} {missions}/>
-          {:else if isLoading}
+          {:else if !$worldInfoCache}
             {#each Array(Math.max(1, Math.floor(Math.random() * 3) + 1)) as _, index (index)}
               <div class="flex items-center justify-between px-2 h-8 bg-muted-foreground/5 rounded-sm skeleton-loader"></div>
             {/each}

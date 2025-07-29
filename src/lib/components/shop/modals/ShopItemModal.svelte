@@ -1,5 +1,6 @@
 <script lang="ts">
   import Tooltip from '$components/ui/Tooltip.svelte';
+  import { accountsStorage, language } from '$lib/core/data-storage';
   import { calculateDiscountedShopPrice } from '$lib/utils/util';
   import { Separator } from 'bits-ui';
   import { Dialog } from '$components/ui/Dialog';
@@ -9,7 +10,7 @@
   import ShoppingCartIcon from 'lucide-svelte/icons/shopping-cart';
   import CheckIcon from 'lucide-svelte/icons/check';
   import { ItemColors } from '$lib/constants/item-colors';
-  import { accountDataStore, activeAccountId, brShopStore, language, ownedItemsStore } from '$lib/stores';
+  import { accountDataStore, brShopStore, ownedItemsStore } from '$lib/stores';
   import ShopPurchaseConfirmation from '$components/shop/modals/ShopPurchaseConfirmation.svelte';
   import ShopGiftFriendSelection from '$components/shop/modals/ShopGiftFriendSelection.svelte';
   import type { AccountStoreData } from '$types/accounts';
@@ -29,12 +30,12 @@
     vbucks: ownedVbucks = 0,
     friends = [],
     remainingGifts = 5
-  } = $derived<AccountStoreData>($accountDataStore[$activeAccountId!] || {});
+  } = $derived<AccountStoreData>($accountDataStore[$accountsStorage.activeAccountId!] || {});
 
-  const ownedItems = $derived($ownedItemsStore[$activeAccountId!]);
+  const ownedItems = $derived($ownedItemsStore[$accountsStorage.activeAccountId!]);
   const isItemOwned = $derived(ownedItems?.has(item.id?.toLowerCase()));
 
-  const discountedPrice = jsDerived([activeAccountId, ownedItemsStore], ([accountId]) => calculateDiscountedShopPrice(accountId!, item));
+  const discountedPrice = jsDerived([accountsStorage, ownedItemsStore], ([accountSettings]) => calculateDiscountedShopPrice(accountSettings.activeAccountId!, item));
 
   let isPurchasing = $state(false);
   let isPurchaseDialogOpen = $state(false);
@@ -146,7 +147,7 @@
       </div>
     </div>
 
-    {#if $activeAccountId}
+    {#if $accountsStorage.activeAccountId}
       <Separator.Root class="bg-border h-px"/>
 
       <div class="flex w-full gap-3">
@@ -189,7 +190,7 @@
   </div>
 </Dialog.Root>
 
-{#if $activeAccountId}
+{#if $accountsStorage.activeAccountId}
   <ShopPurchaseConfirmation {isPurchasing} {item} bind:open={isPurchaseDialogOpen}/>
 
   <ShopGiftFriendSelection {isSendingGifts} {item} bind:open={isGiftDialogOpen}/>

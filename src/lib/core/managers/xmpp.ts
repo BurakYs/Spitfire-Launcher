@@ -1,7 +1,8 @@
 import Authentication from '$lib/core/authentication';
+import { accountsStorage } from '$lib/core/data-storage';
 import PartyManager from '$lib/core/managers/party';
 import EventEmitter from '$lib/utils/event-emitter';
-import { accountPartiesStore, accountsStore, friendsStore } from '$lib/stores';
+import { accountPartiesStore, friendsStore } from '$lib/stores';
 import { EpicEvents, ConnectionEvents } from '$lib/constants/events';
 import { get } from 'svelte/store';
 import { createClient, type Agent } from 'stanza';
@@ -345,7 +346,7 @@ export default class XMPPManager extends EventEmitter<EventMap> {
             accountPartiesStore.set(accountId, { ...party });
           }
 
-          const joiningAccount = get(accountsStore).allAccounts?.find(account => account.accountId === data.account_id);
+          const joiningAccount = get(accountsStorage).accounts.find(account => account.accountId === data.account_id);
           if (joiningAccount) {
             const partyData = await PartyManager.get(joiningAccount).catch(() => null);
             if (!partyData) accountPartiesStore.delete(data.account_id);

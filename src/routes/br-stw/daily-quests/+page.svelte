@@ -22,7 +22,8 @@
 <script lang="ts">
   import PageContent from '$components/PageContent.svelte';
   import AccountCombobox from '$components/ui/Combobox/AccountCombobox.svelte';
-  import { accountsStore, doingBulkOperations, language } from '$lib/stores';
+  import { accountsStorage, language } from '$lib/core/data-storage';
+  import { doingBulkOperations } from '$lib/stores';
   import Button from '$components/ui/Button.svelte';
   import RefreshCwIcon from 'lucide-svelte/icons/refresh-cw';
   import MCPManager from '$lib/core/managers/mcp';
@@ -88,7 +89,7 @@
   async function rerollQuest(accountId: string, questId: string) {
     rerollingQuestId = questId;
 
-    const account = $accountsStore.allAccounts.find((account) => account.accountId === accountId);
+    const account = $accountsStorage.accounts.find((account) => account.accountId === accountId);
     if (!account) {
       rerollingQuestId = null;
       return;

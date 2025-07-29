@@ -5,22 +5,21 @@
   import ShopSection from '$components/shop/ShopSection.svelte';
   import SkeletonShopSection from '$components/shop/SkeletonShopSection.svelte';
   import Input from '$components/ui/Input.svelte';
+  import { activeAccountStore as activeAccount } from '$lib/core/data-storage';
   import FriendManager from '$lib/core/managers/friend';
   import LookupManager from '$lib/core/managers/lookup';
   import MCPManager from '$lib/core/managers/mcp';
   import ShopManager from '$lib/core/managers/shop';
-  import { accountDataStore, accountsStore, brShopStore, ownedItemsStore } from '$lib/stores';
+  import { accountDataStore, brShopStore, ownedItemsStore } from '$lib/stores';
   import { calculateVbucks, formatRemainingDuration, getResolvedResults, t } from '$lib/utils/util';
   import type { AccountStoreData } from '$types/accounts';
   import type { SpitfireShopFilter, SpitfireShopSection } from '$types/game/shop';
   import Fuse from 'fuse.js';
   import { onMount } from 'svelte';
 
-  const activeAccount = $derived($accountsStore.activeAccount);
-
   $effect(() => {
-    const alreadyFetched = activeAccount && Object.keys($accountDataStore[activeAccount.accountId] || {}).length > 0;
-    if (!activeAccount || alreadyFetched) return;
+    const alreadyFetched = $activeAccount && Object.keys($accountDataStore[$activeAccount.accountId] || {}).length > 0;
+    if (!$activeAccount || alreadyFetched) return;
 
     fetchAccountData();
   });
@@ -93,7 +92,7 @@
   }
 
   async function fetchAccountData() {
-    const account = activeAccount!;
+    const account = $activeAccount!;
     const [athenaProfile, commonCoreProfile, friendList] = await getResolvedResults([
       MCPManager.queryProfile(account, 'athena'),
       MCPManager.queryProfile(account, 'common_core'),

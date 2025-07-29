@@ -8,6 +8,7 @@
 </script>
 
 <script lang="ts">
+  import { activeAccountStore } from '$lib/core/data-storage';
   import FriendManager from '$lib/core/managers/friend';
   import { DropdownMenu } from '$components/ui/DropdownMenu';
   import { writeText } from '@tauri-apps/plugin-clipboard-manager';
@@ -18,7 +19,7 @@
   import UserMinusIcon from 'lucide-svelte/icons/user-minus';
   import BanIcon from 'lucide-svelte/icons/ban';
   import ShieldMinus from 'lucide-svelte/icons/shield-minus';
-  import { accountsStore, avatarCache, displayNamesCache, friendsStore } from '$lib/stores';
+  import { avatarCache, displayNamesCache, friendsStore } from '$lib/stores';
   import { handleError, nonNull, t } from '$lib/utils/util';
   import type { BlockedAccountData, FriendData, IncomingFriendRequestData, OutgoingFriendRequestData } from '$types/game/friends';
 
@@ -32,7 +33,7 @@
     searchQuery = $bindable()
   }: Props = $props();
 
-  const activeAccount = $derived(nonNull($accountsStore.activeAccount));
+  const activeAccount = $derived(nonNull($activeAccountStore));
 
   const list = $derived(Array.from($friendsStore[activeAccount.accountId]?.[listType]?.values() || [])
     .map((data: FriendData | IncomingFriendRequestData | OutgoingFriendRequestData | BlockedAccountData) => ({

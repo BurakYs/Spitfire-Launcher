@@ -6,8 +6,8 @@
   import UninstallDialog from '$components/downloader/UninstallDialog.svelte';
   import PageContent from '$components/PageContent.svelte';
   import Input from '$components/ui/Input.svelte';
-  import DataStorage, { DOWNLOADER_INITIAL_DATA } from '$lib/core/data-storage';
-  import { accountsStore, favoritedAppIds, hiddenAppIds, ownedApps } from '$lib/stores';
+  import { activeAccountStore, downloaderStorage } from '$lib/core/data-storage';
+  import { favoritedAppIds, hiddenAppIds, ownedApps } from '$lib/stores';
   import Legendary from '$lib/utils/legendary';
   import { t, nonNull, handleError } from '$lib/utils/util';
   import type { AppFilterValue } from '$types/legendary';
@@ -15,13 +15,12 @@
   import { onMount } from 'svelte';
   import { toast } from 'svelte-sonner';
 
-  const activeAccount = $derived(nonNull($accountsStore.activeAccount));
+  const activeAccount = $derived(nonNull($activeAccountStore));
 
   let searchQuery = $state<string>('');
   let installDialogAppId = $state<string>();
   let uninstallDialogAppId = $state<string>();
   let filters = $state<AppFilterValue[]>([]);
-  let globalAutoUpdate = $state(DOWNLOADER_INITIAL_DATA.autoUpdate!);
 
   const filteredApps = $derived.by(() => {
     const query = searchQuery.trim().toLowerCase();
@@ -67,16 +66,13 @@
       }
     }
 
-    const downloaderSettings = await DataStorage.getDownloaderFile();
-    globalAutoUpdate = downloaderSettings.autoUpdate!;
-
     favoritedAppIds.clear();
-    for (const id of downloaderSettings.favoriteApps || []) {
+    for (const id of $downloaderStorage.favoriteApps || []) {
       favoritedAppIds.add(id);
     }
 
     hiddenAppIds.clear();
-    for (const id of downloaderSettings.hiddenApps || []) {
+    for (const id of $downloaderStorage.hiddenApps || []) {
       hiddenAppIds.add(id);
     }
 
@@ -100,7 +96,6 @@
       {#each filteredApps as app (app.id)}
         <AppCard
           appId={app.id}
-          {globalAutoUpdate}
           bind:installDialogAppId
           bind:uninstallDialogAppId
         />

@@ -1,13 +1,11 @@
 <script lang="ts">
   import Label from '$components/ui/Label.svelte';
   import Switch from '$components/ui/Switch.svelte';
-  import DataStorage, { SETTINGS_FILE_PATH } from '$lib/core/data-storage';
-  import type { AllSettings } from '$types/settings';
-  import { customizableMenuStore } from '$lib/stores';
+  import { settingsStorage } from '$lib/core/data-storage';
   import { Separator } from 'bits-ui';
   import { SidebarCategories } from '$lib/constants/sidebar';
 
-  let menuSettings = $derived($customizableMenuStore);
+  let menuSettings = $derived($settingsStorage.customizableMenu || {});
 
   function setVisibility(key: string, value: boolean) {
     menuSettings = {
@@ -15,11 +13,10 @@
       [key]: value
     };
 
-    customizableMenuStore.set(menuSettings);
-
-    DataStorage.writeConfigFile<AllSettings>(SETTINGS_FILE_PATH, {
+    settingsStorage.update((settings) => ({
+      ...settings,
       customizableMenu: menuSettings
-    });
+    }));
   }
 </script>
 

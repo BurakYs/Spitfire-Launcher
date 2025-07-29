@@ -8,10 +8,9 @@ import AutoKickBase from '$lib/core/managers/automation/autokick-base';
 import PartyManager from '$lib/core/managers/party';
 import claimRewards from '$lib/utils/autokick/claim-rewards';
 import transferBuildingMaterials from '$lib/utils/autokick/transfer-building-materials';
-import DataStorage from '$lib/core/data-storage';
+import { accountsStorage, settingsStorage } from '$lib/core/data-storage';
 import type { PartyData } from '$types/game/party';
 import { get } from 'svelte/store';
-import { accountsStore } from '$lib/stores';
 
 type MatchmakingState = {
   partyState: 'Matchmaking' | 'PostMatchmaking' | null;
@@ -46,7 +45,7 @@ export default class AutokickManager {
       this.missionCheckerInterval = undefined;
     }
 
-    const settings = await DataStorage.getSettingsFile();
+    const settings = get(settingsStorage);
 
     this.missionCheckerInterval = window.setInterval(async () => {
       const automationSettings = AutoKickBase.getAccountById(this.account.accountId)?.settings;
@@ -144,11 +143,11 @@ export default class AutokickManager {
   }
 
   private async kick(party: PartyData) {
-    const { allAccounts } = get(accountsStore);
+    const { accounts } = get(accountsStorage);
 
     const partyMemberIds = party.members.map(x => x.account_id);
     const partyLeaderId = party.members.find(x => x.role === 'CAPTAIN')!.account_id;
-    const partyLeaderAccount = allAccounts.find(x => x.accountId === partyLeaderId);
+    const partyLeaderAccount = accounts.find(x => x.accountId === partyLeaderId);
 
     const membersWithAutoKick = partyMemberIds.filter((id) => AutoKickBase.getAccountById(id)?.settings.autoKick);
     const membersWithNoAutoKick = partyMemberIds.filter((id) => !membersWithAutoKick.includes(id));
@@ -163,7 +162,7 @@ export default class AutokickManager {
       await PartyManager.leave(this.account, party.id);
     } else {
       const accountsWithNoAutoKick = membersWithNoAutoKick
-        .map((id) => allAccounts.find(x => x.accountId === id))
+        .map((id) => accounts.find(x => x.accountId === id))
         .filter(x => !!x);
 
       accountsWithNoAutoKick.push(this.account);

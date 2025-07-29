@@ -1,5 +1,5 @@
 <script lang="ts">
-  import DataStorage from '$lib/core/data-storage';
+  import { settingsStorage } from '$lib/core/data-storage';
   import DownloadManager from '$lib/core/managers/download.svelte';
   import { getCurrentWindow } from '@tauri-apps/api/window';
   import { platform } from '@tauri-apps/plugin-os';
@@ -15,9 +15,7 @@
   const isMobile = currentPlatform === 'android' || currentPlatform === 'ios';
 
   async function minimizeOrHide() {
-    const settings = await DataStorage.getSettingsFile();
-
-    if (settings.app?.hideToTray) {
+    if ($settingsStorage.app?.hideToTray) {
       await appWindow.hide();
     } else {
       await appWindow.minimize();

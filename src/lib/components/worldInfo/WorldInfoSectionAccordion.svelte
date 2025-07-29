@@ -1,6 +1,6 @@
 <script lang="ts">
   import Accordion from '$components/ui/Accordion/Accordion.svelte';
-  import { language } from '$lib/stores';
+  import { language } from '$lib/core/data-storage';
   import ChevronDownIcon from 'lucide-svelte/icons/chevron-down';
   import type { WorldParsedMission } from '$types/game/stw/worldInfo';
   import { cn, isLegendaryOrMythicSurvivor, t } from '$lib/utils/util';

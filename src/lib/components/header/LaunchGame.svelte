@@ -2,9 +2,9 @@
   import Button from '$components/ui/Button.svelte';
   import { launcherAppClient2 } from '$lib/constants/clients';
   import Authentication from '$lib/core/authentication';
-  import DataStorage from '$lib/core/data-storage';
+  import { activeAccountStore as activeAccount, settingsStorage } from '$lib/core/data-storage';
   import Manifest from '$lib/core/manifest';
-  import { accountsStore, runningAppIds } from '$lib/stores';
+  import { runningAppIds } from '$lib/stores';
   import { handleError, shouldIgnoreError, t } from '$lib/utils/util';
   import type { LegendaryLaunchData } from '$types/legendary';
   import { path } from '@tauri-apps/api';
@@ -13,8 +13,6 @@
   import GamePad2Icon from 'lucide-svelte/icons/gamepad-2';
   import CircleStopIcon from 'lucide-svelte/icons/circle-stop';
   import { toast } from 'svelte-sonner';
-
-  const activeAccount = $derived($accountsStore.activeAccount);
 
   const fortniteAppId = 'Fortnite';
   const launchData: LegendaryLaunchData & { game_id: string } = {
@@ -43,9 +41,8 @@
     const toastId = toast.loading($t('launchGame.launching'));
 
     try {
-      const userSettings = await DataStorage.getSettingsFile();
       const manifestData = await Manifest.getFortniteManifest();
-      const customPath = userSettings?.app?.gamePath;
+      const customPath = $settingsStorage?.app?.gamePath;
 
       let gameDirectory = manifestData?.installLocation;
       if (customPath) {
@@ -61,7 +58,7 @@
       launchData.game_directory = gameDirectory;
       launchData.working_directory = await path.join(gameDirectory, 'FortniteGame/Binaries/Win64');
 
-      const deviceAuthResponse = await Authentication.getAccessTokenUsingDeviceAuth(activeAccount!);
+      const deviceAuthResponse = await Authentication.getAccessTokenUsingDeviceAuth($activeAccount!);
       const oldExchangeData = await Authentication.getExchangeCodeUsingAccessToken(deviceAuthResponse.access_token);
       const launcherAccessTokenData = await Authentication.getAccessTokenUsingExchangeCode(oldExchangeData.code, launcherAppClient2);
       const launcherExchangeData = await Authentication.getExchangeCodeUsingAccessToken(launcherAccessTokenData.access_token);
@@ -75,7 +72,7 @@
         '-epicenv=Prod',
         '-EpicPortal',
         `-epicusername=${deviceAuthResponse.displayName}`,
-        `-epicuserid=${activeAccount!.accountId}`,
+        `-epicuserid=${$activeAccount!.accountId}`,
         `-epicsandboxid=${manifestData?.namespace || 'fn'}`
       ];
 
@@ -126,7 +123,7 @@
 
 <Button
   class="flex items-center justify-between gap-x-2 shrink-0"
-  disabled={!activeAccount || (isLoading && !runningAppIds.has(fortniteAppId))}
+  disabled={!$activeAccount || (isLoading && !runningAppIds.has(fortniteAppId))}
   onclick={launchOrStop}
   variant={runningAppIds.has(fortniteAppId) ? 'danger' : 'epic'}
 >

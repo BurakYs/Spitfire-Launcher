@@ -1,14 +1,13 @@
-import DataStorage from '$lib/core/data-storage';
+import { settingsStorage } from '$lib/core/data-storage';
 import MCPManager from '$lib/core/managers/mcp';
 import { sleep } from '$lib/utils/util';
 import type { AccountData } from '$types/accounts';
 import type { CampaignProfile } from '$types/game/mcp';
+import { get } from 'svelte/store';
 
 export default async function claimRewards(account: AccountData, skipDelay = false) {
-  const settings = await DataStorage.getSettingsFile();
-  const delaySeconds = settings.app?.claimRewardsDelay;
-
-  if (delaySeconds && !skipDelay) {
+  const delaySeconds = get(settingsStorage).app?.claimRewardsDelay;
+  if (!skipDelay && delaySeconds) {
     await sleep(delaySeconds * 1000);
   }
 

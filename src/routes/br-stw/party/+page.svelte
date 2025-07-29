@@ -25,12 +25,13 @@
   import Label from '$components/ui/Label.svelte';
   import Switch from '$components/ui/Switch.svelte';
   import Tabs from '$components/ui/Tabs.svelte';
+  import { accountsStorage, activeAccountStore, language } from '$lib/core/data-storage';
   import { Separator } from 'bits-ui';
   import FriendManager from '$lib/core/managers/friend';
   import XMPPManager from '$lib/core/managers/xmpp';
   import PartyManager from '$lib/core/managers/party';
   import AutoKickBase from '$lib/core/managers/automation/autokick-base';
-  import { accountPartiesStore, accountsStore, friendsStore, language } from '$lib/stores';
+  import { accountPartiesStore, friendsStore } from '$lib/stores';
   import transferBuildingMaterials from '$lib/utils/autokick/transfer-building-materials';
   import claimRewards from '$lib/utils/autokick/claim-rewards';
   import { handleError, nonNull, t } from '$lib/utils/util';
@@ -43,8 +44,8 @@
     createdAt: Date;
   };
 
-  const allAccounts = $derived(nonNull($accountsStore.allAccounts));
-  const activeAccount = $derived(nonNull($accountsStore.activeAccount));
+  const allAccounts = $derived(nonNull($accountsStorage.accounts));
+  const activeAccount = $derived(nonNull($activeAccountStore));
   const currentAccountParty = $derived(accountPartiesStore.get(activeAccount.accountId));
   const isDoingSomething = $derived(isKicking || isLeaving || isClaiming);
 
@@ -218,7 +219,7 @@
 
     if (!account) return;
 
-    const promises: Promise<any>[] = [];
+    const promises: Promise<unknown>[] = [];
 
     if (!settings.autoClaim && shouldClaimRewards) {
       promises.push(claimRewards(account, true));

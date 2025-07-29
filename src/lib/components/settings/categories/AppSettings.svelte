@@ -4,25 +4,15 @@
   import Select from '$components/ui/Select.svelte';
   import Switch from '$components/ui/Switch.svelte';
   import { SidebarCategories } from '$lib/constants/sidebar';
-  import DataStorage, { SETTINGS_FILE_PATH, SETTINGS_INITIAL_DATA } from '$lib/core/data-storage';
-  import SystemTray from '$lib/core/system/tray';
+  import { settingsStorage } from '$lib/core/data-storage';
   import { t } from '$lib/utils/util';
   import { allSettingsSchema, appSettingsSchema } from '$lib/validations/settings';
   import type { AllSettings } from '$types/settings';
   import { platform } from '@tauri-apps/plugin-os';
-  import ChevronsUpAndDownIcon from 'lucide-svelte/icons/chevrons-up-down';
-  import { onMount } from 'svelte';
+  import ChevronsUpDownIcon from 'lucide-svelte/icons/chevrons-up-down';
   import { toast } from 'svelte-sonner';
 
   const currentPlatform = platform();
-
-  let allSettings = $state<AllSettings>(SETTINGS_INITIAL_DATA);
-
-  type Settings = NonNullable<AllSettings['app']>;
-  type SelectOption<T extends string> = {
-    label: string;
-    value: T;
-  };
 
   const startingPageValues = Object.values<string>(appSettingsSchema.shape.startingPage.def.innerType.def.entries);
   const startingPageOptions = $SidebarCategories
@@ -34,18 +24,7 @@
       value: item.key
     }));
 
-  const startingAccountOptions: SelectOption<NonNullable<Settings['startingAccount']>>[] = [
-    {
-      label: $t('settings.appSettings.startingAccount.values.firstInList'),
-      value: 'firstInTheList'
-    },
-    {
-      label: $t('settings.appSettings.startingAccount.values.lastUsed'),
-      value: 'lastUsed'
-    }
-  ];
-
-  type SettingKey = keyof Settings;
+  type SettingKey = keyof NonNullable<AllSettings['app']>;
   type SettingValue = string | number | boolean;
 
   function handleSettingChange<K extends SettingKey, V extends SettingValue = SettingValue>(
@@ -57,9 +36,9 @@
       : eventOrValue;
 
     const newSettings: AllSettings = {
-      ...allSettings,
+      ...$settingsStorage,
       app: {
-        ...allSettings.app,
+        ...$settingsStorage.app,
         [key]: value
       }
     };
@@ -68,18 +47,12 @@
       return toast.error($t('settings.invalidValue'));
     }
 
-    allSettings = newSettings;
-    SystemTray.setVisibility(allSettings.app?.hideToTray || false);
-    DataStorage.writeConfigFile<AllSettings>(SETTINGS_FILE_PATH, allSettings);
+    settingsStorage.set(newSettings);
   }
 
   function convertToNumber(event: Event) {
     return Number.parseFloat((event.target as HTMLInputElement).value);
   }
-
-  onMount(async function () {
-    allSettings = await DataStorage.getSettingsFile(true);
-  });
 </script>
 
 <div class="space-y-6">
@@ -93,7 +66,7 @@
         id="gamePath"
         onConfirm={(e) => handleSettingChange(e, 'gamePath')}
         placeholder="C:/Program Files/.../FortniteGame/Binaries/Win64"
-        value={allSettings?.app?.gamePath}
+        value={$settingsStorage.app?.gamePath}
         variant="outline"
       />
     </SettingItem>
@@ -111,7 +84,7 @@
       min={1}
       onConfirm={(e) => handleSettingChange(convertToNumber(e), 'missionCheckInterval')}
       type="number"
-      value={allSettings?.app?.missionCheckInterval}
+      value={$settingsStorage.app?.missionCheckInterval}
       variant="outline"
     />
   </SettingItem>
@@ -128,7 +101,7 @@
       min={1}
       onConfirm={(e) => handleSettingChange(convertToNumber(e), 'claimRewardsDelay')}
       type="number"
-      value={allSettings?.app?.claimRewardsDelay}
+      value={$settingsStorage.app?.claimRewardsDelay}
       variant="outline"
     />
   </SettingItem>
@@ -145,36 +118,13 @@
       triggerClass="w-full"
       type="single"
       bind:value={
-        () => allSettings?.app?.startingPage,
+        () => $settingsStorage.app?.startingPage,
         (value) => value && handleSettingChange(value, 'startingPage')
       }
     >
       {#snippet trigger(label)}
         <p>{label}</p>
-        <ChevronsUpAndDownIcon class="text-muted-foreground size-5 ml-auto"/>
-      {/snippet}
-    </Select>
-  </SettingItem>
-
-  <SettingItem
-    description={$t('settings.appSettings.startingAccount.description')}
-    labelFor="startingAccount"
-    orientation="vertical"
-    title={$t('settings.appSettings.startingAccount.title')}
-  >
-    <Select
-      id="startingAccount"
-      items={startingAccountOptions}
-      triggerClass="w-full"
-      type="single"
-      bind:value={
-        () => allSettings?.app?.startingAccount,
-        (value) => value && handleSettingChange(value, 'startingAccount')
-      }
-    >
-      {#snippet trigger(label)}
-        <p>{label}</p>
-        <ChevronsUpAndDownIcon class="text-muted-foreground size-5 ml-auto"/>
+        <ChevronsUpDownIcon class="text-muted-foreground size-5 ml-auto"/>
       {/snippet}
     </Select>
   </SettingItem>
@@ -187,7 +137,7 @@
     >
       <Switch
         id="hideToTray"
-        checked={allSettings?.app?.hideToTray}
+        checked={$settingsStorage.app?.hideToTray}
         onCheckedChange={(checked) => handleSettingChange(checked, 'hideToTray')}
       />
     </SettingItem>
@@ -200,7 +150,7 @@
   >
     <Switch
       id="checkForUpdates"
-      checked={allSettings?.app?.checkForUpdates}
+      checked={$settingsStorage.app?.checkForUpdates}
       onCheckedChange={(checked) => handleSettingChange(checked, 'checkForUpdates')}
     />
   </SettingItem>

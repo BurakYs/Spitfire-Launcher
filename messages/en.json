@@ -463,14 +463,6 @@
         "title": "Starting Page",
         "description": "Select the page to show when the launcher starts."
       },
-      "startingAccount": {
-        "title": "Starting Account",
-        "description": "Select the account to use when the launcher starts.",
-        "values": {
-          "firstInList": "First in the List",
-          "lastUsed": "Last Used"
-        }
-      },
       "hideToTray": "Hide to System Tray",
       "checkForUpdates": "Check for Updates"
     },

@@ -1,9 +1,10 @@
 <script lang="ts">
   import { Dialog } from '$components/ui/Dialog';
+  import { activeAccountStore, language } from '$lib/core/data-storage';
   import LoaderCircleIcon from 'lucide-svelte/icons/loader-circle';
   import type { SpitfireShopItem } from '$types/game/shop';
   import { toast } from 'svelte-sonner';
-  import { accountDataStore, accountsStore, activeAccountId, language, ownedItemsStore } from '$lib/stores';
+  import { accountDataStore, ownedItemsStore } from '$lib/stores';
   import MCPManager from '$lib/core/managers/mcp';
   import { calculateDiscountedShopPrice, nonNull, t } from '$lib/utils/util';
   import EpicAPIError from '$lib/exceptions/EpicAPIError';
@@ -17,8 +18,8 @@
 
   let { item, isPurchasing, open = $bindable(false) }: Props = $props();
 
-  const activeAccount = $derived(nonNull($accountsStore.activeAccount));
-  const discountedPrice = jsDerived([activeAccountId, ownedItemsStore], ([accountId]) => calculateDiscountedShopPrice(accountId!, item));
+  const activeAccount = $derived(nonNull($activeAccountStore));
+  const discountedPrice = jsDerived([activeAccountStore, ownedItemsStore], ([account]) => calculateDiscountedShopPrice(account!.accountId, item));
 
   async function purchaseItem() {
     isPurchasing = true;

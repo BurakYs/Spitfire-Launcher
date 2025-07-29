@@ -9,7 +9,7 @@
   import Button from '$components/ui/Button.svelte';
   import { Dialog } from '$components/ui/Dialog';
   import Tooltip from '$components/ui/Tooltip.svelte';
-  import DataStorage from '$lib/core/data-storage';
+  import { downloaderStorage } from '$lib/core/data-storage';
   import { ownedApps } from '$lib/stores';
   import Legendary from '$lib/utils/legendary';
   import DownloadManager from '$lib/core/managers/download.svelte';
@@ -51,13 +51,10 @@
   }
 
   onMount(async () => {
-    const [downloaderSettings, appInfo] = await Promise.all([
-      DataStorage.getDownloaderFile(),
-      appInfoCache.get(app.id) || Legendary.getAppInfo(app.id).then(x => x.stdout)
-    ]);
+    const appInfo = appInfoCache.get(app.id) || (await Legendary.getAppInfo(app.id).then(x => x.stdout))!;
 
     const diskSpace = await invoke<{ total: number; available: number; }>('get_disk_space', {
-      dir: downloaderSettings.downloadPath
+      dir: $downloaderStorage.downloadPath
     });
 
     appInfoCache.set(app.id, appInfo);

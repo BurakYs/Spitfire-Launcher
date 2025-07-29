@@ -1,7 +1,7 @@
 <script lang="ts">
   import Select from '$components/ui/Select.svelte';
   import FilterIcon from 'lucide-svelte/icons/filter';
-  import ChevronsUpAndDownIcon from 'lucide-svelte/icons/chevrons-up-down';
+  import ChevronsUpDownIcon from 'lucide-svelte/icons/chevrons-up-down';
   import type { SpitfireShopFilter } from '$types/game/shop';
   import { t } from '$lib/utils/util';
 
@@ -28,6 +28,6 @@
   {#snippet trigger(label)}
     <FilterIcon class="text-muted-foreground size-5 mr-2"/>
     <span class="text-muted-foreground truncate">{label || $t('itemShop.selectFilter')}</span>
-    <ChevronsUpAndDownIcon class="text-muted-foreground size-5 ml-auto"/>
+    <ChevronsUpDownIcon class="text-muted-foreground size-5 ml-auto"/>
   {/snippet}
 </Select>

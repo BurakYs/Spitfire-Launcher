@@ -463,14 +463,6 @@
         "title": "Página de inicio",
         "description": "Seleccione la página a mostrar cuando comience el lanzador."
       },
-      "startingAccount": {
-        "title": "Iniciando cuenta",
-        "description": "Seleccione la página a mostrar cuando comience el lanzador.",
-        "values": {
-          "firstInList": "Primero en la lista",
-          "lastUsed": "Usado por última vez"
-        }
-      },
       "hideToTray": "Ocultar en la bandeja del sistema",
       "checkForUpdates": "Buscar actualizaciones"
     },

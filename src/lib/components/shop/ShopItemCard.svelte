@@ -1,8 +1,9 @@
 <script lang="ts">
+  import { activeAccountStore, language } from '$lib/core/data-storage';
   import { calculateDiscountedShopPrice, t } from '$lib/utils/util';
   import type { SpitfireShopItem } from '$types/game/shop';
   import { ItemColors } from '$lib/constants/item-colors';
-  import { activeAccountId, language, ownedItemsStore } from '$lib/stores';
+  import { ownedItemsStore } from '$lib/stores';
   import CheckIcon from 'lucide-svelte/icons/check';
   import { derived as jsDerived } from 'svelte/store';
 
@@ -13,16 +14,17 @@
 
   let { item, modalOfferId = $bindable() }: ItemCardProps = $props();
 
-  const isItemOwned = $derived($activeAccountId && $ownedItemsStore[$activeAccountId!]?.has(item.id?.toLowerCase()));
-  const displayName = item.name;
-  const imageUrl = item.assets.featured || item.assets.large || item.assets.small;
-  const discountedPrice = jsDerived([activeAccountId, ownedItemsStore], ([accountId]) => calculateDiscountedShopPrice(accountId!, item));
+  const isItemOwned = $derived($activeAccountStore && $ownedItemsStore[$activeAccountStore.accountId!]?.has(item.id?.toLowerCase()));
+  const discountedPrice = jsDerived(
+    [activeAccountStore, ownedItemsStore],
+    ([activeAccount]) => !activeAccount ? item.price.final : calculateDiscountedShopPrice(activeAccount!.accountId, item)
+  );
 
   const colors: Record<string, string> = { ...ItemColors.rarities, ...ItemColors.series };
-
   const seriesId = item.series?.id?.toLowerCase() || '';
   const rarityId = item.rarity?.id?.toLowerCase();
-
+  const displayName = item.name;
+  const imageUrl = item.assets.featured || item.assets.large || item.assets.small;
   const backgroundColorHex = colors[seriesId] || colors[rarityId] || colors.common;
 
   function showItemModal() {

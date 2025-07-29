@@ -8,6 +8,7 @@
   import AccountSwitcher from '$components/header/AccountSwitcher.svelte';
   import Button from '$components/ui/Button.svelte';
   import ExternalLink from '$components/ui/ExternalLink.svelte';
+  import { settingsStorage } from '$lib/core/data-storage';
   import { getVersion } from '@tauri-apps/api/app';
   import { Separator } from 'bits-ui';
   import { slide } from 'svelte/transition';
@@ -17,7 +18,6 @@
   import { cn, getStartingPage, t } from '$lib/utils/util';
   import { page } from '$app/state';
   import { onMount } from 'svelte';
-  import { customizableMenuStore } from '$lib/stores';
   import { SidebarCategories } from '$lib/constants/sidebar';
   import { SvelteSet } from 'svelte/reactivity';
 
@@ -53,7 +53,8 @@
   }
 
   function getItemVisibility(key: string) {
-    return $customizableMenuStore[key] !== false;
+    const menu = ($settingsStorage.customizableMenu || {}) as Record<string, boolean>;
+    return menu[key] !== false;
   }
 
   onMount(() => {

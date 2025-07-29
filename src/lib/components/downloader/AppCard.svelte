@@ -1,8 +1,8 @@
 <script lang="ts">
   import Button from '$components/ui/Button.svelte';
-  import DataStorage, { DOWNLOADER_FILE_PATH } from '$lib/core/data-storage';
+  import { downloaderStorage } from '$lib/core/data-storage';
   import DownloadManager from '$lib/core/managers/download.svelte';
-  import { favoritedAppIds, hiddenAppIds, ownedApps, perAppAutoUpdate, runningAppIds } from '$lib/stores';
+  import { favoritedAppIds, hiddenAppIds, ownedApps, runningAppIds } from '$lib/stores';
   import Legendary from '$lib/utils/legendary';
   import { bytesToSize, handleError, sleep, t } from '$lib/utils/util';
   import type { DownloaderSettings } from '$types/settings';
@@ -23,11 +23,9 @@
   import Trash2Icon from 'lucide-svelte/icons/trash-2';
   import XIcon from 'lucide-svelte/icons/x';
   import { toast } from 'svelte-sonner';
-  import { get } from 'svelte/store';
 
   type Props = {
     appId: string;
-    globalAutoUpdate: boolean;
     installDialogAppId?: string;
     uninstallDialogAppId?: string;
   };
@@ -40,7 +38,6 @@
 
   let {
     appId,
-    globalAutoUpdate,
     installDialogAppId = $bindable(),
     uninstallDialogAppId = $bindable()
   }: Props = $props();
@@ -81,8 +78,9 @@
       favoritedAppIds.add(app.id);
     }
 
-    await DataStorage.writeConfigFile<DownloaderSettings>(DOWNLOADER_FILE_PATH, {
-      favoriteApps: Array.from(favoritedAppIds)
+    downloaderStorage.update(current => {
+      current.favoriteApps = Array.from(favoritedAppIds);
+      return current;
     });
   }
 
@@ -93,19 +91,17 @@
       hiddenAppIds.add(app.id);
     }
 
-    await DataStorage.writeConfigFile<DownloaderSettings>(DOWNLOADER_FILE_PATH, {
-      hiddenApps: Array.from(hiddenAppIds)
+    downloaderStorage.update(current => {
+      current.hiddenApps = Array.from(hiddenAppIds);
+      return current;
     });
   }
 
   async function toggleAutoUpdate() {
-    perAppAutoUpdate.update(current => {
-      current[app.id] = !(current[app.id] ?? globalAutoUpdate);
+    downloaderStorage.update(current => {
+      current.perAppAutoUpdate ??= {};
+      current.perAppAutoUpdate[app.id] = !(current.perAppAutoUpdate[app.id] ?? current.autoUpdate);
       return current;
-    });
-
-    await DataStorage.writeConfigFile<DownloaderSettings>(DOWNLOADER_FILE_PATH, {
-      perAppAutoUpdate: get(perAppAutoUpdate)
     });
   }
 
@@ -211,7 +207,7 @@
 
         {#if app.installed}
           <DropdownMenu.Item onclick={toggleAutoUpdate}>
-            {#if $perAppAutoUpdate[app.id] ?? globalAutoUpdate}
+            {#if ($downloaderStorage.perAppAutoUpdate || {})[app.id] ?? $downloaderStorage.autoUpdate}
               <RefreshCwOffIcon class="size-5"/>
               {$t('library.app.dropdown.autoUpdate.disable')}
             {:else}

@@ -1,3 +1,4 @@
+import { accountsStorage } from '$lib/core/data-storage';
 import { oauthService } from '$lib/core/services';
 import AsyncLock from '$lib/utils/async-lock';
 import { t } from '$lib/utils/util';
@@ -10,7 +11,7 @@ import type {
   EpicTokenType,
   EpicVerifyAccessTokenData
 } from '$types/game/authorizations';
-import { accessTokenCache, accountsStore, doingBulkOperations } from '$lib/stores';
+import { accessTokenCache, doingBulkOperations } from '$lib/stores';
 import { get } from 'svelte/store';
 import { type ClientCredentials, defaultClient } from '$lib/constants/clients';
 import EpicAPIError from '$lib/exceptions/EpicAPIError';
@@ -84,8 +85,7 @@ export default class Authentication {
     } catch (error) {
       if (error instanceof EpicAPIError) {
         const isDoingBulkOperations = get(doingBulkOperations);
-        const { allAccounts } = get(accountsStore);
-        const accountName = allAccounts.find(account => account.accountId === deviceAuthData.accountId)?.displayName;
+        const accountName = get(accountsStorage).accounts.find(account => account.accountId === deviceAuthData.accountId)?.displayName;
 
         const translate = get(t);
 

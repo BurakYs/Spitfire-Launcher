@@ -6,12 +6,12 @@
   import PageContent from '$components/PageContent.svelte';
   import Button from '$components/ui/Button.svelte';
   import Authentication from '$lib/core/authentication';
-  import { accountsStore } from '$lib/stores';
+  import { activeAccountStore } from '$lib/core/data-storage';
   import { openUrl } from '@tauri-apps/plugin-opener';
   import { toast } from 'svelte-sonner';
   import { handleError, nonNull, t } from '$lib/utils/util';
 
-  const activeAccount = $derived(nonNull($accountsStore.activeAccount));
+  const activeAccount = $derived(nonNull($activeAccountStore));
 
   async function openEpicGamesWebsite() {
     isLoggingIn = true;

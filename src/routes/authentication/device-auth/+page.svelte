@@ -16,49 +16,45 @@
   import Trash2Icon from 'lucide-svelte/icons/trash-2';
   import { toast } from 'svelte-sonner';
   import DeviceAuthManager from '$lib/core/managers/device-auth';
-  import type { DeviceAuthsSettings } from '$types/settings';
-  import { onMount } from 'svelte';
-  import DataStorage, { DEVICE_AUTHS_FILE_PATH } from '$lib/core/data-storage';
-  import { accountsStore, language } from '$lib/stores';
+  import { activeAccountStore, deviceAuthsStorage, language } from '$lib/core/data-storage';
   import { getStartingPage, handleError, nonNull, t } from '$lib/utils/util';
   import Account from '$lib/core/account';
   import Tooltip from '$components/ui/Tooltip.svelte';
   import { goto } from '$app/navigation';
 
-  const activeAccount = $derived(nonNull($accountsStore.activeAccount));
+  const activeAccount = $derived(nonNull($activeAccountStore));
   const deviceAuths = $derived(allDeviceAuths[activeAccount?.accountId] || []);
-
-  $effect(() => {
-    fetchDeviceAuths();
-  });
-
-  let deviceAuthsSettings = $state<DeviceAuthsSettings>([]);
 
   async function saveDeviceName(event: FocusEvent & { currentTarget: HTMLSpanElement }, deviceId: string) {
     if (!deviceId) return;
 
     const newName = event.currentTarget.textContent?.trim();
     if (!newName) {
-      const deviceAuthRemoved = deviceAuthsSettings.filter(x => x.deviceId !== deviceId);
-      deviceAuthsSettings = deviceAuthRemoved;
       event.currentTarget.textContent = $t('deviceAuthManagement.authInfo.noName');
 
-      await DataStorage.writeConfigFile(DEVICE_AUTHS_FILE_PATH, deviceAuthRemoved);
-    } else {
-      let setting = deviceAuthsSettings.find((x) => x.deviceId === deviceId);
-      if (setting) {
-        setting.customName = newName;
-      } else {
-        deviceAuthsSettings.push({
-          deviceId,
-          customName: newName
-        });
-      }
+      deviceAuthsStorage.update((settings) => {
+        const index = settings.findIndex((x) => x.deviceId === deviceId);
+        if (index !== -1) {
+          settings.splice(index, 1);
+        }
 
-      await DataStorage.writeConfigFile(
-        DEVICE_AUTHS_FILE_PATH,
-        deviceAuthsSettings
-      );
+        return settings;
+      });
+    } else {
+      deviceAuthsStorage.update((settings) => {
+        const index = settings.findIndex((x) => x.deviceId === deviceId);
+        if (index !== -1) {
+          settings[index].customName = newName;
+        } else {
+          settings.push({
+            deviceId,
+            customName: newName
+          });
+        }
+
+        return settings;
+      });
+
     }
   }
 
@@ -70,8 +66,8 @@
     try {
       const data = await DeviceAuthManager.getAll(activeAccount);
       allDeviceAuths[activeAccount.accountId] = data.sort((a, b) => {
-        const aHasCustomName = deviceAuthsSettings.some(x => x.deviceId === a.deviceId) ? 1 : 0;
-        const bHasCustomName = deviceAuthsSettings.some(x => x.deviceId === b.deviceId) ? 1 : 0;
+        const aHasCustomName = $deviceAuthsStorage.some(x => x.deviceId === a.deviceId) ? 1 : 0;
+        const bHasCustomName = $deviceAuthsStorage.some(x => x.deviceId === b.deviceId) ? 1 : 0;
         const hasCustomName = bHasCustomName - aHasCustomName;
 
         const aDate = a.lastAccess?.dateTime || a.created?.dateTime;
@@ -141,10 +137,8 @@
     });
   }
 
-  onMount(async () => {
-    deviceAuthsSettings = await DataStorage.getDeviceAuthsFile();
-
-    await fetchDeviceAuths();
+  $effect(() => {
+    fetchDeviceAuths();
   });
 </script>
 
@@ -183,7 +177,7 @@
                   spellcheck="false"
                   tabindex="0"
                 >
-                  {deviceAuthsSettings?.find(x => x.deviceId === auth.deviceId)?.customName || $t('deviceAuthManagement.authInfo.noName')}
+                  {$deviceAuthsStorage.find(x => x.deviceId === auth.deviceId)?.customName || $t('deviceAuthManagement.authInfo.noName')}
                 </span>
 
                 {#if auth.deviceId === activeAccount.deviceId}

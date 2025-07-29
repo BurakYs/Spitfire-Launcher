@@ -1,9 +1,10 @@
 <script lang="ts">
   import BaseModal from '$components/docs/BaseModal.svelte';
-  import { accountsStore, avatarCache } from '$lib/stores';
+  import { activeAccountStore } from '$lib/core/data-storage';
+  import { avatarCache } from '$lib/stores';
   import { nonNull, t } from '$lib/utils/util';
 
-  const activeAccount = $derived(nonNull($accountsStore.activeAccount));
+  const activeAccount = $derived(nonNull($activeAccountStore));
 
   const nameFallback = 'Burak';
   const avatarFallback = '/assets/misc/rookie-spitfire-icon.png';
