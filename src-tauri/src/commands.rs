@@ -59,18 +59,23 @@ pub async fn stop_app(_app: AppHandle, app_id: String) -> Result<bool, String> {
 
 #[cfg(desktop)]
 #[command]
-pub async fn run_legendary(app: AppHandle, args: Vec<String>) -> Result<CommandOutput, String> {
-    legendary::run_legendary(app, args).await
+pub async fn run_legendary(
+    app: AppHandle,
+    dev: bool,
+    args: Vec<String>,
+) -> Result<CommandOutput, String> {
+    legendary::run_legendary(app, dev, args).await
 }
 
 #[cfg(desktop)]
 #[command]
 pub async fn start_legendary_stream(
     app: AppHandle,
+    dev: bool,
     stream_id: String,
     args: Vec<String>,
 ) -> Result<String, String> {
-    legendary::start_legendary_stream(app, stream_id, args).await
+    legendary::start_legendary_stream(app, dev, stream_id, args).await
 }
 
 #[cfg(desktop)]

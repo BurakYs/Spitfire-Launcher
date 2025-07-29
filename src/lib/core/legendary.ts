@@ -12,6 +12,7 @@ import { invoke } from '@tauri-apps/api/core';
 import { readTextFile } from '@tauri-apps/plugin-fs';
 import { toast } from 'svelte-sonner';
 import { get } from 'svelte/store';
+import { dev } from '$app/environment';
 
 type ExecuteResult<T = any> = {
   code: number | null;
@@ -39,7 +40,7 @@ export default class Legendary {
     const json = args.includes('--json');
 
     try {
-      const result = await invoke<ExecuteResult>('run_legendary', { args });
+      const result = await invoke<ExecuteResult>('run_legendary', { dev, args });
 
       if (json) {
         result.stdout = JSON.parse(result.stdout) as T;

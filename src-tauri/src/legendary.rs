@@ -9,8 +9,12 @@ use tauri_plugin_shell::ShellExt;
 static ACTIVE_STREAMS: LazyLock<Mutex<HashMap<String, CommandChild>>> =
     LazyLock::new(|| Mutex::new(HashMap::new()));
 
-pub async fn run_legendary(app: AppHandle, args: Vec<String>) -> Result<CommandOutput, String> {
-    let sidecar = create_legendary_sidecar(&app, args)?;
+pub async fn run_legendary(
+    app: AppHandle,
+    dev: bool,
+    args: Vec<String>,
+) -> Result<CommandOutput, String> {
+    let sidecar = create_legendary_sidecar(&app, dev, args)?;
     let (mut rx, _child) = sidecar.spawn().map_err(|e| e.to_string())?;
 
     let mut stdout = String::new();
@@ -49,10 +53,11 @@ pub async fn run_legendary(app: AppHandle, args: Vec<String>) -> Result<CommandO
 
 pub async fn start_legendary_stream(
     app: AppHandle,
+    dev: bool,
     stream_id: String,
     args: Vec<String>,
 ) -> Result<String, String> {
-    let sidecar = create_legendary_sidecar(&app, args)?;
+    let sidecar = create_legendary_sidecar(&app, dev, args)?;
     let (mut rx, child) = sidecar.spawn().map_err(|e| e.to_string())?;
 
     {
@@ -132,7 +137,7 @@ pub async fn stop_legendary_stream(
 ) -> Result<bool, String> {
     if force_kill_all {
         kill_legendary_processes();
-        return Ok(true);
+        Ok(true)
     } else {
         let child = {
             let mut streams = ACTIVE_STREAMS.lock().unwrap();
@@ -152,6 +157,7 @@ pub async fn stop_legendary_stream(
 
 fn create_legendary_sidecar(
     app: &AppHandle,
+    dev: bool,
     args: Vec<String>,
 ) -> Result<tauri_plugin_shell::process::Command, String> {
     let config_path = app
@@ -159,7 +165,7 @@ fn create_legendary_sidecar(
         .data_dir()
         .map_err(|e| e.to_string())?
         .join("spitfire-launcher")
-        .join("legendary")
+        .join(if dev { "legendary-dev" } else { "legendary" })
         .to_string_lossy()
         .to_string();
 
