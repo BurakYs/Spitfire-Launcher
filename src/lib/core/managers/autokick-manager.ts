@@ -4,7 +4,7 @@ import { getResolvedResults, sleep } from '$lib/utils/util';
 import type { AccountData } from '$types/accounts';
 import MatchmakingManager from '$lib/core/managers/matchmaking';
 import { EpicEvents } from '$lib/constants/events';
-import AutoKickBase from '$lib/core/managers/automation/autokick-base';
+import AutoKickBase from '$lib/core/managers/autokick-base';
 import PartyManager from '$lib/core/managers/party';
 import claimRewards from '$lib/utils/autokick/claim-rewards';
 import transferBuildingMaterials from '$lib/utils/autokick/transfer-building-materials';

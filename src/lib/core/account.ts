@@ -5,7 +5,7 @@ import Legendary from '$lib/utils/legendary';
 import { get } from 'svelte/store';
 import type { AccountData } from '$types/accounts';
 import DeviceAuthManager from '$lib/core/managers/device-auth';
-import AutoKickBase from '$lib/core/managers/automation/autokick-base';
+import AutoKickBase from '$lib/core/managers/autokick-base';
 
 export default class Account {
   static changeActiveAccount(id: string | null) {

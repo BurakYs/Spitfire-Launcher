@@ -4,7 +4,7 @@
   import Alert from '$components/ui/Alert.svelte';
   import Button from '$components/ui/Button.svelte';
   import { accountsStorage } from '$lib/core/data-storage';
-  import AutoKickBase from '$lib/core/managers/automation/autokick-base';
+  import AutoKickBase from '$lib/core/managers/autokick-base';
   import { automationStore } from '$lib/stores';
   import { cn, nonNull, t } from '$lib/utils/util';
   import Switch from '$components/ui/Switch.svelte';

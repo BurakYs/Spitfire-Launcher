@@ -30,7 +30,7 @@
   import FriendManager from '$lib/core/managers/friend';
   import XMPPManager from '$lib/core/managers/xmpp';
   import PartyManager from '$lib/core/managers/party';
-  import AutoKickBase from '$lib/core/managers/automation/autokick-base';
+  import AutoKickBase from '$lib/core/managers/autokick-base';
   import { accountPartiesStore, friendsStore } from '$lib/stores';
   import transferBuildingMaterials from '$lib/utils/autokick/transfer-building-materials';
   import claimRewards from '$lib/utils/autokick/claim-rewards';

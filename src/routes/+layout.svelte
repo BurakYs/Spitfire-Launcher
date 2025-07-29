@@ -23,7 +23,7 @@
   import { Tooltip } from 'bits-ui';
   import WorldInfoManager from '$lib/core/managers/worldInfo';
   import { runningAppIds, worldInfoCache } from '$lib/stores';
-  import AutoKickBase from '$lib/core/managers/automation/autokick-base';
+  import AutoKickBase from '$lib/core/managers/autokick-base';
   import { t } from '$lib/utils/util';
 
   const { children } = $props();
