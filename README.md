@@ -45,11 +45,11 @@ Settings are stored in:
 ### Customizable
 
 - Choose launcher language from 4 different languages: English, French, Spanish, and Turkish
-- Set game path, default page, and startup account
+- Customize the sidebar with your most used features
 
 ### Bulk Actions
 
-- Redeem codes, view V-Bucks information and daily quests across multiple accounts
+- Redeem codes, view V-Bucks information and daily quests across multiple accounts with a single click
 
 ### Game & Account Management
 
