@@ -12,27 +12,27 @@ import type { AllSettings } from '$types/settings';
 import { accountsStorage, activeAccountStore, language, settingsStorage } from '$lib/core/data-storage';
 import { m } from '$lib/paraglide/messages';
 import { type Locale, setLocale } from '$lib/paraglide/runtime';
-import { SidebarCategories } from '$lib/constants/sidebar';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export function checkLogin() {
+export async function checkLogin() {
   const hasAccount = !!get(activeAccountStore);
-  if (!hasAccount) {
-    goto('/br-stw/stw-mission-alerts', {
-      state: {
-        showLoginModal: true
-      }
-    }).then(() => {
-      toast.error(get(t)('errors.notLoggedIn'));
-    });
+  if (hasAccount) return true;
 
-    return false;
-  }
+  const sidebar = get(await getSidebar());
+  const defaultPage = sidebar.flatMap(x => x.items).find(x => x.key === 'stwMissionAlerts')!.href;
 
-  return true;
+  await goto(defaultPage, {
+    state: {
+      showLoginModal: true
+    }
+  });
+
+  toast.error(get(t)('errors.notLoggedIn'));
+
+  return false;
 }
 
 export function nonNull<T>(value: T): NonNullable<T> {
@@ -73,12 +73,17 @@ export function isLegendaryOrMythicSurvivor(itemId: string) {
   return itemId.includes('workerbasic_sr') || (itemId.startsWith('Worker:manager') && itemId.includes('_sr_'));
 }
 
-export function getStartingPage(settingsData?: AllSettings) {
+export async function getStartingPage(settingsData?: AllSettings) {
   const settings = settingsData || get(settingsStorage);
   const startingPage = settings.app?.startingPage;
-  const pages = get(SidebarCategories).flatMap(x => x.items);
+  const pages = get(await getSidebar()).flatMap(x => x.items);
 
-  return pages.find(x => x.key === startingPage)?.href || '/br-stw/stw-mission-alerts';
+  return (pages.find(x => x.key === startingPage) || pages.find(x => x.key === 'stwMissionAlerts')!)?.href;
+}
+
+async function getSidebar() {
+  const module = await import('$lib/constants/sidebar');
+  return module.SidebarCategories;
 }
 
 export function calculateDiscountedShopPrice(accountId: string, item: SpitfireShopItem) {
