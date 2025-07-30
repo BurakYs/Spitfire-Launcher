@@ -23,7 +23,7 @@
 </script>
 
 <Avatar.Root {...restProps} bind:ref>
-  <Avatar.Image class={cn('rounded-full', imageClass)} {alt} {src} bind:ref={imageRef} />
+  <Avatar.Image class={cn('rounded-full', imageClass)} {alt} {src} bind:ref={imageRef}/>
   <Avatar.Fallback bind:ref={fallbackRef}>
     <img
       class={cn('rounded-full', imageClass)}

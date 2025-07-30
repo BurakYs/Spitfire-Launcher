@@ -9,7 +9,7 @@
   import { activeAccountStore, downloaderStorage } from '$lib/core/data-storage';
   import { ownedApps } from '$lib/stores';
   import Legendary from '$lib/core/legendary';
-  import { t, nonNull, handleError } from '$lib/utils/util';
+  import { handleError, nonNull, t } from '$lib/utils/util';
   import type { AppFilterValue } from '$types/legendary';
   import Fuse from 'fuse.js';
   import { onMount } from 'svelte';

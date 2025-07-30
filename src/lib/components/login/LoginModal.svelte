@@ -1,8 +1,8 @@
 <script lang="ts">
+  import { Dialog } from '$components/ui/Dialog';
   import LoginStep0, { type LoginMethod } from '$components/login/LoginStep0.svelte';
   import LoginStep1 from '$components/login/LoginStep1.svelte';
   import LoginStep2 from '$components/login/LoginStep2.svelte';
-  import { Dialog } from '$components/ui/Dialog';
   import LoginSteps from '$components/login/LoginSteps.svelte';
   import { t } from '$lib/utils/util';
 

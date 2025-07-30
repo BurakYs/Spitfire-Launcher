@@ -211,7 +211,7 @@ export default class Legendary {
   }
 
   static async autoUpdateApps() {
-    const settings = get(downloaderStorage)
+    const settings = get(downloaderStorage);
 
     const updatableApps = get(ownedApps).filter(app => app.hasUpdate);
     const appAutoUpdate = get(downloaderStorage).perAppAutoUpdate || {};

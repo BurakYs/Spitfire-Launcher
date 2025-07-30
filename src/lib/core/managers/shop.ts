@@ -3,7 +3,7 @@ import type { SpitfireShop, SpitfireShopItem, SpitfireShopSection } from '$types
 import { brShopStore } from '$lib/stores';
 
 const spitfireAPIService = ky.extend({
-  prefixUrl: 'https://api.rookie-spitfire.xyz/epic',
+  prefixUrl: 'https://api.rookie-spitfire.xyz/epic'
 });
 
 export default class ShopManager {

@@ -1,6 +1,6 @@
 <script lang="ts">
-  import DownloaderSettings from '$components/settings/categories/DownloaderSettings.svelte';
   import { Dialog } from '$components/ui/Dialog';
+  import DownloaderSettings from '$components/settings/categories/DownloaderSettings.svelte';
   import AppSettings from '$components/settings/categories/AppSettings.svelte';
   import CustomizableMenu from '$components/settings/categories/CustomizableMenu.svelte';
   import { platform as getPlatform } from '@tauri-apps/plugin-os';

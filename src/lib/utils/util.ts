@@ -11,7 +11,7 @@ import type { FullQueryProfile } from '$types/game/mcp';
 import type { AllSettings } from '$types/settings';
 import { accountsStorage, activeAccountStore, language, settingsStorage } from '$lib/core/data-storage';
 import { m } from '$lib/paraglide/messages';
-import { setLocale, type Locale } from '$lib/paraglide/runtime';
+import { type Locale, setLocale } from '$lib/paraglide/runtime';
 import { SidebarCategories } from '$lib/constants/sidebar';
 
 export function cn(...inputs: ClassValue[]) {

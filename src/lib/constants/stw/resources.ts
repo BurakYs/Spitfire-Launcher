@@ -1,16 +1,17 @@
 import type {
+  DailyQuestData,
+  GadgetData,
+  HeroData,
   IngredientData,
+  MissionData,
   RarityType,
   ResourceData,
   SurvivorData,
   SurvivorUniqueLeadData,
-  TrapData,
-  DailyQuestData,
   TeamPerkData,
-  GadgetData,
-  HeroData,
-  ZoneThemeData,
-  TheaterData, MissionData
+  TheaterData,
+  TrapData,
+  ZoneThemeData
 } from '$types/game/stw/resources';
 
 import resourcesJson from '$lib/data/resources.json';

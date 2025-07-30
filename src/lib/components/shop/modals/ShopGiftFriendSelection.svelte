@@ -1,6 +1,6 @@
 <script lang="ts">
-  import Combobox from '$components/ui/Combobox/Combobox.svelte';
   import { Dialog } from '$components/ui/Dialog';
+  import Combobox from '$components/ui/Combobox/Combobox.svelte';
   import { activeAccountStore, language } from '$lib/core/data-storage';
   import LoaderCircleIcon from 'lucide-svelte/icons/loader-circle';
   import UserIcon from 'lucide-svelte/icons/user';

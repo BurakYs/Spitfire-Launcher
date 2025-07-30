@@ -2,13 +2,7 @@ import { derived, writable, type Writable } from 'svelte/store';
 import { dev } from '$app/environment';
 import config from '$lib/config';
 import { accountDataFileSchema } from '$lib/validations/accounts';
-import {
-  allSettingsSchema,
-  automationSettingsSchema,
-  deviceAuthsSettingsSchema,
-  downloaderSettingsSchema,
-  taxiSettingsSchema
-} from '$lib/validations/settings';
+import { allSettingsSchema, automationSettingsSchema, deviceAuthsSettingsSchema, downloaderSettingsSchema, taxiSettingsSchema } from '$lib/validations/settings';
 import type { AccountDataFile } from '$types/accounts';
 import type { AllSettings, AutomationSettings, DeviceAuthsSettings, DownloaderSettings, TaxiSettings } from '$types/settings';
 import { path } from '@tauri-apps/api';
@@ -16,7 +10,7 @@ import { dataDir, homeDir } from '@tauri-apps/api/path';
 import { exists, mkdir, readTextFile, writeTextFile } from '@tauri-apps/plugin-fs';
 import { platform } from '@tauri-apps/plugin-os';
 import type { ZodType } from 'zod';
-import { type Locale, baseLocale } from '$lib/paraglide/runtime';
+import { baseLocale, type Locale } from '$lib/paraglide/runtime';
 
 class DataStorage<T> implements Writable<T> {
   private readonly path: string;

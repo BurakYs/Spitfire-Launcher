@@ -77,7 +77,7 @@
       title={$t('autoKick.mobileIncompatibilityWarning.title')}
     />
   {/if}
-  
+
   <div class="flex flex-col sm:flex-row sm:items-center gap-x-6 gap-y-2 text-muted-foreground text-sm">
     <div class="flex items-center gap-x-2">
       <div class="size-2 rounded-full bg-green-500"></div>

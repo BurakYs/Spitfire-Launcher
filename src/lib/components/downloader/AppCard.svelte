@@ -1,5 +1,6 @@
 <script lang="ts">
   import Button from '$components/ui/Button.svelte';
+  import { DropdownMenu } from '$components/ui/DropdownMenu';
   import { downloaderStorage } from '$lib/core/data-storage';
   import DownloadManager from '$lib/core/managers/download.svelte';
   import { ownedApps, runningAppIds } from '$lib/stores';
@@ -17,7 +18,6 @@
   import LoaderCircleIcon from 'lucide-svelte/icons/loader-circle';
   import MoreHorizontalIcon from 'lucide-svelte/icons/more-horizontal';
   import PlayIcon from 'lucide-svelte/icons/play';
-  import { DropdownMenu } from '$components/ui/DropdownMenu';
   import RefreshCwIcon from 'lucide-svelte/icons/refresh-cw';
   import Trash2Icon from 'lucide-svelte/icons/trash-2';
   import XIcon from 'lucide-svelte/icons/x';

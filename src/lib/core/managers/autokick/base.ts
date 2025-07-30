@@ -4,7 +4,7 @@ import { automationStore, doingBulkOperations } from '$lib/stores';
 import type { AccountData } from '$types/accounts';
 import type { AutomationSetting } from '$types/settings';
 import XMPPManager from '$lib/core/managers/xmpp';
-import { EpicEvents, ConnectionEvents } from '$lib/constants/events';
+import { ConnectionEvents, EpicEvents } from '$lib/constants/events';
 import AutokickManager from '$lib/core/managers/autokick/manager';
 import claimRewards from '$lib/core/managers/autokick/claim-rewards';
 import transferBuildingMaterials from '$lib/core/managers/autokick/transfer-building-materials';

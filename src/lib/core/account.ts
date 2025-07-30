@@ -45,7 +45,6 @@ export default class Account {
       return settings;
     });
 
-
     AutoKickBase.removeAccount(accountId);
     XMPPManager.instances.get(accountId)?.disconnect();
 

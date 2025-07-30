@@ -32,8 +32,7 @@ Download the latest release from the [releases](../../releases/latest) page or f
 
 ## Good to Know
 
-On first install, a blue SmartScreen warning may appear. This is because the app is unsigned, as code signing is expensive. You can click on "Run Anyway" and continue the
-installation.
+On first install, SmartScreen may show a blue warning. This happens because the launcher isn’t code‑signed (as signing is expensive). You can safely click "Run anyway" to continue the installation.
 
 Settings are stored in:
 

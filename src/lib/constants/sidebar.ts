@@ -1,6 +1,6 @@
 import type { sidebarItems } from '$lib/validations/settings';
 import { platform as getPlatform } from '@tauri-apps/plugin-os';
-import { derived, get } from 'svelte/store';
+import { derived } from 'svelte/store';
 import { t } from '$lib/utils/util';
 
 const platform = getPlatform();

@@ -1,8 +1,8 @@
 <script lang="ts">
+  import { Separator } from 'bits-ui';
   import Label from '$components/ui/Label.svelte';
   import Switch from '$components/ui/Switch.svelte';
   import { settingsStorage } from '$lib/core/data-storage';
-  import { Separator } from 'bits-ui';
   import { SidebarCategories } from '$lib/constants/sidebar';
 
   let menuSettings = $derived($settingsStorage.customizableMenu || {});

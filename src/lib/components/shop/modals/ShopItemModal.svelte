@@ -1,9 +1,9 @@
 <script lang="ts">
-  import Tooltip from '$components/ui/Tooltip.svelte';
-  import { accountsStorage, language } from '$lib/core/data-storage';
-  import { calculateDiscountedShopPrice } from '$lib/utils/util';
   import { Separator } from 'bits-ui';
   import { Dialog } from '$components/ui/Dialog';
+  import Tooltip from '$components/ui/Tooltip.svelte';
+  import { accountsStorage, language } from '$lib/core/data-storage';
+  import { calculateDiscountedShopPrice, t } from '$lib/utils/util';
   import Badge from '$components/ui/Badge.svelte';
   import Button from '$components/ui/Button.svelte';
   import GiftIcon from 'lucide-svelte/icons/gift';
@@ -15,7 +15,6 @@
   import ShopGiftFriendSelection from '$components/shop/modals/ShopGiftFriendSelection.svelte';
   import type { AccountStoreData } from '$types/accounts';
   import { derived as jsDerived } from 'svelte/store';
-  import { t } from '$lib/utils/util';
 
   type Props = {
     offerId: string;
@@ -25,7 +24,6 @@
 
   const item = $brShopStore.offers.find(x => x.offerId === offerId)!;
   let isOpen = $state(true);
-  let tooltipOpen = $state(false);
 
   const {
     vbucks: ownedVbucks = 0,
@@ -35,7 +33,6 @@
 
   const ownedItems = $derived($ownedItemsStore[$accountsStorage.activeAccountId!]);
   const isItemOwned = $derived(ownedItems?.has(item.id?.toLowerCase()));
-
   const discountedPrice = jsDerived([accountsStorage, ownedItemsStore], ([accountSettings]) => calculateDiscountedShopPrice(accountSettings.activeAccountId!, item));
 
   let isPurchasing = $state(false);
