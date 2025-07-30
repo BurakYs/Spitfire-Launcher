@@ -25,7 +25,9 @@
     const isLastStep = currentStep === steps.length - 1;
     if (isLastStep) {
       setTimeout(() => {
-        closeModal();
+        open = false;
+        currentStep = 0;
+        selectedMethod = null;
       }, 3000);
     }
   });
@@ -49,12 +51,6 @@
     if (currentStep === 0) {
       selectedMethod = null;
     }
-  }
-
-  function closeModal() {
-    open = false;
-    currentStep = 0;
-    selectedMethod = null;
   }
 </script>
 

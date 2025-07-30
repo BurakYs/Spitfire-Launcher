@@ -30,12 +30,10 @@ export default class AutoKickBase {
     const userAccounts = get(accountsStorage).accounts;
     await Promise.allSettled(accounts.map(async automationAccount => {
       const account = userAccounts.find(a => a.accountId === automationAccount.accountId);
-      const isAnySettingEnabled = Object.entries(automationAccount)
-        .filter(([key]) => key !== 'accountId')
-        .some(([, value]) => value);
+      const isAnySettingEnabled = Object.entries(automationAccount).filter(([key]) => key !== 'accountId').some(([, value]) => value);
 
       if (!account || !isAnySettingEnabled) {
-        AutoKickBase.removeAccount(automationAccount.accountId);
+        automationStorage.update(s => s.filter(a => a.accountId !== automationAccount.accountId));
         return;
       }
 
@@ -153,24 +151,24 @@ export default class AutoKickBase {
       await autoKickManager.checkMissionOnStartup();
     }, { signal });
 
-    connection.addEventListener(ConnectionEvents.Disconnected, async () => {
+    connection.addEventListener(ConnectionEvents.Disconnected, () => {
       AutoKickBase.updateStatus(account.accountId, 'DISCONNECTED');
       autoKickManager.dispose();
     }, { signal });
 
-    connection.addEventListener(EpicEvents.MemberDisconnected, async (data) => {
+    connection.addEventListener(EpicEvents.MemberDisconnected, (data) => {
       if (data.account_id !== account.accountId) return;
 
       autoKickManager.dispose();
     }, { signal });
 
-    connection.addEventListener(EpicEvents.MemberExpired, async (data) => {
+    connection.addEventListener(EpicEvents.MemberExpired, (data) => {
       if (data.account_id !== account.accountId) return;
 
       autoKickManager.dispose();
     }, { signal });
 
-    connection.addEventListener(EpicEvents.MemberKicked, async (data) => {
+    connection.addEventListener(EpicEvents.MemberKicked, (data) => {
       if (data.account_id !== account.accountId) return;
 
       if (autoKickManager.matchmakingState.partyState === 'PostMatchmaking' && autoKickManager.matchmakingState.started) {
@@ -181,7 +179,7 @@ export default class AutoKickBase {
         }
 
         if (automationAccount?.settings.autoClaim) {
-          await claimRewards(account);
+          claimRewards(account).catch(console.error);
         }
       }
     }, { signal });
@@ -190,7 +188,7 @@ export default class AutoKickBase {
       if (data.account_id !== account.accountId) return;
 
       AutoKickBase.updateStatus(account.accountId, 'ACTIVE');
-      autoKickManager.initMissionCheckerIntervalTimeout(20000);
+      autoKickManager.scheduleMissionChecker(20000);
     }, { signal });
 
     connection.addEventListener(EpicEvents.PartyUpdated, async (data) => {
@@ -200,7 +198,7 @@ export default class AutoKickBase {
       partyState = newPartyState;
 
       if (partyState === 'PostMatchmaking') {
-        autoKickManager.initMissionCheckerIntervalTimeout();
+        autoKickManager.scheduleMissionChecker();
       }
     }, { signal });
   }

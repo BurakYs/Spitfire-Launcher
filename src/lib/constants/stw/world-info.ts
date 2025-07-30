@@ -255,11 +255,3 @@ export const WorldModifiers = Object.freeze({
   PowerfulSniperRifles: 'gm_player_sniperrifle_damagebuff',
   PowerfulSwordsAndSpears: 'gm_player_spearsworddamage_buff'
 } as const);
-
-export const VentureModifiers = Object.freeze({
-  ShortRange: 'GM_Phoenix_CloseQuarters',
-  SuperSoldier: 'GM_Phoenix_SuperHeroic',
-  SuperConstructor: 'GM_Phoenix_SuperConstructor',
-  SuperNinja: 'GM_Phoenix_SuperNinja',
-  SuperOutlander: 'GM_Phoenix_SuperOutlander'
-} as const);

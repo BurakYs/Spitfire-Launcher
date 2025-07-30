@@ -1,4 +1,4 @@
-import type { WorldParsedMission } from '$types/game/stw/worldInfo';
+import type { WorldParsedMission } from '$types/game/stw/world-info';
 import type { RarityTypes } from '$lib/constants/stw/resources';
 import type { Locale } from '$lib/paraglide/runtime';
 

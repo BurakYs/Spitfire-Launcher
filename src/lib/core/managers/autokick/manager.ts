@@ -18,8 +18,8 @@ type MatchmakingState = {
 };
 
 export default class AutokickManager {
-  private missionCheckerIntervalInitTimeout?: number;
-  private missionCheckerInterval?: number;
+  private scheduleTimeout?: number;
+  private checkerInterval?: number;
 
   public matchmakingState: MatchmakingState = {
     partyState: null,
@@ -28,26 +28,26 @@ export default class AutokickManager {
 
   constructor(private account: AccountData, private xmpp: XMPPManager) {}
 
-  initMissionCheckerIntervalTimeout(timeoutMs?: number) {
-    if (this.missionCheckerIntervalInitTimeout) {
-      clearTimeout(this.missionCheckerIntervalInitTimeout);
-      this.missionCheckerIntervalInitTimeout = undefined;
+  scheduleMissionChecker(timeoutMs?: number) {
+    if (this.scheduleTimeout) {
+      clearTimeout(this.scheduleTimeout);
+      this.scheduleTimeout = undefined;
     }
 
-    this.missionCheckerIntervalInitTimeout = window.setTimeout(async () => {
-      await this.initMissionCheckerInterval();
+    this.scheduleTimeout = window.setTimeout(async () => {
+      this.startMissionChecker();
     }, timeoutMs || 10000);
   }
 
-  async initMissionCheckerInterval() {
-    if (this.missionCheckerInterval) {
-      clearInterval(this.missionCheckerInterval);
-      this.missionCheckerInterval = undefined;
+  startMissionChecker() {
+    if (this.checkerInterval) {
+      clearInterval(this.checkerInterval);
+      this.checkerInterval = undefined;
     }
 
     const settings = get(settingsStorage);
 
-    this.missionCheckerInterval = window.setInterval(async () => {
+    this.checkerInterval = window.setInterval(async () => {
       const automationSettings = AutoKickBase.getAccountById(this.account.accountId)?.settings;
       const isAnySettingEnabled = Object.values(automationSettings || {}).some(x => x);
       if (!automationSettings || !isAnySettingEnabled) return;
@@ -122,18 +122,18 @@ export default class AutokickManager {
     this.matchmakingState.started = matchmakingData.started;
     this.matchmakingState.partyState = matchmakingData.started ? 'PostMatchmaking' : 'Matchmaking';
 
-    await this.initMissionCheckerInterval();
+    this.startMissionChecker();
   }
 
   dispose() {
-    if (this.missionCheckerInterval) {
-      clearInterval(this.missionCheckerInterval);
-      this.missionCheckerInterval = undefined;
+    if (this.checkerInterval) {
+      clearInterval(this.checkerInterval);
+      this.checkerInterval = undefined;
     }
 
-    if (this.missionCheckerIntervalInitTimeout) {
-      clearTimeout(this.missionCheckerIntervalInitTimeout);
-      this.missionCheckerIntervalInitTimeout = undefined;
+    if (this.scheduleTimeout) {
+      clearTimeout(this.scheduleTimeout);
+      this.scheduleTimeout = undefined;
     }
 
     this.matchmakingState = {
@@ -150,10 +150,10 @@ export default class AutokickManager {
     const partyLeaderAccount = accounts.find(x => x.accountId === partyLeaderId);
 
     const membersWithAutoKick = partyMemberIds.filter((id) => AutoKickBase.getAccountById(id)?.settings.autoKick);
-    const membersWithNoAutoKick = partyMemberIds.filter((id) => !membersWithAutoKick.includes(id));
+    const membersWithoutAutoKick = partyMemberIds.filter((id) => !membersWithAutoKick.includes(id));
 
     if (partyLeaderAccount) {
-      const accountsWithNoAutoKick = membersWithNoAutoKick.filter((id) => id !== this.account.accountId);
+      const accountsWithNoAutoKick = membersWithoutAutoKick.filter((id) => id !== this.account.accountId);
 
       await Promise.allSettled(accountsWithNoAutoKick.map(async (id) =>
         await PartyManager.kick(partyLeaderAccount, party.id, id)
@@ -161,7 +161,7 @@ export default class AutokickManager {
 
       await PartyManager.leave(this.account, party.id);
     } else {
-      const accountsWithNoAutoKick = membersWithNoAutoKick
+      const accountsWithNoAutoKick = membersWithoutAutoKick
         .map((id) => accounts.find(x => x.accountId === id))
         .filter(x => !!x);
 

@@ -1,12 +1,14 @@
 import { locales } from '$lib/paraglide/runtime';
 import { z } from 'zod';
 
+type SidebarItem = typeof sidebarItems[number];
+
 export const appSettingsSchema = z.object({
   language: z.enum(locales).nullish(),
   gamePath: z.string(),
   missionCheckInterval: z.number().positive(),
   claimRewardsDelay: z.number().positive(),
-  startingPage: z.enum(['autoKick', 'itemShop', 'stwMissionAlerts', 'taxiService', 'dailyQuests', 'library'] satisfies typeof sidebarItems[number][]),
+  startingPage: z.enum(['autoKick', 'itemShop', 'stwMissionAlerts', 'taxiService', 'dailyQuests', 'library'] satisfies SidebarItem[]),
   hideToTray: z.boolean(),
   checkForUpdates: z.boolean()
 }).partial();
@@ -44,9 +46,9 @@ export const sidebarItems = [
 
 export const customizableMenuSettingsSchema = z.object(
   sidebarItems.reduce((acc, item) => {
-    acc[item] = z.boolean().default(true);
+    acc[item] = z.boolean().optional();
     return acc;
-  }, {} as Record<typeof sidebarItems[number], z.ZodType<boolean>>)
+  }, {} as Record<SidebarItem, z.ZodOptional<z.ZodBoolean>>)
 ).partial();
 
 export const allSettingsSchema = z.object({

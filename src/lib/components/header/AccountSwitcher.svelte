@@ -24,14 +24,14 @@
 
   let dropdownOpen = $state(false);
   let searchTerm = $state<string>();
-  // eslint-disable-next-line svelte/prefer-writable-derived -- We assign this state later
   let showLoginModal = $state(false);
 
   let isSmall = new MediaQuery('max-width: 640px');
   let dropdownSide: 'top' | 'right' = $derived(isSmall.current ? 'top' : 'right');
 
   $effect(() => {
-    showLoginModal = (page.state as PageState).showLoginModal || false;
+    const pageState = page.state as PageState;
+    showLoginModal = pageState.showLoginModal || false;
   });
 
   const filteredAccounts = $derived(searchTerm

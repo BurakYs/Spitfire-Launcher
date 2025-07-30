@@ -10,7 +10,7 @@
   import PageContent from '$components/PageContent.svelte';
   import CustomStatusTutorial from '$components/docs/tutorials/CustomStatus.svelte';
   import { activeAccountStore } from '$lib/core/data-storage';
-  import TaxiManager from '$lib/core/managers/taxi-manager.svelte.js';
+  import TaxiManager from '$lib/core/managers/taxi.svelte.js';
   import Button from '$components/ui/Button.svelte';
   import Input from '$components/ui/Input.svelte';
   import { toast } from 'svelte-sonner';

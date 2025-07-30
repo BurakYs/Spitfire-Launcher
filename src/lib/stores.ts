@@ -4,7 +4,7 @@ import type { ParsedApp } from '$types/legendary';
 import { SvelteMap, SvelteSet } from 'svelte/reactivity';
 import { writable } from 'svelte/store';
 import type { AccountStoreData } from '$types/accounts';
-import type { ParsedWorldInfo } from '$types/game/stw/worldInfo';
+import type { ParsedWorldInfo } from '$types/game/stw/world-info';
 import type { EpicOAuthData } from '$types/game/authorizations';
 import type { AutomationSetting } from '$types/settings';
 import type { AutomationAccount } from '$lib/core/managers/autokick/base';

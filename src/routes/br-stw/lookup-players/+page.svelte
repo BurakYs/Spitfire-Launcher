@@ -128,7 +128,7 @@
 
     for (const [itemGuid, itemData] of items) {
       if (itemData.attributes.loadout_index != null) {
-        handleLockerItem(profile, itemGuid, itemData);
+        handleLoadoutItem(profile, itemGuid, itemData);
       }
 
       if (itemData.templateId.startsWith('Quest:') && itemData.attributes.quest_state === 'Active') {
@@ -137,10 +137,13 @@
     }
   }
 
-  function handleLockerItem(profile: CampaignProfile, itemId: string, itemData: ProfileItem) {
+  function handleLoadoutItem(profile: CampaignProfile, itemId: string, itemData: ProfileItem) {
     const profileAttributes = profile.stats.attributes;
-
     const isSelectedLoadout = profileAttributes.selected_hero_loadout === itemId;
+    if (isSelectedLoadout) {
+      heroLoadoutPage = itemData.attributes.loadout_index + 1;
+    }
+
     const selectedCommander = profile.items[itemData.attributes.crew_members.commanderslot];
     const heroId = selectedCommander?.templateId.replace('Hero:', '').split('_').slice(0, -2).join('_').toLowerCase();
     const teamPerkId = profile.items[itemData.attributes.team_perk]?.templateId.split('_')[1];
@@ -149,8 +152,6 @@
       .filter(([key]) => key.startsWith('followerslot'))
       .map(([, value]) => profile.items[value as string]?.templateId)
       .filter(x => !!x);
-
-    if (isSelectedLoadout) heroLoadoutPage = itemData.attributes.loadout_index + 1;
 
     loadoutData.push({
       guid: itemId,
@@ -175,10 +176,10 @@
           rarity
         };
       }),
-      gadgets: itemData.attributes.gadgets
-        ?.sort((a: any, b: any) => a.slot_index - b.slot_index)
-        .filter((gadget: any) => gadgets[gadget.gadget.split('_').at(-1)])
-        .map((data: any) => {
+      gadgets: (itemData.attributes.gadgets as any[])
+        ?.sort((a, b) => a.slot_index - b.slot_index)
+        .filter((gadget) => gadgets[gadget.gadget.split('_').at(-1)])
+        .map((data) => {
           const id = data.gadget.split('_').at(-1);
 
           return {
@@ -293,8 +294,15 @@
 
   {#if lookupData}
     {@const kv = [
-      { name: $t('lookupPlayers.playerInfo.id'), value: lookupData.accountId },
-      { name: $t('lookupPlayers.playerInfo.name'), value: lookupData.displayName, href: `https://fortnitedb.com/profile/${lookupData.accountId}` },
+      {
+        name: $t('lookupPlayers.playerInfo.id'),
+        value: lookupData.accountId
+      },
+      {
+        name: $t('lookupPlayers.playerInfo.name'),
+        value: lookupData.displayName,
+        href: `https://fortnitedb.com/profile/${lookupData.accountId}`
+      },
       {
         name: $t('lookupPlayers.playerInfo.commanderLevel'),
         value: stwData && `${stwData.commanderLevel.current} ${stwData.commanderLevel.pastMaximum ? `(+${stwData.commanderLevel.pastMaximum})` : ''}`

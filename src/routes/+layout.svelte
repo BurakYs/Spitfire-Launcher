@@ -21,7 +21,7 @@
   import { Dialog } from '$components/ui/Dialog';
   import { accountsStorage, activeAccountStore as activeAccount, settingsStorage } from '$lib/core/data-storage';
   import { Tooltip } from 'bits-ui';
-  import WorldInfoManager from '$lib/core/managers/worldInfo';
+  import WorldInfoManager from '$lib/core/managers/world-info';
   import { runningAppIds, worldInfoCache } from '$lib/stores';
   import AutoKickBase from '$lib/core/managers/autokick/base';
   import { t } from '$lib/utils/util';

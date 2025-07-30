@@ -1,4 +1,4 @@
-import type { ParsedWorldInfo, WorldInfoData, WorldInfoMission, WorldInfoMissionAlert, WorldInfoTheater, WorldParsedMission } from '$types/game/stw/worldInfo';
+import type { ParsedWorldInfo, WorldInfoData, WorldInfoMission, WorldInfoMissionAlert, WorldInfoTheater, WorldParsedMission } from '$types/game/stw/world-info';
 import {
   WorldColors,
   WorldColorsByTheater,

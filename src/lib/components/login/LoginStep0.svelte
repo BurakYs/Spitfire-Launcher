@@ -36,8 +36,8 @@
       icon: KeyIcon
     }
   ]);
-
 </script>
+
 <div in:fade={{ duration: 200 }}>
   <h3 class="mb-4 text-lg font-medium">
     {$t('accountManager.chooseLoginMethod')}
