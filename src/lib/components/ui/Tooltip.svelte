@@ -6,20 +6,21 @@
 
   type Props = Tooltip.RootProps & {
     children: Snippet;
-    tooltip?: Snippet | string;
+    message?: Snippet | string;
     class?: ClassValue;
   };
 
   let {
     open = $bindable(false),
     children,
-    tooltip,
-    class: className
+    message,
+    class: className,
+    ...restProps
   }: Props = $props();
 </script>
 
-{#if tooltip}
-  <Tooltip.Root delayDuration={200} bind:open>
+{#if message}
+  <Tooltip.Root delayDuration={200} bind:open {...restProps}>
     <Tooltip.Trigger class={className}>
       {@render children()}
     </Tooltip.Trigger>
@@ -32,10 +33,10 @@
         )}
         sideOffset={4}
       >
-        {#if typeof tooltip === 'string'}
-          {tooltip}
+        {#if typeof message === 'string'}
+          {message}
         {:else}
-          {@render tooltip()}
+          {@render message()}
         {/if}
         <Tooltip.Arrow class="text-border"/>
       </Tooltip.Content>

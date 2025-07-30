@@ -214,7 +214,7 @@
               <div class="flex items-center gap-2">
                 <h4 class="font-medium">{item.title}</h4>
                 {#if status === 'failed'}
-                  <Tooltip tooltip="Download failed">
+                  <Tooltip message="Download failed">
                     <TriangleAlertIcon class="size-4 text-red-500"/>
                   </Tooltip>
                 {/if}

@@ -170,7 +170,7 @@
 
     {#if serviceStatus && serviceStatus.status !== 'UP'}
       <div class="flex items-center justify-between">
-        <Tooltip tooltip={$t('serverStatus.notifyMe.description')}>
+        <Tooltip message={$t('serverStatus.notifyMe.description')}>
           <p class="flex-1 text-sm font-medium">
             {$t('serverStatus.notifyMe.title')}
           </p>

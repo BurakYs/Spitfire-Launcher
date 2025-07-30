@@ -25,6 +25,7 @@
 
   const item = $brShopStore.offers.find(x => x.offerId === offerId)!;
   let isOpen = $state(true);
+  let tooltipOpen = $state(false);
 
   const {
     vbucks: ownedVbucks = 0,
@@ -153,7 +154,8 @@
       <div class="flex w-full gap-3">
         <Tooltip
           class="w-full"
-          tooltip={ownedVbucks < $discountedPrice ? $t('itemShop.notEnoughVbucks') : undefined}
+          ignoreNonKeyboardFocus={true}
+          message={ownedVbucks < $discountedPrice ? $t('itemShop.notEnoughVbucks') : undefined}
         >
           <Button
             class="flex justify-center items-center gap-x-2 w-full"
@@ -173,7 +175,7 @@
 
         <Tooltip
           class="w-full"
-          tooltip={remainingGifts < 1 ? $t('itemShop.noRemainingGifts') : ownedVbucks < item.price.final ? $t('itemShop.notEnoughVbucks') : !friends.length ? $t('itemShop.noFriends') : ''}
+          message={remainingGifts < 1 ? $t('itemShop.noRemainingGifts') : ownedVbucks < item.price.final ? $t('itemShop.notEnoughVbucks') : !friends.length ? $t('itemShop.noFriends') : ''}
         >
           <Button
             class="flex justify-center items-center gap-x-2 w-full"

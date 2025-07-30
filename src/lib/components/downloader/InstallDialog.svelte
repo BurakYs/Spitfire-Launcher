@@ -181,7 +181,7 @@
         {$t('common.cancel')}
       </Dialog.Button>
 
-      <Tooltip class="w-full" tooltip={afterInstallPercentage >= 100 ? $t('library.installConfirmation.notEnoughSpace') : undefined}>
+      <Tooltip class="w-full" message={afterInstallPercentage >= 100 ? $t('library.installConfirmation.notEnoughSpace') : undefined}>
         <Dialog.Button
           class="flex items-center gap-2"
           buttonType="action"

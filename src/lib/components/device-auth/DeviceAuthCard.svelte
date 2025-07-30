@@ -109,7 +109,7 @@
         </span>
 
         {#if auth.deviceId === activeAccount.deviceId}
-          <Tooltip tooltip={$t('deviceAuth.authInfo.activeAuth')}>
+          <Tooltip message={$t('deviceAuth.authInfo.activeAuth')}>
             <div class="size-2 bg-green-500 rounded-full shrink-0"></div>
           </Tooltip>
         {/if}
