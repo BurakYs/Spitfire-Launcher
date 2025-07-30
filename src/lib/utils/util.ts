@@ -10,9 +10,9 @@ import type { EpicAPIErrorData } from '$types/game/authorizations';
 import type { FullQueryProfile } from '$types/game/mcp';
 import type { AllSettings } from '$types/settings';
 import { accountsStorage, activeAccountStore, language, settingsStorage } from '$lib/core/data-storage';
-import { Pages } from '$lib/constants/pages';
 import { m } from '$lib/paraglide/messages';
 import { setLocale, type Locale } from '$lib/paraglide/runtime';
+import { SidebarCategories } from '$lib/constants/sidebar';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -21,7 +21,7 @@ export function cn(...inputs: ClassValue[]) {
 export function checkLogin() {
   const hasAccount = !!get(activeAccountStore);
   if (!hasAccount) {
-    goto(Pages.stwMissionAlerts, {
+    goto('/br-stw/stw-mission-alerts', {
       state: {
         showLoginModal: true
       }
@@ -75,9 +75,10 @@ export function isLegendaryOrMythicSurvivor(itemId: string) {
 
 export function getStartingPage(settingsData?: AllSettings) {
   const settings = settingsData || get(settingsStorage);
-  const startingPage = settings.app?.startingPage!;
+  const startingPage = settings.app?.startingPage;
+  const pages = get(SidebarCategories).flatMap(x => x.items);
 
-  return Pages[startingPage] || Pages.stwMissionAlerts;
+  return pages.find(x => x.key === startingPage)?.href || '/br-stw/stw-mission-alerts';
 }
 
 export function calculateDiscountedShopPrice(accountId: string, item: SpitfireShopItem) {
