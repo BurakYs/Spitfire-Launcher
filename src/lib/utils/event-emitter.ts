@@ -1,6 +1,6 @@
 type AddEventListenerOptions = {
   signal?: AbortSignal;
-}
+};
 
 export default class EventEmitter<EventMap extends Record<string, any>> {
   private listeners = new Map<keyof EventMap, Array<(data: any) => void>>();

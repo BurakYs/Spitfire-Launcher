@@ -3,4 +3,4 @@ export type RedeemedCodeData = {
   details: Array<{
     itemId: string;
   }>
-}
+};

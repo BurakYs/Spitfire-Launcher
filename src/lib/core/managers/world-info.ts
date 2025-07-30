@@ -204,23 +204,22 @@ export default class WorldInfoManager {
         });
       }
 
-      worldInfo.set(
-        theaterId as World,
-        new Map(Array.from(theater.entries()).sort((entryA, entryB) => {
-            const a = entryA[1];
-            const b = entryB[1];
+      const parsedMissions = new Map(Array.from(theater.entries()).sort((entryA, entryB) => {
+        const a = entryA[1];
+        const b = entryB[1];
 
-            const missionAGroup = a.generator.toLowerCase().includes('group') ? 1 : 0;
-            const missionBGroup = b.generator.toLowerCase().includes('group') ? 1 : 0;
+        const missionAGroup = a.generator.toLowerCase().includes('group') ? 1 : 0;
+        const missionBGroup = b.generator.toLowerCase().includes('group') ? 1 : 0;
 
-            const missionAAlert = a.alert ? 1 : 0;
-            const missionBAlert = b.alert ? 1 : 0;
+        const missionAAlert = a.alert ? 1 : 0;
+        const missionBAlert = b.alert ? 1 : 0;
 
-            return b.powerLevel - a.powerLevel
-              || missionBGroup - missionAGroup
-              || missionBAlert - missionAAlert;
-          })
-        ));
+        return b.powerLevel - a.powerLevel
+          || missionBGroup - missionAGroup
+          || missionBAlert - missionAAlert;
+      }));
+
+      worldInfo.set(theaterId as World, parsedMissions);
     }
 
     return worldInfo;

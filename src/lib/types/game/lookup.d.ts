@@ -11,7 +11,7 @@ export type EpicAccountByName = {
   id: string;
   displayName: string;
   externalAuths: ExternalAuths;
-}
+};
 
 export type EpicAccountSearch = {
   accountId: string;
@@ -22,7 +22,7 @@ export type EpicAccountSearch = {
   matchType: string;
   epicMutuals: number;
   sortPosition: number;
-}
+};
 
 type ExternalAuths = Record<
   string,

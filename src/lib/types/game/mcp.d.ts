@@ -139,7 +139,7 @@ export type MCPOperation =
   | 'UpgradeItemBulk'
   | 'UpgradeItemRarity'
   | 'UpgradeSlottedItem'
-  | 'VerifyRealMoneyPurchase'
+  | 'VerifyRealMoneyPurchase';
 
 export type MCPProfileId =
   | 'athena'

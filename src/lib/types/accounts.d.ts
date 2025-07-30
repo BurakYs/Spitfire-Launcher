@@ -2,8 +2,8 @@ import { z } from 'zod';
 
 import { accountDataFileSchema, accountDataSchema } from '$lib/validations/accounts';
 
-export type AccountData = z.infer<typeof accountDataSchema>
-export type AccountDataFile = z.infer<typeof accountDataFileSchema>
+export type AccountData = z.infer<typeof accountDataSchema>;
+export type AccountDataFile = z.infer<typeof accountDataFileSchema>;
 
 export type BulkActionStatus<T> = {
   accountId: string;

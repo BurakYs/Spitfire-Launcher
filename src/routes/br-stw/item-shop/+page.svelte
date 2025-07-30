@@ -193,6 +193,7 @@
         <p class="text-red-500">{$t('itemShop.failedtoFetch')}</p>
       {:else}
         <div class="space-y-6">
+          <!-- eslint-disable-next-line @typescript-eslint/no-unused-vars -->
           {#each Array(2) as _, index (index)}
             <SkeletonShopSection/>
           {/each}

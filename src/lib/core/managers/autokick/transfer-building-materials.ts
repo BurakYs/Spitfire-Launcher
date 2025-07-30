@@ -10,12 +10,12 @@ type MCPStorageTransferItem = {
   quantity: number;
   toStorage: boolean;
   newItemIdHint: string;
-}
+};
 
 type BuildingMaterialData = {
   total: number;
   items: MCPStorageTransferItem[];
-}
+};
 
 const MAX_BUILDING_MATERIALS = 5000;
 

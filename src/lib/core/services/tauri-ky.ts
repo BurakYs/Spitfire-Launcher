@@ -28,12 +28,12 @@ const tauriKy = ky.create({
       headers.delete('x-user-agent');
     }
 
-    let textReqBody = request.body ? await request.arrayBuffer() : undefined;
+    const requestBody = request.body ? await request.arrayBuffer() : undefined;
 
     const response = await fetch(request.url, {
       method: request.method,
       headers,
-      body: textReqBody
+      body: requestBody
     });
 
     let data: unknown;

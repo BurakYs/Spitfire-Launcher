@@ -10,6 +10,7 @@
   <div class="skeleton-loader w-48 h-7 rounded-md mb-4 self-start"></div>
   <div class="w-full @container">
     <div class="grid gap-4 @max-[28rem]:grid-cols-2 @max-[36rem]:grid-cols-3 @max-[48rem]:grid-cols-4 @max-[60rem]:grid-cols-5 @max-[75rem]:grid-cols-6 @max-[90rem]:grid-cols-7">
+      <!-- eslint-disable-next-line @typescript-eslint/no-unused-vars -->
       {#each Array(itemCount) as _, index (index)}
         <SkeletonShopItemCard/>
       {/each}

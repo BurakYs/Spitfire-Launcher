@@ -49,7 +49,7 @@ export type DeviceAuthData = {
   accountId: string;
   deviceId: string;
   secret: string;
-}
+};
 
 export type EpicDeviceAuthData = {
   deviceId: string;

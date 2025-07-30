@@ -144,6 +144,7 @@
           {#if missions.length}
             <WorldInfoSectionAccordion claimedMissionAlerts={!activeAccount ? undefined : claimedMissionAlerts.get(activeAccount.accountId)} {missions}/>
           {:else if !$worldInfoCache}
+            <!-- eslint-disable-next-line @typescript-eslint/no-unused-vars -->
             {#each Array(Math.max(1, Math.floor(Math.random() * 3) + 1)) as _, index (index)}
               <div class="flex items-center justify-between px-2 h-8 bg-muted-foreground/5 rounded-sm skeleton-loader"></div>
             {/each}

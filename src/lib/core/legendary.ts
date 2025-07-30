@@ -19,7 +19,7 @@ type ExecuteResult<T = any> = {
   signal: number | null;
   stdout: T;
   stderr: string;
-}
+};
 
 export type StreamEvent = {
   stream_id: string;
@@ -27,7 +27,7 @@ export type StreamEvent = {
   data: string;
   code?: number;
   signal?: number;
-}
+};
 
 export default class Legendary {
   private static cachedApps = false;
@@ -116,7 +116,7 @@ export default class Legendary {
       const file = await readTextFile(userConfig);
       const data: EpicOAuthData = JSON.parse(file);
       return data.account_id;
-    } catch (error) {
+    } catch {
       return null;
     }
   }

@@ -221,6 +221,7 @@
       </div>
 
       <div class="space-y-3">
+        <!-- eslint-disable-next-line @typescript-eslint/no-unused-vars -->
         {#each Array(4) as _, i (i)}
           <div class="bg-muted/30 p-4 rounded-lg skeleton-loader">
             <div class="flex justify-between items-center">

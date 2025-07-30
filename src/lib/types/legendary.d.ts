@@ -40,7 +40,7 @@ export type LegendaryList = Array<{
   }>
   app_name: string;
   app_title: string;
-}>
+}>;
 
 export type LegendaryStatus = {
   account: string | null;

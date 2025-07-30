@@ -10,7 +10,7 @@ type ManifestData = {
   installLocation: string;
   launchExecutable: string;
   executableLocation: string;
-}
+};
 
 export default class Manifest {
   private static fortniteManifestCache: ManifestData | null = null;

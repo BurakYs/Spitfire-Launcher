@@ -70,7 +70,7 @@ class DataStorage<T> implements Writable<T> {
     if (configFileContent) {
       try {
         data = JSON.parse(configFileContent);
-      } catch {}
+      } catch { /* empty */ }
     }
 
     return data && defaultData
@@ -185,7 +185,7 @@ const activeAccountStore = derived([accountsStorage], ([$accountsStorage]) => {
   return $accountsStorage.activeAccountId ? $accountsStorage.accounts.find(account => account.accountId === $accountsStorage.activeAccountId) || null : null;
 });
 
-// @ts-expect-errorx
+// @ts-expect-error - We need to access the store
 const language = derived([settingsStorage.store], ([$settingsStorage]) => {
   return $settingsStorage.app?.language || baseLocale;
 }, baseLocale as Locale);

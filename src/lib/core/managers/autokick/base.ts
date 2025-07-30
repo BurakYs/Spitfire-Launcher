@@ -13,7 +13,7 @@ export type AutomationAccount = {
   status: 'LOADING' | 'ACTIVE' | 'INVALID_CREDENTIALS' | 'DISCONNECTED';
   account: AccountData;
   settings: Partial<Omit<AutomationSetting, 'accountId'>>;
-}
+};
 
 export default class AutoKickBase {
   private static accounts = new Map<string, AutomationAccount>();
@@ -121,7 +121,7 @@ export default class AutoKickBase {
 
       AutoKickBase.connections.set(accountId, connection);
       AutoKickBase.updateStatus(accountId, 'ACTIVE');
-    } catch (error) {
+    } catch {
       AutoKickBase.updateStatus(accountId, 'DISCONNECTED');
     }
 

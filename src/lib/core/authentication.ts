@@ -42,7 +42,7 @@ export default class Authentication {
 
       try {
         return (await this.verifyAccessToken(accessToken)).access_token;
-      } catch (error) {
+      } catch {
         return (await this.getAccessTokenUsingDeviceAuth(deviceAuthData, false)).access_token;
       }
     });

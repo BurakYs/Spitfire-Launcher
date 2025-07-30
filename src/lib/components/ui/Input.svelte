@@ -142,6 +142,7 @@
       {onblur}
       onfocus={handleFocus}
       oninput={handleInput}
+      {onkeydown}
       spellcheck="false"
       {type}
       bind:value
@@ -185,6 +186,7 @@
     {onblur}
     onfocus={handleFocus}
     oninput={handleInput}
+    {onkeydown}
     spellcheck="false"
     {type}
     bind:value

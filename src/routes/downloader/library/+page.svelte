@@ -91,6 +91,7 @@
         />
       {/each}
     {:else}
+      <!-- eslint-disable-next-line @typescript-eslint/no-unused-vars -->
       {#each Array(8) as _, i (i)}
         <SkeletonAppCard/>
       {/each}
