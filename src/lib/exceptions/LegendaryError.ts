@@ -1,7 +1,7 @@
 export default class LegendaryError extends Error {
-  constructor(stdout: string) {
+  constructor(message: string) {
     super();
     this.name = 'LegendaryError';
-    this.message = stdout.trim();
+    this.message = message.trim();
   }
 }

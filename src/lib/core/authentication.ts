@@ -25,7 +25,7 @@ export default class Authentication {
   static verifyOrRefreshAccessToken(
     deviceAuthData: DeviceAuthData,
     accessToken?: string,
-    bypassCache = false
+    skipCache = false
   ) {
     let tokenLock = tokenLocks.get(deviceAuthData.accountId);
     if (!tokenLock) {
@@ -38,9 +38,7 @@ export default class Authentication {
       accessToken ??= cache?.access_token;
 
       if (!accessToken) return (await this.getAccessTokenUsingDeviceAuth(deviceAuthData, false)).access_token;
-
-      if (!bypassCache && cache)
-        return cache.access_token;
+      if (!skipCache && cache) return cache.access_token;
 
       try {
         return (await this.verifyAccessToken(accessToken)).access_token;

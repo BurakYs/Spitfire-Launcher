@@ -162,7 +162,6 @@ type MessageFn<K extends MessageKey> = typeof m[K];
 type InputsOf<K extends MessageKey> = Parameters<MessageFn<K>>[0];
 type OptionsOf<K extends MessageKey> = Parameters<MessageFn<K>>[1];
 
-// todo: circular dependency issue with this import
 export const t = derived(language, ($language) => {
   return function t<K extends MessageKey>(
     key: K,
@@ -222,7 +221,7 @@ export function getAccountsFromSelection(selection: string[]) {
   return selection.map((id) => accounts.find((account) => account.accountId === id)).filter((x) => !!x);
 }
 
-export function bytesToSize(bytes: number, decimals = 2, unit = 1000): string {
+export function bytesToSize(bytes: number, decimals = 2, unit = 1000) {
   if (bytes <= 0) return '0 B';
 
   const sizes = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
