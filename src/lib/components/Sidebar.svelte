@@ -148,7 +148,6 @@
           <Button
             class="text-muted-foreground text-left text-sm p-0 flex items-center"
             href={link.href}
-            size="md"
             variant="ghost"
           >
             <img

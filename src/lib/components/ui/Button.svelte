@@ -7,7 +7,7 @@
   import type { ClassValue, HTMLAnchorAttributes, HTMLButtonAttributes } from 'svelte/elements';
 
   const buttonVariants = tv({
-    base: 'px-4 py-2 rounded-md transition-all duration-200 peer disabled:opacity-50 disabled:cursor-not-allowed',
+    base: 'rounded-md transition-all duration-200 peer disabled:opacity-50 disabled:cursor-not-allowed',
     variants: {
       variant: {
         primary: 'bg-primary text-primary-foreground hover:bg-primary/80',
