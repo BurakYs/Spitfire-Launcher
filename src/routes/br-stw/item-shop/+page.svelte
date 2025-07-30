@@ -6,7 +6,7 @@
   import SkeletonShopSection from '$components/shop/SkeletonShopSection.svelte';
   import Input from '$components/ui/Input.svelte';
   import { activeAccountStore as activeAccount } from '$lib/core/data-storage';
-  import FriendManager from '$lib/core/managers/friend';
+  import FriendsManager from '$lib/core/managers/friends';
   import LookupManager from '$lib/core/managers/lookup';
   import MCPManager from '$lib/core/managers/mcp';
   import ShopManager from '$lib/core/managers/shop';
@@ -96,7 +96,7 @@
     const [athenaProfile, commonCoreProfile, friendsList] = await getResolvedResults([
       MCPManager.queryProfile(account, 'athena'),
       MCPManager.queryProfile(account, 'common_core'),
-      FriendManager.getFriends(account)
+      FriendsManager.getFriends(account)
     ]);
 
     let accountData: AccountStoreData = {

@@ -1,5 +1,5 @@
 import { ConnectionEvents, EpicEvents } from '$lib/constants/events';
-import FriendManager from '$lib/core/managers/friend';
+import FriendsManager from '$lib/core/managers/friends';
 import PartyManager from '$lib/core/managers/party';
 import XMPPManager from '$lib/core/managers/xmpp';
 import { SvelteSet } from 'svelte/reactivity';
@@ -106,8 +106,8 @@ export default class TaxiManager {
   async handleFriendRequests() {
     if (!this.active || !this.autoAcceptFriendRequests) return;
 
-    const incomingRequests = await FriendManager.getIncoming(this.account);
-    if (incomingRequests.length) await FriendManager.acceptAllIncomingRequests(this.account, incomingRequests.map(x => x.accountId));
+    const incomingRequests = await FriendsManager.getIncoming(this.account);
+    if (incomingRequests.length) await FriendsManager.acceptAllIncomingRequests(this.account, incomingRequests.map(x => x.accountId));
   }
 
   setIsAvailable(available: boolean) {
@@ -188,7 +188,7 @@ export default class TaxiManager {
   private async handleFriendRequest(request: EpicEventFriendRequest) {
     if (!this.autoAcceptFriendRequests || request.status !== 'PENDING') return;
 
-    await FriendManager.addFriend(this.account, request.from);
+    await FriendsManager.addFriend(this.account, request.from);
   }
 
   private getFortStats() {

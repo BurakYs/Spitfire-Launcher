@@ -27,7 +27,7 @@
   import Tabs from '$components/ui/Tabs.svelte';
   import { accountsStorage, activeAccountStore, language } from '$lib/core/data-storage';
   import { Separator } from 'bits-ui';
-  import FriendManager from '$lib/core/managers/friend';
+  import FriendsManager from '$lib/core/managers/friends';
   import XMPPManager from '$lib/core/managers/xmpp';
   import PartyManager from '$lib/core/managers/party';
   import AutoKickBase from '$lib/core/managers/autokick/base';
@@ -257,7 +257,7 @@
     isAddingFriend = true;
 
     try {
-      await FriendManager.addFriend(activeAccount, memberId);
+      await FriendsManager.addFriend(activeAccount, memberId);
     } catch (error) {
       handleError(error, $t('partyManagement.partyMembers.failedToSendFriendRequest'));
     } finally {
@@ -269,7 +269,7 @@
     isRemovingFriend = true;
 
     try {
-      await FriendManager.removeFriend(activeAccount, memberId);
+      await FriendsManager.removeFriend(activeAccount, memberId);
     } catch (error) {
       handleError(error, $t('partyManagement.partyMembers.failedToRemoveFriend'));
     } finally {
@@ -284,7 +284,7 @@
     });
 
     if (!$friendsStore[activeAccount.accountId]) {
-      FriendManager.getSummary(activeAccount);
+      FriendsManager.getSummary(activeAccount);
     }
   });
 </script>

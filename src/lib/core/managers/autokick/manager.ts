@@ -1,4 +1,4 @@
-import FriendManager from '$lib/core/managers/friend';
+import FriendsManager from '$lib/core/managers/friends';
 import type XMPPManager from '$lib/core/managers/xmpp';
 import { getResolvedResults, sleep } from '$lib/utils/util';
 import type { AccountData } from '$types/accounts';
@@ -179,7 +179,7 @@ export default class AutokickManager {
 
     const [partyData, friends] = await getResolvedResults([
       PartyManager.get(this.account),
-      FriendManager.getFriends(this.account)
+      FriendsManager.getFriends(this.account)
     ]);
 
     const party = partyData?.current[0];

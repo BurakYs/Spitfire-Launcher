@@ -3,7 +3,7 @@
   import Sidebar from '$components/Sidebar.svelte';
   import Header from '$components/header/Header.svelte';
   import AvatarManager from '$lib/core/managers/avatar';
-  import FriendManager from '$lib/core/managers/friend';
+  import FriendsManager from '$lib/core/managers/friends';
   import LookupManager from '$lib/core/managers/lookup';
   import DownloadManager from '$lib/core/managers/download.svelte';
   import SystemTray from '$lib/core/system/tray';
@@ -89,7 +89,7 @@
       checkForUpdates(),
       syncAccountNames(),
       autoUpdateApps(),
-      $activeAccount && FriendManager.getSummary($activeAccount),
+      $activeAccount && FriendsManager.getSummary($activeAccount),
       allAccounts.map(account => AvatarManager.fetchAvatars(account, [account.accountId]))
     ]);
 

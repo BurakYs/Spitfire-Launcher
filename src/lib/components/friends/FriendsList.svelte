@@ -9,7 +9,7 @@
 
 <script lang="ts">
   import { activeAccountStore } from '$lib/core/data-storage';
-  import FriendManager from '$lib/core/managers/friend';
+  import FriendsManager from '$lib/core/managers/friends';
   import { DropdownMenu } from '$components/ui/DropdownMenu';
   import { writeText } from '@tauri-apps/plugin-clipboard-manager';
   import CopyIcon from 'lucide-svelte/icons/copy';
@@ -56,7 +56,7 @@
     accountsAdding.add(id);
 
     try {
-      await FriendManager.addFriend(activeAccount, id);
+      await FriendsManager.addFriend(activeAccount, id);
     } catch (error) {
       handleError(error, $t('friendsManagement.failedToAdd'));
     } finally {
@@ -68,7 +68,7 @@
     accountsRemoving.add(id);
 
     try {
-      await FriendManager.removeFriend(activeAccount, id);
+      await FriendsManager.removeFriend(activeAccount, id);
     } catch (error) {
       handleError(error, $t('friendsManagement.failedToRemove'));
     } finally {
@@ -80,7 +80,7 @@
     accountsBlocking.add(id);
 
     try {
-      await FriendManager.block(activeAccount, id);
+      await FriendsManager.block(activeAccount, id);
     } catch (error) {
       handleError(error, $t('friendsManagement.failedToBlock'));
     } finally {
@@ -92,7 +92,7 @@
     accountsUnblocking.add(id);
 
     try {
-      await FriendManager.unblock(activeAccount, id);
+      await FriendsManager.unblock(activeAccount, id);
     } catch (error) {
       handleError(error, $t('friendsManagement.failedToUnblock'));
     } finally {

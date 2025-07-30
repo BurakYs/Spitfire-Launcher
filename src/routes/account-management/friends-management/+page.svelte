@@ -9,7 +9,7 @@
   import Button from '$components/ui/Button.svelte';
   import Tabs from '$components/ui/Tabs.svelte';
   import { activeAccountStore } from '$lib/core/data-storage';
-  import FriendManager from '$lib/core/managers/friend';
+  import FriendsManager from '$lib/core/managers/friends';
   import LookupManager from '$lib/core/managers/lookup';
   import XMPPManager from '$lib/core/managers/xmpp';
   import LoaderCircleIcon from 'lucide-svelte/icons/loader-circle';
@@ -24,7 +24,7 @@
   const activeAccount = $derived(nonNull($activeAccountStore));
 
   $effect(() => {
-    FriendManager.getSummary(activeAccount);
+    FriendsManager.getSummary(activeAccount);
     XMPPManager.create(activeAccount, 'friendsManagement').then(xmpp => {
       xmpp.connect();
     });
@@ -56,7 +56,7 @@
       const lookupData = await LookupManager.fetchByNameOrId(activeAccount, searchQuery);
 
       try {
-        await FriendManager.addFriend(activeAccount, lookupData.accountId);
+        await FriendsManager.addFriend(activeAccount, lookupData.accountId);
         searchQuery = '';
         toast.success($t('friendsManagement.sentFriendRequest'));
       } catch (error) {
