@@ -15,13 +15,11 @@
   import { cubicInOut } from 'svelte/easing';
   import ChevronDownIcon from 'lucide-svelte/icons/chevron-down';
   import config from '$lib/config';
-  import { cn, getStartingPage, t } from '$lib/utils/util';
+  import { cn, t } from '$lib/utils/util';
   import { page } from '$app/state';
-  import { onMount } from 'svelte';
   import { SidebarCategories } from '$lib/constants/sidebar';
   import { SvelteSet } from 'svelte/reactivity';
 
-  let startingPage = $state('/');
   let notExpandedCategories = new SvelteSet<string>();
 
   const externalLinks = $derived([
@@ -56,12 +54,6 @@
     const menu = ($settingsStorage.customizableMenu || {}) as Record<string, boolean>;
     return menu[key] !== false;
   }
-
-  onMount(() => {
-    getStartingPage().then((page) => {
-      startingPage = page;
-    });
-  });
 </script>
 
 <div
@@ -84,7 +76,7 @@
     class="flex items-center justify-center p-4 border-b border-r h-16"
     data-tauri-drag-region
   >
-    <a class="max-xs:text-xl text-2xl font-bold" href={startingPage}>{config.name}</a>
+    <a class="max-xs:text-xl text-2xl font-bold" href="/">{config.name}</a>
   </div>
 
   <nav class="flex-1 overflow-y-auto py-4 border-r">

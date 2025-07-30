@@ -73,7 +73,7 @@ export function isLegendaryOrMythicSurvivor(itemId: string) {
   return itemId.includes('workerbasic_sr') || (itemId.startsWith('Worker:manager') && itemId.includes('_sr_'));
 }
 
-export async function getStartingPage(settingsData?: AllSettings) {
+export function getStartingPage(settingsData?: AllSettings) {
   const settings = settingsData || get(settingsStorage);
   const startingPage = settings.app?.startingPage!;
 

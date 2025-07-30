@@ -69,7 +69,7 @@
         await Account.logout(activeAccount.accountId, false);
 
         if (!activeAccount) {
-          await goto(await getStartingPage());
+          await goto(getStartingPage());
         }
       }
     } catch (error) {
