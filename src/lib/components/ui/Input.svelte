@@ -19,7 +19,7 @@
     ),
     variants: {
       variant: {
-        primary: 'bg-surface-alt text-background-foreground',
+        primary: 'bg-surface-alt',
         secondary: 'bg-secondary text-secondary-foreground',
         outline: 'bg-transparent text-input-foreground',
         ghost: 'bg-transparent text-input-foreground border-none'
@@ -50,7 +50,6 @@
   const initialValue = value || '';
 
   let inputElement = $state<HTMLInputElement>();
-  // eslint-disable-next-line svelte/prefer-writable-derived -- We assign this state later
   let dropdownVisible = $state(false);
   let selectedItemId = $state<string>();
   let debounceTimeout = $state<number | undefined>();
@@ -59,10 +58,8 @@
     if (!nameAutocomplete || !value) return [];
 
     return Array.from(displayNamesCache.entries())
-      .filter(([id, name]) =>
-        name.toLowerCase().includes(value.toLowerCase()) || id === value
-      )
-      .toSorted(([idA, nameA], [idB, nameB]) => {
+      .filter(([id, name]) => name.toLowerCase().includes(value.toLowerCase()) || id === value)
+      .sort(([idA, nameA], [idB, nameB]) => {
         const isFriendA = avatarCache.has(idA);
         const isFriendB = avatarCache.has(idB);
 
@@ -77,7 +74,8 @@
   });
 
   $effect(() => {
-    dropdownVisible = !!(value && autocompleteData.length) && !selectedItemId;
+    const hasAutoComplete = !!(value && autocompleteData.length);
+    dropdownVisible = hasAutoComplete && !selectedItemId;
   });
 
   function handleBlur(event: FocusEvent & { currentTarget: HTMLInputElement }) {
@@ -171,13 +169,7 @@
             }}
             type="button"
           >
-            <Avatar
-              alt={name}
-              fallback={fallbackAvatar}
-              imageClass="size-6"
-              src={avatar}
-            />
-
+            <Avatar alt={name} fallback={fallbackAvatar} imageClass="size-6" src={avatar}/>
             <span class="text-sm">{name}</span>
           </button>
         {/each}
