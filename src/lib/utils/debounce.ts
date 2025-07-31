@@ -3,8 +3,10 @@ export default function debounce<T extends (...args: any[]) => any>(
   delay: number
 ): (...args: Parameters<T>) => Promise<Awaited<ReturnType<T>>> {
   let timeoutId: number | null = null;
-  let resolvePromise: ((value: Awaited<ReturnType<T>>) => void) | null = null;
-  let rejectPromise: ((reason?: any) => void) | null = null;
+  let pendingPromises: Array<{
+    resolve: (value: Awaited<ReturnType<T>>) => void;
+    reject: (reason?: any) => void;
+  }> = [];
 
   return (...args: Parameters<T>): Promise<Awaited<ReturnType<T>>> => {
     return new Promise<Awaited<ReturnType<T>>>((resolve, reject) => {
@@ -12,31 +14,22 @@ export default function debounce<T extends (...args: any[]) => any>(
         clearTimeout(timeoutId);
       }
 
-      if (resolvePromise) {
-        resolvePromise = resolve;
-        rejectPromise = reject;
-      } else {
-        resolvePromise = resolve;
-        rejectPromise = reject;
-      }
+      pendingPromises.push({ resolve, reject });
 
       timeoutId = window.setTimeout(async () => {
         try {
           const result = await fn(...args);
 
-          if (resolvePromise) {
-            resolvePromise(result);
-            resolvePromise = null;
-            rejectPromise = null;
+          for (const promise of pendingPromises) {
+            promise.resolve(result);
           }
         } catch (error) {
-          if (rejectPromise) {
-            rejectPromise(error);
-            resolvePromise = null;
-            rejectPromise = null;
+          for (const promise of pendingPromises) {
+            promise.reject(error);
           }
         }
 
+        pendingPromises = [];
         timeoutId = null;
       }, delay);
     });
