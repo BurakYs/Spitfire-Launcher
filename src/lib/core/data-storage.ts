@@ -31,10 +31,6 @@ class DataStorage<T> implements Writable<T> {
     this.update = this.store.update;
 
     this.ready = this.init(defaultData, schema, fileName);
-
-    this.store.subscribe((data) => {
-      this.writeConfigFile(data).catch(console.error);
-    });
   }
 
   private async init(defaultData: T, schema: ZodType<T>, fileName: string) {
@@ -185,8 +181,7 @@ const activeAccountStore = derived([accountsStorage], ([$accountsStorage]) => {
   return $accountsStorage.activeAccountId ? $accountsStorage.accounts.find(account => account.accountId === $accountsStorage.activeAccountId) || null : null;
 });
 
-// @ts-expect-error - We need to access the store
-const language = derived([settingsStorage.store], ([$settingsStorage]) => {
+const language = derived([settingsStorage], ([$settingsStorage]) => {
   return $settingsStorage.app?.language || baseLocale;
 }, baseLocale as Locale);
 

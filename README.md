@@ -32,7 +32,7 @@ Download the latest release from the [releases](../../releases/latest) page or f
 
 ## Good to Know
 
-On first install, SmartScreen may show a blue warning. This happens because the launcher isn’t code‑signed (as signing is expensive). You can safely click "Run anyway" to continue the installation.
+On first install, SmartScreen may show a blue warning. This happens because the launcher isn't code‑signed (as signing is expensive). You can safely click "Run anyway" to continue the installation.
 
 Settings are stored in:
 
@@ -44,11 +44,11 @@ Settings are stored in:
 ### Customizable
 
 - Choose launcher language from 4 different languages: English, French, Spanish, and Turkish
-- Customize the sidebar with your most used features
+- Customize the sidebar with your most used features.
 
 ### Bulk Actions
 
-- Redeem codes, view V-Bucks information and daily quests across multiple accounts with a single click
+- Redeem codes, view V-Bucks information and daily quests across multiple accounts with a single click.
 
 ### Game & Account Management
 

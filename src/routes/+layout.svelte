@@ -60,13 +60,13 @@
     if (!$activeAccount) return;
 
     const accounts = await LookupManager.fetchByIds($activeAccount, allAccounts.map(account => account.accountId));
-    accountsStorage.set({
-      activeAccountId: $accountsStorage.activeAccountId,
-      accounts: allAccounts.map(account => ({
+    accountsStorage.update(current => ({
+      ...current,
+      accounts: current.accounts.map(account => ({
         ...account,
         displayName: accounts.find(acc => acc.id === account.accountId)?.displayName || account.displayName
       }))
-    });
+    }));
   }
 
   async function autoUpdateApps() {
