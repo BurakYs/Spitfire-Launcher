@@ -66,7 +66,7 @@
 
       if (isCurrentDevice) {
         allDeviceAuths[activeAccount.accountId] = [];
-        await Account.logout(activeAccount.accountId, false);
+        await Account.removeAccount(activeAccount.accountId, false);
 
         if (!activeAccount) {
           await goto(await getStartingPage());

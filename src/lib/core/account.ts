@@ -8,13 +8,6 @@ import DeviceAuthManager from '$lib/core/managers/device-auth';
 import AutoKickBase from '$lib/core/managers/autokick/base';
 
 export default class Account {
-  static changeActiveAccount(id: string | null) {
-    accountsStorage.update(settings => {
-      settings.activeAccountId = id || undefined;
-      return settings;
-    });
-  }
-
   static async addAccount(account: AccountData, setActive = true) {
     accountsStorage.update(settings => {
       settings.activeAccountId = setActive ? account.accountId : settings.activeAccountId || undefined;
@@ -25,7 +18,7 @@ export default class Account {
     AvatarManager.fetchAvatars(account, [account.accountId]).catch(console.error);
   }
 
-  static async logout(accountId: string, deleteAuth = true) {
+  static async removeAccount(accountId: string, deleteAuth = true) {
     const storage = get(accountsStorage);
 
     const oldAccounts = storage.accounts || [];
@@ -36,7 +29,6 @@ export default class Account {
     let newAccountId = storage.activeAccountId || null;
     if (accountId === newAccountId) {
       newAccountId = newAccounts[0]?.accountId || null;
-      Account.changeActiveAccount(newAccounts[0]?.accountId || null);
     }
 
     accountsStorage.update(settings => {

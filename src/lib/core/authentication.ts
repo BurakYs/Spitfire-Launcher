@@ -94,7 +94,7 @@ export default class Authentication {
             }
           });
 
-          await Account.logout(deviceAuthData.accountId);
+          await Account.removeAccount(deviceAuthData.accountId);
 
           if (accountName) toast.error(translate('errors.loginExpired', { accountName }));
         }

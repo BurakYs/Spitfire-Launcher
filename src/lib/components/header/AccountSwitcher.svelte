@@ -45,7 +45,10 @@
   async function changeAccounts(account: AccountData) {
     dropdownOpen = false;
 
-    Account.changeActiveAccount(account.accountId);
+    accountsStorage.update(settings => {
+      settings.activeAccountId = account.accountI;
+      return settings;
+    });
   }
 
   function addNewAccount() {
@@ -59,7 +62,7 @@
     const toastId = toast.loading($t('accountManager.loggingOut', { name: accountName }));
 
     try {
-      await Account.logout(activeAccount!.accountId);
+      await Account.removeAccount(activeAccount!.accountId);
       toast.success($t('accountManager.loggedOut', { name: accountName }), { id: toastId });
     } catch (error) {
       handleError(error, $t('accountManager.failedToLogout', { name: accountName }), toastId);

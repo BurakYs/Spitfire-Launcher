@@ -9,11 +9,13 @@ import { path } from '@tauri-apps/api';
 import { dataDir, homeDir } from '@tauri-apps/api/path';
 import { exists, mkdir, readTextFile, writeTextFile } from '@tauri-apps/plugin-fs';
 import { platform } from '@tauri-apps/plugin-os';
+import debounce from '$lib/utils/debounce';
 import type { ZodType } from 'zod';
 import { baseLocale, type Locale } from '$lib/paraglide/runtime';
 
 class DataStorage<T> implements Writable<T> {
   private readonly path: string;
+  private readonly debouncedWrite: (data: Partial<T>) => Promise<void>;
   public readonly ready: Promise<void>;
   private configPath?: string;
   private store: Writable<T>;
@@ -29,6 +31,7 @@ class DataStorage<T> implements Writable<T> {
     this.subscribe = this.store.subscribe;
     this.set = this.store.set;
     this.update = this.store.update;
+    this.debouncedWrite = debounce(this.writeConfigFile.bind(this), 500);
 
     this.ready = this.init(defaultData, schema, fileName);
   }
@@ -47,7 +50,7 @@ class DataStorage<T> implements Writable<T> {
     this.store.set(data);
 
     this.store.subscribe(async (data) => {
-      await this.writeConfigFile(data);
+      await this.debouncedWrite(data);
     });
   }
 

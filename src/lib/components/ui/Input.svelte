@@ -4,6 +4,7 @@
   import LookupManager from '$lib/core/managers/lookup';
   import { avatarCache, displayNamesCache } from '$lib/stores';
   import { cn } from '$lib/utils/util';
+  import debounce from '$lib/utils/debounce';
   import { onMount } from 'svelte';
   import { cubicInOut } from 'svelte/easing';
   import type { HTMLInputAttributes } from 'svelte/elements';
@@ -52,7 +53,11 @@
   let inputElement = $state<HTMLInputElement>();
   let dropdownVisible = $state(false);
   let selectedItemId = $state<string>();
-  let debounceTimeout = $state<number | undefined>();
+
+  const debouncedSearch = debounce(async (search: string) => {
+    if (!nameAutocomplete || !$activeAccount || !search || search.length < 3) return;
+    await LookupManager.searchByName($activeAccount, search);
+  }, 500);
 
   const autocompleteData = $derived.by(() => {
     if (!nameAutocomplete || !value) return [];
@@ -99,14 +104,9 @@
   function handleInput() {
     selectedItemId = undefined;
 
-    if (debounceTimeout) {
-      clearTimeout(debounceTimeout);
+    if (value) {
+      debouncedSearch(value);
     }
-
-    debounceTimeout = window.setTimeout(() => {
-      if (!nameAutocomplete || !$activeAccount || !value || value.length < 3) return;
-      LookupManager.searchByName($activeAccount, value);
-    }, 500);
   }
 
   function handleSearchShortcut(event: KeyboardEvent) {
