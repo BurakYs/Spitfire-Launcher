@@ -12,7 +12,7 @@ A launcher for Fortnite Battle Royale and Save the World
 - [ℹ️ Good to Know](#good-to-know)
 - [⚙️ Features](#features)
 - [🔄 Updating](#updating)
-- [🛠️ Setting Up Locally](#setting-up-locally)
+- [💻 Development Setup](#development-setup)
 - [🤝 Contributing](#contributing)
 - [💡 Credits](#credits)
 - [📜 License](#license)
@@ -25,7 +25,7 @@ A launcher for Fortnite Battle Royale and Save the World
 
 ## Installation
 
-Download the latest release from the [releases](../../releases/latest) page or from [our website](https://rookie-spitfire.xyz/launcher).
+Download the latest release from the [releases](https://github.com/BurakYs/Spitfire-Launcher/releases/latest) page or from [our website](https://rookie-spitfire.xyz/launcher).
 
 - **Windows:** `Spitfire.Launcher_x.x.x_x64-setup.exe`
 - **Android:** `Spitfire.Launcher_x.x.x.apk`
@@ -62,9 +62,14 @@ Settings are stored in:
 
 Just run the latest setup file to update. The launcher also notifies you when an update is available.
 
-## Setting Up Locally
+## Development Setup
 
-See the [Setting Up Locally](../../wiki/Setting-Up-Locally) wiki for instructions on how to set up the project locally.
+See the [Setup Guide](https://github.com/BurakYs/Spitfire-Launcher/wiki/Setting-Up-Locally) for instructions on how to set up the project locally.
+
+## Translating
+
+You can help us translate the launcher on [Crowdin](https://crowdin.com/project/rookie-spitfire).  
+If you also join our [Discord](https://discord.gg/rookie-spitfire), you will get the Translator role as a thank-you.
 
 ## Contributing
 
