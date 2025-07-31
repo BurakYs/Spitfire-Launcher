@@ -44,9 +44,9 @@
 
       accountDataStore.update((accounts) => {
         const account = accounts[activeAccount.accountId];
-        account.remainingGifts =
-          (account.remainingGifts || 0) - selectedFriends.length;
+        account.remainingGifts = (account.remainingGifts || 0) - selectedFriends.length;
         account.vbucks = (account.vbucks || 0) - giftData.vbucksSpent;
+
         return accounts;
       });
 
@@ -77,29 +77,21 @@
             return;
           }
           case 'errors.com.epicgames.modules.gamesubcatalog.purchase_not_allowed': {
-            toast.error($t('itemShop.friendsMayOwnItem'));
-            return;
+            return toast.error($t('itemShop.friendsMayOwnItem'));
           }
           case 'errors.com.epicgames.modules.gamesubcatalog.gift_recipient_not_eligible': {
-            toast.error($t('itemShop.friendsNotEligible'));
-            return;
+            return toast.error($t('itemShop.friendsNotEligible'));
           }
           case 'errors.com.epicgames.modules.gamesubcatalog.receiver_owns_item_from_bundle': {
-            toast.error($t('itemShop.friendsOwnItemFromBundle'));
-            return;
+            return toast.error($t('itemShop.friendsOwnItemFromBundle'));
           }
           default: {
             if (error.message.toLowerCase().includes('mfa')) {
-              toast.error($t('itemShop.enableMFA'));
-              return;
+              return toast.error($t('itemShop.enableMFA'));
             }
 
-            if (
-              error.messageVars?.[0] ===
-              'errors.com.epicgames.modules.gamesubcatalog.receiver_will_not_accept_gifts'
-            ) {
-              toast.error($t('itemShop.friendsDoNotAcceptGifts'));
-              return;
+            if (error.messageVars?.[0] === 'errors.com.epicgames.modules.gamesubcatalog.receiver_will_not_accept_gifts') {
+              return toast.error($t('itemShop.friendsDoNotAcceptGifts'));
             }
           }
         }

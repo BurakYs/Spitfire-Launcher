@@ -21,14 +21,11 @@
 
 <Dialog.Root
   contentProps={{ class: '!max-w-[calc(100%-2rem)] sm:!max-w-180  max-xs:w-full' }}
+  title={$t('settings.title')}
   triggerClass="p-2 rounded-md hover:bg-accent"
 >
   {#snippet trigger()}
     <SettingsIcon class="size-6"/>
-  {/snippet}
-
-  {#snippet title()}
-    {$t('settings.title')}
   {/snippet}
 
   <div class="flex flex-col sm:flex-row">

@@ -61,9 +61,7 @@ export default class TaxiManager {
       this.xmpp.addEventListener(EpicEvents.MemberKicked, this.handlePartyStateChange.bind(this), { signal });
       this.xmpp.addEventListener(EpicEvents.MemberStateUpdated, this.handlePartyStateChange.bind(this), { signal });
       this.xmpp.addEventListener(EpicEvents.PartyUpdated, this.handlePartyStateChange.bind(this), { signal });
-      this.xmpp.addEventListener(ConnectionEvents.Disconnected, () => {
-        this.stop();
-      }, { signal });
+      this.xmpp.addEventListener(ConnectionEvents.Disconnected, () => this.stop(), { signal });
 
       this.setIsAvailable(true);
 

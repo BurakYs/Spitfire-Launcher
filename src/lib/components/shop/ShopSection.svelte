@@ -8,8 +8,6 @@
   };
 
   let { section, modalOfferId = $bindable() }: ShopSectionProps = $props();
-
-  section.items.sort((a, b) => b.sortPriority - a.sortPriority);
 </script>
 
 <div class="flex flex-col items-center mb-9">

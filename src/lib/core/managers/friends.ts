@@ -25,13 +25,8 @@ export default class FriendsManager {
 
       return friendData;
     } catch (error) {
-      if (error instanceof EpicAPIError) {
-        switch (error.errorCode) {
-          case 'errors.com.epicgames.friends.friendship_not_found': {
-            FriendsManager.updateFriendStore(account.accountId, 'friends', friendId);
-            break;
-          }
-        }
+      if (error instanceof EpicAPIError && error.errorCode === 'errors.com.epicgames.friends.friendship_not_found') {
+        FriendsManager.updateFriendStore(account.accountId, 'friends', friendId);
       }
 
       throw error;
@@ -121,12 +116,10 @@ export default class FriendsManager {
 
       return data;
     } catch (error) {
-      if (error instanceof EpicAPIError) {
-        if (error.errorCode === 'errors.com.epicgames.friends.friendship_not_found') {
-          FriendsManager.updateFriendStore(account.accountId, 'friends', friendId);
-          FriendsManager.updateFriendStore(account.accountId, 'incoming', friendId);
-          FriendsManager.updateFriendStore(account.accountId, 'outgoing', friendId);
-        }
+      if (error instanceof EpicAPIError && error.errorCode === 'errors.com.epicgames.friends.friendship_not_found') {
+        FriendsManager.updateFriendStore(account.accountId, 'friends', friendId);
+        FriendsManager.updateFriendStore(account.accountId, 'incoming', friendId);
+        FriendsManager.updateFriendStore(account.accountId, 'outgoing', friendId);
       }
 
       throw error;
@@ -380,17 +373,11 @@ export default class FriendsManager {
 
   private static cacheAccountNameAndAvatar(account: AccountData, accountId: string) {
     if (!displayNamesCache.get(accountId)) {
-      LookupManager.fetchById(account, accountId)
-        .catch(error => {
-          console.error(error);
-        });
+      LookupManager.fetchById(account, accountId).catch(console.error);
     }
 
     if (!avatarCache.get(accountId)) {
-      AvatarManager.fetchAvatars(account, [accountId])
-        .catch(error => {
-          console.error(error);
-        });
+      AvatarManager.fetchAvatars(account, [accountId]).catch(console.error);
     }
   }
 

@@ -27,13 +27,13 @@ export default class Authentication {
     accessToken?: string,
     skipCache = false
   ) {
-    let tokenLock = tokenLocks.get(deviceAuthData.accountId);
-    if (!tokenLock) {
-      tokenLock = new AsyncLock();
-      tokenLocks.set(deviceAuthData.accountId, tokenLock);
+    let lock = tokenLocks.get(deviceAuthData.accountId);
+    if (!lock) {
+      lock = new AsyncLock();
+      tokenLocks.set(deviceAuthData.accountId, lock);
     }
 
-    return tokenLock.withLock(async () => {
+    return lock.withLock(async () => {
       const cache = Authentication.getAccessTokenFromCache(deviceAuthData.accountId);
       accessToken ??= cache?.access_token;
 

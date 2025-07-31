@@ -23,12 +23,8 @@
 
     return {
       ...mission,
-      vbucksReward,
-      survivorsReward,
-      upgradeLlamaTokens,
-      perkupReward,
-      allRewards,
-      missionModifiers
+      missionModifiers,
+      allRewards
     };
   });
 

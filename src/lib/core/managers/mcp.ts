@@ -43,17 +43,15 @@ export default class MCPManager {
   }
 
   static async purchaseCatalogEntry(account: AccountData, offerId: string, price: number, isPriceRetry?: boolean): Promise<{ vbucksSpent: number; data: any }> {
-    const body = {
-      offerId,
-      purchaseQuantity: 1,
-      currency: 'MtxCurrency',
-      currencySubType: '',
-      expectedTotalPrice: price,
-      gameContext: 'GameContext: Frontend.CatabaScreen'
-    };
-
     try {
-      const purchaseData = await MCPManager.compose(account, 'PurchaseCatalogEntry', 'common_core', body);
+      const purchaseData = await MCPManager.compose(account, 'PurchaseCatalogEntry', 'common_core', {
+        offerId,
+        purchaseQuantity: 1,
+        currency: 'MtxCurrency',
+        currencySubType: '',
+        expectedTotalPrice: price,
+        gameContext: 'GameContext: Frontend.CatabaScreen'
+      });
 
       return {
         vbucksSpent: price,
@@ -72,19 +70,17 @@ export default class MCPManager {
   }
 
   static async giftCatalogEntry(account: AccountData, offerId: string, receivers: string[], price: number, isPriceRetry?: boolean): Promise<{ vbucksSpent: number; data: any }> {
-    const body = {
-      offerId,
-      currency: 'MtxCurrency',
-      currencySubType: '',
-      expectedTotalPrice: price,
-      gameContext: 'Frontend.CatabaScreen',
-      receiverAccountIds: receivers,
-      giftWrapTemplateId: '',
-      personalMessage: 'Hope you like my gift!'
-    };
-
     try {
-      const purchaseData = await MCPManager.compose(account, 'GiftCatalogEntry', 'common_core', body);
+      const purchaseData = await MCPManager.compose(account, 'GiftCatalogEntry', 'common_core', {
+        offerId,
+        currency: 'MtxCurrency',
+        currencySubType: '',
+        expectedTotalPrice: price,
+        gameContext: 'Frontend.CatabaScreen',
+        receiverAccountIds: receivers,
+        giftWrapTemplateId: '',
+        personalMessage: 'Hope you like my gift!'
+      });
 
       return {
         vbucksSpent: price * receivers.length,

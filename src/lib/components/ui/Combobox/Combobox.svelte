@@ -18,7 +18,7 @@
     inputProps?: WithoutChildrenOrChild<Combobox.InputProps>;
     contentProps?: WithoutChildrenOrChild<Combobox.ContentProps>;
     icon: any;
-    // Temporary prop until a new bits-ui release. Without this the search input inside the combobox doesn't work
+    // A temporary workaround, without this the search input inside the combobox doesn't work
     isGiftFriendSelection?: boolean
   };
 
@@ -54,7 +54,13 @@
   }
 </script>
 
-<Combobox.Root onOpenChange={handleOpenChange} type={type as never} bind:value={value as never} bind:open {...restProps}>
+<Combobox.Root
+  onOpenChange={handleOpenChange}
+  type={type as never}
+  bind:value={value as never}
+  bind:open
+  {...restProps}
+>
   <Combobox.Trigger
     class={cn(
       'flex w-full items-center peer disabled:cursor-not-allowed disabled:opacity-50 rounded-lg bg-surface-alt',

@@ -1,3 +1,10 @@
+<script lang="ts" module>
+  import type { SpitfireShopFilter } from '$types/game/shop';
+
+  let searchQuery = $state<string>('');
+  let selectedFilter = $state<SpitfireShopFilter>('all');
+</script>
+
 <script lang="ts">
   import PageContent from '$components/PageContent.svelte';
   import ShopItemModal from '$components/shop/modals/ShopItemModal.svelte';
@@ -13,7 +20,7 @@
   import { accountDataStore, brShopStore, ownedItemsStore } from '$lib/stores';
   import { calculateVbucks, formatRemainingDuration, getResolvedResults, t } from '$lib/utils/util';
   import type { AccountStoreData } from '$types/accounts';
-  import type { SpitfireShopFilter, SpitfireShopSection } from '$types/game/shop';
+  import type { SpitfireShopSection } from '$types/game/shop';
   import Fuse from 'fuse.js';
   import { onMount } from 'svelte';
 
@@ -27,8 +34,6 @@
   let remainingTime = $state(getResetDate().getTime() - Date.now());
   let shopSections = $state<SpitfireShopSection[] | null>(null);
   let errorOccurred = $state(false);
-  let searchQuery = $state<string>('');
-  let selectedFilter = $state<SpitfireShopFilter>('all');
   let modalOfferId = $state<string>('');
 
   const filteredItems = $derived.by(() => {
@@ -66,7 +71,8 @@
 
         const fuse = new Fuse(section.items, {
           keys: ['name'],
-          threshold: 0.4
+          threshold: 0.4,
+          shouldSort: false
         });
 
         return {
@@ -84,7 +90,10 @@
 
     try {
       const shopResponse = (!isNewDay && $brShopStore) || await ShopManager.fetch();
-      shopSections = ShopManager.groupBySections(shopResponse.offers);
+      shopSections = ShopManager.groupBySections(shopResponse.offers).map((section) => ({
+        ...section,
+        items: section.items.sort((a, b) => b.sortPriority - a.sortPriority)
+      }));
     } catch (error) {
       console.error(error);
       errorOccurred = true;

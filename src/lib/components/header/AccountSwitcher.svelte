@@ -143,8 +143,8 @@
         ]}
       >
         <DropdownMenu.Item onclick={addNewAccount}>
-          <PlusIcon class="size-4"/>
-          {$t('accountManager.login')}
+          <PlusIcon class="size-4 shrink-0"/>
+          <span class="truncate">{$t('accountManager.login')}</span>
         </DropdownMenu.Item>
 
         {#if activeAccount}
@@ -152,8 +152,8 @@
             class="hover:bg-destructive hover:text-destructive-foreground"
             onclick={logout}
           >
-            <LogOutIcon class="size-4"/>
-            {$t('accountManager.logout')}
+            <LogOutIcon class="size-4 shrink-0"/>
+            <span class="truncate">{$t('accountManager.logout')}</span>
           </DropdownMenu.Item>
         {/if}
       </div>

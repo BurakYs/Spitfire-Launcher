@@ -31,7 +31,9 @@
 
   $effect(() => {
     const pageState = page.state as PageState;
-    selectedAccounts = pageState.selectedAccounts || [];
+    if (pageState.selectedAccounts?.length) {
+      selectedAccounts = pageState.selectedAccounts;
+    }
   });
 
   async function checkEULA(event: SubmitEvent) {

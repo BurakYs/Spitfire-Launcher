@@ -92,7 +92,7 @@
   }
 </script>
 
-<div class="border border-input rounded-md p-4 relative size-full bg-surface-alt">
+<div class="border rounded-md p-4 relative size-full bg-surface-alt">
   <div class="flex justify-between items-start">
     <div class="flex flex-col gap-y-1">
       <div class="flex items-center gap-2 w-fit mb-1">

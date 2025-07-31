@@ -5,17 +5,13 @@
   import { settingsStorage } from '$lib/core/data-storage';
   import { SidebarCategories } from '$lib/constants/sidebar';
 
-  let menuSettings = $derived($settingsStorage.customizableMenu || {});
-
   function setVisibility(key: string, value: boolean) {
-    menuSettings = {
-      ...menuSettings,
-      [key]: value
-    };
-
     settingsStorage.update((settings) => ({
       ...settings,
-      customizableMenu: menuSettings
+      customizableMenu: {
+        ...settings.customizableMenu,
+        [key]: value
+      }
     }));
   }
 </script>
@@ -32,7 +28,7 @@
             <Label class="flex-1 text-sm font-normal" for={item.key}>{item.name}</Label>
             <Switch
               id={item.key}
-              checked={menuSettings[item.key] !== false}
+              checked={($settingsStorage.customizableMenu || {})[item.key] !== false}
               onCheckedChange={(checked) => setVisibility(item.key, checked)}
             />
           </div>

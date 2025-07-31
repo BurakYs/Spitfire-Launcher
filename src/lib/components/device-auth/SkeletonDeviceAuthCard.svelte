@@ -1,4 +1,4 @@
-<div class="border border-input rounded-md p-4.5 relative size-full bg-surface-alt skeleton-loader">
+<div class="border rounded-md p-4.5 relative size-full bg-surface-alt skeleton-loader">
   <div class="flex justify-between items-start">
     <div class="flex flex-col gap-y-1">
       <div class="h-6 w-32 rounded skeleton-loader mb-2"></div>
