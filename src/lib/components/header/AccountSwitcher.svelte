@@ -46,7 +46,7 @@
     dropdownOpen = false;
 
     accountsStorage.update(settings => {
-      settings.activeAccountId = account.accountI;
+      settings.activeAccountId = account.accountId;
       return settings;
     });
   }
