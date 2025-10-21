@@ -136,7 +136,7 @@ const settingsStorage = new DataStorage<AllSettings>(
       claimRewardsDelay: 1.5,
       missionCheckInterval: 5,
       startingPage: 'stwMissionAlerts',
-      discordStatus: false,
+      discordStatus: true,
       hideToTray: false,
       checkForUpdates: true
     }
