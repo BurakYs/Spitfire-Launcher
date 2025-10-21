@@ -473,6 +473,7 @@
         "title": "Página de inicio",
         "description": "Seleccione la página a mostrar cuando comience el lanzador."
       },
+      "discordStatus": "Estado de Discord",
       "hideToTray": "Ocultar en la bandeja del sistema",
       "checkForUpdates": "Buscar actualizaciones"
     },

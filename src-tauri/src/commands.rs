@@ -9,6 +9,8 @@ use {
     tauri_plugin_shell::ShellExt,
 };
 
+#[cfg(desktop)]
+use crate::discord_rpc;
 use tauri::command;
 
 #[command]
@@ -61,6 +63,24 @@ pub async fn launch_app(app: AppHandle, launch_data: LaunchData) -> Result<u32, 
 #[command]
 pub async fn stop_app(_app: AppHandle, app_id: String) -> Result<bool, String> {
     app_monitor::stop_app(&app_id)
+}
+
+#[cfg(desktop)]
+#[command]
+pub async fn connect_discord_rpc() {
+    discord_rpc::connect("1428475599290241046");
+}
+
+#[cfg(desktop)]
+#[command]
+pub async fn update_discord_rpc(details: Option<String>, state: Option<String>) {
+    discord_rpc::update_activity(details.as_deref(), state.as_deref())
+}
+
+#[cfg(desktop)]
+#[command]
+pub async fn disconnect_discord_rpc() {
+    discord_rpc::disconnect()
 }
 
 #[cfg(windows)]

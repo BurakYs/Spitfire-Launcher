@@ -10,6 +10,8 @@ mod legendary;
 
 mod commands;
 mod types;
+#[cfg(desktop)]
+mod discord_rpc;
 
 use commands::*;
 
@@ -62,6 +64,9 @@ pub fn run() {
             #[cfg(windows)] stop_app,
             #[cfg(windows)] get_tracked_apps,
             #[cfg(windows)] get_disk_space,
+            #[cfg(desktop)] connect_discord_rpc,
+            #[cfg(desktop)] update_discord_rpc,
+            #[cfg(desktop)] disconnect_discord_rpc
         ])
         .plugin(prevent)
         .plugin(tauri_plugin_http::init())

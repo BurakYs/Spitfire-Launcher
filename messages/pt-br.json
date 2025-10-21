@@ -473,6 +473,7 @@
         "title": "Página Inicial",
         "description": "Selecionar página a ser mostrada quando o launcher iniciar."
       },
+      "discordStatus": "Status do Discord",
       "hideToTray": "Ocultar para System Tray",
       "checkForUpdates": "Procurar por Atualizações"
     },

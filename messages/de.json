@@ -473,6 +473,7 @@
         "title": "Startseite",
         "description": "Wähle die Seite aus, die beim Start des Launchers angezeigt wird."
       },
+      "discordStatus": "Discord-Status",
       "hideToTray": "In Systemleiste Ausblenden",
       "checkForUpdates": "Auf Updates Prüfen"
     },

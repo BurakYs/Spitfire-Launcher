@@ -79,6 +79,17 @@
       SystemTray.setVisibility(data.app?.hideToTray || false).catch(console.error);
     });
 
+    settingsStorage.subscribe(async (data) => {
+      if (data.app?.discordStatus) {
+        await invoke('connect_discord_rpc');
+        await invoke('update_discord_rpc', {
+          details: 'In the launcher'
+        });
+      } else {
+        await invoke('disconnect_discord_rpc');
+      }
+    });
+
     Promise.allSettled([
       AutoKickBase.init(),
       DownloadManager.init(),
