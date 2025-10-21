@@ -4023,7 +4023,6 @@ dependencies = [
  "discord-rich-presence",
  "fs2",
  "serde",
- "serde_json",
  "shlex",
  "sys-locale",
  "sysinfo",
