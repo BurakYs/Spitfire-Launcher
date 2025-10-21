@@ -85,11 +85,9 @@
   }
 
   onMount(() => {
-    settingsStorage.subscribe((data) => {
-      SystemTray.setVisibility(data.app?.hideToTray || false).catch(console.error);
-    });
-
     settingsStorage.subscribe(async (data) => {
+      SystemTray.setVisibility(data.app?.hideToTray || false).catch(console.error);
+
       if (data.app?.discordStatus) {
         await invoke('connect_discord_rpc');
         await invoke('update_discord_rpc', {
@@ -133,7 +131,7 @@
         if ($settingsStorage.app?.discordStatus !== true) return;
 
         const newApp = Array.from(runningAppIds)[0];
-        const appName = newApp && await getAppName(newApp).catch(() => null);
+        const appName = newApp ? await getAppName(newApp).catch(() => null) : null;
         if (newApp && appName) {
           await invoke('update_discord_rpc', { details: `Playing ${appName}` });
         } else {
