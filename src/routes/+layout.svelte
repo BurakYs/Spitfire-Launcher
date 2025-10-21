@@ -85,16 +85,22 @@
   }
 
   onMount(() => {
+    let previousDcStatus = false;
     settingsStorage.subscribe(async (data) => {
       SystemTray.setVisibility(data.app?.hideToTray || false).catch(console.error);
 
-      if (data.app?.discordStatus) {
-        await invoke('connect_discord_rpc');
-        await invoke('update_discord_rpc', {
-          details: defaultDiscordStatus
-        });
-      } else {
-        await invoke('disconnect_discord_rpc');
+      const dcStatusEnabled = data.app!.discordStatus!;
+      if (dcStatusEnabled !== previousDcStatus) {
+        previousDcStatus = dcStatusEnabled;
+
+        if (dcStatusEnabled) {
+          await invoke('connect_discord_rpc');
+          await invoke('update_discord_rpc', {
+            details: defaultDiscordStatus
+          });
+        } else {
+          await invoke('disconnect_discord_rpc');
+        }
       }
     });
 
