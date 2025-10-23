@@ -150,7 +150,7 @@
   onkeydown={(event) => {
     if (event.key === 'F5') {
       event.preventDefault();
-      refreshWorldInfo()
+      refreshWorldInfo();
     }
   }}
 />
