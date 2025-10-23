@@ -7,11 +7,7 @@
   import debounce from '$lib/utils/debounce';
   import LookupManager from '$lib/core/managers/lookup';
 
-  let {
-    class: className,
-    value = $bindable<string>(),
-    ...restProps
-  }: InputProps = $props();
+  let { value = $bindable<string>(), ...restProps }: InputProps = $props();
 
   let inputElement = $state<HTMLInputElement>();
   let dropdownAvailable = $state(true);
@@ -74,7 +70,7 @@
       {@const avatar = avatarCache.get(accountId) || fallbackAvatar}
 
       <DropdownMenu.Item
-        class={className}
+        class="grow"
         onclick={() => {
           value = name;
           selectedItemId = accountId;

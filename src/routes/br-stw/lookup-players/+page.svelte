@@ -268,7 +268,6 @@
 <div class="flex flex-col items-center justify-center min-w-full min-h-full space-y-4">
   <form class="flex items-center gap-2 w-80" onsubmit={lookupPlayer}>
     <InputWithAutocomplete
-      class="grow"
       autofocus={true}
       disabled={isLoading}
       placeholder={$t('lookupPlayers.search')}

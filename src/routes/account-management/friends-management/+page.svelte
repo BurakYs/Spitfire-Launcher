@@ -82,7 +82,6 @@
 <PageContent title={$t('friendsManagement.page.title')}>
   <form class="flex items-center gap-x-2" onsubmit={searchAndAdd}>
     <InputWithAutocomplete
-      class="grow"
       disabled={isLoading}
       placeholder={$t('lookupPlayers.search')}
       type="search"
