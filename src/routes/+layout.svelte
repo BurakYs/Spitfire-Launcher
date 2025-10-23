@@ -21,7 +21,7 @@
   import { accountsStorage, activeAccountStore as activeAccount, settingsStorage } from '$lib/core/data-storage';
   import { Tooltip } from 'bits-ui';
   import WorldInfoManager from '$lib/core/managers/world-info';
-  import { ownedApps, runningAppIds, worldInfoCache } from '$lib/stores';
+  import { ownedApps, runningAppIds } from '$lib/stores';
   import AutoKickBase from '$lib/core/managers/autokick/base';
   import { t } from '$lib/utils/util';
   import { invoke } from '@tauri-apps/api/core';
@@ -33,12 +33,6 @@
 
   let hasNewVersion = $state(false);
   let newVersionData = $state<{ tag: string; downloadUrl: string }>();
-
-  async function handleWorldInfo() {
-    const worldInfoData = await WorldInfoManager.getWorldInfoData();
-    const parsedWorldInfo = WorldInfoManager.parseWorldInfo(worldInfoData);
-    worldInfoCache.set(parsedWorldInfo);
-  }
 
   async function checkForUpdates() {
     if (!$settingsStorage.app?.checkForUpdates) return;
@@ -107,7 +101,7 @@
     Promise.allSettled([
       AutoKickBase.init(),
       DownloadManager.init(),
-      handleWorldInfo(),
+      WorldInfoManager.setCache(),
       checkForUpdates(),
       syncAccountNames(),
       autoUpdateApps(),

@@ -10,7 +10,6 @@
     isLeader: boolean;
     battlePassLevel: number;
     crownedWins: number;
-    joinedAt: Date;
     loadout: Array<{
       type: string;
       icon: string;
