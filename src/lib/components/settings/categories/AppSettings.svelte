@@ -13,6 +13,7 @@
   import { toast } from 'svelte-sonner';
 
   const currentPlatform = type();
+  const isDesktop = ['windows', 'macos', 'linux'].includes(currentPlatform);
 
   const startingPageValues = Object.values<string>(appSettingsSchema.shape.startingPage.def.innerType.def.entries);
   const startingPageOptions = $SidebarCategories
@@ -141,7 +142,19 @@
     </Select>
   </SettingItem>
 
-  {#if currentPlatform === 'windows' || currentPlatform === 'macos' || currentPlatform === 'linux'}
+  {#if isDesktop}
+    <SettingItem
+      labelFor="discordStatus"
+      orientation="horizontal"
+      title={$t('settings.appSettings.discordStatus')}
+    >
+      <Switch
+        id="discordStatus"
+        checked={$settingsStorage.app?.discordStatus}
+        onCheckedChange={(checked) => handleSettingChange(checked, 'discordStatus')}
+      />
+    </SettingItem>
+
     <SettingItem
       labelFor="hideToTray"
       orientation="horizontal"

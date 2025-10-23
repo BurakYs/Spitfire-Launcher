@@ -473,6 +473,7 @@
         "title": "Page de démarrage",
         "description": "Sélectionne la page à afficher au démarrage du lanceur."
       },
+      "discordStatus": "Statut Discord",
       "hideToTray": "Masquer dans la barre d'état système",
       "checkForUpdates": "Vérifier les mises à jour"
     },

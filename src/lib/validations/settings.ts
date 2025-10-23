@@ -10,6 +10,7 @@ export const appSettingsSchema = z.object({
   missionCheckInterval: z.number().positive(),
   claimRewardsDelay: z.number().positive(),
   startingPage: z.enum(['autoKick', 'itemShop', 'stwMissionAlerts', 'taxiService', 'dailyQuests', 'library'] satisfies SidebarItem[]),
+  discordStatus: z.boolean(),
   hideToTray: z.boolean(),
   checkForUpdates: z.boolean()
 }).partial();

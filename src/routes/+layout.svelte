@@ -21,13 +21,15 @@
   import { accountsStorage, activeAccountStore as activeAccount, settingsStorage } from '$lib/core/data-storage';
   import { Tooltip } from 'bits-ui';
   import WorldInfoManager from '$lib/core/managers/world-info';
-  import { runningAppIds } from '$lib/stores';
+  import { ownedApps, runningAppIds } from '$lib/stores';
   import AutoKickBase from '$lib/core/managers/autokick/base';
   import { t } from '$lib/utils/util';
   import { invoke } from '@tauri-apps/api/core';
   import { platform } from '@tauri-apps/plugin-os';
 
   const { children } = $props();
+
+  const defaultDiscordStatus = 'In the launcher';
 
   let hasNewVersion = $state(false);
   let newVersionData = $state<{ tag: string; downloadUrl: string }>();
@@ -68,9 +70,32 @@
     await Legendary.autoUpdateApps();
   }
 
+  async function getAppName(appId: string) {
+    const cached = $ownedApps.find(app => app.id === appId);
+    if (cached) return cached.title;
+
+    const appInfo = await Legendary.getAppInfo(appId);
+    return appInfo.stdout.game.title;
+  }
+
   onMount(() => {
-    settingsStorage.subscribe((data) => {
+    let previousDcStatus = false;
+    settingsStorage.subscribe(async (data) => {
       SystemTray.setVisibility(data.app?.hideToTray || false).catch(console.error);
+
+      const dcStatusEnabled = data.app!.discordStatus!;
+      if (dcStatusEnabled !== previousDcStatus) {
+        previousDcStatus = dcStatusEnabled;
+
+        if (dcStatusEnabled) {
+          await invoke('connect_discord_rpc');
+          await invoke('update_discord_rpc', {
+            details: defaultDiscordStatus
+          });
+        } else {
+          await invoke('disconnect_discord_rpc');
+        }
+      }
     });
 
     Promise.allSettled([
@@ -89,10 +114,29 @@
       app_id: string;
       state: 'running' | 'stopped';
     }>('app_state_changed', async (event) => {
+      const appId = event.payload.app_id;
+
       if (event.payload.state === 'running') {
-        runningAppIds.add(event.payload.app_id);
+        runningAppIds.add(appId);
+
+        if ($settingsStorage.app?.discordStatus !== true) return;
+
+        const appName = await getAppName(appId).catch(() => null);
+        if (!appName) return;
+
+        await invoke('update_discord_rpc', { details: `Playing ${appName}` });
       } else {
-        runningAppIds.delete(event.payload.app_id);
+        runningAppIds.delete(appId);
+
+        if ($settingsStorage.app?.discordStatus !== true) return;
+
+        const newApp = Array.from(runningAppIds)[0];
+        const appName = newApp ? await getAppName(newApp).catch(() => null) : null;
+        if (newApp && appName) {
+          await invoke('update_discord_rpc', { details: `Playing ${appName}` });
+        } else {
+          await invoke('update_discord_rpc', { details: defaultDiscordStatus });
+        }
       }
     });
 

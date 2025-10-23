@@ -473,6 +473,7 @@
         "title": "Başlangıç Sayfası",
         "description": "Başlatıcı başladığında gösterilecek sayfayı seçin."
       },
+      "discordStatus": "Discord Durumu",
       "hideToTray": "Sistem Tepsisine Gizle",
       "checkForUpdates": "Güncellemeleri Kontrol Et"
     },
