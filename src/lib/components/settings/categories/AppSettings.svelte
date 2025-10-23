@@ -3,6 +3,7 @@
   import Input from '$components/ui/Input.svelte';
   import Select from '$components/ui/Select.svelte';
   import Switch from '$components/ui/Switch.svelte';
+  import SettingsFolderPicker from '$components/settings/SettingsFolderPicker.svelte';
   import { SidebarCategories } from '$lib/constants/sidebar';
   import { settingsStorage } from '$lib/core/data-storage';
   import { t } from '$lib/utils/util';
@@ -26,7 +27,7 @@
     }));
 
   type SettingKey = keyof NonNullable<AllSettings['app']>;
-  type SettingValue = string | number | boolean;
+  type SettingValue = string | number | boolean | undefined;
 
   function handleSettingChange<K extends SettingKey, V extends SettingValue = SettingValue>(
     eventOrValue: Event | V,
@@ -63,12 +64,12 @@
       orientation="vertical"
       title={$t('settings.appSettings.gamePath')}
     >
-      <Input
+      <SettingsFolderPicker
         id="gamePath"
+        defaultPath={$settingsStorage.app?.gamePath || 'C:/Program Files/Epic Games'}
         onchange={(e) => handleSettingChange(e, 'gamePath')}
         placeholder="C:/Program Files/.../FortniteGame/Binaries/Win64"
         value={$settingsStorage.app?.gamePath}
-        variant="outline"
       />
     </SettingItem>
 

@@ -14,56 +14,53 @@ import { baseLocale, type Locale } from '$lib/paraglide/runtime';
 
 export default class DataStorage<T> implements Writable<T> {
   private readonly path: string;
+  private readonly defaults: T;
+
   private readonly debouncedWrite: (data: Partial<T>) => Promise<void>;
   public readonly ready: Promise<void>;
   private static dataDirectory?: string;
-  private store: Writable<T>;
 
   subscribe: Writable<T>['subscribe'];
   set: Writable<T>['set'];
   update: Writable<T>['update'];
 
-  constructor(fileName: string, defaultData: T, schema: ZodType<T>) {
-    this.path = dev ? `${fileName}-dev.json` : `${fileName}.json`;
-    this.store = writable<T>(defaultData);
+  constructor(fileName: string, defaults: T, schema: ZodType<T>) {
+    const store = writable<T>(defaults);
 
-    this.subscribe = this.store.subscribe;
-    this.set = this.store.set;
-    this.update = this.store.update;
+    this.path = dev ? `${fileName}-dev.json` : `${fileName}.json`;
+    this.defaults = defaults;
+
+    this.subscribe = store.subscribe;
+    this.set = store.set;
+    this.update = store.update;
 
     this.debouncedWrite = debounce(this.writeConfigFile.bind(this), 500);
-    this.ready = this.init(defaultData, schema, fileName);
+    this.ready = this.init(schema);
   }
 
-  private async init(defaultData: T, schema: ZodType<T>, fileName: string) {
-    const file = await this.getConfigFile(defaultData);
+  private async init(schema: ZodType<T>) {
+    const file = await this.getConfigFile();
 
     const parseResult = schema.safeParse(file);
-    const data = parseResult.success ? parseResult.data : defaultData;
+    const data = parseResult.success ? parseResult.data : this.defaults;
 
-    if (fileName === 'downloader') {
-      const downloaderSettings = data as DownloaderSettings;
-      downloaderSettings.downloadPath = downloaderSettings.downloadPath?.replace('%HOME%', await homeDir());
-    }
-
-    this.store.set(data);
-
-    this.store.subscribe(async (data) => {
+    this.set(data);
+    this.subscribe(async (data) => {
       await this.debouncedWrite(data);
     });
   }
 
-  private async getConfigFile<T>(defaultData: T): Promise<T> {
+  private async getConfigFile() {
     const configFilePath = await this.getConfigPath();
     let configFileContent: string | null = null;
 
     try {
       configFileContent = await readTextFile(configFilePath);
     } catch {
-      await writeTextFile(configFilePath, JSON.stringify(defaultData, null, 4));
+      await writeTextFile(configFilePath, JSON.stringify(this.defaults, null, 4));
     }
 
-    let data: T | undefined = defaultData;
+    let data: T | undefined = this.defaults;
 
     if (configFileContent) {
       try {
@@ -71,19 +68,14 @@ export default class DataStorage<T> implements Writable<T> {
       } catch { /* empty */ }
     }
 
-    return data && defaultData
-      ? this.mergeWithDefaults(defaultData, data)
-      : (data || defaultData) as T;
+    return this.mergeWithDefaults(this.defaults, data);
   }
 
   private async writeConfigFile(data: Partial<T>) {
     const configFilePath = await this.getConfigPath();
-    const currentData = await this.getConfigFile<T>(data as T);
+    const currentData = await this.getConfigFile();
 
-    const newData: unknown = !Array.isArray(data) && currentData && typeof currentData === 'object' && !Array.isArray(currentData)
-      ? Object.assign(currentData, data)
-      : data;
-
+    const newData = this.mergeWithDefaults(currentData, data as T);
     await writeTextFile(configFilePath, JSON.stringify(newData, null, 4));
   }
 
@@ -98,7 +90,10 @@ export default class DataStorage<T> implements Writable<T> {
     const merged = Object.assign({}, defaults);
 
     for (const key in data) {
-      if (data[key] instanceof Object && defaults[key] instanceof Object && !Array.isArray(defaults[key])) {
+      if (data[key] === undefined) {
+        // @ts-expect-error - idk
+        merged[key] = defaults[key];
+      } else if (data[key] instanceof Object && defaults[key] instanceof Object && !Array.isArray(defaults[key])) {
         merged[key] = this.mergeWithDefaults(defaults[key], data[key]) as any;
       } else {
         merged[key] = data[key] as any;
@@ -165,7 +160,7 @@ const taxiStorage = new DataStorage<TaxiSettings>(
 const downloaderStorage = new DataStorage<DownloaderSettings>(
   'downloader',
   {
-    downloadPath: '%HOME%/Games/Spitfire Launcher',
+    downloadPath: await path.join(await homeDir(), 'Games', 'Spitfire Launcher'),
     noHTTPS: false,
     autoUpdate: true,
     sendNotifications: true,

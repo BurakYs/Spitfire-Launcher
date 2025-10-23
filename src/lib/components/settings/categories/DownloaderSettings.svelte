@@ -1,7 +1,7 @@
 <script lang="ts">
   import SettingItem from '$components/settings/SettingItem.svelte';
   import AccountCombobox from '$components/ui/Combobox/AccountCombobox.svelte';
-  import Input from '$components/ui/Input.svelte';
+  import SettingsFolderPicker from '$components/settings/SettingsFolderPicker.svelte';
   import Switch from '$components/ui/Switch.svelte';
   import DownloadManager from '$lib/core/managers/download.svelte';
   import { accountsStorage, downloaderStorage } from '$lib/core/data-storage';
@@ -96,12 +96,13 @@
     orientation="vertical"
     title={$t('settings.downloaderSettings.downloadPath.title')}
   >
-    <Input
+    <SettingsFolderPicker
       id="downloadPath"
-      onchange={(e) => handleSettingChange(e, 'downloadPath')}
+      defaultPath={$downloaderStorage.downloadPath}
+      onchange={(e) => handleSettingChange(e!, 'downloadPath')}
       placeholder={$downloaderStorage.downloadPath}
+      showClearButton={false}
       value={$downloaderStorage.downloadPath}
-      variant="outline"
     />
   </SettingItem>
 

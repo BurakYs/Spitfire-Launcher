@@ -29,6 +29,7 @@ tauri-plugin-prevent-default = "3"
 tauri = { version = "2", features = ["tray-icon", "devtools"] }
 tauri-plugin-single-instance = "2"
 tauri-plugin-shell = "2"
+tauri-plugin-dialog = "2"
 sysinfo = "0.37"
 tokio = "1"
 fs2 = "0.4"
