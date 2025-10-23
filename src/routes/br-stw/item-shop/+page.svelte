@@ -11,7 +11,7 @@
   import ShopFilter from '$components/shop/ShopFilter.svelte';
   import ShopSection from '$components/shop/ShopSection.svelte';
   import SkeletonShopSection from '$components/shop/SkeletonShopSection.svelte';
-  import Input from '$components/ui/Input.svelte';
+  import Input from '$components/ui/Input/Input.svelte';
   import { activeAccountStore as activeAccount } from '$lib/core/data-storage';
   import FriendsManager from '$lib/core/managers/friends';
   import LookupManager from '$lib/core/managers/lookup';

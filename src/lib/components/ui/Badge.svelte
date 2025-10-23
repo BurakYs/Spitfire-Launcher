@@ -1,10 +1,9 @@
-<script lang="ts">
+<script lang="ts" module>
   import { tv, type VariantProps } from 'tailwind-variants';
-  import { cn } from '$lib/utils/util';
   import type { Snippet } from 'svelte';
   import type { HTMLAttributes } from 'svelte/elements';
 
-  const badgeVariants = tv({
+  export const badgeVariants = tv({
     base: 'px-3 py-1 rounded-full',
     variants: {
       variant: {
@@ -19,10 +18,16 @@
     }
   });
 
-  type BadgeProps = {
+  export type BadgeVariant = VariantProps<typeof badgeVariants>;
+
+  export type BadgeProps = {
     class?: string;
     children: Snippet;
-  } & HTMLAttributes<any> & VariantProps<typeof badgeVariants>;
+  } & HTMLAttributes<any> & BadgeVariant;
+</script>
+
+<script lang="ts">
+  import { cn } from '$lib/utils/util';
 
   let {
     class: className,

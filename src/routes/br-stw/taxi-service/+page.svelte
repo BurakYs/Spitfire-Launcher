@@ -15,7 +15,7 @@
   import Button from '$components/ui/Button.svelte';
   import { Separator } from 'bits-ui';
   import Switch from '$components/ui/Switch.svelte';
-  import Input from '$components/ui/Input.svelte';
+  import Input from '$components/ui/Input/Input.svelte';
   import AlertTriangleIcon from '@lucide/svelte/icons/alert-triangle';
   import XIcon from '@lucide/svelte/icons/x';
   import CarTaxiFrontIcon from '@lucide/svelte/icons/car-taxi-front';

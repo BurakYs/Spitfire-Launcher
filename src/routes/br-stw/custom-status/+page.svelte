@@ -15,7 +15,7 @@
   import { activeAccountStore } from '$lib/core/data-storage';
   import TaxiManager from '$lib/core/managers/taxi.svelte.js';
   import Button from '$components/ui/Button.svelte';
-  import Input from '$components/ui/Input.svelte';
+  import Input from '$components/ui/Input/Input.svelte';
   import { toast } from 'svelte-sonner';
   import { handleError, nonNull, t } from '$lib/utils/util';
   import XMPPManager from '$lib/core/managers/xmpp';

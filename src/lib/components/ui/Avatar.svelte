@@ -3,6 +3,15 @@
   import { Avatar, type WithoutChildrenOrChild } from 'bits-ui';
   import type { ClassValue } from 'svelte/elements';
 
+  type Props = WithoutChildrenOrChild<Avatar.RootProps> & {
+    src: string;
+    alt: string;
+    fallback: string;
+    imageClass?: ClassValue;
+    imageRef?: HTMLImageElement | null;
+    fallbackRef?: HTMLElement | null;
+  };
+
   let {
     src,
     alt,
@@ -12,14 +21,7 @@
     imageRef = $bindable(null),
     fallbackRef = $bindable(null),
     ...restProps
-  }: WithoutChildrenOrChild<Avatar.RootProps> & {
-    src: string;
-    alt: string;
-    fallback: string;
-    imageClass?: ClassValue;
-    imageRef?: HTMLImageElement | null;
-    fallbackRef?: HTMLElement | null;
-  } = $props();
+  }: Props = $props();
 </script>
 
 <Avatar.Root {...restProps} bind:ref>

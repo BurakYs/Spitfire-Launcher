@@ -3,7 +3,7 @@
   import type { Snippet } from 'svelte';
   import type { HTMLAnchorAttributes } from 'svelte/elements';
 
-  type ElementProps = HTMLAnchorAttributes & {
+  type ExternalLinkProps = HTMLAnchorAttributes & {
     href: string;
     children: Snippet;
   };
@@ -12,7 +12,7 @@
     href,
     children,
     ...restProps
-  }: ElementProps = $props();
+  }: ExternalLinkProps = $props();
 </script>
 
 <a

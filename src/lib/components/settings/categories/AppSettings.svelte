@@ -1,6 +1,6 @@
 <script lang="ts">
   import SettingItem from '$components/settings/SettingItem.svelte';
-  import Input from '$components/ui/Input.svelte';
+  import Input from '$components/ui/Input/Input.svelte';
   import Select from '$components/ui/Select.svelte';
   import Switch from '$components/ui/Switch.svelte';
   import SettingsFolderPicker from '$components/settings/SettingsFolderPicker.svelte';

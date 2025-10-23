@@ -15,7 +15,7 @@
   import LoaderCircleIcon from '@lucide/svelte/icons/loader-circle';
   import UserPlusIcon from '@lucide/svelte/icons/user-plus';
   import { friendsStore } from '$lib/stores';
-  import Input from '$components/ui/Input.svelte';
+  import InputWithAutocomplete from '$components/ui/Input/InputWithAutocomplete.svelte';
   import { handleError, nonNull, t } from '$lib/utils/util';
   import { toast } from 'svelte-sonner';
   import { untrack } from 'svelte';
@@ -81,10 +81,9 @@
 
 <PageContent title={$t('friendsManagement.page.title')}>
   <form class="flex items-center gap-x-2" onsubmit={searchAndAdd}>
-    <Input
+    <InputWithAutocomplete
       class="grow"
       disabled={isLoading}
-      nameAutocomplete={true}
       placeholder={$t('lookupPlayers.search')}
       type="search"
       bind:value={searchQuery}

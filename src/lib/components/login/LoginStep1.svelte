@@ -1,6 +1,6 @@
 <script lang="ts">
   import Button from '$components/ui/Button.svelte';
-  import Input from '$components/ui/Input.svelte';
+  import Input from '$components/ui/Input/Input.svelte';
   import { defaultClient, fortniteNewSwitchGameClient } from '$lib/constants/clients';
   import Account from '$lib/core/account';
   import Authentication from '$lib/core/authentication';

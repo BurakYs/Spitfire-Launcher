@@ -32,13 +32,13 @@
   import DailyQuestAccordion from '$components/lookup-players/DailyQuestAccordion.svelte';
   import STWDetails from '$components/lookup-players/STWDetails.svelte';
   import ExternalLink from '$components/ui/ExternalLink.svelte';
-  import WorldInfoSectionAccordion from '$components/world-info/WorldInfoSectionAccordion.svelte';
+  import WorldInfoSectionAccordion from '$components/ui/Accordion/WorldInfoSectionAccordion.svelte';
   import { activeAccountStore, language } from '$lib/core/data-storage';
   import MatchmakingManager from '$lib/core/managers/matchmaking';
   import { avatarCache, worldInfoCache } from '$lib/stores';
   import { dailyQuests as dailyQuestsResource } from '$lib/constants/stw/resources';
   import Button from '$components/ui/Button.svelte';
-  import Input from '$components/ui/Input.svelte';
+  import InputWithAutocomplete from '$components/ui/Input/InputWithAutocomplete.svelte';
   import { Separator } from 'bits-ui';
   import ExternalLinkIcon from '@lucide/svelte/icons/external-link';
   import SearchIcon from '@lucide/svelte/icons/search';
@@ -267,11 +267,10 @@
 
 <div class="flex flex-col items-center justify-center min-w-full min-h-full space-y-4">
   <form class="flex items-center gap-2 w-80" onsubmit={lookupPlayer}>
-    <Input
+    <InputWithAutocomplete
       class="grow"
       autofocus={true}
       disabled={isLoading}
-      nameAutocomplete={true}
       placeholder={$t('lookupPlayers.search')}
       type="search"
       bind:value={searchQuery}

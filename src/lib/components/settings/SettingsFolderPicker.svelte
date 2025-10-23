@@ -1,13 +1,9 @@
 <script lang="ts">
   import XIcon from '@lucide/svelte/icons/x';
-  import Input from '$components/ui/Input.svelte';
+  import Input, { type InputProps } from '$components/ui/Input/Input.svelte';
   import { open } from '@tauri-apps/plugin-dialog';
-  import type { HTMLInputAttributes } from 'svelte/elements';
 
-  // todo: change HTMLInputAttributes to InputProps in components/ui/Input.svelte later
-  // and remove the hardcoded "variant"
-
-  type Props = Omit<HTMLInputAttributes, 'onchange'> & {
+  type Props = Omit<InputProps, 'onchange'> & {
     title?: string;
     value?: string | undefined;
     defaultPath?: string;

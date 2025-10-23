@@ -8,7 +8,7 @@
   import { activeAccountStore, language } from '$lib/core/data-storage';
   import MCPManager from '$lib/core/managers/mcp';
   import type { WorldParsedMission } from '$types/game/stw/world-info';
-  import WorldInfoSectionAccordion from '$components/world-info/WorldInfoSectionAccordion.svelte';
+  import WorldInfoSectionAccordion from '$components/ui/Accordion/WorldInfoSectionAccordion.svelte';
   import { worldInfoCache } from '$lib/stores';
   import { WorldPowerLevels, Theaters } from '$lib/constants/stw/world-info';
   import { isLegendaryOrMythicSurvivor, nonNull, t } from '$lib/utils/util';

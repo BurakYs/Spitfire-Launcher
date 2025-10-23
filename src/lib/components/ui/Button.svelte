@@ -1,12 +1,9 @@
-<script lang="ts">
-  import ExternalLink from '$components/ui/ExternalLink.svelte';
-  import LoaderCircleIcon from '@lucide/svelte/icons/loader-circle';
+<script lang="ts" module>
   import { tv, type VariantProps } from 'tailwind-variants';
-  import { cn } from '$lib/utils/util';
+  import type { HTMLAnchorAttributes, HTMLButtonAttributes } from 'svelte/elements';
   import type { Snippet } from 'svelte';
-  import type { ClassValue, HTMLAnchorAttributes, HTMLButtonAttributes } from 'svelte/elements';
 
-  const buttonVariants = tv({
+  export const buttonVariants = tv({
     base: 'rounded-md transition-all duration-200 peer disabled:opacity-50 disabled:cursor-not-allowed',
     variants: {
       variant: {
@@ -30,12 +27,23 @@
     }
   });
 
-  type ElementProps = HTMLButtonAttributes & HTMLAnchorAttributes & VariantProps<typeof buttonVariants> & {
+  export type ButtonVariants = VariantProps<typeof buttonVariants>;
+  export type ButtonVariant = ButtonVariants['variant'];
+  export type ButtonSize = ButtonVariants['size'];
+
+  export type ButtonProps = HTMLButtonAttributes & HTMLAnchorAttributes & ButtonVariants & {
     loading?: boolean;
     loadingText?: string;
     href?: string;
     children: Snippet;
   };
+</script>
+
+<script lang="ts">
+  import ExternalLink from '$components/ui/ExternalLink.svelte';
+  import LoaderCircleIcon from '@lucide/svelte/icons/loader-circle';
+  import { cn } from '$lib/utils/util';
+  import type { ClassValue } from 'svelte/elements';
 
   const {
     class: className,
@@ -46,7 +54,7 @@
     loadingText,
     children,
     ...restProps
-  }: ElementProps = $props();
+  }: ButtonProps = $props();
 
   const loadingClasses = $derived<ClassValue | null>(loading ? 'flex justify-center items-center gap-x-2' : null);
   const allClasses = $derived(cn(buttonVariants({ variant, size }), loadingClasses, className));

@@ -5,7 +5,7 @@
   import SkeletonAppCard from '$components/downloader/SkeletonAppCard.svelte';
   import UninstallDialog from '$components/downloader/UninstallDialog.svelte';
   import PageContent from '$components/PageContent.svelte';
-  import Input from '$components/ui/Input.svelte';
+  import Input from '$components/ui/Input/Input.svelte';
   import { activeAccountStore, downloaderStorage } from '$lib/core/data-storage';
   import { ownedApps } from '$lib/stores';
   import Legendary from '$lib/core/legendary';
