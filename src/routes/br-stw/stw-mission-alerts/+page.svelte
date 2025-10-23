@@ -13,6 +13,7 @@
   import { WorldPowerLevels, Theaters } from '$lib/constants/stw/world-info';
   import { isLegendaryOrMythicSurvivor, nonNull, t } from '$lib/utils/util';
   import WorldInfoManager from '$lib/core/managers/world-info';
+  import { onMount } from 'svelte';
 
   const activeAccount = $derived(nonNull($activeAccountStore));
   const parsedWorldInfoArray = $derived($worldInfoCache && Array.from($worldInfoCache.values(), worldMissions => Array.from(worldMissions.values())).flat());
@@ -94,6 +95,11 @@
     }
   ]);
 
+  function refreshWorldInfo() {
+    worldInfoCache.set(new Map());
+    WorldInfoManager.setCache();
+  }
+
   function countMissionReward(missions: WorldParsedMission[] | undefined, idOrValidator: string | ((id: string) => boolean)) {
     return (missions || []).reduce((acc, crr) => {
       const alertReward = crr.alert?.rewards.find(reward =>
@@ -110,6 +116,15 @@
     }, 0);
   }
 
+  function getResetDate() {
+    const now = new Date();
+    const year = now.getUTCFullYear();
+    const month = now.getUTCMonth();
+    const day = now.getUTCDate();
+
+    return new Date(Date.UTC(year, month, day + 1));
+  }
+
   $effect(() => {
     if (!activeAccount || claimedMissionAlerts.has(activeAccount.accountId)) return;
 
@@ -120,14 +135,22 @@
       claimedMissionAlerts.set(activeAccount.accountId, new Set(doneMissionAlerts));
     });
   });
+
+  onMount(() => {
+    const timeUntilReset = getResetDate().getTime() - Date.now();
+    const timeout = setTimeout(() => {
+      refreshWorldInfo();
+    }, timeUntilReset);
+
+    return () => clearTimeout(timeout);
+  });
 </script>
 
 <svelte:window
   onkeydown={(event) => {
     if (event.key === 'F5') {
       event.preventDefault();
-      worldInfoCache.set(new Map());
-      WorldInfoManager.setCache();
+      refreshWorldInfo()
     }
   }}
 />
