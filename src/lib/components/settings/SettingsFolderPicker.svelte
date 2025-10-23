@@ -15,7 +15,7 @@
     showClearButton?: boolean;
   };
 
-  let { title, defaultPath, value, onchange, showClearButton, ...restProps }: Props = $props();
+  let { title, defaultPath, value, onchange, showClearButton = true, ...restProps }: Props = $props();
 
   async function handleClick() {
     const folderPath = await open({
