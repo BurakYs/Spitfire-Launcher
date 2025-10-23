@@ -52,7 +52,7 @@
 
   const activeAccount = $derived(nonNull($activeAccountStore));
   const claimedMissionAlerts = $derived.by(() => {
-    if (!$worldInfoCache || !stwData?.claimedMissionAlertIds?.size) {
+    if (!$worldInfoCache.size || !stwData?.claimedMissionAlertIds?.size) {
       return [];
     }
 

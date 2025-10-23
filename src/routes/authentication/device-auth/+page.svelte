@@ -21,8 +21,8 @@
   const activeAccount = $derived(nonNull($activeAccountStore));
   const deviceAuths = $derived(allDeviceAuths[activeAccount?.accountId] || []);
 
-  async function fetchDeviceAuths(force = false) {
-    if (isFetching || !activeAccount || (!force && deviceAuths?.length)) return;
+  async function fetchDeviceAuths(forceRefresh = false) {
+    if (isFetching || !activeAccount || (!forceRefresh && deviceAuths?.length)) return;
 
     isFetching = true;
 
@@ -67,6 +67,15 @@
     fetchDeviceAuths();
   });
 </script>
+
+<svelte:window
+  onkeydown={(event) => {
+    if (event.key === 'F5') {
+      event.preventDefault();
+      fetchDeviceAuths(true);
+    }
+  }}
+/>
 
 <PageContent>
   {#snippet title()}

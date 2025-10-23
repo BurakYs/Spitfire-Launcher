@@ -80,11 +80,11 @@
     return result.filter(x => x.items.length > 0);
   });
 
-  async function fetchShop(isNewDay?: boolean) {
+  async function fetchShop(forceRefresh = false) {
     shopSections = null;
 
     try {
-      const shopResponse = (!isNewDay && $brShopStore) || await ShopManager.fetch();
+      const shopResponse = (!forceRefresh && $brShopStore) || await ShopManager.fetch();
       shopSections = ShopManager.groupBySections(shopResponse.offers).map((section) => ({
         ...section,
         items: section.items.sort((a, b) => b.sortPriority - a.sortPriority)
@@ -175,6 +175,15 @@
     };
   });
 </script>
+
+<svelte:window
+  onkeydown={(event) => {
+    if (event.key === 'F5') {
+      event.preventDefault();
+      fetchShop(true);
+    }
+  }}
+/>
 
 <PageContent
   class="mt-2"

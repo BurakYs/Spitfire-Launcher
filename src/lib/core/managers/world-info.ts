@@ -16,10 +16,17 @@ import { ingredients, RarityNames, RarityTypes, resources, survivors, survivorsM
 import { baseGameService } from '$lib/core/services';
 import Authentication from '$lib/core/authentication';
 import { get } from 'svelte/store';
+import { worldInfoCache } from '$lib/stores';
 
 type World = keyof typeof Theaters;
 
 export default class WorldInfoManager {
+  static async setCache() {
+    const worldInfoData = await WorldInfoManager.getWorldInfoData();
+    const parsedWorldInfo = WorldInfoManager.parseWorldInfo(worldInfoData);
+    worldInfoCache.set(parsedWorldInfo);
+  }
+	
   static async getWorldInfoData(accessToken?: string) {
     const token = accessToken || (await Authentication.getAccessTokenUsingClientCredentials()).access_token;
 

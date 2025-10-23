@@ -144,6 +144,15 @@
   });
 </script>
 
+<svelte:window
+  onkeydown={(event) => {
+    if (event.key === 'F5') {
+      event.preventDefault();
+      fetchServerStatus();
+    }
+  }}
+/>
+
 <PageContent class="mt-2" title={$t('serverStatus.page.title')}>
   <div class="flex flex-col gap-4">
     <div class="flex justify-between items-center">

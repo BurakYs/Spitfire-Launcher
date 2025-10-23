@@ -12,6 +12,7 @@
   import { worldInfoCache } from '$lib/stores';
   import { WorldPowerLevels, Theaters } from '$lib/constants/stw/world-info';
   import { isLegendaryOrMythicSurvivor, nonNull, t } from '$lib/utils/util';
+  import WorldInfoManager from '$lib/core/managers/world-info';
 
   const activeAccount = $derived(nonNull($activeAccountStore));
   const parsedWorldInfoArray = $derived($worldInfoCache && Array.from($worldInfoCache.values(), worldMissions => Array.from(worldMissions.values())).flat());
@@ -121,6 +122,16 @@
   });
 </script>
 
+<svelte:window
+  onkeydown={(event) => {
+    if (event.key === 'F5') {
+      event.preventDefault();
+      worldInfoCache.set(new Map());
+      WorldInfoManager.setCache();
+    }
+  }}
+/>
+
 <PageContent title={$t('stwMissionAlerts.page.title')}>
   <div class="flex flex-col">
     <div class="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-4 gap-4 p-4 pt-0 bg-muted/5">
@@ -143,7 +154,7 @@
 
           {#if missions.length}
             <WorldInfoSectionAccordion claimedMissionAlerts={!activeAccount ? undefined : claimedMissionAlerts.get(activeAccount.accountId)} {missions}/>
-          {:else if !$worldInfoCache}
+          {:else if !$worldInfoCache.size}
             <!-- eslint-disable-next-line @typescript-eslint/no-unused-vars -->
             {#each Array(Math.max(1, Math.floor(Math.random() * 3) + 1)) as _, index (index)}
               <div class="flex items-center justify-between px-2 h-8 bg-muted-foreground/5 rounded-sm skeleton-loader"></div>
