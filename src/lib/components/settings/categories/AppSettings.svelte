@@ -70,6 +70,7 @@
         onchange={(e) => handleSettingChange(e, 'gamePath')}
         placeholder="C:/Program Files/.../FortniteGame/Binaries/Win64"
         value={$settingsStorage.app?.gamePath}
+        variant="outline"
       />
     </SettingItem>
 

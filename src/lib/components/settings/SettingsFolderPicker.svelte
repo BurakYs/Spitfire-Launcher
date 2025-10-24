@@ -44,7 +44,6 @@
       }
     }}
     readonly
-    variant="outline"
     bind:value
     {...restProps}
   />

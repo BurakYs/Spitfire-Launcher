@@ -103,6 +103,7 @@
       placeholder={$downloaderStorage.downloadPath}
       showClearButton={false}
       value={$downloaderStorage.downloadPath}
+      variant="outline"
     />
   </SettingItem>
 
