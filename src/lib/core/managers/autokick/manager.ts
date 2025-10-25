@@ -14,6 +14,7 @@ import { get } from 'svelte/store';
 
 type MatchmakingState = {
   partyState: 'Matchmaking' | 'PostMatchmaking' | null;
+  previousStarted: boolean;
   started: boolean;
 };
 
@@ -23,6 +24,7 @@ export default class AutokickManager {
 
   public matchmakingState: MatchmakingState = {
     partyState: null,
+    previousStarted: false,
     started: false
   };
 
@@ -53,58 +55,46 @@ export default class AutokickManager {
       if (!automationSettings || !isAnySettingEnabled) return;
 
       const matchmakingResponse = await MatchmakingManager.findPlayer(this.account, this.account.accountId);
-      const matchmakingData = matchmakingResponse[0];
-      const matchmakingState = this.matchmakingState;
+      const matchmakingData = matchmakingResponse?.[0];
 
-      if (!matchmakingData) {
-        const wasInMatch = matchmakingState.partyState === 'Matchmaking' || matchmakingState.partyState === 'PostMatchmaking';
-        if (!wasInMatch) {
-          this.dispose();
+      if (matchmakingData?.started == null && matchmakingResponse.length > 0) return;
+
+      const started = matchmakingData?.started || false;
+      if (this.matchmakingState.previousStarted && !started) {
+        this.dispose();
+
+        if (automationSettings.autoKick) {
+          PartyManager.get(this.account).then(async (partyData) => {
+            const party = partyData.current[0];
+            if (party) {
+              await this.kick(party);
+            }
+          }).catch(console.error);
         }
 
-        return;
+        if (automationSettings.autoClaim) {
+          claimRewards(this.account).catch(console.error);
+        }
+
+        if (automationSettings.autoKick && automationSettings.autoInvite) {
+          const newPartyData = await PartyManager.get(this.account);
+          const newParty = newPartyData.current[0];
+
+          if (newParty?.members.find(x => x.account_id === this.account.accountId)?.role === 'CAPTAIN') {
+            this.invite(newParty.members).catch(console.error);
+          }
+        }
+
+        if (automationSettings.autoTransferMaterials) {
+          transferBuildingMaterials(this.account).catch(console.error);
+        }
       }
 
-      if (matchmakingData.started == null) return;
+      this.matchmakingState.previousStarted = started;
 
-      if (matchmakingData.started && matchmakingState.partyState !== 'PostMatchmaking') {
-        this.matchmakingState.partyState = 'PostMatchmaking';
-        return;
-      }
-
-      if (
-        matchmakingState.partyState !== 'PostMatchmaking'
-        || !matchmakingState.started
-        || matchmakingData.started
-      ) {
-        this.matchmakingState.started = matchmakingData.started;
-        return;
-      }
-
-      this.dispose();
-
-      const partyData = await PartyManager.get(this.account);
-      const party = partyData.current[0];
-
-      if (automationSettings.autoKick) {
-        await this.kick(party).catch(console.error);
-      }
-
-      if (automationSettings.autoTransferMaterials) {
-        transferBuildingMaterials(this.account).catch(console.error);
-      }
-
-      if (
-        automationSettings.autoKick
-        && automationSettings.autoInvite
-        && party.members.find(x => x.account_id === this.account.accountId)?.role === 'CAPTAIN'
-        && party.members.filter(x => x.account_id !== this.account.accountId).length
-      ) {
-        this.invite(party.members).catch(console.error);
-      }
-
-      if (automationSettings.autoClaim) {
-        await claimRewards(this.account).catch(console.error);
+      if (started !== this.matchmakingState.started) {
+        this.matchmakingState.started = started;
+        this.matchmakingState.partyState = started ? 'PostMatchmaking' : 'Matchmaking';
       }
     }, (settings.app?.missionCheckInterval || 5) * 1000);
   }
@@ -115,12 +105,16 @@ export default class AutokickManager {
     if (!settings || !isAnySettingEnabled) return;
 
     const matchmakingResponse = await MatchmakingManager.findPlayer(this.account, this.account.accountId);
-    const matchmakingData = matchmakingResponse[0];
+    const matchmakingData = matchmakingResponse?.[0];
 
-    if (matchmakingData?.started == null) return;
+    if (matchmakingData?.started == null && matchmakingResponse.length > 0) return;
 
-    this.matchmakingState.started = matchmakingData.started;
-    this.matchmakingState.partyState = matchmakingData.started ? 'PostMatchmaking' : 'Matchmaking';
+    const started = matchmakingData?.started || false;
+    this.matchmakingState = {
+      partyState: started ? 'PostMatchmaking' : 'Matchmaking',
+      started,
+      previousStarted: started
+    };
 
     this.startMissionChecker();
   }
@@ -138,13 +132,13 @@ export default class AutokickManager {
 
     this.matchmakingState = {
       partyState: null,
+      previousStarted: false,
       started: false
     };
   }
 
   private async kick(party: PartyData) {
     const { accounts } = get(accountsStorage);
-
     const partyMemberIds = party.members.map(x => x.account_id);
     const partyLeaderId = party.members.find(x => x.role === 'CAPTAIN')!.account_id;
     const partyLeaderAccount = accounts.find(x => x.accountId === partyLeaderId);
@@ -154,10 +148,7 @@ export default class AutokickManager {
 
     if (partyLeaderAccount) {
       const accountsWithNoAutoKick = membersWithoutAutoKick.filter((id) => id !== this.account.accountId);
-
-      await Promise.allSettled(accountsWithNoAutoKick.map(async (id) =>
-        await PartyManager.kick(partyLeaderAccount, party.id, id)
-      ));
+      await Promise.allSettled(accountsWithNoAutoKick.map((id) => PartyManager.kick(partyLeaderAccount, party.id, id)));
 
       await PartyManager.leave(this.account, party.id);
     } else {
@@ -167,9 +158,7 @@ export default class AutokickManager {
 
       accountsWithNoAutoKick.push(this.account);
 
-      await Promise.allSettled(accountsWithNoAutoKick.map(async (account) =>
-        await PartyManager.leave(account, party.id)
-      ));
+      await Promise.allSettled(accountsWithNoAutoKick.map((account) => PartyManager.leave(account, party.id)));
     }
   }
 
@@ -188,8 +177,6 @@ export default class AutokickManager {
     const partyMemberIds = members.map(x => x.account_id).filter(x => x !== this.account.accountId);
     const friendsInParty = friends.filter((friend) => partyMemberIds.includes(friend.accountId));
 
-    await Promise.allSettled(friendsInParty.map(async (friend) => {
-      await PartyManager.invite(this.account, party.id, friend.accountId);
-    }));
+    await Promise.allSettled(friendsInParty.map((friend) => PartyManager.invite(this.account, party.id, friend.accountId)));
   }
 }
