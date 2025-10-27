@@ -110,43 +110,29 @@ export default class AutoKickManager {
   }
 
   scheduleMissionChecker(timeoutMs: number) {
-    if (this.scheduleTimeout) {
-      clearTimeout(this.scheduleTimeout);
-      this.scheduleTimeout = undefined;
-    }
-
+    clearTimeout(this.scheduleTimeout);
     this.scheduleTimeout = window.setTimeout(async () => {
       this.startMissionChecker();
     }, timeoutMs);
   }
 
   startMissionChecker() {
-    if (this.checkerInterval) {
-      clearInterval(this.checkerInterval);
-      this.checkerInterval = undefined;
-    }
-
     const settings = get(settingsStorage);
+    const intervalMs = (settings.app?.missionCheckInterval || 5) * 1000;
 
+    clearInterval(this.checkerInterval);
     this.checkerInterval = window.setInterval(async () => {
       const state = await this.checkMissionState();
       await this.handleStateChange(state);
-    }, (settings.app?.missionCheckInterval || 5) * 1000);
+    }, intervalMs);
   }
 
   resetState() {
     this.currentState = 'lobby';
     this.previousStarted = false;
 
-    if (this.checkerInterval) {
-      clearInterval(this.checkerInterval);
-      this.checkerInterval = undefined;
-    }
-
-    if (this.scheduleTimeout) {
-      clearTimeout(this.scheduleTimeout);
-      this.scheduleTimeout = undefined;
-    }
+    clearInterval(this.checkerInterval);
+    clearTimeout(this.scheduleTimeout);
   }
 
   destroy() {
