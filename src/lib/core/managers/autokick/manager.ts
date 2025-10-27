@@ -67,7 +67,7 @@ export default class AutoKickManager {
 
       AutoKickManager.updateXMPPStatus(accountId, 'ACTIVE');
 
-      if (!manager.lastKick || (Date.now() - manager.lastKick.getTime()) > 30_000) {
+      if (!manager.lastKick || (Date.now() - manager.lastKick.getTime()) > 20_000) {
         manager.scheduleMissionChecker(20_000);
       }
     }, { signal });
