@@ -13,10 +13,7 @@ import { automationStore } from '$lib/stores';
 import { get } from 'svelte/store';
 import type { PartyData } from '$types/game/party';
 
-type MatchmakingState = {
-  partyState: 'Matchmaking' | 'PostMatchmaking' | null;
-  started: boolean;
-};
+type MissionState = 'lobby' | 'pregame' | 'mission' | 'endgame';
 
 export default class AutoKickManager {
   private abortController = new AbortController();
@@ -24,11 +21,9 @@ export default class AutoKickManager {
   private scheduleTimeout?: number;
   private checkerInterval?: number;
 
+  private currentState: MissionState = 'lobby';
+  private previousStarted = false;
   private lastKick?: Date;
-  private matchmakingState: MatchmakingState = {
-    partyState: null,
-    started: false
-  };
 
   private constructor(private account: AccountData, private xmpp: XMPPManager) {}
 
@@ -67,29 +62,13 @@ export default class AutoKickManager {
       manager.resetState();
     }, { signal });
 
-    xmpp.addEventListener(EpicEvents.MemberKicked, (data) => {
-      if (data.account_id !== account.accountId) return;
-
-      if (manager.matchmakingState.partyState === 'PostMatchmaking' && manager.matchmakingState.started) {
-        const automationAccount = AutoKickBase.getAccountById(account.accountId);
-
-        if (automationAccount?.settings.autoClaim) {
-          claimRewards(account).catch(console.error);
-        }
-
-        if (automationAccount?.settings.autoTransferMaterials) {
-          transferBuildingMaterials(account).catch(console.error);
-        }
-      }
-    }, { signal });
-
     xmpp.addEventListener(EpicEvents.MemberJoined, async (data) => {
       if (data.account_id !== accountId) return;
 
       AutoKickManager.updateXMPPStatus(accountId, 'ACTIVE');
 
       if (!manager.lastKick || (Date.now() - manager.lastKick.getTime()) > 30_000) {
-        manager.scheduleMissionChecker();
+        manager.scheduleMissionChecker(20 * 1000);
       }
     }, { signal });
 
@@ -98,7 +77,7 @@ export default class AutoKickManager {
       if (!partyState) return;
 
       if (partyState === 'PostMatchmaking') {
-        manager.scheduleMissionChecker();
+        manager.scheduleMissionChecker(60 * 1000);
       }
     }, { signal });
 
@@ -115,7 +94,7 @@ export default class AutoKickManager {
     return manager;
   }
 
-  scheduleMissionChecker(timeoutMs?: number) {
+  scheduleMissionChecker(timeoutMs: number) {
     if (this.scheduleTimeout) {
       clearTimeout(this.scheduleTimeout);
       this.scheduleTimeout = undefined;
@@ -123,7 +102,7 @@ export default class AutoKickManager {
 
     this.scheduleTimeout = window.setTimeout(async () => {
       this.startMissionChecker();
-    }, timeoutMs || 20_000);
+    }, timeoutMs);
   }
 
   startMissionChecker() {
@@ -135,84 +114,41 @@ export default class AutoKickManager {
     const settings = get(settingsStorage);
 
     this.checkerInterval = window.setInterval(async () => {
-      const automationSettings = AutoKickBase.getAccountById(this.account.accountId)?.settings;
-      const isAnySettingEnabled = Object.values(automationSettings || {}).some(x => x);
-      if (!automationSettings || !isAnySettingEnabled) return;
-
-      const matchmakingResponse = await MatchmakingManager.findPlayer(this.account, this.account.accountId);
-      const matchmakingData = matchmakingResponse[0];
-      const matchmakingState = this.matchmakingState;
-
-      if (!matchmakingData) {
-        const wasInMatch = matchmakingState.partyState === 'Matchmaking' || matchmakingState.partyState === 'PostMatchmaking';
-        if (!wasInMatch) {
-          this.resetState();
-        }
-
-        return;
-      }
-
-      if (matchmakingData.started == null) return;
-
-      if (matchmakingData.started && matchmakingState.partyState !== 'PostMatchmaking') {
-        this.matchmakingState.partyState = 'PostMatchmaking';
-        return;
-      }
-
-      if (
-        matchmakingState.partyState !== 'PostMatchmaking'
-        || !matchmakingState.started
-        || matchmakingData.started
-      ) {
-        this.matchmakingState.started = matchmakingData.started;
-        return;
-      }
-
-      this.resetState();
-
-      const partyData = await PartyManager.get(this.account);
-      const party = partyData.current[0];
-
-      if (automationSettings.autoKick) {
-        await this.kick(party).catch(console.error);
-      }
-
-      if (automationSettings.autoClaim) {
-        claimRewards(this.account).catch(console.error);
-      }
-
-      if (automationSettings.autoTransferMaterials) {
-        transferBuildingMaterials(this.account).catch(console.error);
-      }
-
-      if (
-        automationSettings.autoKick
-        && automationSettings.autoInvite
-        && party.members.find(x => x.account_id === this.account.accountId)?.role === 'CAPTAIN'
-        && party.members.filter(x => x.account_id !== this.account.accountId).length
-      ) {
-        this.invite(party.members).catch(console.error);
+      try {
+        const state = await this.checkMissionState();
+        await this.handleStateChange(state);
+      } catch (error) {
+        console.error(error);
       }
     }, (settings.app?.missionCheckInterval || 5) * 1000);
   }
 
   async checkMissionOnStartup() {
-    const settings = AutoKickBase.getAccountById(this.account.accountId)?.settings;
-    const isAnySettingEnabled = Object.values(settings || {}).some(x => x);
-    if (!settings || !isAnySettingEnabled) return;
+    try {
+      const state = await this.checkMissionState();
+      this.currentState = state;
 
-    const matchmakingResponse = await MatchmakingManager.findPlayer(this.account, this.account.accountId);
-    const matchmakingData = matchmakingResponse[0];
+      if (state === 'pregame') {
+        this.scheduleMissionChecker(60 * 1000);
+      }
 
-    if (matchmakingData?.started == null) return;
+      if (state === 'mission') {
+        this.startMissionChecker();
+      }
 
-    this.matchmakingState.started = matchmakingData.started;
-    this.matchmakingState.partyState = matchmakingData.started ? 'PostMatchmaking' : 'Matchmaking';
-
-    this.startMissionChecker();
+      if (state === 'endgame') {
+        this.resetState();
+        await this.postMissionActions();
+      }
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   resetState() {
+    this.currentState = 'lobby';
+    this.previousStarted = false;
+
     if (this.checkerInterval) {
       clearInterval(this.checkerInterval);
       this.checkerInterval = undefined;
@@ -222,17 +158,94 @@ export default class AutoKickManager {
       clearTimeout(this.scheduleTimeout);
       this.scheduleTimeout = undefined;
     }
-
-    this.matchmakingState = {
-      partyState: null,
-      started: false
-    };
   }
 
   destroy() {
     this.abortController.abort();
     this.resetState();
     this.xmpp?.removePurpose('autoKick');
+  }
+
+  private async checkMissionState(): Promise<MissionState> {
+    // todo: instead of spamming findPlayer, we could use the PackedState changes from XMPP, but the event doesn't fire reliably
+    const matchmakingResponse = await MatchmakingManager.findPlayer(this.account, this.account.accountId);
+    if (!matchmakingResponse?.length) {
+      this.previousStarted = false;
+      return 'lobby';
+    }
+
+    const matchmakingData = matchmakingResponse[0];
+    const started = matchmakingData.started || false;
+
+    let state: MissionState;
+
+    if (this.previousStarted && !started) {
+      state = 'endgame';
+    } else if (started) {
+      state = 'mission';
+    } else {
+      // If Auto-Kick starts while the user is in endgame, this will think it’s pregame
+      // We can ignore this for now. But might change it later
+      state = 'pregame';
+    }
+
+    this.previousStarted = started;
+    return state;
+  }
+
+  private async handleStateChange(state: MissionState) {
+    const previousState = this.currentState;
+    this.currentState = state;
+
+    if (state === 'endgame') {
+      this.resetState();
+      await this.postMissionActions();
+      return;
+    }
+
+    if (state === 'lobby') {
+      this.resetState();
+
+      // If the user was kicked, previousState would be 'mission'
+      if (previousState === 'mission') {
+        await this.postMissionActions();
+      }
+    }
+  }
+
+  private async postMissionActions() {
+    const automationSettings = AutoKickBase.getAccountById(this.account.accountId)?.settings || {};
+
+    const partyData = await PartyManager.get(this.account);
+    const party = partyData.current[0] as PartyData | undefined;
+
+    this.lastKick = new Date();
+
+    let kickPromise: Promise<void> = Promise.resolve();
+    if (automationSettings.autoKick && party) {
+      kickPromise = this.kick(party).catch(console.error);
+    }
+
+    if (automationSettings.autoClaim) {
+      claimRewards(this.account).catch(console.error);
+    }
+
+    if (automationSettings.autoTransferMaterials) {
+      transferBuildingMaterials(this.account).catch(console.error);
+    }
+
+    if (
+      party
+      && automationSettings.autoKick
+      && automationSettings.autoInvite
+      && party.members.find(x => x.account_id === this.account.accountId)?.role === 'CAPTAIN'
+      && party.members.filter(x => x.account_id !== this.account.accountId).length
+    ) {
+      kickPromise.finally(() => {
+        // todo: doesn't work. might remove
+        this.invite(party.members).catch(console.error);
+      });
+    }
   }
 
   private async kick(party: PartyData) {

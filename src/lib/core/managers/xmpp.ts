@@ -59,7 +59,7 @@ const connectionLocks = new Map<string, AsyncLock>();
 export default class XMPPManager extends EventEmitter<EventMap> {
   public static instances = new Map<string, XMPPManager>();
   public connection?: Agent;
-  private purposes: Set<Purpose>;
+  private purposes = new Set<Purpose>();
 
   private reconnectTimeout?: number;
   private intentionalDisconnect = false;
@@ -67,7 +67,7 @@ export default class XMPPManager extends EventEmitter<EventMap> {
 
   private constructor(private account: AccountOptions, purpose: Purpose) {
     super();
-    this.purposes = new Set([purpose]);
+    this.purposes.add(purpose);
   }
 
   get accountId() {
