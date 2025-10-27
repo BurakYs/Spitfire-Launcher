@@ -242,7 +242,6 @@ export default class AutoKickManager {
       && party.members.filter(x => x.account_id !== this.account.accountId).length
     ) {
       kickPromise.finally(() => {
-        // todo: doesn't work. might remove
         this.invite(party.members).catch(console.error);
       });
     }
