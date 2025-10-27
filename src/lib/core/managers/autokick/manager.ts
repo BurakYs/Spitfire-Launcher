@@ -276,7 +276,7 @@ export default class AutoKickManager {
 
   private async invite(members: PartyData['members']) {
     await this.xmpp.waitForEvent(EpicEvents.MemberJoined, (data) => data.account_id === this.account.accountId, 20000);
-    await sleep(1000);
+    await sleep(5000);
 
     const [partyData, friends] = await getResolvedResults([
       PartyManager.get(this.account),
