@@ -42,7 +42,22 @@ export default class AutoKickManager {
 
     xmpp.addEventListener(ConnectionEvents.SessionStarted, async () => {
       AutoKickManager.updateXMPPStatus(accountId, 'ACTIVE');
-      await manager.checkMissionOnStartup();
+
+      const state = await manager.checkMissionState();
+      manager.currentState = state;
+
+      if (state === 'pregame') {
+        manager.scheduleMissionChecker(60 * 1000);
+      }
+
+      if (state === 'mission') {
+        manager.startMissionChecker();
+      }
+
+      if (state === 'endgame') {
+        manager.resetState();
+        await manager.postMissionActions();
+      }
     }, { signal });
 
     xmpp.addEventListener(ConnectionEvents.Disconnected, () => {
@@ -114,35 +129,9 @@ export default class AutoKickManager {
     const settings = get(settingsStorage);
 
     this.checkerInterval = window.setInterval(async () => {
-      try {
-        const state = await this.checkMissionState();
-        await this.handleStateChange(state);
-      } catch (error) {
-        console.error(error);
-      }
-    }, (settings.app?.missionCheckInterval || 5) * 1000);
-  }
-
-  async checkMissionOnStartup() {
-    try {
       const state = await this.checkMissionState();
-      this.currentState = state;
-
-      if (state === 'pregame') {
-        this.scheduleMissionChecker(60 * 1000);
-      }
-
-      if (state === 'mission') {
-        this.startMissionChecker();
-      }
-
-      if (state === 'endgame') {
-        this.resetState();
-        await this.postMissionActions();
-      }
-    } catch (error) {
-      console.error(error);
-    }
+      await this.handleStateChange(state);
+    }, (settings.app?.missionCheckInterval || 5) * 1000);
   }
 
   resetState() {
