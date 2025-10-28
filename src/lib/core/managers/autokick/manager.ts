@@ -93,8 +93,6 @@ export default class AutoKickManager {
       }
     }, { signal });
 
-    manager.xmpp = xmpp;
-
     try {
       await xmpp.connect();
       AutoKickBase.updateStatus(accountId, 'ACTIVE');

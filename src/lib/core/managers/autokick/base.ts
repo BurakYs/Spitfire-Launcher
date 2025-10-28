@@ -57,7 +57,7 @@ export default class AutoKickBase {
     });
   }
 
-  static async removeAccount(accountId: string) {
+  static removeAccount(accountId: string) {
     AutoKickBase.accounts.get(accountId)?.manager?.destroy();
     AutoKickBase.accounts.delete(accountId);
 
