@@ -133,7 +133,6 @@ export default class AutoKickManager {
   }
 
   destroy() {
-    console.log(`Destroying AutoKickManager for account ${this.account.accountId}`);
     this.abortController.abort();
     this.resetState();
     this.xmpp?.removePurpose('autoKick');
