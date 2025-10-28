@@ -73,10 +73,7 @@ export default class DataStorage<T> implements Writable<T> {
 
   private async writeConfigFile(data: Partial<T>) {
     const configFilePath = await this.getConfigPath();
-    const currentData = await this.getConfigFile();
-
-    const newData = this.mergeWithDefaults(currentData, data as T);
-    await writeTextFile(configFilePath, JSON.stringify(newData, null, 4));
+    await writeTextFile(configFilePath, JSON.stringify(data, null, 4));
   }
 
   private async getConfigPath() {
