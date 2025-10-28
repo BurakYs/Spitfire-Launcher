@@ -12,7 +12,7 @@ import { accountsStorage, settingsStorage } from '$lib/core/data-storage';
 import { get } from 'svelte/store';
 import type { PartyData } from '$types/game/party';
 
-type MissionState = 'lobby' | 'pregame' | 'mission' | 'endgame';
+type State = 'lobby' | 'pregame' | 'mission' | 'endgame';
 
 export default class AutoKickManager {
   private abortController = new AbortController();
@@ -20,7 +20,7 @@ export default class AutoKickManager {
   private scheduleTimeout?: number;
   private checkerInterval?: number;
 
-  private currentState: MissionState = 'lobby';
+  private currentState: State = 'lobby';
   private previousStarted = false;
   private lastKick?: Date;
 
@@ -139,7 +139,7 @@ export default class AutoKickManager {
     this.xmpp?.removePurpose('autoKick');
   }
 
-  private async checkMissionState(): Promise<MissionState> {
+  private async checkMissionState(): Promise<State> {
     // todo: instead of spamming findPlayer, we could use the PackedState changes from XMPP, but the event doesn't fire reliably
     const matchmakingResponse = await MatchmakingManager.findPlayer(this.account, this.account.accountId);
     if (!matchmakingResponse?.length) {
@@ -150,7 +150,7 @@ export default class AutoKickManager {
     const matchmakingData = matchmakingResponse[0];
     const started = matchmakingData.started || false;
 
-    let state: MissionState;
+    let state: State;
 
     if (this.previousStarted && !started) {
       state = 'endgame';
@@ -166,7 +166,7 @@ export default class AutoKickManager {
     return state;
   }
 
-  private async handleStateChange(state: MissionState) {
+  private async handleStateChange(state: State) {
     const previousState = this.currentState;
     this.currentState = state;
 
