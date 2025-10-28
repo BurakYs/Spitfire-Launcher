@@ -176,8 +176,8 @@ export default class Legendary {
     return data;
   }
 
-  static async cacheApps() {
-    if (Legendary.cachedApps) return;
+  static async cacheApps(forceRefresh = false) {
+    if (Legendary.cachedApps && !forceRefresh) return;
 
     const list = await Legendary.getList();
     await Legendary.syncEGL();

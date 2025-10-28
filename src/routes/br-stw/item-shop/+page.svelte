@@ -180,6 +180,7 @@
   onkeydown={(event) => {
     if (event.key === 'F5') {
       event.preventDefault();
+      errorOccurred = false;
       fetchShop(true);
     }
   }}

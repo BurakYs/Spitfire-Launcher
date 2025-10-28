@@ -18,10 +18,12 @@
 
   const activeAccount = $derived(nonNull($activeAccountStore));
 
+  let isRefreshing = $state(false);
   let searchQuery = $state<string>('');
+  let filters = $state<AppFilterValue[]>([]);
+
   let installDialogAppId = $state<string>();
   let uninstallDialogAppId = $state<string>();
-  let filters = $state<AppFilterValue[]>([]);
 
   const filteredApps = $derived.by(() => {
     const query = searchQuery.trim().toLowerCase();
@@ -64,6 +66,8 @@
   });
 
   onMount(async () => {
+    isRefreshing = true;
+
     const isLoggedIn = (await Legendary.getStatus()).account;
     if (!isLoggedIn) {
       const toastId = toast.loading($t('library.loggingIn'), { duration: Number.POSITIVE_INFINITY });
@@ -72,14 +76,29 @@
         await Legendary.login(activeAccount);
         toast.success($t('library.loggedIn'), { id: toastId, duration: 3000 });
       } catch (error) {
+        isRefreshing = false;
         handleError(error, $t('library.failedToLogin'), toastId);
         return;
       }
     }
 
-    await Legendary.cacheApps();
+    await Legendary.cacheApps().finally(() => {
+      isRefreshing = false;
+    });
   });
 </script>
+
+<svelte:window
+  onkeydown={(event) => {
+    if (event.key === 'F5') {
+      event.preventDefault();
+      isRefreshing = true;
+      Legendary.cacheApps(true).finally(() => {
+        isRefreshing = false;
+      });
+    }
+  }}
+/>
 
 <PageContent title={$t('library.page.title')}>
   <div class="flex items-center gap-2">
@@ -93,18 +112,18 @@
   </div>
 
   <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-    {#if Object.keys($ownedApps).length}
+    {#if isRefreshing}
+      <!-- eslint-disable-next-line @typescript-eslint/no-unused-vars -->
+      {#each Array(8) as _, i (i)}
+        <SkeletonAppCard/>
+      {/each}
+    {:else}
       {#each filteredApps as app (app.id)}
         <AppCard
           appId={app.id}
           bind:installDialogAppId
           bind:uninstallDialogAppId
         />
-      {/each}
-    {:else}
-      <!-- eslint-disable-next-line @typescript-eslint/no-unused-vars -->
-      {#each Array(8) as _, i (i)}
-        <SkeletonAppCard/>
       {/each}
     {/if}
   </div>
