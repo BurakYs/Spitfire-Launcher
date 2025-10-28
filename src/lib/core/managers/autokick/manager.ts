@@ -4,12 +4,11 @@ import { getResolvedResults, sleep } from '$lib/utils/util';
 import type { AccountData } from '$types/accounts';
 import MatchmakingManager from '$lib/core/managers/matchmaking';
 import { ConnectionEvents, EpicEvents } from '$lib/constants/events';
-import AutoKickBase, { type AutomationAccount } from '$lib/core/managers/autokick/base';
+import AutoKickBase from '$lib/core/managers/autokick/base';
 import PartyManager from '$lib/core/managers/party';
 import claimRewards from '$lib/core/managers/autokick/claim-rewards';
 import transferBuildingMaterials from '$lib/core/managers/autokick/transfer-building-materials';
 import { accountsStorage, settingsStorage } from '$lib/core/data-storage';
-import { automationStore } from '$lib/stores';
 import { get } from 'svelte/store';
 import type { PartyData } from '$types/game/party';
 
@@ -29,11 +28,11 @@ export default class AutoKickManager {
 
   static async create(account: AccountData) {
     const accountId = account.accountId;
-    AutoKickManager.updateXMPPStatus(accountId, 'LOADING');
+    AutoKickBase.updateStatus(accountId, 'LOADING');
 
     const xmpp = await XMPPManager.create(account, 'autoKick').catch(() => null);
     if (!xmpp) {
-      AutoKickManager.updateXMPPStatus(accountId, 'INVALID_CREDENTIALS');
+      AutoKickBase.updateStatus(accountId, 'INVALID_CREDENTIALS');
       throw new Error('Invalid XMPP credentials');
     }
 
@@ -41,7 +40,7 @@ export default class AutoKickManager {
     const signal = manager.abortController.signal;
 
     xmpp.addEventListener(ConnectionEvents.SessionStarted, async () => {
-      AutoKickManager.updateXMPPStatus(accountId, 'ACTIVE');
+      AutoKickBase.updateStatus(accountId, 'ACTIVE');
 
       const state = await manager.checkMissionState();
       manager.currentState = state;
@@ -61,7 +60,7 @@ export default class AutoKickManager {
     }, { signal });
 
     xmpp.addEventListener(ConnectionEvents.Disconnected, () => {
-      AutoKickManager.updateXMPPStatus(accountId, 'DISCONNECTED');
+      AutoKickBase.updateStatus(accountId, 'DISCONNECTED');
       manager.resetState();
     }, { signal });
 
@@ -80,7 +79,7 @@ export default class AutoKickManager {
     xmpp.addEventListener(EpicEvents.MemberJoined, async (data) => {
       if (data.account_id !== accountId) return;
 
-      AutoKickManager.updateXMPPStatus(accountId, 'ACTIVE');
+      AutoKickBase.updateStatus(accountId, 'ACTIVE');
 
       if (!manager.lastKick || (Date.now() - manager.lastKick.getTime()) > 20_000) {
         manager.scheduleMissionChecker(20_000);
@@ -89,8 +88,6 @@ export default class AutoKickManager {
 
     xmpp.addEventListener(EpicEvents.PartyUpdated, async (data) => {
       const partyState = data.party_state_updated?.['Default:PartyState_s'];
-      if (!partyState) return;
-
       if (partyState === 'PostMatchmaking') {
         manager.scheduleMissionChecker(60_000);
       }
@@ -100,10 +97,10 @@ export default class AutoKickManager {
 
     try {
       await xmpp.connect();
-      AutoKickManager.updateXMPPStatus(accountId, 'ACTIVE');
+      AutoKickBase.updateStatus(accountId, 'ACTIVE');
     } catch (error) {
       console.error(error);
-      AutoKickManager.updateXMPPStatus(accountId, 'DISCONNECTED');
+      AutoKickBase.updateStatus(accountId, 'DISCONNECTED');
     }
 
     return manager;
@@ -136,6 +133,7 @@ export default class AutoKickManager {
   }
 
   destroy() {
+    console.log(`Destroying AutoKickManager for account ${this.account.accountId}`);
     this.abortController.abort();
     this.resetState();
     this.xmpp?.removePurpose('autoKick');
@@ -189,14 +187,14 @@ export default class AutoKickManager {
   }
 
   private async postMissionActions() {
-    const automationSettings = AutoKickBase.getAccountById(this.account.accountId)?.settings || {};
+    const automationSettings = AutoKickBase.accounts.get(this.account.accountId)?.settings || {};
 
     const partyData = await PartyManager.get(this.account);
     const party = partyData.current[0] as PartyData | undefined;
 
     this.lastKick = new Date();
 
-    let kickPromise: Promise<void> = Promise.resolve();
+    let kickPromise = Promise.resolve();
     if (automationSettings.autoKick && party) {
       kickPromise = this.kick(party).catch(console.error);
     }
@@ -229,7 +227,7 @@ export default class AutoKickManager {
     const partyLeaderId = party.members.find(x => x.role === 'CAPTAIN')!.account_id;
     const partyLeaderAccount = accounts.find(x => x.accountId === partyLeaderId);
 
-    const membersWithAutoKick = partyMemberIds.filter((id) => AutoKickBase.getAccountById(id)?.settings.autoKick);
+    const membersWithAutoKick = partyMemberIds.filter((id) => AutoKickBase.accounts.get(id)?.settings.autoKick);
     const membersWithoutAutoKick = partyMemberIds.filter((id) => !membersWithAutoKick.includes(id));
 
     if (partyLeaderAccount) {
@@ -264,13 +262,5 @@ export default class AutoKickManager {
     const friendsInParty = friends.filter((friend) => partyMemberIds.includes(friend.accountId));
 
     return Promise.allSettled(friendsInParty.map((friend) => PartyManager.invite(this.account, party.id, friend.accountId)));
-  }
-
-  private static updateXMPPStatus(accountId: string, status: AutomationAccount['status']) {
-    const account = AutoKickBase.getAccountById(accountId);
-    if (!account) return;
-
-    account.status = status;
-    automationStore.update(s => s.map(a => a.accountId === accountId ? { ...a, status } : a));
   }
 }

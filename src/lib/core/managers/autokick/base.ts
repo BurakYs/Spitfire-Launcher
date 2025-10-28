@@ -1,6 +1,7 @@
 import { accountsStorage, automationStorage } from '$lib/core/data-storage';
 import { get } from 'svelte/store';
-import { automationStore, doingBulkOperations } from '$lib/stores';
+import { SvelteMap } from 'svelte/reactivity';
+import { doingBulkOperations } from '$lib/stores';
 import AutoKickManager from '$lib/core/managers/autokick/manager';
 import type { AccountData } from '$types/accounts';
 import type { AutomationSetting } from '$types/settings';
@@ -13,7 +14,7 @@ export type AutomationAccount = {
 };
 
 export default class AutoKickBase {
-  private static accounts = new Map<string, AutomationAccount>();
+  static accounts = new SvelteMap<string, AutomationAccount>();
 
   static async init() {
     const accounts = get(automationStorage);
@@ -47,47 +48,54 @@ export default class AutoKickBase {
     };
 
     AutoKickBase.accounts.set(account.accountId, data);
-    await AutoKickBase.updateSettings(account.accountId, settings, writeToFile);
+    AutoKickBase.updateSettings(account.accountId, settings, writeToFile);
 
-    data.manager = await AutoKickManager.create(account);
+    const manager = await AutoKickManager.create(account);
+    AutoKickBase.accounts.set(account.accountId, {
+      ...AutoKickBase.accounts.get(account.accountId)!,
+      manager
+    });
   }
 
-  static removeAccount(accountId: string) {
+  static async removeAccount(accountId: string) {
     AutoKickBase.accounts.get(accountId)?.manager?.destroy();
     AutoKickBase.accounts.delete(accountId);
 
-    automationStore.update(s => s.filter(a => a.accountId !== accountId));
     automationStorage.set(Array.from(AutoKickBase.accounts.values()).map((x) => ({
       accountId: x.account.accountId,
       ...x.settings
     })));
   }
 
-  static async updateSettings(accountId: string, settings: Partial<AutomationSetting>, writeToFile = true) {
-    const account = AutoKickBase.getAccountById(accountId);
+  static updateSettings(accountId: string, settings: Partial<AutomationSetting>, writeToFile = true) {
+    const account = AutoKickBase.accounts.get(accountId);
     if (!account) return;
 
-    account.settings = {
-      ...account.settings,
-      ...settings
-    };
-
-    const newSettings = Array.from(AutoKickBase.accounts.values()).map((x) => ({
-      accountId: x.account.accountId,
-      ...x.settings
-    }));
-
-    automationStore.set(newSettings.map((x) => ({
-      ...x,
-      status: AutoKickBase.getAccountById(x.accountId)?.status ?? 'LOADING'
-    })));
+    AutoKickBase.accounts.set(accountId, {
+      ...account,
+      settings: {
+        ...account.settings,
+        ...settings
+      }
+    });
 
     if (writeToFile) {
+      const newSettings = Array.from(AutoKickBase.accounts.values()).map((x) => ({
+        accountId: x.account.accountId,
+        ...x.settings
+      }));
+
       automationStorage.set(newSettings);
     }
   }
 
-  static getAccountById(accountId: string) {
-    return AutoKickBase.accounts.get(accountId);
+  static updateStatus(accountId: string, status: AutomationAccount['status']) {
+    const account = AutoKickBase.accounts.get(accountId);
+    if (!account) return;
+
+    AutoKickBase.accounts.set(accountId, {
+      ...account,
+      status
+    });
   }
 }

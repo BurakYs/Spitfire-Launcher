@@ -1,26 +1,26 @@
 <script lang="ts">
-  import Combobox from '$components/ui/Combobox/Combobox.svelte';
+  import Combobox, { type ComboboxProps } from '$components/ui/Combobox/Combobox.svelte';
   import { accountsStorage } from '$lib/core/data-storage';
   import UserIcon from '@lucide/svelte/icons/user';
   import type { AccountData } from '$types/accounts';
   import type { ClassValue } from 'svelte/elements';
   import { t } from '$lib/utils/util';
 
-  type Props = {
+  type Props = Omit<ComboboxProps, 'type' | 'icon' | 'items' | 'value' | 'onValueChange'> & {
     customList?: AccountData[];
     // Auto selects the only account in the list if it's the only one
     autoSelect?: boolean;
-    disabled?: boolean;
     class?: ClassValue;
-    triggerClass?: ClassValue;
   } & (
     | {
       type: 'single';
       selected?: string;
+      onValueChange?: (value: string) => void;
     }
     | {
       type: 'multiple';
       selected?: string[];
+      onValueChange?: (value: string[]) => void;
     }
   );
 
@@ -31,7 +31,8 @@
     selected = $bindable(),
     disabled,
     class: className,
-    triggerClass
+    triggerClass,
+    ...restProps
   }: Props = $props();
 
   const accountList = $derived(customList || $accountsStorage.accounts);
@@ -96,6 +97,7 @@
   {items}
   placeholder={selectedAccounts}
   {triggerClass}
-  {type}
+  type={type as never}
   bind:value={selected as never}
+  {...restProps}
 />
