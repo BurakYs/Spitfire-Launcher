@@ -46,7 +46,7 @@ export default class AutoKickManager {
       manager.currentState = state;
 
       if (state === 'pregame') {
-        manager.scheduleMissionChecker(60 * 1000);
+        manager.scheduleMissionChecker(60_000);
       }
 
       if (state === 'mission') {
