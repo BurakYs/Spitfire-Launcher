@@ -118,7 +118,23 @@ export default class AutoKickManager {
     clearInterval(this.checkerInterval);
     this.checkerInterval = window.setInterval(async () => {
       const state = await this.checkMissionState();
-      await this.handleStateChange(state);
+      const previousState = this.currentState;
+      this.currentState = state;
+
+      if (state === 'endgame') {
+        this.resetState();
+        await this.postMissionActions();
+        return;
+      }
+
+      if (state === 'lobby') {
+        this.resetState();
+
+        // If the user was kicked, previousState would be 'mission'
+        if (previousState === 'mission') {
+          await this.postMissionActions();
+        }
+      }
     }, intervalMs);
   }
 
@@ -136,7 +152,7 @@ export default class AutoKickManager {
     this.xmpp?.removePurpose('autoKick');
   }
 
-  private async checkMissionState(): Promise<State> {
+  async checkMissionState(): Promise<State> {
     // todo: instead of spamming findPlayer, we could use the PackedState changes from XMPP, but the event doesn't fire reliably
     const matchmakingResponse = await MatchmakingManager.findPlayer(this.account, this.account.accountId);
     if (!matchmakingResponse?.length) {
@@ -163,27 +179,7 @@ export default class AutoKickManager {
     return state;
   }
 
-  private async handleStateChange(state: State) {
-    const previousState = this.currentState;
-    this.currentState = state;
-
-    if (state === 'endgame') {
-      this.resetState();
-      await this.postMissionActions();
-      return;
-    }
-
-    if (state === 'lobby') {
-      this.resetState();
-
-      // If the user was kicked, previousState would be 'mission'
-      if (previousState === 'mission') {
-        await this.postMissionActions();
-      }
-    }
-  }
-
-  private async postMissionActions() {
+  async postMissionActions() {
     const automationSettings = AutoKickBase.accounts.get(this.account.accountId)?.settings || {};
 
     const partyData = await PartyManager.get(this.account);
