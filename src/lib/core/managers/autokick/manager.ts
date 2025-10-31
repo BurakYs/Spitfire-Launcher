@@ -197,7 +197,9 @@ export default class AutoKickManager {
     }
 
     if (automationSettings.autoTransferMaterials) {
-      transferBuildingMaterials(this.account).catch(console.error);
+      kickPromise.finally(() => {
+        transferBuildingMaterials(this.account).catch(console.error);
+      });
     }
 
     if (
