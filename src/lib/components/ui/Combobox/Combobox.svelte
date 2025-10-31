@@ -1,17 +1,10 @@
-<script lang="ts">
+<script lang="ts" module>
   import { Combobox, type WithoutChildrenOrChild } from 'bits-ui';
-  import { cn, t } from '$lib/utils/util';
-  import ChevronsDownIcon from '@lucide/svelte/icons/chevrons-down';
-  import ChevronsUpIcon from '@lucide/svelte/icons/chevrons-up';
-  import ChevronsUpDownIcon from '@lucide/svelte/icons/chevrons-up-down';
-  import CheckIcon from '@lucide/svelte/icons/check';
-  import SearchIcon from '@lucide/svelte/icons/search';
   import type { ClassValue } from 'svelte/elements';
 
-  type Item = { value: string; label: string };
-
-  type Props = Combobox.RootProps & {
-    items: Item[];
+  export type ComboboxItem = { value: string; label: string };
+  export type ComboboxProps = Combobox.RootProps & {
+    items: ComboboxItem[];
     placeholder?: string;
     maxSelections?: number;
     triggerClass?: ClassValue;
@@ -21,6 +14,15 @@
     // A temporary workaround, without this the search input inside the combobox doesn't work
     isGiftFriendSelection?: boolean
   };
+</script>
+
+<script lang="ts">
+  import { cn, t } from '$lib/utils/util';
+  import ChevronsDownIcon from '@lucide/svelte/icons/chevrons-down';
+  import ChevronsUpIcon from '@lucide/svelte/icons/chevrons-up';
+  import ChevronsUpDownIcon from '@lucide/svelte/icons/chevrons-up-down';
+  import CheckIcon from '@lucide/svelte/icons/check';
+  import SearchIcon from '@lucide/svelte/icons/search';
 
   let {
     type,
@@ -35,7 +37,7 @@
     icon: Icon = SearchIcon,
     isGiftFriendSelection = false,
     ...restProps
-  }: Props = $props();
+  }: ComboboxProps = $props();
 
   let searchValue = $state('');
   let customAnchor = $state<HTMLElement>();

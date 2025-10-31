@@ -261,10 +261,9 @@
 
   async function afterKickActions(memberId: string, claim = false) {
     const account = allAccounts.find(account => account.accountId === memberId);
-    const settings = AutoKickBase.getAccountById(memberId)?.settings || {};
-
     if (!account) return;
 
+    const settings = AutoKickBase.accounts.get(memberId)?.settings || {};
     const promises: Promise<unknown>[] = [];
 
     if (!settings.autoClaim && (claim || shouldClaimRewards)) {

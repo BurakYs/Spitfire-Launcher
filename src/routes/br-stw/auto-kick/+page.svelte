@@ -5,7 +5,6 @@
   import Button from '$components/ui/Button.svelte';
   import { accountsStorage } from '$lib/core/data-storage';
   import AutoKickBase from '$lib/core/managers/autokick/base';
-  import { automationStore } from '$lib/stores';
   import { cn, nonNull, t } from '$lib/utils/util';
   import Switch from '$components/ui/Switch.svelte';
   import type { AutomationSetting as AutomationSettingWithId } from '$types/settings';
@@ -18,26 +17,20 @@
   type AutomationSetting = keyof Omit<AutomationSettingWithId, 'accountId'>;
 
   const allAccounts = $derived(nonNull($accountsStorage.accounts));
-  const autoKickDisabledAccounts = $derived(allAccounts.filter((x) => !$automationStore.some((y) => y.accountId === x.accountId)));
+  const autoKickDisabledAccounts = $derived(allAccounts.filter((x) => !AutoKickBase.accounts.has(x.accountId)));
   const currentPlatform = platform();
-  let selectedAccountId = $state<string>();
 
-  $effect(() => {
-    if (!selectedAccountId) return;
+  function handleAccountSelect(accountId: string) {
+    if (!accountId) return;
 
-    const isAlreadyAdded = $automationStore.some((x) => x.accountId === selectedAccountId);
-    if (isAlreadyAdded) {
-      selectedAccountId = undefined;
-      return;
-    }
+    const isAlreadyAdded = AutoKickBase.accounts.has(accountId);
+    if (isAlreadyAdded) return;
 
-    const account = allAccounts.find((x) => x.accountId === selectedAccountId)!;
+    const account = allAccounts.find((x) => x.accountId === accountId)!;
     AutoKickBase.addAccount(account, {
       autoKick: true
     });
-
-    selectedAccountId = undefined;
-  });
+  }
 
   const settings: { id: AutomationSetting; label: string; }[] = $derived([
     {
@@ -57,10 +50,6 @@
       label: $t('autoKick.settings.invite')
     }
   ]);
-
-  async function changeSetting<T extends AutomationSetting>(accountId: string, name: T, enabled: boolean) {
-    await AutoKickBase.updateSettings(accountId, { [name]: enabled });
-  }
 </script>
 
 <PageContent
@@ -98,13 +87,13 @@
   <AccountCombobox
     autoSelect={false}
     customList={autoKickDisabledAccounts}
+    onValueChange={handleAccountSelect}
     type="single"
-    bind:selected={selectedAccountId}
   />
 
-  {#if $automationStore.length}
+  {#if AutoKickBase.accounts.size}
     <div class="grid grid-cols-1 place-items-center @md:grid-cols-2 @lg:grid-cols-3 gap-4">
-      {#each $automationStore as automationAccount (automationAccount.accountId)}
+      {#each AutoKickBase.accounts as [accountId, automationAccount] (accountId)}
         {@const isLoading = automationAccount.status === 'LOADING'}
 
         <div class="border rounded-lg shadow-sm overflow-hidden w-56">
@@ -118,13 +107,13 @@
                   automationAccount.status === 'INVALID_CREDENTIALS' && 'bg-red-500'
                 )}
               ></div>
-              <span class="font-medium">{allAccounts.find((x) => x.accountId === automationAccount.accountId)?.displayName || automationAccount.accountId}</span>
+              <span class="font-medium">{allAccounts.find((x) => x.accountId === accountId)?.displayName || accountId}</span>
             </div>
 
             <Button
               class="flex items-center justify-center hover:bg-muted-foreground/50 hover:text-destructive size-8"
               disabled={isLoading}
-              onclick={() => AutoKickBase.removeAccount(automationAccount.accountId)}
+              onclick={() => AutoKickBase.removeAccount(accountId)}
               size="sm"
               variant="ghost"
             >
@@ -141,9 +130,9 @@
               <div class="flex items-center justify-between py-1.5">
                 <span class="text-sm mr-5">{setting.label}</span>
                 <Switch
-                  checked={$automationStore.find((x) => x.accountId === automationAccount.accountId)?.[setting.id] ?? false}
-                  disabled={isLoading || (setting.id === 'autoInvite' && !automationAccount.autoKick)}
-                  onCheckedChange={(checked) => changeSetting(automationAccount.accountId, setting.id, checked)}
+                  checked={automationAccount.settings[setting.id]}
+                  disabled={isLoading || (setting.id === 'autoInvite' && !automationAccount.settings.autoKick)}
+                  onCheckedChange={(checked) => AutoKickBase.updateSettings(accountId, { [setting.id]: checked })}
                 />
               </div>
 

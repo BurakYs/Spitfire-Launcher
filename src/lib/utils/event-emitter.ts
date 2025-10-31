@@ -49,7 +49,7 @@ export default class EventEmitter<EventMap extends Record<string, any>> {
 
       const timeoutId = setTimeout(() => {
         this.removeEventListener(name, listener);
-        reject(new Error('Timeout'));
+        reject(new Error(`Timeout waiting for event: ${String(name)}`));
       }, timeout);
 
       this.addEventListener(name, listener);

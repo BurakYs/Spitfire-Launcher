@@ -20,7 +20,7 @@ export default async function claimRewards(account: AccountData, skipDelay = fal
 
   const claimedRewardsPromises: Promise<unknown>[] = [
     claimQuestRewards(account, profile.items),
-    openCardPackBatch(account, profile.items),
+    openCardPacks(account, profile.items),
     MCPManager.compose(account, 'RedeemSTWAccoladeTokens', 'athena', {})
   ];
 
@@ -35,18 +35,10 @@ export default async function claimRewards(account: AccountData, skipDelay = fal
   return Promise.allSettled(claimedRewardsPromises);
 }
 
-async function openCardPackBatch(account: AccountData, queryProfileItems: CampaignProfile['items']) {
+async function openCardPacks(account: AccountData, queryProfileItems: CampaignProfile['items']) {
   const cardPackItemIds = Object.entries(queryProfileItems)
-    .filter(([, x]) =>
-      x.templateId.startsWith('CardPack:') &&
-			(
-			  x.templateId.startsWith('CardPack:zcp_') ||
-				x.attributes.pack_source !== 'Store' ||
-				x.attributes.match_statistics ||
-				x.attributes.pack_source === 'ItemCache'
-			)
-    )
-    .map(([key]) => key);
+    .filter(([, x]) => x.templateId.startsWith('CardPack:') && (x.attributes.match_statistics || x.attributes.pack_source === 'ItemCache'))
+    .map(([id]) => id);
 
   if (!cardPackItemIds.length) return;
 
@@ -54,26 +46,15 @@ async function openCardPackBatch(account: AccountData, queryProfileItems: Campai
 }
 
 async function claimQuestRewards(account: AccountData, queryProfileItems: CampaignProfile['items']) {
-  const questItems = Object.entries(queryProfileItems)
-    .filter(([, x]) =>
-      x.templateId.startsWith('Quest:') &&
-			(
-			  x.attributes.quest_state === 'Completed' ||
-				(x.attributes.quest_state === 'Claimed' && x.templateId.includes('questpool'))
-			)
-    )
-    .map(([, x]) => x);
+  const questIds = Object.entries(queryProfileItems)
+    .filter(([, item]) => item.templateId.startsWith('Quest:') && item.attributes.quest_state === 'Completed')
+    .map(([id]) => id);
 
-  if (!questItems.length) return;
+  if (!questIds.length) return;
 
-  const questIds = questItems.map(x => x.templateId);
-
-  const claimResult = await Promise.allSettled(
+  return Promise.allSettled(
     questIds.map(x =>
       MCPManager.compose(account, 'ClaimQuestReward', 'campaign', { questId: x, selectedRewardIndex: 0 })
     )
   );
-
-  // @ts-expect-error - Internal TS Error, already filtered out rejected promises
-  return claimResult.filter(x => x.status === 'fulfilled' && x.value).map(x => x.value);
 }
