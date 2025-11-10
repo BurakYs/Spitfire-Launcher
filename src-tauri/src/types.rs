@@ -28,11 +28,6 @@ pub struct StreamEvent {
 }
 
 #[derive(Debug, Serialize, Deserialize)]
-pub struct StreamInfo {
-    pub stream_id: String,
-}
-
-#[derive(Debug, Serialize, Deserialize)]
 pub struct LaunchData {
     pub game_id: String,
     pub game_parameters: Vec<String>,
