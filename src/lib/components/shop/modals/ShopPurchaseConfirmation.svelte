@@ -95,7 +95,7 @@
 
   <div class="flex w-full items-center justify-center gap-2">
     <Dialog.Button buttonType="cancel">
-      {$t('common.cancel')}
+      {$t('cancel')}
     </Dialog.Button>
 
     <Dialog.Button
@@ -108,7 +108,7 @@
         <LoaderCircleIcon class="size-5 animate-spin mr-2"/>
         {$t('itemShop.purchasing')}
       {:else}
-        {$t('common.confirm')}
+        {$t('confirm')}
       {/if}
     </Dialog.Button>
   </div>

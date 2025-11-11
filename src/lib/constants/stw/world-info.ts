@@ -193,7 +193,7 @@ export const ZoneNames = derived([language, t], ([$language, $t]) => ({
   stn: missions.surviveTheStorm.names[$language],
   'storm-shield': missions.homebaseStormShield.names[$language],
   tts: missions.trapTheStorm.names[$language],
-  quest: $t('common.quest')
+  quest: $t('quest')
 } as Record<string, string>));
 
 export const GroupZones = Object.freeze([

@@ -314,7 +314,7 @@
         name: $t('lookupPlayers.playerInfo.founderEdition'),
         value: !stwData ? null : stwData.founderEdition
           ? $FounderEditionNames[stwData.founderEdition]
-          : $t('common.stw.founderEditions.none')
+          : $t('stw.founderEditions.none')
       }
     ]}
 

@@ -99,19 +99,19 @@
         {@const gamemodes = [
           {
             id: 'battleRoyale',
-            name: $t('common.gameModes.battleRoyale'),
+            name: $t('gameModes.battleRoyale'),
             value: status.data.battleRoyale || 0,
             limit: 4_000_000
           },
           {
             id: 'creative',
-            name: $t('common.gameModes.creative'),
+            name: $t('gameModes.creative'),
             value: status.data.creative || 0,
             limit: 4_000_000
           },
           {
             id: 'saveTheWorld',
-            name: $t('common.gameModes.saveTheWorld'),
+            name: $t('gameModes.saveTheWorld'),
             value: status.data.saveTheWorld || 0,
             limit: 3_400_000
           }

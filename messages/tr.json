@@ -1,32 +1,30 @@
 {
   "$schema": "https://inlang.com/schema/inlang-message-format",
   "language": "Türkçe",
-  "common": {
-    "yes": "Evet",
-    "no": "Hayır",
-    "vbucks": "V-Papel",
-    "xp": "TP",
-    "quest": "Görev",
-    "stw": {
-      "xrayTickets": "İçi Dışı Bir Biletleri",
-      "gold": "Altın",
-      "founderEditions": {
-        "none": "Kurucu Yok",
-        "founder": "Kurucu",
-        "standard": "Standart",
-        "deluxe": "Deluxe",
-        "superDeluxe": "Super Deluxe",
-        "limited": "Sınırlı",
-        "ultimate": "Ultimate"
-      }
-    },
-    "gameModes": {
-      "battleRoyale": "Battle Royale",
-      "creative": "Kreatif",
-      "saveTheWorld": "Dünyayı Kurtar"
-    },
-    "cancel": "İptal",
-    "confirm": "Onayla"
+  "yes": "Evet",
+  "no": "Hayır",
+  "cancel": "İptal",
+  "confirm": "Onayla",
+  "vbucks": "V-Papel",
+  "xp": "TP",
+  "quest": "Görev",
+  "stw": {
+    "xrayTickets": "İçi Dışı Bir Biletleri",
+    "gold": "Altın",
+    "founderEditions": {
+      "none": "Kurucu Yok",
+      "founder": "Kurucu",
+      "standard": "Standart",
+      "deluxe": "Deluxe",
+      "superDeluxe": "Super Deluxe",
+      "limited": "Sınırlı",
+      "ultimate": "Ultimate"
+    }
+  },
+  "gameModes": {
+    "battleRoyale": "Battle Royale",
+    "creative": "Kreatif",
+    "saveTheWorld": "Dünyayı Kurtar"
   },
   "errors": {
     "notLoggedIn": "Bu sayfayı görüntülemek için giriş yapmalısınız.",

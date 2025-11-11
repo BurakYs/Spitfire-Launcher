@@ -143,7 +143,7 @@
 
   <div class="flex w-full items-center justify-center gap-2 mt-4">
     <Dialog.Button buttonType="cancel" onclick={() => (open = false)}>
-      {$t('common.cancel')}
+      {$t('cancel')}
     </Dialog.Button>
 
     <Dialog.Button

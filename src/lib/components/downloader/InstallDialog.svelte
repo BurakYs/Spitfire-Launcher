@@ -178,7 +178,7 @@
 
     <div class="flex w-full items-center justify-center gap-2">
       <Dialog.Button buttonType="cancel" onclick={() => isOpen = false}>
-        {$t('common.cancel')}
+        {$t('cancel')}
       </Dialog.Button>
 
       <Tooltip

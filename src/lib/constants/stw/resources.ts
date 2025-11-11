@@ -65,11 +65,11 @@ export const FounderEditions = Object.freeze({
 } as const);
 
 export const FounderEditionNames = derived(t, ($t) => ({
-  [FounderEditions.Standard]: $t('common.stw.founderEditions.standard'),
-  [FounderEditions.Deluxe]: $t('common.stw.founderEditions.deluxe'),
-  [FounderEditions.SuperDeluxe]: $t('common.stw.founderEditions.superDeluxe'),
-  [FounderEditions.Limited]: $t('common.stw.founderEditions.limited'),
-  [FounderEditions.Ultimate]: $t('common.stw.founderEditions.ultimate')
+  [FounderEditions.Standard]: $t('stw.founderEditions.standard'),
+  [FounderEditions.Deluxe]: $t('stw.founderEditions.deluxe'),
+  [FounderEditions.SuperDeluxe]: $t('stw.founderEditions.superDeluxe'),
+  [FounderEditions.Limited]: $t('stw.founderEditions.limited'),
+  [FounderEditions.Ultimate]: $t('stw.founderEditions.ultimate')
 }));
 
 export const resources = resourcesJson as Record<string, ResourceData>;

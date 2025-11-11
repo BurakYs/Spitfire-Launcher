@@ -40,7 +40,7 @@
 >
   <div class="flex w-full items-center justify-center gap-2">
     <Dialog.Button buttonType="cancel">
-      {$t('common.cancel')}
+      {$t('cancel')}
     </Dialog.Button>
 
     <Dialog.Button
@@ -54,7 +54,7 @@
         <LoaderCircleIcon class="size-5 animate-spin"/>
       {/if}
 
-      {$t('common.confirm')}
+      {$t('confirm')}
     </Dialog.Button>
   </div>
 </Dialog.Root>

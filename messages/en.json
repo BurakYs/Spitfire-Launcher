@@ -1,32 +1,30 @@
 {
   "$schema": "https://inlang.com/schema/inlang-message-format",
   "language": "English",
-  "common": {
-    "yes": "Yes",
-    "no": "No",
-    "vbucks": "V-Bucks",
-    "xp": "XP",
-    "quest": "Quest",
-    "stw": {
-      "xrayTickets": "X-Ray Tickets",
-      "gold": "Gold",
-      "founderEditions": {
-        "none": "Non-Founder",
-        "founder": "Founder",
-        "standard": "Standard",
-        "deluxe": "Deluxe",
-        "superDeluxe": "Super Deluxe",
-        "limited": "Limited",
-        "ultimate": "Ultimate"
-      }
-    },
-    "gameModes": {
-      "battleRoyale": "Battle Royale",
-      "creative": "Creative",
-      "saveTheWorld": "Save the World"
-    },
-    "cancel": "Cancel",
-    "confirm": "Confirm"
+  "yes": "Yes",
+  "no": "No",
+  "cancel": "Cancel",
+  "confirm": "Confirm",
+  "vbucks": "V-Bucks",
+  "xp": "XP",
+  "quest": "Quest",
+  "stw": {
+    "xrayTickets": "X-Ray Tickets",
+    "gold": "Gold",
+    "founderEditions": {
+      "none": "Non-Founder",
+      "founder": "Founder",
+      "standard": "Standard",
+      "deluxe": "Deluxe",
+      "superDeluxe": "Super Deluxe",
+      "limited": "Limited",
+      "ultimate": "Ultimate"
+    }
+  },
+  "gameModes": {
+    "battleRoyale": "Battle Royale",
+    "creative": "Creative",
+    "saveTheWorld": "Save the World"
   },
   "errors": {
     "notLoggedIn": "You must be logged in to view this page.",

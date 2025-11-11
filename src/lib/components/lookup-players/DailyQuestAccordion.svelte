@@ -36,19 +36,19 @@
     {@const rewards = [
       {
         id: 'gold',
-        name: $t('common.stw.gold'),
+        name: $t('stw.gold'),
         icon: '/assets/resources/eventcurrency_scaling.png',
         amount: quest.rewards.gold
       },
       {
         id: 'mtx',
-        name: quest.hasFounder ? $t('common.vbucks') : $t('common.stw.xrayTickets'),
+        name: quest.hasFounder ? $t('vbucks') : $t('stw.xrayTickets'),
         icon: quest.hasFounder ? '/assets/resources/currency_mtxswap.png' : '/assets/resources/currency_xrayllama.png',
         amount: quest.rewards.mtx
       },
       {
         id: 'xp',
-        name: $t('common.xp'),
+        name: $t('xp'),
         icon: '/assets/misc/battle-royale-xp.png',
         amount: quest.rewards.xp
       }

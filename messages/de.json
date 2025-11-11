@@ -1,32 +1,30 @@
 {
   "$schema": "https://inlang.com/schema/inlang-message-format",
   "language": "Deutsch",
-  "common": {
-    "yes": "Ja",
-    "no": "Nein",
-    "vbucks": "V-Bucks",
-    "xp": "EP",
-    "quest": "Aufgaben",
-    "stw": {
-      "xrayTickets": "Röntgen-Tickets",
-      "gold": "Gold",
-      "founderEditions": {
-        "none": "Kein Gründer",
-        "founder": "Gründer",
-        "standard": "Standard",
-        "deluxe": "Deluxe",
-        "superDeluxe": "Super Deluxe",
-        "limited": "Limitiert",
-        "ultimate": "Ultimate"
-      }
-    },
-    "gameModes": {
-      "battleRoyale": "Battle Royale",
-      "creative": "Kreativmodus",
-      "saveTheWorld": "Rette die Welt"
-    },
-    "cancel": "Abbrechen",
-    "confirm": "Bestätigen"
+  "yes": "Ja",
+  "no": "Nein",
+  "cancel": "Abbrechen",
+  "confirm": "Bestätigen",
+  "vbucks": "V-Bucks",
+  "xp": "EP",
+  "quest": "Aufgaben",
+  "stw": {
+    "xrayTickets": "Röntgen-Tickets",
+    "gold": "Gold",
+    "founderEditions": {
+      "none": "Kein Gründer",
+      "founder": "Gründer",
+      "standard": "Standard",
+      "deluxe": "Deluxe",
+      "superDeluxe": "Super Deluxe",
+      "limited": "Limitiert",
+      "ultimate": "Ultimate"
+    }
+  },
+  "gameModes": {
+    "battleRoyale": "Battle Royale",
+    "creative": "Kreativmodus",
+    "saveTheWorld": "Rette die Welt"
   },
   "errors": {
     "notLoggedIn": "Du musst angemeldet sein, um diese Seite zu sehen.",

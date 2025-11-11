@@ -206,7 +206,7 @@
       </div>
       <div class="flex items-center gap-1">
         <span class="text-muted-foreground">{$t('partyManagement.partyMembers.ownsSTW')}:</span>
-        <span>{member.ownsSaveTheWorld ? $t('common.yes') : $t('common.no')}</span>
+        <span>{member.ownsSaveTheWorld ? $t('yes') : $t('no')}</span>
       </div>
     </div>
 

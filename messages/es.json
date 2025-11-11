@@ -1,32 +1,30 @@
 {
   "$schema": "https://inlang.com/schema/inlang-message-format",
   "language": "Español",
-  "common": {
-    "yes": "Si",
-    "no": "No",
-    "vbucks": "PaVos",
-    "xp": "XP",
-    "quest": "Misión",
-    "stw": {
-      "xrayTickets": "Tickets X-Ray",
-      "gold": "Oro",
-      "founderEditions": {
-        "none": "No fundador",
-        "founder": "Fundador",
-        "standard": "Estandar",
-        "deluxe": "Deluxe",
-        "superDeluxe": "Super Deluxe",
-        "limited": "Limitada",
-        "ultimate": "Definitivo"
-      }
-    },
-    "gameModes": {
-      "battleRoyale": "Battle Royale",
-      "creative": "Creativo",
-      "saveTheWorld": "Salvar el Mundo"
-    },
-    "cancel": "Cancelar",
-    "confirm": "Confirmar"
+  "yes": "Si",
+  "no": "No",
+  "cancel": "Cancelar",
+  "confirm": "Confirmar",
+  "vbucks": "PaVos",
+  "xp": "XP",
+  "quest": "Misión",
+  "stw": {
+    "xrayTickets": "Tickets X-Ray",
+    "gold": "Oro",
+    "founderEditions": {
+      "none": "No fundador",
+      "founder": "Fundador",
+      "standard": "Estandar",
+      "deluxe": "Deluxe",
+      "superDeluxe": "Super Deluxe",
+      "limited": "Limitada",
+      "ultimate": "Definitivo"
+    }
+  },
+  "gameModes": {
+    "battleRoyale": "Battle Royale",
+    "creative": "Creativo",
+    "saveTheWorld": "Salvar el Mundo"
   },
   "errors": {
     "notLoggedIn": "Debes iniciar sesión para ver esta página.",

@@ -1,32 +1,30 @@
 {
   "$schema": "https://inlang.com/schema/inlang-message-format",
   "language": "Français",
-  "common": {
-    "yes": "Oui",
-    "no": "Non",
-    "vbucks": "V-Bucks",
-    "xp": "EXP",
-    "quest": "Quête",
-    "stw": {
-      "xrayTickets": "Tickets à Rayons-X",
-      "gold": "Or",
-      "founderEditions": {
-        "none": "Non-Fondateur",
-        "founder": "Fondateur",
-        "standard": "Standard",
-        "deluxe": "Deluxe",
-        "superDeluxe": "Super Deluxe",
-        "limited": "Limité",
-        "ultimate": "Ultime"
-      }
-    },
-    "gameModes": {
-      "battleRoyale": "Battle Royale",
-      "creative": "Créatif",
-      "saveTheWorld": "Sauver Le Monde"
-    },
-    "cancel": "Annuler",
-    "confirm": "Confirmer"
+  "yes": "Oui",
+  "no": "Non",
+  "cancel": "Annuler",
+  "confirm": "Confirmer",
+  "vbucks": "V-Bucks",
+  "xp": "EXP",
+  "quest": "Quête",
+  "stw": {
+    "xrayTickets": "Tickets à Rayons-X",
+    "gold": "Or",
+    "founderEditions": {
+      "none": "Non-Fondateur",
+      "founder": "Fondateur",
+      "standard": "Standard",
+      "deluxe": "Deluxe",
+      "superDeluxe": "Super Deluxe",
+      "limited": "Limité",
+      "ultimate": "Ultime"
+    }
+  },
+  "gameModes": {
+    "battleRoyale": "Battle Royale",
+    "creative": "Créatif",
+    "saveTheWorld": "Sauver Le Monde"
   },
   "errors": {
     "notLoggedIn": "Vous devez être connecté pour voir cette page.",

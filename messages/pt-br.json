@@ -1,32 +1,30 @@
 {
   "$schema": "https://inlang.com/schema/inlang-message-format",
   "language": "Português",
-  "common": {
-    "yes": "Sim",
-    "no": "Não",
-    "vbucks": "V-Bucks",
-    "xp": "XP",
-    "quest": "Desafio",
-    "stw": {
-      "xrayTickets": "Tickets Raio-X",
-      "gold": "Ouro",
-      "founderEditions": {
-        "none": "Não-Fundador",
-        "founder": "Fundador",
-        "standard": "Padrão",
-        "deluxe": "Luxo",
-        "superDeluxe": "Super Luxo",
-        "limited": "Limitado",
-        "ultimate": "Ultimate"
-      }
-    },
-    "gameModes": {
-      "battleRoyale": "Battle Royale",
-      "creative": "Criativo",
-      "saveTheWorld": "Salve o Mundo"
-    },
-    "cancel": "Cancelar",
-    "confirm": "Confirmar"
+  "yes": "Sim",
+  "no": "Não",
+  "cancel": "Cancelar",
+  "confirm": "Confirmar",
+  "vbucks": "V-Bucks",
+  "xp": "XP",
+  "quest": "Desafio",
+  "stw": {
+    "xrayTickets": "Tickets Raio-X",
+    "gold": "Ouro",
+    "founderEditions": {
+      "none": "Não-Fundador",
+      "founder": "Fundador",
+      "standard": "Padrão",
+      "deluxe": "Luxo",
+      "superDeluxe": "Super Luxo",
+      "limited": "Limitado",
+      "ultimate": "Ultimate"
+    }
+  },
+  "gameModes": {
+    "battleRoyale": "Battle Royale",
+    "creative": "Criativo",
+    "saveTheWorld": "Salve o Mundo"
   },
   "errors": {
     "notLoggedIn": "Iniciar sessão para visualizar esta página.",

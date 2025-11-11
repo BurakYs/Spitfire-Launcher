@@ -76,7 +76,7 @@
   const sections = $derived([
     {
       id: 'vbucks',
-      title: $t('common.vbucks'),
+      title: $t('vbucks'),
       missions: filteredMissions?.vbucks || []
     },
     {
@@ -109,7 +109,7 @@
   const overview = $derived([
     {
       id: 'vbucks',
-      name: $t('common.vbucks'),
+      name: $t('vbucks'),
       icon: '/assets/resources/currency_mtxswap.png',
       amount: countMissionReward(filteredMissions?.vbucks, 'currency_mtxswap')
     },
