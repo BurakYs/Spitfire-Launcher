@@ -103,7 +103,7 @@
       placeholder={$downloaderStorage.downloadPath}
       showClearButton={false}
       value={$downloaderStorage.downloadPath}
-      variant="outline"
+      variant="primary"
     />
   </SettingItem>
 
@@ -115,7 +115,7 @@
   >
     <AccountCombobox
       disabled={switchingDownloaderAccount || loadingAccount || !!DownloadManager.downloadingAppId}
-      triggerClass="bg-transparent"
+      triggerClass="bg-surface-alt"
       type="single"
       bind:selected={downloaderAccountId}
     />

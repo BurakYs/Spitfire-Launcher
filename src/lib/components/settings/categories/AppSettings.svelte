@@ -70,7 +70,7 @@
         onchange={(e) => handleSettingChange(e, 'gamePath')}
         placeholder="C:/Program Files/.../FortniteGame/Binaries/Win64"
         value={$settingsStorage.app?.gamePath}
-        variant="outline"
+        variant="primary"
       />
     </SettingItem>
 
@@ -84,7 +84,7 @@
         id="launchArguments"
         onchange={(e) => handleSettingChange(e, 'launchArguments')}
         value={$settingsStorage.app?.launchArguments}
-        variant="outline"
+        variant="primary"
       />
     </SettingItem>
   {/if}
@@ -102,7 +102,7 @@
       onchange={(e) => handleSettingChange(convertToNumber(e), 'missionCheckInterval')}
       type="number"
       value={$settingsStorage.app?.missionCheckInterval}
-      variant="outline"
+      variant="primary"
     />
   </SettingItem>
 
@@ -119,7 +119,7 @@
       onchange={(e) => handleSettingChange(convertToNumber(e), 'claimRewardsDelay')}
       type="number"
       value={$settingsStorage.app?.claimRewardsDelay}
-      variant="outline"
+      variant="primary"
     />
   </SettingItem>
 
@@ -133,7 +133,7 @@
       id="startingPage"
       items={startingPageOptions}
       onValueChange={(value) => handleSettingChange(value, 'startingPage')}
-      triggerClass="w-full"
+      triggerClass="w-full bg-surface-alt"
       type="single"
       value={$settingsStorage.app?.startingPage}
     >
