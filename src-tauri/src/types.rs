@@ -1,6 +1,10 @@
-use serde::{Deserialize, Serialize};
-use std::collections::HashMap;
+#[cfg(windows)]
+use {
+	serde::{Deserialize, Serialize},
+	std::collections::HashMap,
+};
 
+#[cfg(windows)]
 #[derive(Debug, Serialize, Deserialize)]
 pub struct CommandOutput {
     pub code: Option<i32>,
@@ -9,6 +13,7 @@ pub struct CommandOutput {
     pub stderr: String,
 }
 
+#[cfg(windows)]
 #[derive(Debug, Serialize, Deserialize, Clone)]
 #[serde(rename_all = "snake_case")]
 pub enum EventType {
@@ -18,6 +23,7 @@ pub enum EventType {
     Error,
 }
 
+#[cfg(windows)]
 #[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct StreamEvent {
     pub stream_id: String,
@@ -27,6 +33,7 @@ pub struct StreamEvent {
     pub signal: Option<i32>,
 }
 
+#[cfg(windows)]
 #[derive(Debug, Serialize, Deserialize)]
 pub struct LaunchData {
     pub game_id: String,
@@ -42,6 +49,7 @@ pub struct LaunchData {
     pub pre_launch_wait: bool,
 }
 
+#[cfg(windows)]
 #[derive(Debug, Serialize, Deserialize, Clone)]
 #[serde(rename_all = "snake_case")]
 pub enum AppState {
@@ -49,6 +57,7 @@ pub enum AppState {
     Stopped,
 }
 
+#[cfg(windows)]
 #[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct AppStateEvent {
     pub pid: u32,
@@ -65,6 +74,7 @@ pub struct TrackedApp {
     pub is_running: bool,
 }
 
+#[cfg(windows)]
 #[derive(Debug, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
 pub struct DiskSpace {
