@@ -63,7 +63,7 @@ See the [Setup Guide](https://github.com/BurakYs/Spitfire-Launcher/wiki/Setting-
 ## Translating
 
 You can help us translate the launcher on [Crowdin](https://crowdin.com/project/rookie-spitfire).  
-If you also join our [Discord](https://discord.gg/rookie-spitfire), you will get the Translator role as a thank-you.
+If you also join our [Discord](https://discord.gg/rAUbXf5xUZ), you will get the Translator role as a thank-you.
 
 ## Contributing
 
