@@ -29,25 +29,25 @@
 
     for (const [theaterId, worldMissions] of $worldInfoCache.entries()) {
       for (const mission of worldMissions.values()) {
-        const { filters, powerLevel } = mission;
+        for (const id of mission.filters) {
+          if (id.includes('currency_mtxswap')) {
+            vbucks.push(mission);
+          }
 
-        if (filters.some(id => id.includes('currency_mtxswap'))) {
-          vbucks.push(mission);
+          if (isLegendaryOrMythicSurvivor(id)) {
+            survivors.push(mission);
+          }
+
+          if (id.includes('voucher_cardpack_bronze')) {
+            upgradeLlamaTokens.push(mission);
+          }
+
+          if (id.includes('alteration_upgrade_sr')) {
+            perkUp.push(mission);
+          }
         }
 
-        if (filters.some(id => isLegendaryOrMythicSurvivor(id))) {
-          survivors.push(mission);
-        }
-
-        if (filters.some(id => id.includes('voucher_cardpack_bronze'))) {
-          upgradeLlamaTokens.push(mission);
-        }
-
-        if (filters.some(id => id.includes('alteration_upgrade_sr'))) {
-          perkUp.push(mission);
-        }
-
-        if (theaterId === Theaters.TwinePeaks && powerLevel === WorldPowerLevels[Theaters.TwinePeaks].Endgame_Zone6) {
+        if (theaterId === Theaters.TwinePeaks && mission.powerLevel === WorldPowerLevels[Theaters.TwinePeaks].Endgame_Zone6) {
           twinePeaks.push(mission);
         }
 
@@ -56,7 +56,7 @@
           theaterId !== Theaters.Plankerton &&
           theaterId !== Theaters.CannyValley &&
           theaterId !== Theaters.TwinePeaks &&
-          powerLevel === WorldPowerLevels.ventures.Phoenix_Zone25
+          mission.powerLevel === WorldPowerLevels.ventures.Phoenix_Zone25
         ) {
           ventures.push(mission);
         }
