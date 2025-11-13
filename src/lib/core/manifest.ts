@@ -17,7 +17,7 @@ export default class Manifest {
 
   static async getFortniteUserAgent() {
     const gameData = await Manifest.getFortniteManifest().catch(() => null);
-    return gameData?.userAgent || 'Fortnite/++Fortnite+Release-37.00-CL-44501951-Windows';
+    return gameData?.userAgent || 'Fortnite/++Fortnite+Release-38.10-CL-47888945-Windows';
   }
 
   static async getFortniteManifest() {
