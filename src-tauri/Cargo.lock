@@ -4120,7 +4120,7 @@ dependencies = [
 
 [[package]]
 name = "spitfire-launcher"
-version = "1.6.2"
+version = "1.7.0"
 dependencies = [
  "discord-rich-presence",
  "fs2",
