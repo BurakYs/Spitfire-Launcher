@@ -18,26 +18,18 @@ export default async function claimRewards(account: AccountData, skipDelay = fal
   const hasMissionAlertRewards = !!attributes.mission_alert_redemption_record?.pendingMissionAlertRewards?.items?.length;
   const hasDifficultyIncreaseRewards = !!attributes.difficulty_increase_rewards_record?.pendingRewards?.length;
 
-  const claimedRewardsPromises: Promise<unknown>[] = [
+  return Promise.allSettled([
     claimQuestRewards(account, profile.items),
     openCardPacks(account, profile.items),
-    MCPManager.compose(account, 'RedeemSTWAccoladeTokens', 'athena', {})
-  ];
-
-  if (hasMissionAlertRewards) {
-    claimedRewardsPromises.push(MCPManager.compose(account, 'ClaimMissionAlertRewards', 'campaign', {}));
-  }
-
-  if (hasDifficultyIncreaseRewards) {
-    claimedRewardsPromises.push(MCPManager.compose(account, 'ClaimDifficultyIncreaseRewards', 'campaign', {}));
-  }
-
-  return Promise.allSettled(claimedRewardsPromises);
+    MCPManager.compose(account, 'RedeemSTWAccoladeTokens', 'athena', {}),
+    hasMissionAlertRewards && MCPManager.compose(account, 'ClaimMissionAlertRewards', 'campaign', {}),
+    hasDifficultyIncreaseRewards && MCPManager.compose(account, 'ClaimDifficultyIncreaseRewards', 'campaign', {})
+  ]);
 }
 
 async function openCardPacks(account: AccountData, queryProfileItems: CampaignProfile['items']) {
   const cardPackItemIds = Object.entries(queryProfileItems)
-    .filter(([, x]) => x.templateId.startsWith('CardPack:') && (x.attributes.match_statistics || x.attributes.pack_source === 'ItemCache'))
+    .filter(([, item]) => item.templateId.startsWith('CardPack:') && (item.attributes.match_statistics || item.attributes.pack_source === 'ItemCache'))
     .map(([id]) => id);
 
   if (!cardPackItemIds.length) return;
@@ -53,8 +45,8 @@ async function claimQuestRewards(account: AccountData, queryProfileItems: Campai
   if (!questIds.length) return;
 
   return Promise.allSettled(
-    questIds.map(x =>
-      MCPManager.compose(account, 'ClaimQuestReward', 'campaign', { questId: x, selectedRewardIndex: 0 })
+    questIds.map(id =>
+      MCPManager.compose(account, 'ClaimQuestReward', 'campaign', { questId: id, selectedRewardIndex: 0 })
     )
   );
 }

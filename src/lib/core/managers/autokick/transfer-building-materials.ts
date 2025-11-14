@@ -2,7 +2,6 @@ import { settingsStorage } from '$lib/core/data-storage';
 import MCPManager from '$lib/core/managers/mcp';
 import { sleep } from '$lib/utils/util';
 import type { AccountData } from '$types/accounts';
-import type { ProfileItem } from '$types/game/mcp';
 import { get } from 'svelte/store';
 
 type MCPStorageTransferItem = {
@@ -39,7 +38,7 @@ export default async function transferBuildingMaterials(account: AccountData, sk
 
   for (const [itemId, itemData] of ownedMaterials) {
     const buildingMaterial = materials[itemData.templateId];
-    const quantity = calculateMaterial(itemData, buildingMaterial.total);
+    const quantity = Math.min(itemData.quantity, MAX_BUILDING_MATERIALS - buildingMaterial.total);
 
     buildingMaterial.total += quantity;
     buildingMaterial.items.push({
@@ -53,12 +52,4 @@ export default async function transferBuildingMaterials(account: AccountData, sk
   return MCPManager.compose(account, 'StorageTransfer', 'theater0', {
     transferOperations: Object.values(materials).flatMap(material => material.items).filter(x => x.quantity > 0)
   });
-}
-
-function calculateMaterial(itemData: ProfileItem, total: number) {
-  const tempTotalSum = total + itemData.quantity;
-  const tempRemoveOverflow = MAX_BUILDING_MATERIALS - total;
-  return tempTotalSum <= MAX_BUILDING_MATERIALS
-    ? itemData.quantity
-    : tempRemoveOverflow;
 }
