@@ -32,7 +32,7 @@
   import DailyQuestAccordion from '$components/lookup-players/DailyQuestAccordion.svelte';
   import STWDetails from '$components/lookup-players/STWDetails.svelte';
   import ExternalLink from '$components/ui/ExternalLink.svelte';
-  import WorldInfoSectionAccordion from '$components/ui/Accordion/WorldInfoSectionAccordion.svelte';
+  import AlertsSectionAccordion from '$components/mission-alerts/AlertsSectionAccordion.svelte';
   import { activeAccountStore, language } from '$lib/core/data-storage';
   import MatchmakingManager from '$lib/core/managers/matchmaking';
   import { avatarCache, worldInfoCache } from '$lib/stores';
@@ -351,7 +351,7 @@
 
         <h3 class="text-lg font-semibold text-center">{$t('lookupPlayers.claimedAlerts.title')}</h3>
 
-        <WorldInfoSectionAccordion
+        <AlertsSectionAccordion
           claimedMissionAlerts={stwData?.claimedMissionAlertIds}
           missions={claimedMissionAlerts}
           showAlertClaimedBorder={false}

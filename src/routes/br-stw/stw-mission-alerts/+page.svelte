@@ -5,10 +5,11 @@
 
 <script lang="ts">
   import PageContent from '$components/PageContent.svelte';
-  import { activeAccountStore, language } from '$lib/core/data-storage';
+  import AlertsOverviewItem from '$components/mission-alerts/AlertsOverviewItem.svelte';
+  import AlertsSection from '$components/mission-alerts/AlertsSection.svelte';
+  import { activeAccountStore } from '$lib/core/data-storage';
   import MCPManager from '$lib/core/managers/mcp';
   import type { WorldParsedMission } from '$types/game/stw/world-info';
-  import WorldInfoSectionAccordion from '$components/ui/Accordion/WorldInfoSectionAccordion.svelte';
   import { worldInfoCache } from '$lib/stores';
   import { WorldPowerLevels, Theaters } from '$lib/constants/stw/world-info';
   import { isLegendaryOrMythicSurvivor, nonNull, t } from '$lib/utils/util';
@@ -106,33 +107,6 @@
     }
   ]);
 
-  const overview = $derived([
-    {
-      id: 'vbucks',
-      name: $t('vbucks'),
-      icon: '/assets/resources/currency_mtxswap.png',
-      amount: countMissionReward(filteredMissions?.vbucks, 'currency_mtxswap')
-    },
-    {
-      id: 'upgradeLlamaTokens',
-      name: $t('stwMissionAlerts.sections.survivors'),
-      icon: '/assets/resources/voucher_generic_worker_sr.png',
-      amount: countMissionReward(filteredMissions?.survivors, isLegendaryOrMythicSurvivor)
-    },
-    {
-      id: 'perkUp',
-      name: $t('stwMissionAlerts.sections.twinePeaks'),
-      icon: '/assets/resources/voucher_cardpack_bronze.png',
-      amount: countMissionReward(filteredMissions?.upgradeLlamaTokens, 'voucher_cardpack_bronze')
-    },
-    {
-      id: 'twinePeaks',
-      name: $t('stwMissionAlerts.sections.ventures'),
-      icon: '/assets/resources/reagent_alteration_upgrade_sr.png',
-      amount: countMissionReward(filteredMissions?.perkUp, 'alteration_upgrade_sr')
-    }
-  ]);
-
   function refreshWorldInfo() {
     worldInfoCache.set(new Map());
     WorldInfoManager.setCache();
@@ -196,38 +170,31 @@
 <PageContent title={$t('stwMissionAlerts.page.title')}>
   <div class="flex flex-col">
     <div class="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-4 gap-4 p-4 pt-0 bg-muted/5">
-      {#each overview as { id, name, icon, amount } (id)}
-        <div class="flex items-center border rounded-md">
-          <div class="flex items-center justify-center size-10 bg-muted-foreground/10 shrink-0">
-            <img class="size-7" alt={name} src={icon}/>
-          </div>
-          <div class="grow px-2 font-medium text-center">
-            {amount.toLocaleString($language)}
-          </div>
-        </div>
-      {/each}
+      <AlertsOverviewItem
+        name={$t('vbucks')}
+        amount={countMissionReward(filteredMissions?.vbucks, 'currency_mtxswap')}
+        icon="/assets/resources/currency_mtxswap.png"
+      />
+      <AlertsOverviewItem
+        name={$t('stwMissionAlerts.sections.survivors')}
+        amount={countMissionReward(filteredMissions?.survivors, isLegendaryOrMythicSurvivor)}
+        icon="/assets/resources/voucher_generic_worker_sr.png"
+      />
+      <AlertsOverviewItem
+        name={$t('stwMissionAlerts.sections.upgradeLlamaTokens')}
+        amount={countMissionReward(filteredMissions?.upgradeLlamaTokens, 'voucher_cardpack_bronze')}
+        icon="/assets/resources/voucher_cardpack_bronze.png"
+      />
+      <AlertsOverviewItem
+        name={$t('stwMissionAlerts.sections.perkup')}
+        amount={countMissionReward(filteredMissions?.perkUp, 'alteration_upgrade_sr')}
+        icon="/assets/resources/reagent_alteration_upgrade_sr.png"
+      />
     </div>
 
     <div class="flex flex-col gap-y-5">
       {#each sections as { id, title, missions } (id)}
-        <div class="flex flex-col gap-y-1">
-          <h1 class="font-bold">{title}</h1>
-
-          {#if missions.length}
-            <WorldInfoSectionAccordion claimedMissionAlerts={!activeAccount ? undefined : claimedMissionAlerts.get(activeAccount.accountId)} {missions}/>
-          {:else if !$worldInfoCache.size}
-            <!-- eslint-disable-next-line @typescript-eslint/no-unused-vars -->
-            {#each Array(Math.max(1, Math.floor(Math.random() * 3) + 1)) as _, index (index)}
-              <div class="flex items-center justify-between px-2 h-8 bg-muted-foreground/5 rounded-sm skeleton-loader"></div>
-            {/each}
-          {:else}
-            <div class="flex items-center justify-center px-2 h-10 bg-muted-foreground/5 rounded-sm">
-              <span class="text-muted-foreground">
-                {$t('stwMissionAlerts.noMissions')}
-              </span>
-            </div>
-          {/if}
-        </div>
+        <AlertsSection {claimedMissionAlerts} {missions} {title}/>
       {/each}
     </div>
   </div>
