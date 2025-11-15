@@ -15,7 +15,7 @@
   let { type, items, openItems, rootClass, trigger, content, ...restProps }: Props = $props();
 </script>
 
-<Accordion.Root class={rootClass} type={type as never} value={openItems?.map(i => `item-${i}`)}>
+<Accordion.Root class={rootClass} type={type as never} value={openItems?.map((i) => `item-${i}`)}>
   {#each items as item, index (index.toString())}
     <Accordion.Item
       value="item-{index}"

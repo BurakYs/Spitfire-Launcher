@@ -18,7 +18,7 @@ export default class MatchmakingManager {
       }
     ).json();
 
-    const notCachedPlayers = data?.[0]?.publicPlayers.filter(x => !displayNamesCache.has(x));
+    const notCachedPlayers = data?.[0]?.publicPlayers.filter((x) => !displayNamesCache.has(x));
     if (notCachedPlayers?.length) {
       LookupManager.fetchByIds(account, notCachedPlayers).catch(console.error);
     }

@@ -22,7 +22,7 @@ export async function checkLogin() {
   if (hasAccount) return true;
 
   const sidebar = get(await getSidebar());
-  const defaultPage = sidebar.flatMap(x => x.items).find(x => x.key === 'stwMissionAlerts')!.href;
+  const defaultPage = sidebar.flatMap((x) => x.items).find((x) => x.key === 'stwMissionAlerts')!.href;
 
   await goto(defaultPage, {
     state: {
@@ -76,9 +76,9 @@ export function isLegendaryOrMythicSurvivor(itemId: string) {
 export async function getStartingPage(settingsData?: AllSettings) {
   const settings = settingsData || get(settingsStorage);
   const startingPage = settings.app?.startingPage;
-  const pages = get(await getSidebar()).flatMap(x => x.items);
+  const pages = get(await getSidebar()).flatMap((x) => x.items);
 
-  return (pages.find(x => x.key === startingPage) || pages.find(x => x.key === 'stwMissionAlerts')!)?.href;
+  return (pages.find((x) => x.key === startingPage) || pages.find((x) => x.key === 'stwMissionAlerts')!)?.href;
 }
 
 async function getSidebar() {
@@ -87,7 +87,7 @@ async function getSidebar() {
 }
 
 export function calculateDiscountedShopPrice(accountId: string, item: SpitfireShopItem) {
-  const isBundle = item.contents.some(item => item.alreadyOwnedPriceReduction != null);
+  const isBundle = item.contents.some((item) => item.alreadyOwnedPriceReduction != null);
   const ownedItems = get(ownedItemsStore)[accountId];
   if (!ownedItems?.size || !isBundle) return item.price.final;
 
@@ -135,7 +135,7 @@ export async function getResolvedResults<T extends readonly unknown[]>(
   promises: { [K in keyof T]: Promise<T[K]> }
 ): Promise<{ [K in keyof T]: T[K] | null }> {
   const results = await Promise.allSettled(promises);
-  return results.map(result => {
+  return results.map((result) => {
     if (result.status === 'fulfilled') {
       return result.value;
     }
@@ -196,7 +196,7 @@ export function changeLocale(locale: Locale) {
 }
 
 export function sleep(ms: number) {
-  return new Promise(resolve => setTimeout(resolve, ms));
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 export async function processChunks<T, R>(

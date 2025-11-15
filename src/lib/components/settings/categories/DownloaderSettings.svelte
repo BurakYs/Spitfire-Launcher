@@ -61,7 +61,7 @@
       }
 
       if (accountId) {
-        const account = allAccounts.find(acc => acc.accountId === accountId)!;
+        const account = allAccounts.find((acc) => acc.accountId === accountId)!;
         await Legendary.login(account);
       }
 

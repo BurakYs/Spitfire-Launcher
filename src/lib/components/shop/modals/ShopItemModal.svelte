@@ -22,7 +22,7 @@
 
   let { offerId = $bindable() }: Props = $props();
 
-  const item = $brShopStore.offers.find(x => x.offerId === offerId)!;
+  const item = $brShopStore.offers.find((x) => x.offerId === offerId)!;
   let isOpen = $state(true);
 
   const {
@@ -33,7 +33,11 @@
 
   const ownedItems = $derived($ownedItemsStore[$accountsStorage.activeAccountId!]);
   const isItemOwned = $derived(ownedItems?.has(item.id?.toLowerCase()));
-  const discountedPrice = jsDerived([accountsStorage, ownedItemsStore], ([accountSettings]) => calculateDiscountedShopPrice(accountSettings.activeAccountId!, item));
+  const discountedPrice = jsDerived(
+    [accountsStorage, ownedItemsStore],
+    ([$accountsStorage]) => calculateDiscountedShopPrice($accountsStorage.activeAccountId!, item),
+    0
+  );
 
   let isPurchasing = $state(false);
   let isPurchaseDialogOpen = $state(false);

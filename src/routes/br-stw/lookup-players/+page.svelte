@@ -151,7 +151,7 @@
     const supportTeam = Object.entries(itemData.attributes.crew_members)
       .filter(([key]) => key.startsWith('followerslot'))
       .map(([, value]) => profile.items[value as string]?.templateId)
-      .filter(x => !!x);
+      .filter((x) => !!x);
 
     loadoutData.push({
       guid: itemId,

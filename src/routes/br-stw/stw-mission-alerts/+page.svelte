@@ -114,11 +114,11 @@
 
   function countMissionReward(missions: WorldParsedMission[] | undefined, idOrValidator: string | ((id: string) => boolean)) {
     return (missions || []).reduce((acc, crr) => {
-      const alertReward = crr.alert?.rewards.find(reward =>
+      const alertReward = crr.alert?.rewards.find((reward) =>
         typeof idOrValidator === 'function' ? idOrValidator(reward.itemId) : reward.itemId.includes(idOrValidator)
       );
 
-      const missionReward = crr.rewards.find(reward =>
+      const missionReward = crr.rewards.find((reward) =>
         typeof idOrValidator === 'function' ? idOrValidator(reward.itemId) : reward.itemId.includes(idOrValidator)
       );
 

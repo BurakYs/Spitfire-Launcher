@@ -25,7 +25,7 @@
 
   let selectedClient = $state<string>();
   const allClients = [fortniteAndroidGameClient, fortnitePCGameClient, launcherAppClient2];
-  const clientOptions = allClients.map(client => ({ value: client.clientId, label: client.name }));
+  const clientOptions = allClients.map((client) => ({ value: client.clientId, label: client.name }));
 
   async function generateAccessToken(event: SubmitEvent) {
     event.preventDefault();
@@ -38,7 +38,7 @@
       if (selectedClient !== defaultClient.clientId) {
         const { code } = await Authentication.getExchangeCodeUsingAccessToken(accessTokenData.access_token);
 
-        const client = allClients.find(client => client.clientId === selectedClient);
+        const client = allClients.find((client) => client.clientId === selectedClient);
         accessTokenData = await Authentication.getAccessTokenUsingExchangeCode(code, client, selectedTokenType);
       }
 

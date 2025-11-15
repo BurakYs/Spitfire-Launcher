@@ -60,7 +60,7 @@
 </script>
 
 <div
-  class="fixed inset-0 bg-black/50 z-40 lg:hidden {$sidebarOpen ? 'block' : 'hidden'}"
+  class="fixed inset-0 bg-black/50 z-40 lg:hidden" class:block={$sidebarOpen} class:hidden={!$sidebarOpen}
   onclick={() => sidebarOpen.set(false)}
   onkeydown={(e) => e.key === 'Escape' && sidebarOpen.set(false)}
   role="button"

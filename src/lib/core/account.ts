@@ -9,7 +9,7 @@ import AutoKickBase from '$lib/core/managers/autokick/base';
 
 export default class Account {
   static async addAccount(account: AccountData, setActive = true) {
-    accountsStorage.update(settings => {
+    accountsStorage.update((settings) => {
       settings.activeAccountId = setActive ? account.accountId : settings.activeAccountId || undefined;
       settings.accounts.push(account);
       return settings;
@@ -22,16 +22,16 @@ export default class Account {
     const storage = get(accountsStorage);
 
     const oldAccounts = storage.accounts || [];
-    const oldActiveAccount = oldAccounts.find(account => account.accountId === accountId);
+    const oldActiveAccount = oldAccounts.find((account) => account.accountId === accountId);
 
-    const newAccounts = oldAccounts.filter(account => account.accountId !== accountId);
+    const newAccounts = oldAccounts.filter((account) => account.accountId !== accountId);
 
     let newAccountId = storage.activeAccountId || null;
     if (accountId === newAccountId) {
       newAccountId = newAccounts[0]?.accountId || null;
     }
 
-    accountsStorage.update(settings => {
+    accountsStorage.update((settings) => {
       settings.activeAccountId = newAccountId || undefined;
       settings.accounts = newAccounts;
       return settings;

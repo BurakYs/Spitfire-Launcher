@@ -44,7 +44,7 @@ export default class LookupManager {
     );
 
     for (const account of accounts) {
-      const name = account.displayName || Object.values(account.externalAuths).map(x => x.externalDisplayName)?.[0];
+      const name = account.displayName || Object.values(account.externalAuths).map((x) => x.externalDisplayName)?.[0];
       if (!name) continue;
 
       displayNamesCache.set(account.id, name);

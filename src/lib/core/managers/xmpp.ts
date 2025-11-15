@@ -161,11 +161,11 @@ export default class XMPPManager extends EventEmitter<EventMap> {
       this.reconnectTimeout = undefined;
     }
 
-    this.dispatchEvent(ConnectionEvents.Disconnected, undefined);
+    this.emit(ConnectionEvents.Disconnected, undefined);
     this.connection?.removeAllListeners();
     this.connection?.disconnect();
     this.connection = undefined;
-    this.clearListeners();
+    this.removeAllListeners();
 
     XMPPManager.instances.delete(this.account.accountId);
     this.account = undefined!;
@@ -231,11 +231,11 @@ export default class XMPPManager extends EventEmitter<EventMap> {
     if (!this.connection) return;
 
     this.connection.on('session:started', () => {
-      this.dispatchEvent(ConnectionEvents.SessionStarted, undefined);
+      this.emit(ConnectionEvents.SessionStarted, undefined);
     });
 
     this.connection.on('connected', () => {
-      this.dispatchEvent(ConnectionEvents.Connected, undefined);
+      this.emit(ConnectionEvents.Connected, undefined);
 
       this.reconnectAttempts = 0;
       if (this.reconnectTimeout) {
@@ -245,7 +245,7 @@ export default class XMPPManager extends EventEmitter<EventMap> {
     });
 
     this.connection.on('disconnected', async () => {
-      this.dispatchEvent(ConnectionEvents.Disconnected, undefined);
+      this.emit(ConnectionEvents.Disconnected, undefined);
 
       if (!this.intentionalDisconnect && !this.reconnectTimeout) {
         const delay = this.getReconnectDelay();
@@ -304,7 +304,7 @@ export default class XMPPManager extends EventEmitter<EventMap> {
         }
       }
 
-      this.dispatchEvent(type, body);
+      this.emit(type, body);
     });
   }
 
@@ -384,7 +384,7 @@ export default class XMPPManager extends EventEmitter<EventMap> {
 
     const parties = Array.from(accountPartiesStore.entries()).filter(([, party]) => party.id === data.party_id);
     for (const [accountId, party] of parties) {
-      party.members = party.members.filter(member => member.account_id !== data.account_id);
+      party.members = party.members.filter((member) => member.account_id !== data.account_id);
       party.revision = data.revision || party.revision;
 
       accountPartiesStore.set(accountId, { ...party });
@@ -412,7 +412,7 @@ export default class XMPPManager extends EventEmitter<EventMap> {
       accountPartiesStore.set(accountId, { ...party });
     }
 
-    const joiningAccount = get(accountsStorage).accounts.find(account => account.accountId === data.account_id);
+    const joiningAccount = get(accountsStorage).accounts.find((account) => account.accountId === data.account_id);
     if (joiningAccount) {
       const partyData = await PartyManager.get(joiningAccount).catch(() => null);
       if (!partyData) accountPartiesStore.delete(data.account_id);

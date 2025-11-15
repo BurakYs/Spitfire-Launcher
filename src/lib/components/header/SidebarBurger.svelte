@@ -3,7 +3,7 @@
   import { sidebarOpen } from '$components/Sidebar.svelte';
 
   function toggleSidebar() {
-    sidebarOpen.update(value => !value);
+    sidebarOpen.update((value) => !value);
   }
 </script>
 

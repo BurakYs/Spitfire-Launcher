@@ -38,7 +38,8 @@ export default tsEslint.config(
   {
     rules: {
       '@typescript-eslint/no-explicit-any': 'off',
-      'svelte/no-navigation-without-resolve': 'off'
+      'svelte/no-navigation-without-resolve': 'off',
+      '@stylistic/arrow-parens': ['error', 'always']
     }
   },
   {
@@ -58,7 +59,15 @@ export default tsEslint.config(
       'svelte/spaced-html-comment': ['error', 'always'],
       'svelte/sort-attributes': 'error',
       'svelte/first-attribute-linebreak': ['error'],
-      'svelte/no-at-html-tags': 'off'
+      'svelte/no-at-html-tags': 'off',
+      'svelte/derived-has-same-inputs-outputs': ['error'],
+      'svelte/html-closing-bracket-new-line': ['error', { singleline: 'never', multiline: 'always' }],
+      'svelte/prefer-class-directive': ['error', { prefer: 'always' }],
+      'svelte/no-dom-manipulating': 'error',
+      'svelte/valid-style-parse': 'error',
+      'svelte/no-add-event-listener': 'error',
+      'svelte/require-optimized-style-attribute': 'error',
+      'svelte/require-stores-init': 'error'
     }
   }
 );

@@ -45,7 +45,7 @@ async function claimQuestRewards(account: AccountData, queryProfileItems: Campai
   if (!questIds.length) return;
 
   return Promise.allSettled(
-    questIds.map(id =>
+    questIds.map((id) =>
       MCPManager.compose(account, 'ClaimQuestReward', 'campaign', { questId: id, selectedRewardIndex: 0 })
     )
   );

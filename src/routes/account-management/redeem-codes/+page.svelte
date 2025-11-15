@@ -126,7 +126,7 @@
           {#each status.data as { code, error } (code)}
             <div class="flex items-center gap-1 truncate">
               <span class="font-medium">{code}:</span>
-              <span class="truncate {error ? 'text-red-500' : 'text-green-500'}">
+              <span class="truncate" class:text-green-500={!error} class:text-red-500={error}>
                 {error || $t('redeemCodes.redeemed')}
               </span>
             </div>

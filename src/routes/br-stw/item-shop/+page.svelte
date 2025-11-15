@@ -63,7 +63,7 @@
     }
 
     if (searchQuery) {
-      result = result.map(section => {
+      result = result.map((section) => {
         const fuse = new Fuse(section.items, {
           keys: ['name'],
           threshold: 0.4,
@@ -72,12 +72,12 @@
 
         return {
           ...section,
-          items: fuse.search(searchQuery).map(result => result.item)
+          items: fuse.search(searchQuery).map((result) => result.item)
         };
       });
     }
 
-    return result.filter(x => x.items.length > 0);
+    return result.filter((x) => x.items.length > 0);
   });
 
   async function fetchShop(forceRefresh = false) {

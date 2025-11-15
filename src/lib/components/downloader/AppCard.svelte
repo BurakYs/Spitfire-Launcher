@@ -41,7 +41,7 @@
     uninstallDialogAppId = $bindable()
   }: Props = $props();
 
-  const app = $derived($ownedApps.find(x => x.id === appId)!);
+  const app = $derived($ownedApps.find((x) => x.id === appId)!);
 
   async function launchApp() {
     isLaunching = true;
@@ -71,11 +71,11 @@
   }
 
   async function toggleFavorite() {
-    downloaderStorage.update(current => {
+    downloaderStorage.update((current) => {
       current.favoriteApps ??= [];
 
       if (current.favoriteApps.includes(app.id)) {
-        current.favoriteApps = current.favoriteApps.filter(id => id !== app.id);
+        current.favoriteApps = current.favoriteApps.filter((id) => id !== app.id);
       } else {
         current.favoriteApps.push(app.id);
       }
@@ -85,11 +85,11 @@
   }
 
   async function toggleHidden() {
-    downloaderStorage.update(current => {
+    downloaderStorage.update((current) => {
       current.hiddenApps ??= [];
 
       if (current.hiddenApps.includes(app.id)) {
-        current.hiddenApps = current.hiddenApps.filter(id => id !== app.id);
+        current.hiddenApps = current.hiddenApps.filter((id) => id !== app.id);
       } else {
         current.hiddenApps.push(app.id);
       }
@@ -99,7 +99,7 @@
   }
 
   async function toggleAutoUpdate() {
-    downloaderStorage.update(current => {
+    downloaderStorage.update((current) => {
       current.perAppAutoUpdate ??= {};
       current.perAppAutoUpdate[app.id] = !(current.perAppAutoUpdate[app.id] ?? current.autoUpdate);
       return current;

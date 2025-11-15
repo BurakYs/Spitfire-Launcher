@@ -164,10 +164,10 @@ export default class FriendsManager {
     }).json();
 
     const allAccountIds = [
-      ...data.friends.map(friend => friend.accountId),
-      ...data.incoming.map(request => request.accountId),
-      ...data.outgoing.map(request => request.accountId),
-      ...data.blocklist.map(block => block.accountId)
+      ...data.friends.map((friend) => friend.accountId),
+      ...data.incoming.map((request) => request.accountId),
+      ...data.outgoing.map((request) => request.accountId),
+      ...data.blocklist.map((block) => block.accountId)
     ];
 
     await Promise.allSettled([
@@ -178,10 +178,10 @@ export default class FriendsManager {
     friendsStore.update((store) => ({
       ...store,
       [account.accountId]: {
-        friends: new Map(data.friends.map(friend => [friend.accountId, friend])),
-        incoming: new Map(data.incoming.map(request => [request.accountId, request])),
-        outgoing: new Map(data.outgoing.map(request => [request.accountId, request])),
-        blocklist: new Map(data.blocklist.map(block => [block.accountId, block]))
+        friends: new Map(data.friends.map((friend) => [friend.accountId, friend])),
+        incoming: new Map(data.incoming.map((request) => [request.accountId, request])),
+        outgoing: new Map(data.outgoing.map((request) => [request.accountId, request])),
+        blocklist: new Map(data.blocklist.map((block) => [block.accountId, block]))
       }
     }));
 
@@ -201,7 +201,7 @@ export default class FriendsManager {
       ...store,
       [account.accountId]: {
         ...store[account.accountId],
-        friends: new Map(data.map(friend => [friend.accountId, friend]))
+        friends: new Map(data.map((friend) => [friend.accountId, friend]))
       }
     }));
 
@@ -221,7 +221,7 @@ export default class FriendsManager {
       ...store,
       [account.accountId]: {
         ...store[account.accountId],
-        incoming: new Map(data.map(request => [request.accountId, request]))
+        incoming: new Map(data.map((request) => [request.accountId, request]))
       }
     }));
 
@@ -241,7 +241,7 @@ export default class FriendsManager {
       ...store,
       [account.accountId]: {
         ...store[account.accountId],
-        outgoing: new Map(data.map(request => [request.accountId, request]))
+        outgoing: new Map(data.map((request) => [request.accountId, request]))
       }
     }));
 
@@ -261,7 +261,7 @@ export default class FriendsManager {
       ...store,
       [account.accountId]: {
         ...store[account.accountId],
-        blocklist: new Map(data.map(block => [block.accountId, block]))
+        blocklist: new Map(data.map((block) => [block.accountId, block]))
       }
     }));
 

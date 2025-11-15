@@ -30,7 +30,7 @@
 
   let { id = $bindable() }: Props = $props();
 
-  const app = $ownedApps.find(x => x.id === id)!;
+  const app = $ownedApps.find((x) => x.id === id)!;
 
   let isOpen = $state(true);
   let isStartingDownload = $state(false);
@@ -61,7 +61,7 @@
   }
 
   onMount(async () => {
-    const appInfo = appInfoCache.get(app.id) || (await Legendary.getAppInfo(app.id).then(x => x.stdout))!;
+    const appInfo = appInfoCache.get(app.id) || (await Legendary.getAppInfo(app.id).then((x) => x.stdout))!;
 
     const diskSpace = await invoke<{ total: number; available: number; }>('get_disk_space', {
       dir: $downloaderStorage.downloadPath
@@ -76,8 +76,8 @@
     installSize = appInfo.manifest.disk_size;
 
     app.downloadSize = downloadSize;
-    ownedApps.update(current => {
-      return current.map(app =>
+    ownedApps.update((current) => {
+      return current.map((app) =>
         app.id === id
           ? { ...app, downloadSize }
           : app
@@ -165,11 +165,11 @@
 
         <Progress.Root class="h-2 bg-accent rounded-full overflow-hidden relative" value={usedPercentage}>
           <div
-            style={`transform: translateX(-${100 - ((100 * usedPercentage) / 100) || 100}%)`}
+            style:transform={`translateX(-${100 - ((100 * usedPercentage) / 100) || 100}%)`}
             class="bg-epic flex-1 size-full rounded-full absolute top-0 left-0"
           ></div>
           <div
-            style={`transform: translateX(-${100 - ((100 * afterInstallPercentage) / 100) || 100}%)`}
+            style:transform={`translateX(-${100 - ((100 * afterInstallPercentage) / 100) || 100}%)`}
             class="bg-epic/50 flex-1 size-full rounded-full absolute top-0 left-0"
           ></div>
         </Progress.Root>

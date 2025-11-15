@@ -59,7 +59,7 @@
   });
 
   const partyMembers = $derived<PartyMember[] | undefined>(currentAccountParty && currentAccountParty.members
-    .map(member => {
+    .map((member) => {
       const athenaCosmeticLoadout = parseJson(member.meta['Default:AthenaCosmeticLoadout_j'])?.AthenaCosmeticLoadout;
       const getSmallIcon = (id?: string, splitWith = '.') => id ? `https://fortnite-api.com/images/cosmetics/br/${id.split(splitWith)[1]}/smallicon.png` : '';
 
@@ -80,7 +80,7 @@
           { type: 'backpack', icon: getSmallIcon(athenaCosmeticLoadout?.backpackDef) },
           { type: 'pickaxe', icon: getSmallIcon(athenaCosmeticLoadout?.pickaxeDef) },
           { type: 'contrail', icon: getSmallIcon(athenaCosmeticLoadout?.contrailDef) }
-        ].filter(x => !!x.icon)
+        ].filter((x) => !!x.icon)
       };
     })
     .sort((a, b) => {
@@ -89,7 +89,7 @@
       return b.joinedAt.getTime() - a.joinedAt.getTime();
     }));
 
-  const partyLeaderAccount = $derived(allAccounts.find(account => partyMembers?.some(member => member.accountId === account.accountId && member.isLeader)));
+  const partyLeaderAccount = $derived(allAccounts.find((account) => partyMembers?.some((member) => member.accountId === account.accountId && member.isLeader)));
 
   const tabs = $derived([
     { id: 'stwActions', name: $t('partyManagement.tabs.stwActions'), component: STWActions },
@@ -127,8 +127,8 @@
         return;
       }
 
-      const partyMemberIds = partyData.members.map(x => x.account_id).filter(id => id !== kickAllSelectedAccount);
-      const partyLeaderId = partyData.members.find(x => x.role === 'CAPTAIN')!.account_id;
+      const partyMemberIds = partyData.members.map((x) => x.account_id).filter((id) => id !== kickAllSelectedAccount);
+      const partyLeaderId = partyData.members.find((x) => x.role === 'CAPTAIN')!.account_id;
       if (partyLeaderId !== kickerAccount.accountId) {
         toast.error($t('partyManagement.stwActions.notLeader'));
         return;
@@ -141,7 +141,7 @@
 
       toast.success($t('partyManagement.stwActions.kickedAll'));
 
-      const members = partyData.members.filter(x => x.account_id !== kickerAccount.accountId);
+      const members = partyData.members.filter((x) => x.account_id !== kickerAccount.accountId);
       if (shouldInvite) {
         inviteMembers(kickerAccount, members).catch(console.error);
       }
@@ -180,8 +180,8 @@
     try {
       // eslint-disable-next-line svelte/prefer-svelte-reactivity -- This is not a reactive store
       const accountParties = new Map<string, string>();
-      const accounts = allAccounts.filter(account => selectedAccounts.includes(account.accountId));
-      const registeredAccounts = allAccounts.map(account => account.accountId);
+      const accounts = allAccounts.filter((account) => selectedAccounts.includes(account.accountId));
+      const registeredAccounts = allAccounts.map((account) => account.accountId);
 
       for (const account of accounts) {
         if (accountParties.has(account.accountId)) continue;
@@ -202,11 +202,11 @@
 
         if (!claimOnly) {
           const oldParty = accountPartiesStore.get(account.accountId);
-          const oldMembers = oldParty?.members.filter(x => x.account_id !== account.accountId) || [];
+          const oldMembers = oldParty?.members.filter((x) => x.account_id !== account.accountId) || [];
           await PartyManager.leave(account, partyId);
 
           if (shouldInvite && !claimOnly) {
-            fetchPartyData(account).then(partyData => {
+            fetchPartyData(account).then((partyData) => {
               if (partyData) {
                 inviteMembers(account, oldMembers).catch(console.error);
               }
@@ -251,7 +251,7 @@
 
     if (!party || !friends?.length) return;
 
-    const partyMemberIds = members.map(x => x.account_id).filter(x => x !== account.accountId);
+    const partyMemberIds = members.map((x) => x.account_id).filter((x) => x !== account.accountId);
     const friendsInParty = friends.filter((friend) => partyMemberIds.includes(friend.accountId));
 
     await Promise.allSettled(friendsInParty.map(async (friend) => {
@@ -260,7 +260,7 @@
   }
 
   async function afterKickActions(memberId: string, claim = false) {
-    const account = allAccounts.find(account => account.accountId === memberId);
+    const account = allAccounts.find((account) => account.accountId === memberId);
     if (!account) return;
 
     const settings = AutoKickBase.accounts.get(memberId)?.settings || {};
@@ -275,7 +275,7 @@
     }
 
     return Promise.allSettled(promises).then((results) => {
-      const rejected = results.filter(p => p.status === 'rejected');
+      const rejected = results.filter((p) => p.status === 'rejected');
       for (const result of rejected) {
         console.error(result.reason);
       }
@@ -286,7 +286,7 @@
     promotingMemberId = memberId;
 
     try {
-      const member = partyMembers?.find(m => m.accountId === memberId);
+      const member = partyMembers?.find((m) => m.accountId === memberId);
       if (!member) return;
 
       await PartyManager.promote(partyLeaderAccount!, currentAccountParty!.id, memberId);
@@ -324,7 +324,7 @@
 
   $effect(() => {
     fetchPartyData(activeAccount);
-    XMPPManager.create(activeAccount, 'partyManagement').then(xmpp => {
+    XMPPManager.create(activeAccount, 'partyManagement').then((xmpp) => {
       xmpp.connect();
     });
 
@@ -421,7 +421,7 @@
     {#if partyMembers}
       <div class="grid gap-4 max-[40rem]:place-items-center min-[40rem]:grid-cols-2 min-[75rem]:grid-cols-3">
         {#each partyMembers as member (member.accountId)}
-          {@const isRegisteredAccount = allAccounts.some(account => account.accountId === member.accountId)}
+          {@const isRegisteredAccount = allAccounts.some((account) => account.accountId === member.accountId)}
           {@const canLeave = isRegisteredAccount && !member.isLeader}
           {@const canKick = partyLeaderAccount ? partyLeaderAccount.accountId !== member.accountId : false}
           {@const canBePromoted = partyLeaderAccount ? !member.isLeader : false}

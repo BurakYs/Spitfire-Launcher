@@ -52,12 +52,12 @@
   async function syncAccountNames() {
     if (!$activeAccount) return;
 
-    const accounts = await LookupManager.fetchByIds($activeAccount, $accountsStorage.accounts.map(account => account.accountId));
-    accountsStorage.update(current => ({
+    const accounts = await LookupManager.fetchByIds($activeAccount, $accountsStorage.accounts.map((account) => account.accountId));
+    accountsStorage.update((current) => ({
       ...current,
-      accounts: current.accounts.map(account => ({
+      accounts: current.accounts.map((account) => ({
         ...account,
-        displayName: accounts.find(acc => acc.id === account.accountId)?.displayName || account.displayName
+        displayName: accounts.find((acc) => acc.id === account.accountId)?.displayName || account.displayName
       }))
     }));
   }
@@ -71,7 +71,7 @@
   }
 
   async function getAppName(appId: string) {
-    const cached = $ownedApps.find(app => app.id === appId);
+    const cached = $ownedApps.find((app) => app.id === appId);
     if (cached) return cached.title;
 
     const appInfo = await Legendary.getAppInfo(appId);
@@ -106,7 +106,7 @@
       syncAccountNames(),
       autoUpdateApps(),
       $activeAccount && FriendsManager.getSummary($activeAccount),
-      $accountsStorage.accounts.map(account => AvatarManager.fetchAvatars(account, [account.accountId]))
+      $accountsStorage.accounts.map((account) => AvatarManager.fetchAvatars(account, [account.accountId]))
     ]);
 
     listen<{

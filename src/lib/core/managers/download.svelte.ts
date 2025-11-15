@@ -97,7 +97,7 @@ class DownloadManager {
       .filter(({ item }) => item.status === 'queued')
       .map(({ index }) => index);
 
-    const currentQueuePosition = queueIndexes.findIndex(i => this.queue[i].item.id === appId);
+    const currentQueuePosition = queueIndexes.findIndex((i) => this.queue[i].item.id === appId);
     if (currentQueuePosition === -1) return;
 
     const newQueuePosition = direction === 'up'
@@ -182,7 +182,7 @@ class DownloadManager {
             }
 
             ownedApps.update((apps) => {
-              const appIndex = apps.findIndex(x => x.id === app.id);
+              const appIndex = apps.findIndex((x) => x.id === app.id);
               if (appIndex !== -1) {
                 apps[appIndex] = app;
               } else {
@@ -219,7 +219,7 @@ class DownloadManager {
 
     // If it was paused, the stream is already stopped so we just clean up
     if (this.activeDownload.paused) {
-      this.queue = this.queue.filter(q => q.item.id !== this.downloadingAppId);
+      this.queue = this.queue.filter((q) => q.item.id !== this.downloadingAppId);
       this.cleanupActiveDownload();
     } else {
       await invoke<boolean>('stop_legendary_stream', {

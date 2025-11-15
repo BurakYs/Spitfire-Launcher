@@ -50,6 +50,6 @@ export default async function transferBuildingMaterials(account: AccountData, sk
   }
 
   return MCPManager.compose(account, 'StorageTransfer', 'theater0', {
-    transferOperations: Object.values(materials).flatMap(material => material.items).filter(x => x.quantity > 0)
+    transferOperations: Object.values(materials).flatMap((material) => material.items).filter((x) => x.quantity > 0)
   });
 }

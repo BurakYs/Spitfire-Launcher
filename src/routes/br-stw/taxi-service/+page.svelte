@@ -32,7 +32,7 @@
     }
 
     const taxiManager = taxiManagers.get(activeAccount.accountId);
-    const accountSettings = $taxiStorage.find(settings => settings.accountId === activeAccount.accountId);
+    const accountSettings = $taxiStorage.find((settings) => settings.accountId === activeAccount.accountId);
     if (!taxiManager || !accountSettings) return;
 
     taxiManager.availableStatus = accountSettings.availableStatus || taxiManager.availableStatus;
@@ -86,7 +86,7 @@
     const oldStatus = statusType === 'available' ? taxiManager.availableStatus : taxiManager.busyStatus;
     if (value === oldStatus) return;
 
-    let settings = $taxiStorage.find(s => s.accountId === activeAccount.accountId);
+    let settings = $taxiStorage.find((s) => s.accountId === activeAccount.accountId);
 
     if (!settings) {
       settings = { accountId: activeAccount.accountId };
@@ -104,7 +104,7 @@
     taxiManager.setIsAvailable(taxiManager.isAvailable);
 
     taxiStorage.update((data) => {
-      const index = data.findIndex(s => s.accountId === activeAccount.accountId);
+      const index = data.findIndex((s) => s.accountId === activeAccount.accountId);
       if (index !== -1) {
         data[index] = settings;
       } else {

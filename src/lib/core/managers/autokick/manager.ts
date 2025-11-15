@@ -39,7 +39,7 @@ export default class AutoKickManager {
     const manager = new AutoKickManager(account, xmpp);
     const signal = manager.abortController.signal;
 
-    xmpp.addEventListener(ConnectionEvents.SessionStarted, async () => {
+    xmpp.on(ConnectionEvents.SessionStarted, async () => {
       AutoKickBase.updateStatus(accountId, 'ACTIVE');
 
       const state = await manager.checkMissionState();
@@ -59,24 +59,24 @@ export default class AutoKickManager {
       }
     }, { signal });
 
-    xmpp.addEventListener(ConnectionEvents.Disconnected, () => {
+    xmpp.on(ConnectionEvents.Disconnected, () => {
       AutoKickBase.updateStatus(accountId, 'DISCONNECTED');
       manager.resetState();
     }, { signal });
 
-    xmpp.addEventListener(EpicEvents.MemberDisconnected, (data) => {
+    xmpp.on(EpicEvents.MemberDisconnected, (data) => {
       if (data.account_id !== accountId) return;
 
       manager.resetState();
     }, { signal });
 
-    xmpp.addEventListener(EpicEvents.MemberExpired, (data) => {
+    xmpp.on(EpicEvents.MemberExpired, (data) => {
       if (data.account_id !== accountId) return;
 
       manager.resetState();
     }, { signal });
 
-    xmpp.addEventListener(EpicEvents.MemberJoined, async (data) => {
+    xmpp.on(EpicEvents.MemberJoined, async (data) => {
       if (data.account_id !== accountId) return;
 
       AutoKickBase.updateStatus(accountId, 'ACTIVE');
@@ -86,7 +86,7 @@ export default class AutoKickManager {
       }
     }, { signal });
 
-    xmpp.addEventListener(EpicEvents.PartyUpdated, async (data) => {
+    xmpp.on(EpicEvents.PartyUpdated, async (data) => {
       const partyState = data.party_state_updated?.['Default:PartyState_s'];
       if (partyState === 'PostMatchmaking') {
         manager.scheduleMissionChecker(60_000);
@@ -206,8 +206,8 @@ export default class AutoKickManager {
       party
       && automationSettings.autoKick
       && automationSettings.autoInvite
-      && party.members.find(x => x.account_id === this.account.accountId)?.role === 'CAPTAIN'
-      && party.members.filter(x => x.account_id !== this.account.accountId).length
+      && party.members.find((x) => x.account_id === this.account.accountId)?.role === 'CAPTAIN'
+      && party.members.filter((x) => x.account_id !== this.account.accountId).length
     ) {
       kickPromise.finally(() => {
         this.invite(party.members).catch(console.error);
@@ -218,9 +218,9 @@ export default class AutoKickManager {
   private async kick(party: PartyData) {
     const { accounts } = get(accountsStorage);
 
-    const partyMemberIds = party.members.map(x => x.account_id);
-    const partyLeaderId = party.members.find(x => x.role === 'CAPTAIN')!.account_id;
-    const partyLeaderAccount = accounts.find(x => x.accountId === partyLeaderId);
+    const partyMemberIds = party.members.map((x) => x.account_id);
+    const partyLeaderId = party.members.find((x) => x.role === 'CAPTAIN')!.account_id;
+    const partyLeaderAccount = accounts.find((x) => x.accountId === partyLeaderId);
 
     const membersWithAutoKick = partyMemberIds.filter((id) => AutoKickBase.accounts.get(id)?.settings.autoKick);
     const membersWithoutAutoKick = partyMemberIds.filter((id) => !membersWithAutoKick.includes(id));
@@ -233,8 +233,8 @@ export default class AutoKickManager {
     }
 
     const accountsWithNoAutoKick = membersWithoutAutoKick
-      .map((id) => accounts.find(x => x.accountId === id))
-      .filter(x => !!x);
+      .map((id) => accounts.find((x) => x.accountId === id))
+      .filter((x) => !!x);
 
     accountsWithNoAutoKick.push(this.account);
 
@@ -253,7 +253,7 @@ export default class AutoKickManager {
     const party = partyData?.current[0];
     if (!party || !friends?.length) return;
 
-    const partyMemberIds = members.map(x => x.account_id).filter(x => x !== this.account.accountId);
+    const partyMemberIds = members.map((x) => x.account_id).filter((x) => x !== this.account.accountId);
     const friendsInParty = friends.filter((friend) => partyMemberIds.includes(friend.accountId));
 
     return Promise.allSettled(friendsInParty.map((friend) => PartyManager.invite(this.account, party.id, friend.accountId)));

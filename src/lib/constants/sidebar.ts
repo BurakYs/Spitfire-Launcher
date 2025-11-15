@@ -140,4 +140,4 @@ export const SidebarCategories = derived(t, ($t) => [
       }
     ]
   }
-].filter(x => !!x), [] as Category[]);
+].filter((x) => !!x), [] as Category[]);

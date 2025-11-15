@@ -35,7 +35,7 @@
   });
 
   const filteredAccounts = $derived(searchTerm
-    ? allAccounts.filter(account => account.displayName.toLowerCase().includes(searchTerm!.toLowerCase()))
+    ? allAccounts.filter((account) => account.displayName.toLowerCase().includes(searchTerm!.toLowerCase()))
     : allAccounts);
 
   function closeDropdown() {
@@ -45,7 +45,7 @@
   async function changeAccounts(account: AccountData) {
     dropdownOpen = false;
 
-    accountsStorage.update(settings => {
+    accountsStorage.update((settings) => {
       settings.activeAccountId = account.accountId;
       return settings;
     });

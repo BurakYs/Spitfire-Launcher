@@ -34,8 +34,8 @@
     try {
       const data = await DeviceAuthManager.getAll(account);
       allDeviceAuths[account.accountId] = data.sort((a, b) => {
-        const aHasCustomName = $deviceAuthsStorage.some(x => x.deviceId === a.deviceId) ? 1 : 0;
-        const bHasCustomName = $deviceAuthsStorage.some(x => x.deviceId === b.deviceId) ? 1 : 0;
+        const aHasCustomName = $deviceAuthsStorage.some((x) => x.deviceId === a.deviceId) ? 1 : 0;
+        const bHasCustomName = $deviceAuthsStorage.some((x) => x.deviceId === b.deviceId) ? 1 : 0;
         const hasCustomName = bHasCustomName - aHasCustomName;
 
         const aDate = a.lastAccess?.dateTime || a.created?.dateTime;

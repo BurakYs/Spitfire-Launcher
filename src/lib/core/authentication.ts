@@ -83,7 +83,7 @@ export default class Authentication {
     } catch (error) {
       if (error instanceof EpicAPIError) {
         const isDoingBulkOperations = get(doingBulkOperations);
-        const accountName = get(accountsStorage).accounts.find(account => account.accountId === deviceAuthData.accountId)?.displayName;
+        const accountName = get(accountsStorage).accounts.find((account) => account.accountId === deviceAuthData.accountId)?.displayName;
 
         const translate = get(t);
 

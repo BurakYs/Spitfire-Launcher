@@ -30,6 +30,7 @@
 <script lang="ts">
   import { cn } from '$lib/utils/util';
   import { onMount } from 'svelte';
+  import { on } from 'svelte/events';
 
   let {
     class: className,
@@ -49,10 +50,9 @@
 
   if (type === 'search') {
     onMount(() => {
-      document.addEventListener('keydown', handleSearchShortcut);
-
+      const unlisten = on(window, 'keydown', handleSearchShortcut);
       return () => {
-        document.removeEventListener('keydown', handleSearchShortcut);
+        unlisten();
       };
     });
   }

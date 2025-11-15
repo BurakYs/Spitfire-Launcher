@@ -147,11 +147,11 @@ export default class Legendary {
   static async verify(appId: string) {
     const { stderr } = await Legendary.execute<string>(['verify', appId, '-y', '--skip-sdl']);
     const requiresRepair = stderr.includes('repair your game installation');
-    const requiredRepair = get(ownedApps).find(app => app.id === appId)?.requiresRepair || false;
+    const requiredRepair = get(ownedApps).find((app) => app.id === appId)?.requiresRepair || false;
 
     if (requiresRepair !== requiredRepair) {
-      ownedApps.update(current => {
-        return current.map(app =>
+      ownedApps.update((current) => {
+        return current.map((app) =>
           app.id === appId
             ? { ...app, requiresRepair }
             : app
@@ -165,8 +165,8 @@ export default class Legendary {
   static async uninstall(appId: string) {
     const data = await Legendary.execute(['uninstall', appId, '-y']);
 
-    ownedApps.update(current => {
-      return current.map(app =>
+    ownedApps.update((current) => {
+      return current.map((app) =>
         app.id === appId
           ? { ...app, installed: false }
           : app
@@ -184,14 +184,14 @@ export default class Legendary {
     const installedList = await Legendary.getInstalledList();
 
     ownedApps.set(list.stdout
-      .filter(app => app.metadata.entitlementType === 'EXECUTABLE')
-      .map(app => {
+      .filter((app) => app.metadata.entitlementType === 'EXECUTABLE')
+      .map((app) => {
         const images = app.metadata.keyImages.reduce<Record<string, string>>((acc, image) => {
           acc[image.type] = image.url;
           return acc;
         }, {});
 
-        const installed = installedList.stdout.find(installed => installed.app_name === app.app_name);
+        const installed = installedList.stdout.find((installed) => installed.app_name === app.app_name);
 
         return {
           id: app.app_name,
@@ -214,7 +214,7 @@ export default class Legendary {
   static async autoUpdateApps() {
     const settings = get(downloaderStorage);
 
-    const updatableApps = get(ownedApps).filter(app => app.hasUpdate);
+    const updatableApps = get(ownedApps).filter((app) => app.hasUpdate);
     const appAutoUpdate = get(downloaderStorage).perAppAutoUpdate || {};
 
     let sentFirstNotification = false;

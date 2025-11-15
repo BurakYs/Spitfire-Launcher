@@ -59,7 +59,7 @@ const tauriKy = ky.create({
           throw new EpicAPIError(data, request, response.status);
         }
 
-        accessTokenCache.update(cache => {
+        accessTokenCache.update((cache) => {
           delete cache[account.accountId];
           return cache;
         });
@@ -104,9 +104,9 @@ function getAccountFromRequest(request: Request) {
   const tokenCache = get(accessTokenCache);
   const accounts = get(accountsStorage).accounts;
   const token = request.headers.get('Authorization')?.split(' ')[1];
-  const accountId = Object.keys(tokenCache).find(accountId => tokenCache[accountId]?.access_token === token);
+  const accountId = Object.keys(tokenCache).find((accountId) => tokenCache[accountId]?.access_token === token);
 
-  return accounts.find(account => account.accountId === accountId);
+  return accounts.find((account) => account.accountId === accountId);
 }
 
 export default tauriKy;

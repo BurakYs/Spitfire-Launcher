@@ -28,7 +28,7 @@
   const filteredApps = $derived.by(() => {
     const query = searchQuery.trim().toLowerCase();
 
-    let filtered = Object.values($ownedApps).filter(app => {
+    let filtered = Object.values($ownedApps).filter((app) => {
       if (!filters.includes('hidden') && $downloaderStorage.hiddenApps?.includes(app.id)) return false;
       if (filters.includes('installed') && !app.installed) return false;
       if (filters.includes('updatesAvailable') && !app.hasUpdate) return false;
@@ -41,7 +41,7 @@
         threshold: 0.4
       });
 
-      filtered = fuse.search(query).map(result => result.item);
+      filtered = fuse.search(query).map((result) => result.item);
     }
 
     return filtered.sort((a, b) => {

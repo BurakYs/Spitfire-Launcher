@@ -73,7 +73,7 @@
       isLoading = false;
     });
 
-    XMPPManager.create(activeAccount, 'friendsManagement').then(xmpp => {
+    XMPPManager.create(activeAccount, 'friendsManagement').then((xmpp) => {
       xmpp.connect();
     });
   });

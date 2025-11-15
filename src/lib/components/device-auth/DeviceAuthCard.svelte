@@ -105,7 +105,7 @@
           spellcheck="false"
           tabindex="0"
         >
-          {$deviceAuthsStorage.find(x => x.deviceId === auth.deviceId)?.customName || $t('deviceAuth.authInfo.noName')}
+          {$deviceAuthsStorage.find((x) => x.deviceId === auth.deviceId)?.customName || $t('deviceAuth.authInfo.noName')}
         </span>
 
         {#if auth.deviceId === activeAccount.deviceId}

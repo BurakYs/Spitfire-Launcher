@@ -23,8 +23,8 @@
   let isTogglingPause = $state(false);
 
   const currentDownload = $derived(DownloadManager.queue.find(({ item }) => item.id === DownloadManager.downloadingAppId));
-  const queue = $derived(DownloadManager.queue.filter(item => item.status === 'queued'));
-  const completed = $derived(DownloadManager.queue.filter(item => item.status === 'completed' || item.status === 'failed'));
+  const queue = $derived(DownloadManager.queue.filter((item) => item.status === 'queued'));
+  const completed = $derived(DownloadManager.queue.filter((item) => item.status === 'completed' || item.status === 'failed'));
   const progress = $derived(DownloadManager.progress as DownloadProgress);
 
   async function togglePause() {
@@ -103,7 +103,7 @@
 
           <Progress.Root class="h-2 bg-accent rounded-full overflow-hidden" value={progress.percent || 0}>
             <div
-              style={`transform: translateX(-${100 - (100 * (progress.percent || 0)) / 100}%)`}
+              style:transform={`translateX(-${100 - (100 * (progress.percent || 0)) / 100}%)`}
               class="bg-epic flex-1 size-full rounded-full transition-all duration-1000 ease-in-out"
             ></div>
           </Progress.Root>
@@ -219,7 +219,7 @@
                   </Tooltip>
                 {/if}
               </div>
-              <p class="text-sm text-muted-foreground">{new Date(completedAt!).toLocaleString($language)}</p>
+              <p class="text-sm text-muted-foreground">{new Date(completedAt || 0).toLocaleString($language)}</p>
             </div>
 
             <div class="flex items-center gap-2">

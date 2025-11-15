@@ -18,7 +18,7 @@
     const survivorsReward = getSurvivorsReward(mission);
     const upgradeLlamaTokens = getUpgradeLlamaTokens(mission);
     const perkupReward = getPerkupReward(mission);
-    const allRewards = [vbucksReward, survivorsReward, upgradeLlamaTokens, perkupReward].filter(x => !!x);
+    const allRewards = [vbucksReward, survivorsReward, upgradeLlamaTokens, perkupReward].filter((x) => !!x);
     const missionModifiers = mission.modifiers?.slice(0, 5) || [];
 
     return {

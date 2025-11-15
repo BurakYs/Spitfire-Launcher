@@ -12,7 +12,7 @@
 
   let { id = $bindable() }: Props = $props();
 
-  const app = $ownedApps.find(x => x.id === id)!;
+  const app = $ownedApps.find((x) => x.id === id)!;
 
   let isOpen = $state(true);
   let isDeleting = $state(false);

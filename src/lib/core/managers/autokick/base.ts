@@ -23,12 +23,12 @@ export default class AutoKickBase {
     doingBulkOperations.set(true);
 
     const userAccounts = get(accountsStorage).accounts;
-    await Promise.allSettled(accounts.map(async automationAccount => {
-      const account = userAccounts.find(a => a.accountId === automationAccount.accountId);
+    await Promise.allSettled(accounts.map(async (automationAccount) => {
+      const account = userAccounts.find((a) => a.accountId === automationAccount.accountId);
       const isAnySettingEnabled = Object.entries(automationAccount).filter(([key]) => key !== 'accountId').some(([, value]) => value);
 
       if (!account || !isAnySettingEnabled) {
-        automationStorage.update(s => s.filter(a => a.accountId !== automationAccount.accountId));
+        automationStorage.update((s) => s.filter((a) => a.accountId !== automationAccount.accountId));
         return;
       }
 

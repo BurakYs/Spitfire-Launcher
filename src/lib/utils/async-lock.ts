@@ -3,7 +3,7 @@ export default class AsyncLock {
   private locked = false;
 
   async lock(): Promise<() => void> {
-    return new Promise<() => void>(resolve => {
+    return new Promise<() => void>((resolve) => {
       if (this.locked) {
         this.queue.push(() => resolve(this.getUnlock()));
       } else {

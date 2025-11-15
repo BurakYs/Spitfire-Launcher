@@ -31,7 +31,7 @@
           {index + 1}
         </div>
 
-        <span class="absolute top-10 w-max max-w-[120px] text-center text-xs {index <= currentStep ? 'text-foreground' : 'text-muted-foreground'}">
+        <span class="absolute top-10 w-max max-w-[120px] text-center text-xs" class:text-foreground={index <= currentStep} class:text-muted-foreground={!(index <= currentStep)}>
           {step}
         </span>
       </div>

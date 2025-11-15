@@ -179,7 +179,7 @@ await Promise.all([
 ]);
 
 const activeAccountStore = derived([accountsStorage], ([$accountsStorage]) => {
-  return $accountsStorage.activeAccountId ? $accountsStorage.accounts.find(account => account.accountId === $accountsStorage.activeAccountId) || null : null;
+  return $accountsStorage.activeAccountId ? $accountsStorage.accounts.find((account) => account.accountId === $accountsStorage.activeAccountId) || null : null;
 });
 
 const language = derived([settingsStorage], ([$settingsStorage]) => {

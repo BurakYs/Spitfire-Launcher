@@ -5,7 +5,7 @@ type AddEventListenerOptions = {
 export default class EventEmitter<EventMap extends Record<string, any>> {
   private listeners = new Map<keyof EventMap, Array<(data: any) => void>>();
 
-  addEventListener<T extends keyof EventMap>(name: T, listener: (data: EventMap[T]) => void, options?: AddEventListenerOptions) {
+  on<T extends keyof EventMap>(name: T, listener: (data: EventMap[T]) => void, options?: AddEventListenerOptions) {
     if (!this.listeners.has(name)) {
       this.listeners.set(name, []);
     }
@@ -14,11 +14,11 @@ export default class EventEmitter<EventMap extends Record<string, any>> {
     listeners.push(listener);
 
     options?.signal?.addEventListener('abort', () => {
-      this.removeEventListener(name, listener);
+      this.off(name, listener);
     });
   }
 
-  removeEventListener<T extends keyof EventMap>(name: T, listener: (data: EventMap[T]) => void) {
+  off<T extends keyof EventMap>(name: T, listener: (data: EventMap[T]) => void) {
     const listeners = this.listeners.get(name);
     if (!listeners?.length) return;
 
@@ -28,7 +28,7 @@ export default class EventEmitter<EventMap extends Record<string, any>> {
     }
   }
 
-  dispatchEvent<T extends keyof EventMap>(eventName: T, data: EventMap[T]) {
+  emit<T extends keyof EventMap>(eventName: T, data: EventMap[T]) {
     const listeners = this.listeners.get(eventName);
     if (!listeners?.length) return;
 
@@ -42,21 +42,21 @@ export default class EventEmitter<EventMap extends Record<string, any>> {
       const listener = (data: EventMap[T]) => {
         if (!validate || validate(data)) {
           clearTimeout(timeoutId);
-          this.removeEventListener(name, listener);
+          this.off(name, listener);
           resolve(data);
         }
       };
 
       const timeoutId = setTimeout(() => {
-        this.removeEventListener(name, listener);
+        this.off(name, listener);
         reject(new Error(`Timeout waiting for event: ${String(name)}`));
       }, timeout);
 
-      this.addEventListener(name, listener);
+      this.on(name, listener);
     });
   }
 
-  protected clearListeners() {
+  protected removeAllListeners() {
     this.listeners.clear();
   }
 }

@@ -52,12 +52,12 @@
     if (!selected?.length) return;
 
     if (typeof selected === 'string') {
-      const isValid = accountList.some(account => account.accountId === selected);
+      const isValid = accountList.some((account) => account.accountId === selected);
       if (!isValid) selected = undefined;
     }
 
     if (Array.isArray(selected)) {
-      const filtered = selected.filter(accountId => accountList.some(account => account.accountId === accountId));
+      const filtered = selected.filter((accountId) => accountList.some((account) => account.accountId === accountId));
 
       if (filtered.length !== selected.length) {
         selected = filtered;

@@ -19,7 +19,11 @@
   let { item, isPurchasing, open = $bindable(false) }: Props = $props();
 
   const activeAccount = $derived(nonNull($activeAccountStore));
-  const discountedPrice = jsDerived([activeAccountStore, ownedItemsStore], ([account]) => calculateDiscountedShopPrice(account!.accountId, item));
+  const discountedPrice = jsDerived(
+    [activeAccountStore, ownedItemsStore],
+    ([$activeAccountStore]) => calculateDiscountedShopPrice($activeAccountStore!.accountId, item),
+    0
+  );
 
   async function purchaseItem() {
     isPurchasing = true;

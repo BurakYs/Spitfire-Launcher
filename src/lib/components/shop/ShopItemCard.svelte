@@ -17,7 +17,8 @@
   const isItemOwned = $derived($activeAccountStore && $ownedItemsStore[$activeAccountStore.accountId!]?.has(item.id?.toLowerCase()));
   const discountedPrice = jsDerived(
     [activeAccountStore, ownedItemsStore],
-    ([activeAccount]) => !activeAccount ? item.price.final : calculateDiscountedShopPrice(activeAccount!.accountId, item)
+    ([$activeAccountStore]) => !$activeAccountStore ? item.price.final : calculateDiscountedShopPrice($activeAccountStore.accountId, item),
+    0
   );
 
   const colors: Record<string, string> = { ...ItemColors.rarities, ...ItemColors.series };
@@ -71,7 +72,7 @@
 
       <span
         style="text-shadow: 0 2px 4px #000000"
-        class="text-sm font-bold pb-0.5 {isItemOwned ? 'text-green-500' : 'text-white'}"
+        class="text-sm font-bold pb-0.5" class:text-green-500={isItemOwned} class:text-white={!isItemOwned}
       >
         {#if isItemOwned}
           {$t('itemShop.owned')}

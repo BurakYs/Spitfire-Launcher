@@ -53,15 +53,15 @@ export default class TaxiManager {
       this.xmpp = await XMPPManager.create(this.account, 'taxiService');
       await this.xmpp.connect();
 
-      this.xmpp.addEventListener(EpicEvents.PartyInvite, this.handleInvite.bind(this), { signal });
-      this.xmpp.addEventListener(EpicEvents.FriendRequest, this.handleFriendRequest.bind(this), { signal });
-      this.xmpp.addEventListener(EpicEvents.MemberNewCaptain, this.handleNewCaptain.bind(this), { signal });
-      this.xmpp.addEventListener(EpicEvents.MemberJoined, this.handlePartyStateChange.bind(this), { signal });
-      this.xmpp.addEventListener(EpicEvents.MemberLeft, this.handlePartyStateChange.bind(this), { signal });
-      this.xmpp.addEventListener(EpicEvents.MemberKicked, this.handlePartyStateChange.bind(this), { signal });
-      this.xmpp.addEventListener(EpicEvents.MemberStateUpdated, this.handlePartyStateChange.bind(this), { signal });
-      this.xmpp.addEventListener(EpicEvents.PartyUpdated, this.handlePartyStateChange.bind(this), { signal });
-      this.xmpp.addEventListener(ConnectionEvents.Disconnected, () => this.stop(), { signal });
+      this.xmpp.on(EpicEvents.PartyInvite, this.handleInvite.bind(this), { signal });
+      this.xmpp.on(EpicEvents.FriendRequest, this.handleFriendRequest.bind(this), { signal });
+      this.xmpp.on(EpicEvents.MemberNewCaptain, this.handleNewCaptain.bind(this), { signal });
+      this.xmpp.on(EpicEvents.MemberJoined, this.handlePartyStateChange.bind(this), { signal });
+      this.xmpp.on(EpicEvents.MemberLeft, this.handlePartyStateChange.bind(this), { signal });
+      this.xmpp.on(EpicEvents.MemberKicked, this.handlePartyStateChange.bind(this), { signal });
+      this.xmpp.on(EpicEvents.MemberStateUpdated, this.handlePartyStateChange.bind(this), { signal });
+      this.xmpp.on(EpicEvents.PartyUpdated, this.handlePartyStateChange.bind(this), { signal });
+      this.xmpp.on(ConnectionEvents.Disconnected, () => this.stop(), { signal });
 
       this.setIsAvailable(true);
 
@@ -105,7 +105,7 @@ export default class TaxiManager {
     if (!this.active || !this.autoAcceptFriendRequests) return;
 
     const incomingRequests = await FriendsManager.getIncoming(this.account);
-    if (incomingRequests.length) await FriendsManager.acceptAllIncomingRequests(this.account, incomingRequests.map(x => x.accountId));
+    if (incomingRequests.length) await FriendsManager.acceptAllIncomingRequests(this.account, incomingRequests.map((x) => x.accountId));
   }
 
   setIsAvailable(available: boolean) {
